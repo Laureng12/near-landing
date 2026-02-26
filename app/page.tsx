@@ -947,21 +947,22 @@ function SiteStyles() {
       /* SHOWCASE */
       .showcase{
         position: relative;
-        padding: 90px 18px 90px;
+        padding: 110px 18px 100px;
         overflow:hidden;
       }
       .showcaseBg{
         position:absolute;
         inset: -30%;
         background:
-          radial-gradient(circle at 50% 20%, rgba(90,200,250,0.14), transparent 40%),
-          radial-gradient(circle at 20% 75%, rgba(123,77,255,0.10), transparent 50%),
-          radial-gradient(circle at 70% 65%, rgba(236,72,153,0.06), transparent 50%);
-        filter: blur(20px);
-        opacity: 0.7;
+          radial-gradient(circle at 50% 25%, rgba(90,200,250,0.10), transparent 38%),
+          radial-gradient(circle at 20% 70%, rgba(123,77,255,0.06), transparent 45%),
+          radial-gradient(circle at 70% 60%, rgba(236,72,153,0.04), transparent 45%);
+        filter: blur(24px);
+        opacity: 0.6;
         pointer-events:none;
       }
 
+      /* Spotlight behind center phone */
       .showcaseInner{
         position: relative;
         max-width: 1320px;
@@ -969,13 +970,14 @@ function SiteStyles() {
         display:flex;
         align-items:center;
         justify-content:center;
-        gap: 110px;
+        gap: 60px;
         padding-top: 26px;
+        perspective: 1800px;
       }
 
       .phone{
         position: relative;
-        transition: transform 0.6s ease, opacity 0.6s ease;
+        transition: transform 0.7s cubic-bezier(0.34, 1, 0.64, 1), opacity 0.7s ease;
         will-change: transform;
       }
       .phoneFrame{
@@ -984,51 +986,85 @@ function SiteStyles() {
         border-radius: 50px;
         overflow:hidden;
         background: #000;
-        border: 1px solid rgba(255,255,255,0.10);
+        border: 1px solid rgba(255,255,255,0.08);
         box-shadow:
-          0 70px 150px rgba(0,0,0,0.90),
+          0 60px 120px rgba(0,0,0,0.85),
+          inset 0 1px 0 rgba(255,255,255,0.05);
+      }
+
+      /* Center phone: hero, prominent */
+      .phoneCenter{
+        z-index: 3;
+        transform: scale(1.08) translateY(-12px);
+      }
+      .phoneFrameMain{
+        border-color: rgba(255,255,255,0.12);
+        box-shadow:
+          0 80px 180px rgba(0,0,0,0.95),
+          0 0 120px rgba(88,200,250,0.08),
           inset 0 1px 0 rgba(255,255,255,0.06);
       }
 
-      .phoneCenter{
-        z-index: 3;
-        transform: scale(1.12);
-      }
-      .phoneFrameMain{
-        border-color: rgba(255,255,255,0.14);
-        box-shadow:
-          0 90px 190px rgba(0,0,0,0.95),
-          0 0 160px rgba(88,217,255,0.12),
-          inset 0 1px 0 rgba(255,255,255,0.08);
-      }
-
+      /* Flanking phones: angled inward toward center, recessed */
       .phoneLeft{
-        opacity: 0.52;
-        transform: scale(0.88) rotate(-6deg) translateX(60px);
+        opacity: 0.65;
+        transform: scale(0.86) rotateY(18deg) translateX(40px) translateZ(-80px);
+        transform-style: preserve-3d;
       }
       .phoneRight{
-        opacity: 0.52;
-        transform: scale(0.88) rotate(6deg) translateX(-60px);
+        opacity: 0.65;
+        transform: scale(0.86) rotateY(-18deg) translateX(-40px) translateZ(-80px);
+        transform-style: preserve-3d;
       }
 
       .phoneCenter:hover{
-        transform: scale(1.14);
+        transform: scale(1.10) translateY(-14px);
         transition: transform 0.5s cubic-bezier(0.34, 1.0, 0.64, 1);
       }
 
+      /* Stage light behind center phone */
       .phoneCenter::before{
         content:"";
         position:absolute;
-        inset: -170px;
-        background: radial-gradient(circle, rgba(90,200,250,0.22), transparent 58%);
-        filter: blur(90px);
+        inset: -200px;
+        background:
+          radial-gradient(ellipse 60% 50% at 50% 40%, rgba(90,200,250,0.16), transparent 60%),
+          radial-gradient(ellipse 40% 60% at 50% 70%, rgba(123,77,255,0.08), transparent 55%);
+        filter: blur(80px);
+        z-index: -1;
+      }
+
+      /* Reflection surface below phones */
+      .phoneCenter::after{
+        content:"";
+        position:absolute;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 280px;
+        height: 60px;
+        background: radial-gradient(ellipse, rgba(90,200,250,0.08), transparent 70%);
+        filter: blur(20px);
+        z-index: -1;
+      }
+      .phoneLeft::after,
+      .phoneRight::after{
+        content:"";
+        position:absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 40px;
+        background: radial-gradient(ellipse, rgba(255,255,255,0.03), transparent 70%);
+        filter: blur(16px);
         z-index: -1;
       }
 
       .showcaseCopy{
         position: relative;
         max-width: 1060px;
-        margin: 60px auto 0;
+        margin: 80px auto 0;
         text-align:center;
       }
       .sectionTitle{
@@ -1883,12 +1919,12 @@ function SiteStyles() {
         transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
       }
       .dayCompleteBtn.dayCompleteBtnLit{
-        background: linear-gradient(135deg, rgba(160,230,50,0.72), rgba(120,210,40,0.60));
+        background: linear-gradient(135deg, rgba(167,255,196,0.68), rgba(130,240,170,0.55));
         color: #fff;
         box-shadow:
-          0 4px 22px rgba(160,230,50,0.34),
-          0 0 52px rgba(160,230,50,0.14);
-        text-shadow: 0 1px 3px rgba(0,0,0,0.16);
+          0 4px 22px rgba(167,255,196,0.32),
+          0 0 48px rgba(167,255,196,0.12);
+        text-shadow: 0 1px 3px rgba(0,0,0,0.18);
         backdrop-filter: blur(8px);
       }
       .dayBtnCheck{
