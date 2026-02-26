@@ -382,20 +382,21 @@ function DayPlaceViewScreen() {
     { label: "Paper towels", detail: "Bounty, 6-pack" },
     { label: "Dish soap", detail: "Dawn Platinum" },
     { label: "Almond milk", detail: "Unsweetened Vanilla" },
+    { label: "Sparkling water", detail: "Topo Chico, 12-pk" },
   ], [])
 
   const [checkedCount, setCheckedCount] = useState(0)
   const [showComplete, setShowComplete] = useState(false)
 
   useEffect(() => {
-    const delays = [1400, 3000, 4600]
+    const delays = [1200, 2400, 3600, 4800]
     const timers: ReturnType<typeof setTimeout>[] = []
 
     items.forEach((_, i) => {
       timers.push(setTimeout(() => setCheckedCount(i + 1), delays[i]))
     })
 
-    timers.push(setTimeout(() => setShowComplete(true), 6200))
+    timers.push(setTimeout(() => setShowComplete(true), 6000))
 
     timers.push(setTimeout(() => {
       setShowComplete(false)
@@ -409,7 +410,7 @@ function DayPlaceViewScreen() {
       items.forEach((_, i) => {
         timers.push(setTimeout(() => setCheckedCount(i + 1), delays[i]))
       })
-      timers.push(setTimeout(() => setShowComplete(true), 6200))
+      timers.push(setTimeout(() => setShowComplete(true), 6000))
       timers.push(setTimeout(() => {
         setShowComplete(false)
         setCheckedCount(0)
@@ -511,6 +512,11 @@ function DayPlaceViewScreen() {
               </div>
             )
           })}
+        </div>
+
+        {/* Bottom context */}
+        <div className="dayFooter">
+          Near auto-sorted your list by aisle.
         </div>
       </div>
     </PhoneChrome>
@@ -1420,99 +1426,104 @@ function SiteStyles() {
         color: rgba(0,0,0,0.80);
       }
       .screen-day .sbCenter{
-        background: rgba(0,0,0,0.12);
-        border-color: rgba(0,0,0,0.06);
+        background: rgba(0,0,0,0.10);
+        border-color: rgba(0,0,0,0.04);
       }
       .screen-day .sig,
       .screen-day .wifi,
       .screen-day .bat{
-        background: rgba(0,0,0,0.50);
+        background: rgba(0,0,0,0.48);
       }
       .screen-day .circleBtn{
-        background: rgba(255,255,255,0.65);
-        border-color: rgba(255,255,255,0.50);
-        color: rgba(0,0,0,0.75);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        background: rgba(255,255,255,0.60);
+        border-color: rgba(255,255,255,0.45);
+        color: rgba(0,0,0,0.65);
+        box-shadow: 0 1px 6px rgba(0,0,0,0.05);
       }
       .screen-day .topCenter{
-        background: rgba(255,255,255,0.40);
-        border-color: rgba(255,255,255,0.50);
+        background: rgba(255,255,255,0.35);
+        border-color: rgba(255,255,255,0.45);
       }
       .screen-day .topTitle{
-        color: rgba(0,0,0,0.80);
+        color: rgba(0,0,0,0.78);
+      }
+      .screen-day .phoneFrame,
+      .screen-day{
+        /* Ensure light frame edge */
       }
 
       .dayScreen{
-        padding: 8px 10px 0;
+        padding: 4px 8px 0;
       }
 
-      .dayHeader{ margin-top: 6px; }
+      .dayHeader{ margin-top: 2px; }
 
       .dayStoreName{
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 7px;
       }
       .dayBlueDot{
-        width: 14px;
-        height: 14px;
+        width: 10px;
+        height: 10px;
         border-radius: 999px;
         background: #2B4BCC;
-        box-shadow: 0 0 10px rgba(43,75,204,0.35);
+        box-shadow: 0 0 8px rgba(43,75,204,0.30);
       }
       .dayStoreText{
-        font-size: 32px;
+        font-size: 22px;
         font-weight: 900;
         letter-spacing: -0.03em;
-        color: rgba(0,0,0,0.88);
+        color: rgba(0,0,0,0.90);
       }
 
       .dayChipRow{
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-top: 6px;
+        gap: 7px;
+        margin-top: 3px;
       }
       .dayNearbyChip{
-        padding: 5px 12px;
+        padding: 3px 9px;
         border-radius: 999px;
         background: rgba(43,75,204,0.08);
         color: #2B4BCC;
-        font-weight: 750;
-        font-size: 12px;
+        font-weight: 700;
+        font-size: 10px;
+        letter-spacing: 0.01em;
       }
       .dayArrived{
-        font-size: 13px;
-        color: rgba(0,0,0,0.48);
+        font-size: 10px;
+        color: rgba(0,0,0,0.42);
         font-weight: 500;
       }
 
       /* Completion card */
       .dayCompCard{
-        margin-top: 16px;
-        border-radius: 20px;
+        margin-top: 10px;
+        border-radius: 16px;
         background: rgba(255,255,255,0.72);
         border: 1px solid rgba(255,255,255,0.80);
-        box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+        box-shadow: 0 6px 30px rgba(0,0,0,0.05);
         backdrop-filter: blur(16px);
-        padding: 16px;
+        padding: 10px 11px 10px;
         transition: box-shadow 1s ease, border-color 1s ease;
       }
       .dayCompCard.dayCompCardLit{
-        border-color: rgba(88,190,80,0.20);
-        box-shadow: 0 8px 40px rgba(0,0,0,0.06), 0 0 30px rgba(88,190,80,0.06);
+        border-color: rgba(88,190,80,0.18);
+        box-shadow: 0 6px 30px rgba(0,0,0,0.05), 0 0 24px rgba(88,190,80,0.06);
       }
 
       .dayCompTop{
         display: flex;
         align-items: center;
-        gap: 14px;
-        margin-bottom: 14px;
+        gap: 10px;
+        margin-bottom: 10px;
       }
       .dayToggle{
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
         background: rgba(200,210,225,0.50);
         display: flex;
         align-items: center;
@@ -1523,41 +1534,41 @@ function SiteStyles() {
         background: rgba(220,230,245,0.70);
       }
       .dayToggleDot{
-        width: 18px;
-        height: 18px;
+        width: 13px;
+        height: 13px;
         border-radius: 999px;
         background: #2B4BCC;
-        box-shadow: 0 0 10px rgba(43,75,204,0.30);
+        box-shadow: 0 0 8px rgba(43,75,204,0.28);
       }
       .dayCompText{ flex: 1; }
       .dayCompTitle{
-        font-size: 17px;
+        font-size: 13px;
         font-weight: 850;
         letter-spacing: -0.02em;
         color: rgba(0,0,0,0.88);
         transition: color 0.5s ease;
       }
       .dayCompSub{
-        margin-top: 2px;
-        font-size: 13px;
-        color: rgba(0,0,0,0.44);
+        margin-top: 1px;
+        font-size: 10px;
+        color: rgba(0,0,0,0.42);
         font-weight: 500;
       }
 
       .dayCompleteBtn{
         width: 100%;
-        padding: 15px 0;
-        border-radius: 16px;
+        padding: 11px 0;
+        border-radius: 12px;
         border: none;
-        background: rgba(180,195,210,0.35);
-        color: rgba(0,0,0,0.30);
+        background: rgba(180,195,210,0.32);
+        color: rgba(0,0,0,0.28);
         font-weight: 800;
-        font-size: 16px;
+        font-size: 13px;
         letter-spacing: -0.01em;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
         cursor: default;
         transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
       }
@@ -1565,20 +1576,20 @@ function SiteStyles() {
         background: linear-gradient(135deg, #4CAF50, #56B85A);
         color: #fff;
         box-shadow:
-          0 6px 24px rgba(76,175,80,0.30),
-          0 0 50px rgba(76,175,80,0.08);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+          0 4px 18px rgba(76,175,80,0.28),
+          0 0 40px rgba(76,175,80,0.06);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.10);
       }
       .dayBtnCheck{
         font-weight: 900;
-        font-size: 15px;
+        font-size: 12px;
       }
 
       .dayProgressBar{
-        margin-top: 14px;
-        height: 4px;
+        margin-top: 10px;
+        height: 3px;
         border-radius: 999px;
-        background: rgba(180,195,210,0.30);
+        background: rgba(180,195,210,0.28);
         overflow: hidden;
       }
       .dayProgressFill{
@@ -1592,48 +1603,48 @@ function SiteStyles() {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        margin-top: 20px;
-        padding: 0 4px;
+        margin-top: 14px;
+        padding: 0 2px;
       }
       .dayUpNextTitle{
-        font-size: 19px;
+        font-size: 14px;
         font-weight: 850;
         letter-spacing: -0.02em;
         color: rgba(0,0,0,0.82);
       }
       .dayUpNextCount{
-        font-size: 13px;
-        color: rgba(0,0,0,0.40);
+        font-size: 10px;
+        color: rgba(0,0,0,0.38);
         font-weight: 500;
       }
 
       /* Item cards */
       .dayItems{
-        margin-top: 12px;
+        margin-top: 8px;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 5px;
       }
       .dayItemCard{
         display: flex;
         align-items: center;
-        gap: 14px;
-        padding: 14px 16px;
-        border-radius: 18px;
-        background: rgba(255,255,255,0.55);
-        border: 1px solid rgba(255,255,255,0.65);
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.50);
+        border: 1px solid rgba(255,255,255,0.60);
         backdrop-filter: blur(12px);
         transition: background 0.4s ease;
       }
       .dayItemCard.dayItemDone{
-        background: rgba(255,255,255,0.40);
+        background: rgba(255,255,255,0.35);
       }
 
       .dayCheckbox{
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        border: 2px solid rgba(0,0,0,0.14);
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        border: 1.5px solid rgba(0,0,0,0.12);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1642,34 +1653,43 @@ function SiteStyles() {
       .dayCheckbox.dayChecked{
         border: none;
         background: #6B8CFF;
-        box-shadow: 0 2px 10px rgba(107,140,255,0.30);
+        box-shadow: 0 2px 8px rgba(107,140,255,0.28);
       }
       .dayCheckIcon{
         color: #fff;
         font-weight: 900;
-        font-size: 15px;
+        font-size: 12px;
         line-height: 1;
       }
 
       .dayItemText{ flex: 1; min-width: 0; }
       .dayItemName{
-        font-size: 15px;
+        font-size: 12px;
         font-weight: 700;
         letter-spacing: -0.01em;
-        color: rgba(0,0,0,0.75);
+        color: rgba(0,0,0,0.72);
         transition: all 0.5s ease;
       }
       .dayItemName.dayItemStrike{
         text-decoration: line-through;
-        text-decoration-thickness: 1.5px;
-        text-decoration-color: rgba(0,0,0,0.20);
-        color: rgba(0,0,0,0.35);
+        text-decoration-thickness: 1px;
+        text-decoration-color: rgba(0,0,0,0.18);
+        color: rgba(0,0,0,0.32);
       }
       .dayItemDetail{
-        margin-top: 2px;
-        font-size: 12px;
-        color: rgba(0,0,0,0.40);
+        margin-top: 1px;
+        font-size: 10px;
+        color: rgba(0,0,0,0.36);
         font-weight: 500;
+      }
+
+      .dayFooter{
+        margin-top: 12px;
+        text-align: center;
+        font-size: 9px;
+        color: rgba(0,0,0,0.30);
+        font-weight: 500;
+        letter-spacing: 0.02em;
       }
 
       .avatar{
