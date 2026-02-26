@@ -227,7 +227,7 @@ function AppleEventSections() {
               <div className="metricLabel">extra taps to remember</div>
             </div>
             <div className="metric">
-              <div className="metricNum">∞</div>
+              <div className="metricNum">{"\u221E"}</div>
               <div className="metricLabel">times you feel like a genius</div>
             </div>
           </div>
@@ -314,7 +314,7 @@ function PhoneChrome(props: {
       </div>
 
       <div className="topBar">
-        <button className="circleBtn" aria-label="Back">‹</button>
+        <button className="circleBtn" aria-label="Back">{"\u2039"}</button>
 
         <div className="topCenter">
           <NearMark sizePx={18} />
@@ -361,7 +361,7 @@ function SunrisePlacesScreen() {
                   <div className="rowTitle">{p.name}</div>
                   <div className="rowSub">{p.hint}</div>
                 </div>
-                <div className="chev">›</div>
+                <div className="chev">{"\u203A"}</div>
               </div>
             ))}
           </div>
@@ -438,7 +438,7 @@ function TaskRow(props: { state: "done" | "todo"; label: string }) {
   return (
     <div className={`taskRow ${done ? "done" : ""}`}>
       <div className={`box ${done ? "checked" : ""}`} aria-hidden="true">
-        {done ? <span className="check">✓</span> : null}
+        {done ? <span className="check">{"\u2713"}</span> : null}
       </div>
       <div className="taskLabel">{props.label}</div>
       <div className="taskSpacer" />
@@ -497,7 +497,7 @@ function DuskHouseholdScreen() {
                 <div className="rowTitle">Target Run</div>
                 <div className="rowSub">4 tasks</div>
               </div>
-              <div className="chev">›</div>
+              <div className="chev">{"\u203A"}</div>
             </div>
 
             <div className="row">
@@ -506,7 +506,7 @@ function DuskHouseholdScreen() {
                 <div className="rowTitle">Sunday Reset</div>
                 <div className="rowSub">7 tasks</div>
               </div>
-              <div className="chev">›</div>
+              <div className="chev">{"\u203A"}</div>
             </div>
 
             <div className="row">
@@ -515,7 +515,7 @@ function DuskHouseholdScreen() {
                 <div className="rowTitle">Vacation Packing</div>
                 <div className="rowSub">12 tasks</div>
               </div>
-              <div className="chev">›</div>
+              <div className="chev">{"\u203A"}</div>
             </div>
           </div>
         </div>

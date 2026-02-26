@@ -24,9 +24,9 @@ export function PhoneShowcase() {
             <div className="status">2:14 PM</div>
             <div className="title">Target</div>
             <ul className="tasks">
-              <li className="checked">Paper Towels ✓</li>
-              <li className="checked">Dish Soap ✓</li>
-              <li className="checked">Trash Bags ✓</li>
+              <li className="checked">{"Paper Towels \u2713"}</li>
+              <li className="checked">{"Dish Soap \u2713"}</li>
+              <li className="checked">{"Trash Bags \u2713"}</li>
             </ul>
             <div className="complete">Complete</div>
           </div>
