@@ -375,22 +375,110 @@ function SunrisePlacesScreen() {
   )
 }
 
-/* --------- DAY: Checked tasks, "Complete" stamp, premium clarity -------- */
+/* --------- DAY: Animated completion, Apple-grade reveal ---------------- */
 
 function DayPlaceViewScreen() {
-  const [pulse, setPulse] = useState(0)
+  const items = useMemo(() => [
+    { label: "Milk" },
+    { label: "Blueberries" },
+    { label: "Paper towels" },
+    { label: "Batteries" },
+  ], [])
+
+  const [checkedCount, setCheckedCount] = useState(0)
+  const [showComplete, setShowComplete] = useState(false)
+  const [glowActive, setGlowActive] = useState(false)
 
   useEffect(() => {
-    const t = setInterval(() => setPulse((p) => (p + 1) % 1000), 1800)
-    return () => clearInterval(t)
-  }, [])
+    const delays = [1200, 2600, 4200, 5800]
+    const timers: ReturnType<typeof setTimeout>[] = []
+
+    items.forEach((_, i) => {
+      timers.push(setTimeout(() => {
+        setCheckedCount(i + 1)
+      }, delays[i]))
+    })
+
+    // After all items checked, reveal "Complete"
+    timers.push(setTimeout(() => {
+      setShowComplete(true)
+    }, 7000))
+
+    // Subtle success glow
+    timers.push(setTimeout(() => {
+      setGlowActive(true)
+    }, 7400))
+
+    // Reset the cycle
+    timers.push(setTimeout(() => {
+      setGlowActive(false)
+      setShowComplete(false)
+      setCheckedCount(0)
+    }, 12000))
+
+    // Restart loop
+    const loop = setInterval(() => {
+      setGlowActive(false)
+      setShowComplete(false)
+      setCheckedCount(0)
+
+      items.forEach((_, i) => {
+        timers.push(setTimeout(() => {
+          setCheckedCount(i + 1)
+        }, delays[i]))
+      })
+
+      timers.push(setTimeout(() => {
+        setShowComplete(true)
+      }, 7000))
+
+      timers.push(setTimeout(() => {
+        setGlowActive(true)
+      }, 7400))
+
+      timers.push(setTimeout(() => {
+        setGlowActive(false)
+        setShowComplete(false)
+        setCheckedCount(0)
+      }, 12000))
+    }, 12000)
+
+    return () => {
+      timers.forEach(clearTimeout)
+      clearInterval(loop)
+    }
+  }, [items])
+
+  const allDone = checkedCount >= items.length
 
   return (
     <PhoneChrome theme="day">
       <div className="pad">
         <div className="titleBlock">
           <div className="h1">Publix</div>
-          <div className="sub">3 things left. Quietly handled.</div>
+          <div
+            className="sub"
+            style={{
+              transition: "opacity 0.6s ease",
+              opacity: showComplete ? 0 : 1,
+            }}
+          >
+            {checkedCount < items.length
+              ? `${items.length - checkedCount} thing${items.length - checkedCount !== 1 ? "s" : ""} left. Quietly handled.`
+              : "All done."
+            }
+          </div>
+          <div
+            className="sub dayCompleteSub"
+            style={{
+              transition: "opacity 0.8s ease",
+              opacity: showComplete ? 1 : 0,
+              position: showComplete ? "relative" : "absolute",
+              pointerEvents: showComplete ? "auto" : "none",
+            }}
+          >
+            Complete
+          </div>
         </div>
 
         <div className="arrivedChip">
@@ -401,19 +489,44 @@ function DayPlaceViewScreen() {
         <div className="card card-main">
           <div className="cardHeader">
             <div className="cardTitle">When you arrive</div>
-            <div className="cardMeta">Auto list</div>
+            <div
+              className="cardMeta"
+              style={{ transition: "opacity 0.5s ease" }}
+            >
+              {allDone ? "All done" : "Auto list"}
+            </div>
           </div>
 
           <div className="tasks">
-            <TaskRow state="done" label="Milk" />
-            <TaskRow state="done" label="Blueberries" />
-            <TaskRow state="todo" label="Paper towels" />
-            <TaskRow state="todo" label="Batteries" />
+            {items.map((item, i) => {
+              const done = i < checkedCount
+              return (
+                <TaskRow
+                  key={item.label}
+                  state={done ? "done" : "todo"}
+                  label={item.label}
+                  animating={i === checkedCount - 1}
+                />
+              )
+            })}
           </div>
 
           <div className="completeRow">
-            <div className="completeStamp" aria-hidden="true">
-              <span className="stampRing" style={{ opacity: 0.9 }} />
+            <div
+              className="completeStamp"
+              aria-hidden="true"
+              style={{
+                opacity: showComplete ? 1 : 0.4,
+                transition: "opacity 0.8s ease",
+              }}
+            >
+              <span
+                className="stampRing"
+                style={{
+                  opacity: showComplete ? 1 : 0.5,
+                  transition: "opacity 0.8s ease",
+                }}
+              />
               <span className="stampText">COMPLETE</span>
             </div>
 
@@ -427,22 +540,69 @@ function DayPlaceViewScreen() {
           </div>
         </div>
 
-        <div className="softGlow" aria-hidden="true" style={{ opacity: 0.55 + (pulse % 2) * 0.1 }} />
+        <div
+          className="softGlow"
+          aria-hidden="true"
+          style={{
+            opacity: glowActive ? 0.8 : 0.35,
+            transition: "opacity 1.2s ease",
+          }}
+        />
+        <div
+          className="successGlow"
+          aria-hidden="true"
+          style={{
+            opacity: glowActive ? 1 : 0,
+            transition: "opacity 1.4s ease",
+          }}
+        />
       </div>
     </PhoneChrome>
   )
 }
 
-function TaskRow(props: { state: "done" | "todo"; label: string }) {
+function TaskRow(props: { state: "done" | "todo"; label: string; animating?: boolean }) {
   const done = props.state === "done"
   return (
-    <div className={`taskRow ${done ? "done" : ""}`}>
-      <div className={`box ${done ? "checked" : ""}`} aria-hidden="true">
-        {done ? <span className="check">✓</span> : null}
+    <div
+      className={`taskRow ${done ? "done" : ""}`}
+      style={{
+        transition: "background 0.4s ease",
+        background: props.animating ? "rgba(88,217,255,0.06)" : undefined,
+      }}
+    >
+      <div
+        className={`box ${done ? "checked" : ""}`}
+        aria-hidden="true"
+        style={{
+          transition: "all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          transform: done ? "scale(1)" : "scale(0.92)",
+        }}
+      >
+        {done ? (
+          <span
+            className="check"
+            style={{
+              animation: props.animating ? "checkReveal 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) forwards" : undefined,
+            }}
+          >
+            {"✓"}
+          </span>
+        ) : null}
       </div>
-      <div className="taskLabel">{props.label}</div>
+      <div
+        className="taskLabel"
+        style={{
+          transition: "opacity 0.5s ease, color 0.5s ease",
+        }}
+      >
+        {props.label}
+      </div>
       <div className="taskSpacer" />
-      {done ? <div className="taskPill">done</div> : <div className="taskPill faint">to do</div>}
+      {done
+        ? <div className="taskPill taskPillDone" style={{ transition: "all 0.5s ease" }}>done</div>
+        : <div className="taskPill faint">to do</div>
+      }
     </div>
   )
 }
@@ -849,11 +1009,11 @@ function SiteStyles() {
         position:absolute;
         inset: -30%;
         background:
-          radial-gradient(circle at 50% 25%, rgba(90,200,250,0.18), transparent 45%),
-          radial-gradient(circle at 20% 80%, rgba(123,77,255,0.16), transparent 55%),
-          radial-gradient(circle at 70% 70%, rgba(236,72,153,0.10), transparent 55%);
-        filter: blur(18px);
-        opacity: 0.8;
+          radial-gradient(circle at 50% 20%, rgba(90,200,250,0.14), transparent 40%),
+          radial-gradient(circle at 20% 75%, rgba(123,77,255,0.10), transparent 50%),
+          radial-gradient(circle at 70% 65%, rgba(236,72,153,0.06), transparent 50%);
+        filter: blur(20px);
+        opacity: 0.7;
         pointer-events:none;
       }
 
@@ -879,8 +1039,10 @@ function SiteStyles() {
         border-radius: 50px;
         overflow:hidden;
         background: #000;
-        border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 70px 150px rgba(0,0,0,0.90);
+        border: 1px solid rgba(255,255,255,0.10);
+        box-shadow:
+          0 70px 150px rgba(0,0,0,0.90),
+          inset 0 1px 0 rgba(255,255,255,0.06);
       }
 
       .phoneCenter{
@@ -888,27 +1050,32 @@ function SiteStyles() {
         transform: scale(1.12);
       }
       .phoneFrameMain{
-        box-shadow: 0 90px 190px rgba(0,0,0,0.95), 0 0 200px rgba(90,200,250,0.18);
+        border-color: rgba(255,255,255,0.14);
+        box-shadow:
+          0 90px 190px rgba(0,0,0,0.95),
+          0 0 160px rgba(88,217,255,0.12),
+          inset 0 1px 0 rgba(255,255,255,0.08);
       }
 
       .phoneLeft{
-        opacity: 0.58;
-        transform: scale(0.90) rotate(-6deg) translateX(60px);
+        opacity: 0.52;
+        transform: scale(0.88) rotate(-6deg) translateX(60px);
       }
       .phoneRight{
-        opacity: 0.58;
-        transform: scale(0.90) rotate(6deg) translateX(-60px);
+        opacity: 0.52;
+        transform: scale(0.88) rotate(6deg) translateX(-60px);
       }
 
       .phoneCenter:hover{
         transform: scale(1.14);
+        transition: transform 0.5s cubic-bezier(0.34, 1.0, 0.64, 1);
       }
 
       .phoneCenter::before{
         content:"";
         position:absolute;
         inset: -170px;
-        background: radial-gradient(circle, rgba(90,200,250,0.26), transparent 60%);
+        background: radial-gradient(circle, rgba(90,200,250,0.22), transparent 58%);
         filter: blur(90px);
         z-index: -1;
       }
@@ -1132,23 +1299,23 @@ function SiteStyles() {
 
       .screen-sunrise{
         background:
-          radial-gradient(circle at 30% 20%, rgba(255,190,120,0.24), transparent 45%),
-          radial-gradient(circle at 60% 40%, rgba(90,200,250,0.18), transparent 55%),
-          linear-gradient(180deg, #0A1024 0%, #050816 55%, #04050C 100%);
+          radial-gradient(circle at 30% 15%, rgba(255,170,80,0.38), transparent 42%),
+          radial-gradient(circle at 65% 30%, rgba(255,120,80,0.18), transparent 50%),
+          linear-gradient(180deg, #12182E 0%, #080C1A 50%, #04050C 100%);
       }
 
       .screen-day{
         background:
-          radial-gradient(circle at 50% 20%, rgba(90,200,250,0.22), transparent 48%),
-          radial-gradient(circle at 40% 55%, rgba(123,77,255,0.16), transparent 55%),
-          linear-gradient(180deg, #08113A 0%, #070A18 55%, #04050C 100%);
+          radial-gradient(circle at 50% 12%, rgba(88,217,255,0.32), transparent 45%),
+          radial-gradient(circle at 35% 50%, rgba(107,92,255,0.20), transparent 50%),
+          linear-gradient(180deg, #0B1848 0%, #070C22 50%, #04050C 100%);
       }
 
       .screen-dusk{
         background:
-          radial-gradient(circle at 50% 15%, rgba(123,77,255,0.22), transparent 48%),
-          radial-gradient(circle at 70% 45%, rgba(236,72,153,0.10), transparent 58%),
-          linear-gradient(180deg, #05061B 0%, #04050C 70%, #03040A 100%);
+          radial-gradient(circle at 50% 10%, rgba(140,90,255,0.34), transparent 44%),
+          radial-gradient(circle at 70% 40%, rgba(236,72,153,0.14), transparent 52%),
+          linear-gradient(180deg, #0A0B28 0%, #060718 65%, #03040A 100%);
       }
 
       .statusBar{
@@ -1230,10 +1397,11 @@ function SiteStyles() {
         font-weight: 900;
         letter-spacing: -0.03em;
         margin: 0;
+        color: rgba(255,255,255,0.98);
       }
       .sub{
         margin-top: 6px;
-        color: rgba(255,255,255,0.70);
+        color: rgba(255,255,255,0.65);
         font-size: 13px;
         line-height: 1.45;
       }
@@ -1243,17 +1411,19 @@ function SiteStyles() {
         border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.05);
-        box-shadow: 0 22px 70px rgba(0,0,0,0.45);
+        box-shadow: 0 22px 70px rgba(0,0,0,0.50);
         overflow:hidden;
         position: relative;
       }
       .card-strong{
-        background: rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(255,255,255,0.14);
+        backdrop-filter: blur(12px);
       }
       .card-main{
-        background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.04) 100%);
-        border-color: rgba(255,255,255,0.14);
+        background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
+        border-color: rgba(255,255,255,0.16);
+        backdrop-filter: blur(12px);
       }
 
       .cardHeader{
@@ -1324,11 +1494,11 @@ function SiteStyles() {
         display:inline-flex;
         align-items:center;
         gap: 8px;
-        padding: 8px 10px;
+        padding: 8px 12px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.84);
+        border: 1px solid rgba(88,217,255,0.16);
+        background: rgba(88,217,255,0.06);
+        color: rgba(255,255,255,0.88);
         font-size: 12px;
         font-weight: 750;
       }
@@ -1337,7 +1507,17 @@ function SiteStyles() {
         height: 8px;
         border-radius: 999px;
         background: #58D9FF;
-        box-shadow: 0 0 16px rgba(88,217,255,0.55);
+        box-shadow: 0 0 12px rgba(88,217,255,0.50);
+        animation: dotPulse 2.4s ease-in-out infinite;
+      }
+      @keyframes dotPulse{
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.6; }
+      }
+
+      .duskCard{
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(140,90,255,0.14);
       }
 
       .tasks{
@@ -1357,18 +1537,19 @@ function SiteStyles() {
         width: 20px;
         height: 20px;
         border-radius: 7px;
-        border: 2px solid rgba(255,255,255,0.28);
+        border: 2px solid rgba(255,255,255,0.24);
         display:flex;
         align-items:center;
         justify-content:center;
+        transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
       .box.checked{
         border: none;
-        background: linear-gradient(135deg, #58D9FF, #6B5CFF);
-        box-shadow: 0 0 22px rgba(88,217,255,0.26);
+        background: linear-gradient(135deg, #58D9FF, #6B8CFF);
+        box-shadow: 0 0 18px rgba(88,217,255,0.30);
       }
       .check{
-        color: rgba(0,0,0,0.90);
+        color: rgba(0,0,0,0.92);
         font-weight: 900;
         font-size: 14px;
         line-height: 1;
@@ -1378,13 +1559,13 @@ function SiteStyles() {
         font-size: 14px;
         font-weight: 750;
         letter-spacing: -0.02em;
-        color: rgba(255,255,255,0.92);
+        color: rgba(255,255,255,0.95);
       }
       .taskRow.done .taskLabel{
-        opacity: 0.60;
+        opacity: 0.50;
         text-decoration: line-through;
-        text-decoration-thickness: 2px;
-        text-decoration-color: rgba(255,255,255,0.28);
+        text-decoration-thickness: 1.5px;
+        text-decoration-color: rgba(255,255,255,0.22);
       }
       .taskSpacer{ flex:1; }
       .taskPill{
@@ -1413,26 +1594,27 @@ function SiteStyles() {
         width: 120px;
         height: 44px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.14);
-        background: rgba(0,0,0,0.18);
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.22);
         display:flex;
         align-items:center;
         justify-content:center;
         overflow:hidden;
+        transition: opacity 0.8s ease, border-color 0.8s ease;
       }
       .stampRing{
         position:absolute;
         inset:-18px;
-        background: radial-gradient(circle, rgba(88,217,255,0.30), rgba(107,92,255,0.16), transparent 58%);
-        filter: blur(10px);
-        animation: stampPulse 2.6s ease-in-out infinite;
+        background: radial-gradient(circle, rgba(88,217,255,0.24), rgba(107,92,255,0.12), transparent 58%);
+        filter: blur(12px);
+        animation: stampPulse 3.2s ease-in-out infinite;
       }
       .stampText{
         position: relative;
-        font-size: 12px;
-        letter-spacing: 0.18em;
+        font-size: 11px;
+        letter-spacing: 0.20em;
         font-weight: 950;
-        color: rgba(255,255,255,0.86);
+        color: rgba(255,255,255,0.88);
       }
 
       .miniBtn{
@@ -1455,6 +1637,19 @@ function SiteStyles() {
         line-height: 1.5;
       }
 
+      .dayCompleteSub{
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: rgba(88,217,255,0.90);
+        font-size: 14px;
+      }
+
+      .taskPillDone{
+        background: rgba(88,217,255,0.10);
+        border-color: rgba(88,217,255,0.22);
+        color: rgba(88,217,255,0.90);
+      }
+
       .softGlow{
         position:absolute;
         left: 50%;
@@ -1464,6 +1659,18 @@ function SiteStyles() {
         transform: translateX(-50%);
         background: radial-gradient(circle, rgba(88,217,255,0.22), transparent 60%);
         filter: blur(40px);
+        pointer-events:none;
+      }
+
+      .successGlow{
+        position:absolute;
+        left: 50%;
+        top: 40%;
+        width: 300px;
+        height: 300px;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(88,217,255,0.10), rgba(107,92,255,0.06), transparent 65%);
+        filter: blur(60px);
         pointer-events:none;
       }
 
@@ -1502,7 +1709,12 @@ function SiteStyles() {
       }
       @keyframes stampPulse{
         0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.12); opacity: 1; }
+        50% { transform: scale(1.08); opacity: 1; }
+      }
+      @keyframes checkReveal{
+        0% { opacity: 0; transform: scale(0.3) translateY(-0.5px); }
+        60% { opacity: 1; transform: scale(1.1) translateY(-0.5px); }
+        100% { opacity: 1; transform: scale(1) translateY(-0.5px); }
       }
 
       /* Responsive */
