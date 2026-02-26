@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 
 const APP_STORE_URL = "#"
 
@@ -137,30 +137,52 @@ function IconCapsule() {
 /* ---------------------------- PHONE SHOWCASE ---------------------------- */
 
 function PhoneShowcase() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [mouse, setMouse] = useState({ x: 0.5, y: 0.5 })
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const handler = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      setMouse({
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      })
+    }
+    el.addEventListener("mousemove", handler)
+    return () => el.removeEventListener("mousemove", handler)
+  }, [])
+
   return (
     <section className="showcase" id="how">
       <div className="showcaseBg" aria-hidden="true" />
-      <div className="showcaseInner">
+      <div className="showcaseOrbs" aria-hidden="true">
+        <div className="orb orb1" />
+        <div className="orb orb2" />
+        <div className="orb orb3" />
+      </div>
+      <div className="showcaseInner" ref={containerRef}>
 
-        {/* LEFT – SUNRISE */}
+        {/* LEFT - SUNRISE */}
         <div className="phone phoneLeft">
-          <div className="phoneFrame">
+          <PhoneDevice theme="sunrise" tiltX={(mouse.x - 0.5) * 6} tiltY={(mouse.y - 0.5) * 4}>
             <SunrisePlacesScreen />
-          </div>
+          </PhoneDevice>
         </div>
 
-        {/* CENTER – DAY (PRIMARY) */}
+        {/* CENTER - DAY (PRIMARY) */}
         <div className="phone phoneCenter">
-          <div className="phoneFrame phoneFrameMain">
+          <PhoneDevice theme="day" tiltX={(mouse.x - 0.5) * 8} tiltY={(mouse.y - 0.5) * 6} main>
             <DayPlaceViewScreen />
-          </div>
+          </PhoneDevice>
         </div>
 
-        {/* RIGHT – DUSK */}
+        {/* RIGHT - DUSK */}
         <div className="phone phoneRight">
-          <div className="phoneFrame">
+          <PhoneDevice theme="dusk" tiltX={(mouse.x - 0.5) * 6} tiltY={(mouse.y - 0.5) * 4}>
             <DuskHouseholdScreen />
-          </div>
+          </PhoneDevice>
         </div>
 
       </div>
@@ -190,6 +212,72 @@ function PhoneShowcase() {
         </div>
       </div>
     </section>
+  )
+}
+
+/** Realistic phone device wrapper with notch, bezel, reflections, and tilt */
+function PhoneDevice(props: {
+  theme: "sunrise" | "day" | "dusk"
+  tiltX: number
+  tiltY: number
+  main?: boolean
+  children: React.ReactNode
+}) {
+  return (
+    <div
+      className={`phoneDevice ${props.main ? "phoneDeviceMain" : ""}`}
+      style={{
+        transform: `perspective(1200px) rotateY(${props.tiltX}deg) rotateX(${-props.tiltY}deg)`,
+      }}
+    >
+      {/* Ambient glow behind device */}
+      <div className={`deviceGlow deviceGlow-${props.theme}`} aria-hidden="true" />
+
+      {/* Device shell */}
+      <div className="deviceShell">
+        {/* Side button details */}
+        <div className="deviceBtnRight" aria-hidden="true" />
+        <div className="deviceBtnLeft1" aria-hidden="true" />
+        <div className="deviceBtnLeft2" aria-hidden="true" />
+
+        {/* Edge highlight that follows tilt */}
+        <div
+          className="deviceEdgeHighlight"
+          style={{
+            background: `linear-gradient(${135 + props.tiltX * 8}deg, rgba(255,255,255,0.12) 0%, transparent 50%, rgba(255,255,255,0.04) 100%)`,
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Inner bezel */}
+        <div className="deviceBezel">
+          {/* Notch / Dynamic Island */}
+          <div className="dynamicIsland" aria-hidden="true">
+            <div className="islandCamera" />
+          </div>
+
+          {/* Screen content */}
+          <div className="deviceScreen">
+            {props.children}
+          </div>
+
+          {/* Screen reflection overlay */}
+          <div
+            className="screenReflection"
+            style={{
+              background: `linear-gradient(${120 + props.tiltX * 15}deg, rgba(255,255,255,0.06) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.03) 100%)`,
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Home indicator */}
+          <div className="homeIndicator" aria-hidden="true" />
+        </div>
+      </div>
+
+      {/* Shimmer sweep */}
+      <div className="deviceShimmer" aria-hidden="true" />
+    </div>
   )
 }
 
@@ -857,6 +945,52 @@ function SiteStyles() {
         pointer-events:none;
       }
 
+      /* Floating ambient orbs */
+      .showcaseOrbs{
+        position:absolute;
+        inset:0;
+        pointer-events:none;
+        overflow:hidden;
+      }
+      .orb{
+        position:absolute;
+        border-radius:50%;
+        filter:blur(80px);
+        opacity:0.5;
+      }
+      .orb1{
+        width:400px;height:400px;
+        left:15%;top:10%;
+        background:rgba(88,217,255,0.22);
+        animation:orbFloat1 8s ease-in-out infinite;
+      }
+      .orb2{
+        width:350px;height:350px;
+        right:10%;top:30%;
+        background:rgba(107,92,255,0.20);
+        animation:orbFloat2 10s ease-in-out infinite;
+      }
+      .orb3{
+        width:300px;height:300px;
+        left:40%;bottom:5%;
+        background:rgba(236,72,153,0.15);
+        animation:orbFloat3 12s ease-in-out infinite;
+      }
+      @keyframes orbFloat1{
+        0%,100%{transform:translate(0,0) scale(1);}
+        33%{transform:translate(30px,-20px) scale(1.08);}
+        66%{transform:translate(-15px,25px) scale(0.95);}
+      }
+      @keyframes orbFloat2{
+        0%,100%{transform:translate(0,0) scale(1);}
+        50%{transform:translate(-25px,30px) scale(1.12);}
+      }
+      @keyframes orbFloat3{
+        0%,100%{transform:translate(0,0) scale(1);}
+        40%{transform:translate(20px,-30px) scale(1.05);}
+        70%{transform:translate(-20px,10px) scale(0.92);}
+      }
+
       .showcaseInner{
         position: relative;
         max-width: 1320px;
@@ -864,7 +998,7 @@ function SiteStyles() {
         display:flex;
         align-items:center;
         justify-content:center;
-        gap: 110px;
+        gap: 80px;
         padding-top: 26px;
       }
 
@@ -873,44 +1007,231 @@ function SiteStyles() {
         transition: transform 0.6s ease, opacity 0.6s ease;
         will-change: transform;
       }
-      .phoneFrame{
-        width: 332px;
-        height: 684px;
-        border-radius: 50px;
+
+      /* PHONE DEVICE */
+      .phoneDevice{
+        position:relative;
+        transition: transform 0.12s ease-out;
+        will-change: transform;
+      }
+      .phoneDeviceMain{
+        z-index:2;
+      }
+
+      .deviceGlow{
+        position:absolute;
+        inset:-60px;
+        border-radius:50%;
+        filter:blur(70px);
+        opacity:0.6;
+        pointer-events:none;
+        transition:opacity 0.4s ease;
+      }
+      .deviceGlow-sunrise{
+        background:radial-gradient(circle, rgba(255,190,120,0.35), rgba(255,140,80,0.15), transparent 70%);
+      }
+      .deviceGlow-day{
+        background:radial-gradient(circle, rgba(88,217,255,0.40), rgba(107,92,255,0.18), transparent 70%);
+      }
+      .deviceGlow-dusk{
+        background:radial-gradient(circle, rgba(123,77,255,0.35), rgba(236,72,153,0.15), transparent 70%);
+      }
+      .phoneDeviceMain .deviceGlow{
+        inset:-90px;
+        opacity:0.75;
+        filter:blur(90px);
+      }
+
+      .deviceShell{
+        position:relative;
+        width:320px;
+        height:660px;
+        border-radius:52px;
+        background:linear-gradient(145deg, #2a2a2e 0%, #1a1a1e 30%, #0f0f12 100%);
+        padding:4px;
+        box-shadow:
+          0 2px 0 0 rgba(255,255,255,0.08) inset,
+          0 -1px 0 0 rgba(0,0,0,0.5) inset,
+          0 50px 100px -20px rgba(0,0,0,0.80),
+          0 30px 60px -15px rgba(0,0,0,0.65);
+        overflow:visible;
+      }
+      .phoneDeviceMain .deviceShell{
+        box-shadow:
+          0 2px 0 0 rgba(255,255,255,0.10) inset,
+          0 -1px 0 0 rgba(0,0,0,0.5) inset,
+          0 70px 140px -20px rgba(0,0,0,0.85),
+          0 40px 80px -10px rgba(0,0,0,0.70),
+          0 0 120px rgba(90,200,250,0.10);
+      }
+
+      /* Side buttons */
+      .deviceBtnRight{
+        position:absolute;
+        right:-2.5px;
+        top:180px;
+        width:3px;
+        height:80px;
+        border-radius:0 2px 2px 0;
+        background:linear-gradient(180deg, #333 0%, #222 50%, #333 100%);
+      }
+      .deviceBtnLeft1{
+        position:absolute;
+        left:-2.5px;
+        top:140px;
+        width:3px;
+        height:32px;
+        border-radius:2px 0 0 2px;
+        background:linear-gradient(180deg, #333 0%, #222 50%, #333 100%);
+      }
+      .deviceBtnLeft2{
+        position:absolute;
+        left:-2.5px;
+        top:190px;
+        width:3px;
+        height:60px;
+        border-radius:2px 0 0 2px;
+        background:linear-gradient(180deg, #333 0%, #222 50%, #333 100%);
+      }
+
+      .deviceEdgeHighlight{
+        position:absolute;
+        inset:0;
+        border-radius:52px;
+        pointer-events:none;
+        transition:background 0.15s ease;
+        z-index:5;
+      }
+
+      .deviceBezel{
+        position:relative;
+        width:100%;
+        height:100%;
+        border-radius:48px;
         overflow:hidden;
-        background: #000;
-        border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 70px 150px rgba(0,0,0,0.90);
+        background:#000;
+      }
+
+      /* Dynamic Island */
+      .dynamicIsland{
+        position:absolute;
+        top:12px;
+        left:50%;
+        transform:translateX(-50%);
+        width:120px;
+        height:34px;
+        border-radius:20px;
+        background:#0a0a0a;
+        z-index:20;
+        display:flex;
+        align-items:center;
+        justify-content:flex-end;
+        padding-right:12px;
+        box-shadow:0 0 0 1px rgba(255,255,255,0.04);
+      }
+      .islandCamera{
+        width:10px;
+        height:10px;
+        border-radius:50%;
+        background:radial-gradient(circle, #1a1a2e 30%, #0a0a14 70%);
+        box-shadow:0 0 0 1.5px rgba(50,50,80,0.5), inset 0 0 3px rgba(80,80,140,0.3);
+      }
+
+      .deviceScreen{
+        position:relative;
+        width:100%;
+        height:100%;
+        border-radius:48px;
+        overflow:hidden;
+      }
+
+      .screenReflection{
+        position:absolute;
+        inset:0;
+        border-radius:48px;
+        pointer-events:none;
+        z-index:10;
+        transition:background 0.15s ease;
+      }
+
+      .homeIndicator{
+        position:absolute;
+        bottom:8px;
+        left:50%;
+        transform:translateX(-50%);
+        width:130px;
+        height:5px;
+        border-radius:999px;
+        background:rgba(255,255,255,0.25);
+        z-index:15;
+      }
+
+      /* Shimmer sweep */
+      .deviceShimmer{
+        position:absolute;
+        top:0;
+        left:-80%;
+        width:60%;
+        height:100%;
+        background:linear-gradient(
+          105deg,
+          transparent 0%,
+          rgba(255,255,255,0.03) 40%,
+          rgba(255,255,255,0.08) 50%,
+          rgba(255,255,255,0.03) 60%,
+          transparent 100%
+        );
+        animation:shimmerSweep 4s ease-in-out infinite;
+        pointer-events:none;
+        border-radius:52px;
+        z-index:6;
+      }
+      @keyframes shimmerSweep{
+        0%{left:-80%;opacity:0;}
+        20%{opacity:1;}
+        80%{opacity:1;}
+        100%{left:140%;opacity:0;}
       }
 
       .phoneCenter{
         z-index: 3;
-        transform: scale(1.12);
-      }
-      .phoneFrameMain{
-        box-shadow: 0 90px 190px rgba(0,0,0,0.95), 0 0 200px rgba(90,200,250,0.18);
+        transform: scale(1.1);
       }
 
       .phoneLeft{
-        opacity: 0.58;
-        transform: scale(0.90) rotate(-6deg) translateX(60px);
+        opacity: 0.65;
+        transform: scale(0.88) rotate(-5deg) translateX(50px);
       }
       .phoneRight{
-        opacity: 0.58;
-        transform: scale(0.90) rotate(6deg) translateX(-60px);
+        opacity: 0.65;
+        transform: scale(0.88) rotate(5deg) translateX(-50px);
       }
 
       .phoneCenter:hover{
-        transform: scale(1.14);
+        transform: scale(1.12);
       }
 
-      .phoneCenter::before{
-        content:"";
-        position:absolute;
-        inset: -170px;
-        background: radial-gradient(circle, rgba(90,200,250,0.26), transparent 60%);
-        filter: blur(90px);
-        z-index: -1;
+      /* Floating animation for side phones */
+      .phoneLeft .phoneDevice{
+        animation: floatLeft 6s ease-in-out infinite;
+      }
+      .phoneRight .phoneDevice{
+        animation: floatRight 7s ease-in-out infinite;
+      }
+      .phoneCenter .phoneDevice{
+        animation: floatCenter 5s ease-in-out infinite;
+      }
+      @keyframes floatLeft{
+        0%,100%{transform:perspective(1200px) translateY(0);}
+        50%{transform:perspective(1200px) translateY(-12px);}
+      }
+      @keyframes floatRight{
+        0%,100%{transform:perspective(1200px) translateY(0);}
+        50%{transform:perspective(1200px) translateY(-10px);}
+      }
+      @keyframes floatCenter{
+        0%,100%{transform:perspective(1200px) translateY(0);}
+        50%{transform:perspective(1200px) translateY(-8px);}
       }
 
       .showcaseCopy{
@@ -1124,7 +1445,6 @@ function SiteStyles() {
         width:100%;
         height:100%;
         position: relative;
-        border-radius: 50px;
         overflow:hidden;
         display:flex;
         flex-direction:column;
@@ -1509,14 +1829,37 @@ function SiteStyles() {
       @media (max-width: 1100px){
         .showcaseInner{
           flex-direction: column;
-          gap: 60px;
+          gap: 40px;
         }
         .phoneLeft, .phoneRight{
-          transform: scale(0.96);
-          opacity: 0.75;
+          transform: scale(0.92);
+          opacity: 0.80;
         }
         .phoneCenter{
           transform: scale(1);
+        }
+        .deviceShell{
+          width:280px;
+          height:578px;
+          border-radius:46px;
+        }
+        .deviceBezel{
+          border-radius:42px;
+        }
+        .deviceScreen{
+          border-radius:42px;
+        }
+        .screenReflection{
+          border-radius:42px;
+        }
+        .deviceEdgeHighlight{
+          border-radius:46px;
+        }
+        .deviceShimmer{
+          border-radius:46px;
+        }
+        .showcaseInner{
+          gap: 30px;
         }
         .featureGrid{
           grid-template-columns: 1fr;
@@ -1526,6 +1869,11 @@ function SiteStyles() {
         }
         .eventSplit{
           grid-template-columns: 1fr;
+        }
+        .phoneLeft .phoneDevice,
+        .phoneRight .phoneDevice,
+        .phoneCenter .phoneDevice{
+          animation:none;
         }
       }
     `}</style>
