@@ -64,21 +64,23 @@ function Hero() {
           <IconCapsule />
         </div>
 
+        <div className="heroTitleGlow" aria-hidden="true" />
         <h1 className="heroTitle">
-          Your list appears when you arrive.
+          Never Forget Anything Again.
         </h1>
 
         <p className="heroSub">
-          Add tasks to places. When you drive by or someone in your home is there, Near reminds you.
-          So you never forget anything ever again.
+          Near turns location into action.{"\n"}
+          You don{"'"}t check lists.{"\n"}
+          They check in when you arrive.
         </p>
 
         <div className="heroCtas">
           <a className="primaryBtn" href={APP_STORE_URL}>
-            Download Free
+            Download Near
           </a>
           <a className="secondaryBtn" href="#how">
-            See how it works
+            See it in action
           </a>
         </div>
 
@@ -1128,24 +1130,46 @@ function SiteStyles() {
         margin: 20px 0 32px;
       }
 
+      .heroTitleGlow{
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 200px;
+        background: radial-gradient(ellipse, rgba(111,92,252,0.10), rgba(88,200,250,0.06), transparent 65%);
+        filter: blur(60px);
+        pointer-events: none;
+        z-index: 0;
+      }
       .heroTitle{
-        font-size: clamp(42px, 5.6vw, 68px);
-        line-height: 1.04;
-        margin: 12px 0 20px;
+        position: relative;
+        z-index: 1;
+        font-size: clamp(48px, 6.4vw, 80px);
+        line-height: 1.0;
+        margin: 12px 0 24px;
         letter-spacing: -0.04em;
-        font-weight: 700;
-        background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.65) 100%);
+        font-weight: 800;
+        background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.72) 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
+        animation: heroTitleIn 0.4s ease-out both;
+      }
+      @keyframes heroTitleIn{
+        0% { opacity: 0; transform: translateY(8px); }
+        100% { opacity: 1; transform: translateY(0); }
       }
       .heroSub{
+        position: relative;
+        z-index: 1;
         margin: 0 auto;
-        max-width: 620px;
+        max-width: 520px;
         font-size: 17px;
-        line-height: 1.6;
+        line-height: 1.7;
         color: rgba(255,255,255,0.50);
         font-weight: 420;
+        white-space: pre-line;
       }
 
       .heroCtas{
