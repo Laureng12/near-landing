@@ -1828,38 +1828,38 @@ function SiteStyles() {
       /* Responsive */
       @media (max-width: 1100px){
         .showcaseInner{
-          flex-direction: column;
           gap: 40px;
         }
-        .phoneLeft, .phoneRight{
-          transform: scale(0.92);
-          opacity: 0.80;
+        .deviceShell{
+          width:250px;
+          height:516px;
+          border-radius:42px;
+        }
+        .deviceBezel{
+          border-radius:38px;
+        }
+        .deviceScreen{
+          border-radius:38px;
+        }
+        .screenReflection{
+          border-radius:38px;
+        }
+        .deviceEdgeHighlight{
+          border-radius:42px;
+        }
+        .deviceShimmer{
+          border-radius:42px;
+        }
+        .phoneLeft{
+          transform: scale(0.82) rotate(-5deg) translateX(40px);
+          opacity: 0.65;
+        }
+        .phoneRight{
+          transform: scale(0.82) rotate(5deg) translateX(-40px);
+          opacity: 0.65;
         }
         .phoneCenter{
           transform: scale(1);
-        }
-        .deviceShell{
-          width:280px;
-          height:578px;
-          border-radius:46px;
-        }
-        .deviceBezel{
-          border-radius:42px;
-        }
-        .deviceScreen{
-          border-radius:42px;
-        }
-        .screenReflection{
-          border-radius:42px;
-        }
-        .deviceEdgeHighlight{
-          border-radius:46px;
-        }
-        .deviceShimmer{
-          border-radius:46px;
-        }
-        .showcaseInner{
-          gap: 30px;
         }
         .featureGrid{
           grid-template-columns: 1fr;
@@ -1869,6 +1869,57 @@ function SiteStyles() {
         }
         .eventSplit{
           grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 740px){
+        .showcaseInner{
+          gap: 10px;
+        }
+        .deviceShell{
+          width:180px;
+          height:372px;
+          border-radius:34px;
+        }
+        .deviceBezel{
+          border-radius:30px;
+        }
+        .deviceScreen{
+          border-radius:30px;
+        }
+        .screenReflection{
+          border-radius:30px;
+        }
+        .deviceEdgeHighlight{
+          border-radius:34px;
+        }
+        .deviceShimmer{
+          border-radius:34px;
+        }
+        .dynamicIsland{
+          width:80px;
+          height:22px;
+          border-radius:14px;
+          top:8px;
+        }
+        .islandCamera{
+          width:7px;
+          height:7px;
+        }
+        .homeIndicator{
+          width:80px;
+          height:4px;
+          bottom:6px;
+        }
+        .phoneLeft{
+          transform: scale(0.78) rotate(-4deg) translateX(25px);
+          opacity: 0.60;
+        }
+        .phoneRight{
+          transform: scale(0.78) rotate(4deg) translateX(-25px);
+          opacity: 0.60;
+        }
+        .phoneCenter{
+          transform: scale(0.95);
         }
         .phoneLeft .phoneDevice,
         .phoneRight .phoneDevice,
