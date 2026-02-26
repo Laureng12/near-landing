@@ -1595,9 +1595,12 @@ function SiteStyles() {
       }
       .completeStamp.stampLit{
         opacity: 1;
-        border-color: rgba(88,217,255,0.30);
-        background: rgba(88,217,255,0.08);
-        box-shadow: 0 0 28px rgba(88,217,255,0.18), 0 0 60px rgba(88,217,255,0.08);
+        border-color: rgba(100,180,255,0.55);
+        background: linear-gradient(135deg, rgba(100,180,255,0.30), rgba(80,160,240,0.22));
+        box-shadow:
+          0 0 26px rgba(100,180,255,0.30),
+          0 0 64px rgba(100,180,255,0.12),
+          inset 0 1px 0 rgba(255,255,255,0.12);
       }
       .stampRing{
         position:absolute;
@@ -1609,7 +1612,7 @@ function SiteStyles() {
       }
       .stampLit .stampRing{
         opacity: 1;
-        background: radial-gradient(circle, rgba(88,217,255,0.34), rgba(107,92,255,0.16), transparent 58%);
+        background: radial-gradient(circle, rgba(100,180,255,0.36), rgba(80,160,240,0.18), transparent 58%);
         animation: stampPulse 3.2s ease-in-out infinite;
       }
       .stampText{
@@ -1621,7 +1624,8 @@ function SiteStyles() {
         transition: color 1s ease;
       }
       .stampLit .stampText{
-        color: rgba(255,255,255,0.96);
+        color: #fff;
+        text-shadow: 0 0 8px rgba(100,180,255,0.45);
       }
 
       .miniBtn{
