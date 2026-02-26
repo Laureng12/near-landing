@@ -329,46 +329,73 @@ function PhoneChrome(props: {
   )
 }
 
-/* --------- SUNRISE: Higher contrast, warm edge light, crisp text -------- */
+/* --------- PLACES: Dusk palette, distances, ambient nearby banner ------ */
 
 function SunrisePlacesScreen() {
+  const [bannerPulse, setBannerPulse] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setBannerPulse(p => (p + 1) % 100), 2200)
+    return () => clearInterval(t)
+  }, [])
+
   const places = useMemo(() => [
-    { name: "Publix", hint: "3 items", color: "c1" },
-    { name: "Target", hint: "4 items", color: "c2" },
-    { name: "Home Depot", hint: "1 item", color: "c3" },
-    { name: "Dry Cleaners", hint: "2 items", color: "c4" },
+    { name: "Publix", items: 3, dist: "0.3 mi", color: "c1", nearby: true },
+    { name: "Target", items: 4, dist: "1.2 mi", color: "c2", nearby: false },
+    { name: "Home Depot", items: 1, dist: "2.8 mi", color: "c3", nearby: false },
+    { name: "Dry Cleaners", items: 2, dist: "3.4 mi", color: "c4", nearby: false },
+    { name: "Walgreens", items: 1, dist: "4.1 mi", color: "c5", nearby: false },
   ], [])
 
   return (
     <PhoneChrome theme="sunrise">
-      <div className="pad">
-        <div className="titleBlock">
-          <div className="h1">Places</div>
-          <div className="sub">Your lists, anchored to where life happens.</div>
+      <div className="duskPad">
+        {/* Ambient nearby banner */}
+        <div
+          className="nearbyBanner"
+          style={{ opacity: 0.92 + (bannerPulse % 2) * 0.08 }}
+        >
+          <div className="nearbyBannerDot" />
+          <div className="nearbyBannerText">
+            <div className="nearbyBannerTitle">Publix is nearby</div>
+            <div className="nearbyBannerSub">
+              Want to stop in and knock some things off your list?
+            </div>
+          </div>
+          <div className="nearbyBannerChev">{"›"}</div>
         </div>
 
-        <div className="card card-strong">
-          <div className="cardHeader">
-            <div className="cardTitle">Next up</div>
-            <div className="cardMeta">4 saved places</div>
+        <div className="duskTitleBlock">
+          <div className="duskH1">Places</div>
+          <div className="duskSub">Your lists, sorted by distance.</div>
+        </div>
+
+        <div className="duskListCard">
+          <div className="duskCardHeader">
+            <span className="duskCardTitle">Nearby</span>
+            <span className="duskCardMeta">{places.length} saved</span>
           </div>
 
-          <div className="list">
-            {places.map((p) => (
-              <div key={p.name} className="row">
-                <div className={`dot ${p.color}`} />
-                <div className="rowMain">
-                  <div className="rowTitle">{p.name}</div>
-                  <div className="rowSub">{p.hint}</div>
+          {places.map((p) => (
+            <div key={p.name} className="duskRow">
+              <div className={`duskDot ${p.color}`} />
+              <div className="duskRowMain">
+                <div className="duskRowName">{p.name}</div>
+                <div className="duskRowHint">
+                  {p.items} item{p.items !== 1 ? "s" : ""}
                 </div>
-                <div className="chev">›</div>
               </div>
-            ))}
-          </div>
+              <div className="duskRowDist">
+                {p.nearby && <span className="duskNearbyTag">Nearby</span>}
+                <span className="duskDistText">{p.dist}</span>
+              </div>
+              <div className="duskChev">{"›"}</div>
+            </div>
+          ))}
         </div>
 
-        <div className="miniNote">
-          Tip: Add recurring places once. Near does the rest.
+        <div className="duskFooterNote">
+          Near sorts by proximity. Closest places surface first.
         </div>
       </div>
     </PhoneChrome>
@@ -1215,9 +1242,10 @@ function SiteStyles() {
 
       .screen-sunrise{
         background:
-          radial-gradient(circle at 30% 15%, rgba(255,170,80,0.38), transparent 42%),
-          radial-gradient(circle at 65% 30%, rgba(255,120,80,0.18), transparent 50%),
-          linear-gradient(180deg, #12182E 0%, #080C1A 50%, #04050C 100%);
+          radial-gradient(circle at 35% 10%, rgba(255,160,100,0.36), transparent 40%),
+          radial-gradient(circle at 65% 25%, rgba(236,72,153,0.22), transparent 45%),
+          radial-gradient(circle at 50% 70%, rgba(255,200,100,0.10), transparent 55%),
+          linear-gradient(180deg, #1A0E28 0%, #110A1E 45%, #08060E 100%);
       }
 
       .screen-day{
@@ -1398,11 +1426,166 @@ function SiteStyles() {
       .c2{ background: #6B5CFF; }
       .c3{ background: #EC4899; }
       .c4{ background: #FFB86B; }
+      .c5{ background: #70E0A0; }
 
       .miniNote{
         margin-top: 12px;
         font-size: 12px;
         color: rgba(255,255,255,0.58);
+      }
+
+      /* --- Dusk Places Screen --- */
+      .duskPad{ padding: 4px 8px 0; }
+
+      .nearbyBanner{
+        padding: 9px 10px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(255,160,100,0.14), rgba(236,72,153,0.10));
+        border: 1px solid rgba(255,160,100,0.20);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        transition: opacity 0.6s ease;
+      }
+      .nearbyBannerDot{
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: #FFA064;
+        box-shadow: 0 0 10px rgba(255,160,100,0.50);
+        flex-shrink: 0;
+        animation: bannerDotGlow 2.4s ease-in-out infinite;
+      }
+      @keyframes bannerDotGlow{
+        0%, 100% { box-shadow: 0 0 8px rgba(255,160,100,0.40); }
+        50% { box-shadow: 0 0 16px rgba(255,160,100,0.65); }
+      }
+      .nearbyBannerText{ flex: 1; min-width: 0; }
+      .nearbyBannerTitle{
+        font-size: 11px;
+        font-weight: 800;
+        color: rgba(255,255,255,0.94);
+        letter-spacing: -0.01em;
+      }
+      .nearbyBannerSub{
+        margin-top: 1px;
+        font-size: 9px;
+        color: rgba(255,255,255,0.55);
+        font-weight: 500;
+        line-height: 1.35;
+      }
+      .nearbyBannerChev{
+        font-size: 16px;
+        color: rgba(255,160,100,0.60);
+        flex-shrink: 0;
+      }
+
+      .duskTitleBlock{ margin-top: 10px; }
+      .duskH1{
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: rgba(255,255,255,0.96);
+      }
+      .duskSub{
+        margin-top: 2px;
+        font-size: 10px;
+        color: rgba(255,255,255,0.48);
+        font-weight: 500;
+      }
+
+      .duskListCard{
+        margin-top: 10px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 16px 50px rgba(0,0,0,0.40);
+        padding: 0 0 4px;
+      }
+      .duskCardHeader{
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding: 11px 12px 7px;
+      }
+      .duskCardTitle{
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: rgba(255,255,255,0.88);
+      }
+      .duskCardMeta{
+        font-size: 10px;
+        color: rgba(255,255,255,0.45);
+      }
+
+      .duskRow{
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        margin: 0 4px;
+      }
+      .duskRow:hover{
+        background: rgba(255,255,255,0.04);
+      }
+      .duskDot{
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        flex-shrink: 0;
+      }
+      .duskRowMain{ flex: 1; min-width: 0; }
+      .duskRowName{
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: -0.01em;
+        color: rgba(255,255,255,0.90);
+      }
+      .duskRowHint{
+        font-size: 9px;
+        color: rgba(255,255,255,0.45);
+        font-weight: 500;
+        margin-top: 1px;
+      }
+
+      .duskRowDist{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .duskNearbyTag{
+        font-size: 8px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 999px;
+        background: rgba(255,160,100,0.14);
+        border: 1px solid rgba(255,160,100,0.22);
+        color: #FFA064;
+        letter-spacing: 0.02em;
+      }
+      .duskDistText{
+        font-size: 10px;
+        color: rgba(255,255,255,0.40);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+      }
+      .duskChev{
+        font-size: 14px;
+        color: rgba(255,255,255,0.30);
+        flex-shrink: 0;
+      }
+
+      .duskFooterNote{
+        margin-top: 10px;
+        text-align: center;
+        font-size: 9px;
+        color: rgba(255,255,255,0.28);
+        font-weight: 500;
+        letter-spacing: 0.02em;
       }
 
 
