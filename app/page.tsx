@@ -1883,12 +1883,13 @@ function SiteStyles() {
         transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
       }
       .dayCompleteBtn.dayCompleteBtnLit{
-        background: linear-gradient(135deg, #4CAF50, #56B85A);
+        background: linear-gradient(135deg, rgba(160,230,50,0.72), rgba(120,210,40,0.60));
         color: #fff;
         box-shadow:
-          0 4px 18px rgba(76,175,80,0.28),
-          0 0 40px rgba(76,175,80,0.08);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+          0 4px 22px rgba(160,230,50,0.34),
+          0 0 52px rgba(160,230,50,0.14);
+        text-shadow: 0 1px 3px rgba(0,0,0,0.16);
+        backdrop-filter: blur(8px);
       }
       .dayBtnCheck{
         font-weight: 900;
