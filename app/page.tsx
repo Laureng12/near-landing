@@ -172,20 +172,26 @@ function PhoneShowcase() {
         </p>
 
         <div className="featureGrid">
-          <FeatureCard
+          <AnimatedFeatureCard
+            icon="location"
             title="Arrive. It appears."
             desc="Pull in and your list is waiting. Like it should have been there all along."
             tag="Automatic"
+            accent="rgba(88,217,255,0.60)"
           />
-          <FeatureCard
+          <AnimatedFeatureCard
+            icon="radar"
             title="Drive by. It reminds you."
             desc="Even if you were not planning to stop. Near catches the near-misses."
             tag="Smart"
+            accent="rgba(255,160,100,0.60)"
           />
-          <FeatureCard
+          <AnimatedFeatureCard
+            icon="people"
             title="Household sync, instantly."
             desc="If someone in your home is there, they see it. Shared calm. Shared memory."
             tag="Shared"
+            accent="rgba(140,90,255,0.60)"
           />
         </div>
       </div>
@@ -193,12 +199,54 @@ function PhoneShowcase() {
   )
 }
 
-function FeatureCard(props: { title: string; desc: string; tag: string }) {
+function AnimatedFeatureCard(props: {
+  icon: "location" | "radar" | "people"
+  title: string
+  desc: string
+  tag: string
+  accent: string
+}) {
+  const [active, setActive] = useState(false)
+
+  useEffect(() => {
+    const delay = props.icon === "location" ? 800 : props.icon === "radar" ? 2400 : 4000
+    const timer = setTimeout(() => setActive(true), delay)
+    return () => clearTimeout(timer)
+  }, [props.icon])
+
   return (
-    <div className="featureCard">
+    <div
+      className={`featureCard ${active ? "featureCardActive" : ""}`}
+      style={{ "--feat-accent": props.accent } as React.CSSProperties}
+    >
+      <div className="featureIconWrap">
+        {props.icon === "location" && (
+          <svg className="featureIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z" />
+            <circle cx="12" cy="9" r="2.5" />
+          </svg>
+        )}
+        {props.icon === "radar" && (
+          <svg className="featureIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2a10 10 0 0 1 10 10" className="featureRadar1" />
+            <path d="M12 5a7 7 0 0 1 7 7" className="featureRadar2" />
+          </svg>
+        )}
+        {props.icon === "people" && (
+          <svg className="featureIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="9" cy="7" r="3" />
+            <circle cx="17" cy="7" r="2.5" />
+            <path d="M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1" />
+            <path d="M17 10a4 4 0 0 1 4 4v1" className="featurePeople2" />
+          </svg>
+        )}
+        <div className="featureIconGlow" aria-hidden="true" />
+      </div>
       <div className="featureTag">{props.tag}</div>
       <div className="featureTitle">{props.title}</div>
       <div className="featureDesc">{props.desc}</div>
+      <div className="featureShine" aria-hidden="true" />
     </div>
   )
 }
@@ -206,9 +254,25 @@ function FeatureCard(props: { title: string; desc: string; tag: string }) {
 /* -------------------------- APPLE EVENT SECTIONS ------------------------ */
 
 function AppleEventSections() {
+  const [metricVisible, setMetricVisible] = useState(false)
+  const [memberPulse, setMemberPulse] = useState(0)
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setMetricVisible(true), 600)
+    const t2 = setInterval(() => setMemberPulse(p => (p + 1) % 3), 2000)
+    return () => { clearTimeout(t1); clearInterval(t2) }
+  }, [])
+
+  const members = [
+    { name: "You", icon: "\u2728", color: "rgba(88,217,255,0.60)" },
+    { name: "Brian", icon: "\uD83C\uDFB5", color: "rgba(255,160,100,0.60)" },
+    { name: "Reese", icon: "\uD83C\uDF3F", color: "rgba(140,90,255,0.60)" },
+  ]
+
   return (
     <>
       <section className="eventSection" id="household">
+        <div className="eventGlow" aria-hidden="true" />
         <div className="eventInner">
           <div className="eventKicker">Household</div>
           <h3 className="eventHeadline">One list. Everyone benefits.</h3>
@@ -217,7 +281,23 @@ function AppleEventSections() {
             If Reese stops at Target, the reminder still shows up. No forwarding. No group chat.
           </p>
 
-          <div className="eventMetrics">
+          {/* Animated member orbs */}
+          <div className="eventMembers">
+            {members.map((m, i) => (
+              <div
+                key={m.name}
+                className={`eventMember ${memberPulse === i ? "eventMemberActive" : ""}`}
+                style={{ "--member-color": m.color } as React.CSSProperties}
+              >
+                <span className="eventMemberIcon">{m.icon}</span>
+                <span className="eventMemberName">{m.name}</span>
+                {memberPulse === i && <span className="eventMemberRing" />}
+              </div>
+            ))}
+            <div className="eventMemberLine" aria-hidden="true" />
+          </div>
+
+          <div className={`eventMetrics ${metricVisible ? "eventMetricsVisible" : ""}`}>
             <div className="metric">
               <div className="metricNum">0</div>
               <div className="metricLabel">scheduled reminders</div>
@@ -227,7 +307,7 @@ function AppleEventSections() {
               <div className="metricLabel">extra taps to remember</div>
             </div>
             <div className="metric">
-              <div className="metricNum">∞</div>
+              <div className="metricNum">{"\u221E"}</div>
               <div className="metricLabel">times you feel like a genius</div>
             </div>
           </div>
@@ -244,13 +324,24 @@ function AppleEventSections() {
           </p>
 
           <div className="eventSplit">
-            <div className="splitCard">
+            <div className="splitCard splitCardAnimated">
+              <div className="splitIcon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
+                  <rect x="5" y="2" width="14" height="20" rx="3" />
+                  <line x1="12" y1="18" x2="12" y2="18.01" strokeWidth="2" />
+                </svg>
+              </div>
               <div className="splitTitle">Designed for iPhone</div>
               <div className="splitText">
                 Polished, native-feeling, and calm. The point is less thinking, not more features.
               </div>
             </div>
-            <div className="splitCard">
+            <div className="splitCard splitCardAnimated">
+              <div className="splitIcon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" />
+                </svg>
+              </div>
               <div className="splitTitle">Built for momentum</div>
               <div className="splitText">
                 The best productivity system is the one you actually use. Near meets you where you already are.
@@ -1257,25 +1348,101 @@ function SiteStyles() {
         display:grid;
         grid-template-columns: repeat(3, minmax(0,1fr));
         gap: 14px;
-        margin-top: 22px;
+        margin-top: 28px;
       }
       .featureCard{
         text-align:left;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 16px 16px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+        padding: 20px 18px 18px;
         box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.8s ease, box-shadow 0.8s ease, background 0.8s ease;
+      }
+      .featureCard.featureCardActive{
+        border-color: color-mix(in srgb, var(--feat-accent) 30%, transparent);
+        background: rgba(255,255,255,0.05);
+        box-shadow: 0 18px 60px rgba(0,0,0,0.35), 0 0 40px color-mix(in srgb, var(--feat-accent) 8%, transparent);
+      }
+      .featureShine{
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(105deg, transparent, rgba(255,255,255,0.03), transparent);
+        pointer-events: none;
+      }
+      .featureCardActive .featureShine{
+        animation: featureShine 2s 0.3s ease forwards;
+      }
+      @keyframes featureShine{
+        0% { left: -60%; }
+        100% { left: 120%; }
+      }
+      .featureIconWrap{
+        position: relative;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .featureIcon{
+        width: 24px;
+        height: 24px;
+        color: rgba(255,255,255,0.80);
+        transition: color 0.6s ease;
+        position: relative;
+        z-index: 1;
+      }
+      .featureCardActive .featureIcon{
+        color: rgba(255,255,255,0.95);
+      }
+      .featureIconGlow{
+        position: absolute;
+        inset: -8px;
+        border-radius: 999px;
+        background: var(--feat-accent);
+        filter: blur(18px);
+        opacity: 0;
+        transition: opacity 0.8s ease;
+      }
+      .featureCardActive .featureIconGlow{
+        opacity: 0.35;
+      }
+      .featureRadar1{
+        opacity: 0.4;
+        animation: radarPulse 2.4s ease-in-out infinite;
+      }
+      .featureRadar2{
+        opacity: 0.6;
+        animation: radarPulse 2.4s 0.4s ease-in-out infinite;
+      }
+      @keyframes radarPulse{
+        0%, 100% { opacity: 0.3; stroke-dashoffset: 0; }
+        50% { opacity: 1; }
+      }
+      .featurePeople2{
+        animation: peopleFade 2s ease-in-out infinite;
+      }
+      @keyframes peopleFade{
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 1; }
       }
       .featureTag{
         display:inline-flex;
-        padding: 6px 10px;
+        padding: 5px 10px;
         border-radius: 999px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 700;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.72);
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.04);
+        color: rgba(255,255,255,0.65);
+        letter-spacing: 0.02em;
       }
       .featureTitle{
         margin-top: 10px;
@@ -1285,7 +1452,7 @@ function SiteStyles() {
       }
       .featureDesc{
         margin-top: 8px;
-        color: rgba(255,255,255,0.68);
+        color: rgba(255,255,255,0.60);
         font-size: 14px;
         line-height: 1.55;
       }
@@ -1293,73 +1460,204 @@ function SiteStyles() {
       /* EVENT SECTIONS */
       .eventSection{
         position: relative;
-        padding: 90px 18px;
+        padding: 100px 18px;
         overflow:hidden;
       }
+      .eventGlow{
+        position: absolute;
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 700px;
+        height: 500px;
+        background: radial-gradient(ellipse, rgba(140,90,255,0.10), transparent 60%);
+        filter: blur(60px);
+        pointer-events: none;
+        animation: eventGlowFloat 6s ease-in-out infinite;
+      }
+      @keyframes eventGlowFloat{
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-20px); }
+      }
       .eventSection.alt{
-        background: radial-gradient(circle at 50% 30%, rgba(123,77,255,0.14), transparent 55%), #04050C;
+        background:
+          radial-gradient(circle at 50% 30%, rgba(123,77,255,0.10), transparent 50%),
+          radial-gradient(circle at 30% 70%, rgba(88,217,255,0.04), transparent 45%),
+          #04050C;
       }
       .eventInner{
         max-width: 980px;
         margin: 0 auto;
         text-align: center;
+        position: relative;
+        z-index: 1;
       }
       .eventKicker{
         display:inline-flex;
-        padding: 8px 12px;
+        padding: 8px 14px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        color: rgba(255,255,255,0.70);
+        border: 1px solid rgba(140,90,255,0.18);
+        background: rgba(140,90,255,0.06);
+        color: rgba(255,255,255,0.72);
         font-size: 13px;
         font-weight: 750;
+        letter-spacing: 0.02em;
       }
       .eventHeadline{
-        margin: 14px 0 10px;
-        font-size: clamp(30px, 3.6vw, 46px);
+        margin: 18px 0 12px;
+        font-size: clamp(30px, 3.6vw, 48px);
         letter-spacing: -0.03em;
       }
       .eventBody{
         margin: 0 auto;
         max-width: 760px;
-        color: rgba(255,255,255,0.68);
+        color: rgba(255,255,255,0.60);
         font-size: 16px;
         line-height: 1.65;
       }
+
+      /* Animated member orbs */
+      .eventMembers{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        margin-top: 28px;
+        position: relative;
+      }
+      .eventMemberLine{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 160px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(140,90,255,0.18), transparent);
+        z-index: 0;
+      }
+      .eventMember{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.5s cubic-bezier(0.34, 1, 0.64, 1);
+      }
+      .eventMember.eventMemberActive{
+        transform: scale(1.12) translateY(-3px);
+      }
+      .eventMemberIcon{
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        border: 1.5px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        transition: all 0.5s ease;
+        position: relative;
+      }
+      .eventMemberActive .eventMemberIcon{
+        border-color: color-mix(in srgb, var(--member-color) 50%, transparent);
+        background: color-mix(in srgb, var(--member-color) 12%, transparent);
+        box-shadow: 0 0 28px color-mix(in srgb, var(--member-color) 25%, transparent);
+      }
+      .eventMemberRing{
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        border-radius: 999px;
+        border: 1px solid var(--member-color);
+        opacity: 0;
+        animation: memberRing 1.5s ease-out forwards;
+        pointer-events: none;
+      }
+      @keyframes memberRing{
+        0% { transform: translateX(-50%) scale(0.8); opacity: 0.5; }
+        100% { transform: translateX(-50%) scale(1.4); opacity: 0; }
+      }
+      .eventMemberName{
+        font-size: 12px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.55);
+        transition: color 0.5s ease;
+      }
+      .eventMemberActive .eventMemberName{
+        color: rgba(255,255,255,0.90);
+      }
+
       .eventMetrics{
-        margin-top: 22px;
+        margin-top: 28px;
         display:grid;
         grid-template-columns: repeat(3, minmax(0,1fr));
         gap: 12px;
+        opacity: 0;
+        transform: translateY(16px);
+        transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
+      }
+      .eventMetrics.eventMetricsVisible{
+        opacity: 1;
+        transform: translateY(0);
       }
       .metric{
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 14px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+        padding: 18px 14px;
+        transition: border-color 0.5s ease, box-shadow 0.5s ease;
+      }
+      .metric:hover{
+        border-color: rgba(140,90,255,0.16);
+        box-shadow: 0 0 30px rgba(140,90,255,0.06);
       }
       .metricNum{
-        font-size: 28px;
+        font-size: 32px;
         font-weight: 900;
         letter-spacing: -0.02em;
       }
       .metricLabel{
         margin-top: 4px;
         font-size: 13px;
-        color: rgba(255,255,255,0.62);
+        color: rgba(255,255,255,0.55);
       }
       .eventSplit{
-        margin-top: 18px;
+        margin-top: 22px;
         display:grid;
         grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 12px;
+        gap: 14px;
       }
       .splitCard{
         text-align:left;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 16px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.03);
+        padding: 20px 18px;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.5s ease, box-shadow 0.5s ease;
+      }
+      .splitCardAnimated:hover{
+        border-color: rgba(88,217,255,0.14);
+        box-shadow: 0 0 30px rgba(88,217,255,0.05);
+      }
+      .splitIcon{
+        width: 36px;
+        height: 36px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .splitSvg{
+        width: 20px;
+        height: 20px;
+        color: rgba(255,255,255,0.65);
       }
       .splitTitle{
         font-weight: 850;
@@ -1367,7 +1665,7 @@ function SiteStyles() {
       }
       .splitText{
         margin-top: 8px;
-        color: rgba(255,255,255,0.68);
+        color: rgba(255,255,255,0.60);
         line-height: 1.6;
         font-size: 14px;
       }
