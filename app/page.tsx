@@ -334,19 +334,42 @@ function PhoneChrome(props: {
 function SunrisePlacesScreen() {
   const [bannerPulse, setBannerPulse] = useState(0)
 
+  const publixTasks = useMemo(() => ["Milk", "Blueberries", "Paper towels"], [])
+  const [publixChecked, setPublixChecked] = useState(0)
+
   useEffect(() => {
     const t = setInterval(() => setBannerPulse(p => (p + 1) % 100), 2200)
     return () => clearInterval(t)
   }, [])
 
+  useEffect(() => {
+    const delays = [2200, 4400, 6600]
+    const timers: ReturnType<typeof setTimeout>[] = []
+
+    delays.forEach((d, i) => {
+      timers.push(setTimeout(() => setPublixChecked(i + 1), d))
+    })
+
+    timers.push(setTimeout(() => setPublixChecked(0), 10500))
+
+    const loop = setInterval(() => {
+      setPublixChecked(0)
+      delays.forEach((d, i) => {
+        timers.push(setTimeout(() => setPublixChecked(i + 1), d))
+      })
+      timers.push(setTimeout(() => setPublixChecked(0), 10500))
+    }, 10500)
+
+    return () => { timers.forEach(clearTimeout); clearInterval(loop) }
+  }, [])
+
   const places = useMemo(() => [
-    { name: "Publix", items: 3, dist: "0.3 mi", color: "c1", nearby: true,
-      expanded: true, tasks: ["Milk", "Blueberries", "Paper towels"] },
-    { name: "Target", items: 4, dist: "1.2 mi", color: "c2", nearby: false },
-    { name: "Home Depot", items: 1, dist: "2.8 mi", color: "c3", nearby: false },
-    { name: "Dry Cleaners", items: 2, dist: "3.4 mi", color: "c4", nearby: false },
-    { name: "Walgreens", items: 1, dist: "4.1 mi", color: "c5", nearby: false },
-  ] as const, [])
+    { name: "Publix", items: 3, dist: "0.3 mi", color: "c1", nearby: true, expanded: true },
+    { name: "Target", items: 4, dist: "1.2 mi", color: "c2", nearby: false, expanded: false },
+    { name: "Home Depot", items: 1, dist: "2.8 mi", color: "c3", nearby: false, expanded: false },
+    { name: "Dry Cleaners", items: 2, dist: "3.4 mi", color: "c4", nearby: false, expanded: false },
+    { name: "Walgreens", items: 1, dist: "4.1 mi", color: "c5", nearby: false, expanded: false },
+  ], [])
 
   return (
     <PhoneChrome theme="sunrise">
@@ -384,7 +407,10 @@ function SunrisePlacesScreen() {
                 <div className="duskRowMain">
                   <div className="duskRowName">{p.name}</div>
                   <div className="duskRowHint">
-                    {p.items} item{p.items !== 1 ? "s" : ""}
+                    {p.name === "Publix"
+                      ? `${p.items - publixChecked} item${p.items - publixChecked !== 1 ? "s" : ""} left`
+                      : `${p.items} item${p.items !== 1 ? "s" : ""}`
+                    }
                   </div>
                 </div>
                 <div className="duskRowDist">
@@ -393,14 +419,36 @@ function SunrisePlacesScreen() {
                 </div>
                 <div className="duskChev">{">"}</div>
               </div>
-              {"expanded" in p && p.expanded && (
+              {p.expanded && (
                 <div className="duskExpandedItems">
-                  {p.tasks.map((task) => (
-                    <div key={task} className="duskExpandedRow">
-                      <div className="duskExpandedBox" />
-                      <span className="duskExpandedLabel">{task}</span>
-                    </div>
-                  ))}
+                  {publixTasks.map((task, i) => {
+                    const done = i < publixChecked
+                    const justChecked = i === publixChecked - 1
+                    return (
+                      <div key={task} className={`duskExpandedRow ${done ? "duskExpandedDone" : ""}`}>
+                        <div
+                          className={`duskExpandedBox ${done ? "duskExpandedBoxChecked" : ""}`}
+                          style={{ transition: "all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+                        >
+                          {done && (
+                            <span
+                              className="duskExpandedCheck"
+                              style={{
+                                animation: justChecked
+                                  ? "checkReveal 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) forwards"
+                                  : undefined,
+                              }}
+                            >
+                              {"\u2713"}
+                            </span>
+                          )}
+                        </div>
+                        <span className={`duskExpandedLabel ${done ? "duskExpandedLabelDone" : ""}`}>
+                          {task}
+                        </span>
+                      </div>
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -1768,10 +1816,36 @@ function SiteStyles() {
         border: 1.5px solid rgba(255,255,255,0.16);
         flex-shrink: 0;
       }
+      .duskExpandedBox{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .duskExpandedBoxChecked{
+        border-color: transparent;
+        background: rgba(255,160,100,0.55);
+        box-shadow: 0 1px 6px rgba(255,160,100,0.25);
+      }
+      .duskExpandedCheck{
+        color: #fff;
+        font-weight: 900;
+        font-size: 8px;
+        line-height: 1;
+      }
+      .duskExpandedDone{
+        opacity: 0.65;
+      }
       .duskExpandedLabel{
         font-size: 10px;
         font-weight: 600;
         color: rgba(255,255,255,0.65);
+        transition: all 0.4s ease;
+      }
+      .duskExpandedLabelDone{
+        text-decoration: line-through;
+        text-decoration-thickness: 1px;
+        text-decoration-color: rgba(255,255,255,0.18);
+        color: rgba(255,255,255,0.38);
       }
 
       /* Recent activity section */
