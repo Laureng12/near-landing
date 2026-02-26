@@ -1638,14 +1638,14 @@ function SiteStyles() {
         background: rgba(255,255,255,0.09);
       }
       .miniBtn.miniBtnLit{
-        border-color: rgba(88,217,255,0.50);
-        background: linear-gradient(135deg, rgba(88,217,255,0.28), rgba(107,140,255,0.22));
+        border-color: rgba(130,230,150,0.55);
+        background: linear-gradient(135deg, rgba(130,230,150,0.32), rgba(100,210,130,0.24));
         color: #fff;
         box-shadow:
-          0 0 24px rgba(88,217,255,0.28),
-          0 0 60px rgba(88,217,255,0.10),
+          0 0 26px rgba(130,230,150,0.30),
+          0 0 64px rgba(130,230,150,0.12),
           inset 0 1px 0 rgba(255,255,255,0.14);
-        text-shadow: 0 0 8px rgba(88,217,255,0.40);
+        text-shadow: 0 0 8px rgba(130,230,150,0.40);
       }
       .miniBtn:hover{
         background: rgba(255,255,255,0.09);
