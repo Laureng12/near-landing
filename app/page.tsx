@@ -254,20 +254,35 @@ function AnimatedFeatureCard(props: {
 /* -------------------------- APPLE EVENT SECTIONS ------------------------ */
 
 function AppleEventSections() {
-  const [metricVisible, setMetricVisible] = useState(false)
-  const [memberPulse, setMemberPulse] = useState(0)
+  const [activeMember, setActiveMember] = useState(0)
+  const [feedItems, setFeedItems] = useState<{text: string; member: number; visible: boolean}[]>([])
+
+  const members = useMemo(() => [
+    { name: "You", initials: "Y", gradient: "linear-gradient(135deg, #58C8FA, #4BA0E0)" },
+    { name: "Brian", initials: "B", gradient: "linear-gradient(135deg, #FFA064, #E87C3E)" },
+    { name: "Reese", initials: "R", gradient: "linear-gradient(135deg, #8C5AFF, #6B3FD9)" },
+  ], [])
+
+  const feedMessages = useMemo(() => [
+    { text: "You added Milk to Publix", member: 0 },
+    { text: "Brian checked off Paper towels", member: 1 },
+    { text: "Reese is near Target", member: 2 },
+    { text: "Brian added Dog food to Target", member: 1 },
+  ], [])
 
   useEffect(() => {
-    const t1 = setTimeout(() => setMetricVisible(true), 600)
-    const t2 = setInterval(() => setMemberPulse(p => (p + 1) % 3), 2000)
-    return () => { clearTimeout(t1); clearInterval(t2) }
-  }, [])
-
-  const members = [
-    { name: "You", icon: "\u2728", color: "rgba(88,217,255,0.60)" },
-    { name: "Brian", icon: "\uD83C\uDFB5", color: "rgba(255,160,100,0.60)" },
-    { name: "Reese", icon: "\uD83C\uDF3F", color: "rgba(140,90,255,0.60)" },
-  ]
+    let idx = 0
+    const int = setInterval(() => {
+      const msg = feedMessages[idx % feedMessages.length]
+      setActiveMember(msg.member)
+      setFeedItems(prev => {
+        const next = [{ ...msg, visible: true }, ...prev].slice(0, 3)
+        return next
+      })
+      idx++
+    }, 2800)
+    return () => clearInterval(int)
+  }, [feedMessages])
 
   return (
     <>
@@ -277,38 +292,60 @@ function AppleEventSections() {
           <div className="eventKicker">Household</div>
           <h3 className="eventHeadline">One list. Everyone benefits.</h3>
           <p className="eventBody">
-            Near is built for real life. If Brian swings by Publix, the list is there.
-            If Reese stops at Target, the reminder still shows up. No forwarding. No group chat.
+            Near syncs your household in real time. Brian swings by Publix --
+            the list is already there. Reese passes Target -- she sees it too.
+            No forwarding. No group chat. Just calm coordination.
           </p>
 
-          {/* Animated member orbs */}
-          <div className="eventMembers">
-            {members.map((m, i) => (
-              <div
-                key={m.name}
-                className={`eventMember ${memberPulse === i ? "eventMemberActive" : ""}`}
-                style={{ "--member-color": m.color } as React.CSSProperties}
-              >
-                <span className="eventMemberIcon">{m.icon}</span>
-                <span className="eventMemberName">{m.name}</span>
-                {memberPulse === i && <span className="eventMemberRing" />}
-              </div>
-            ))}
-            <div className="eventMemberLine" aria-hidden="true" />
+          {/* Member constellation */}
+          <div className="hhConstellation">
+            <svg className="hhConstellationSvg" viewBox="0 0 300 80" fill="none" aria-hidden="true">
+              <line x1="75" y1="40" x2="150" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+              <line x1="150" y1="40" x2="225" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+              <circle cx="75" cy="40" r="2" fill={activeMember === 0 ? "rgba(88,200,250,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
+              <circle cx="150" cy="40" r="2" fill={activeMember === 1 ? "rgba(255,160,100,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
+              <circle cx="225" cy="40" r="2" fill={activeMember === 2 ? "rgba(140,90,255,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
+              {/* Traveling pulse */}
+              <circle r="3" fill="rgba(88,200,250,0.50)" filter="url(#pulseBlur)">
+                <animateMotion dur="3s" repeatCount="indefinite" path="M75,40 L150,40 L225,40 L150,40 Z" />
+              </circle>
+              <defs>
+                <filter id="pulseBlur"><feGaussianBlur stdDeviation="2" /></filter>
+              </defs>
+            </svg>
+
+            <div className="hhMemberRow">
+              {members.map((m, i) => (
+                <div key={m.name} className={`hhMemberNode ${activeMember === i ? "hhMemberNodeActive" : ""}`}>
+                  <div className="hhMemberAvatar" style={{ background: m.gradient }}>
+                    <span className="hhMemberInitial">{m.initials}</span>
+                    {activeMember === i && <span className="hhMemberPulseRing" style={{ borderColor: i === 0 ? "rgba(88,200,250,0.40)" : i === 1 ? "rgba(255,160,100,0.40)" : "rgba(140,90,255,0.40)" }} />}
+                  </div>
+                  <span className="hhMemberLabel">{m.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className={`eventMetrics ${metricVisible ? "eventMetricsVisible" : ""}`}>
-            <div className="metric">
-              <div className="metricNum">0</div>
-              <div className="metricLabel">scheduled reminders</div>
+          {/* Live activity feed */}
+          <div className="hhLiveFeed">
+            <div className="hhFeedHeader">
+              <span className="hhFeedDot" />
+              <span className="hhFeedTitle">Live</span>
             </div>
-            <div className="metric">
-              <div className="metricNum">0</div>
-              <div className="metricLabel">extra taps to remember</div>
-            </div>
-            <div className="metric">
-              <div className="metricNum">{"\u221E"}</div>
-              <div className="metricLabel">times you feel like a genius</div>
+            <div className="hhFeedList">
+              {feedItems.map((item, i) => (
+                <div key={`${item.text}-${i}`} className="hhFeedItem" style={{ opacity: 1 - i * 0.3, animationDelay: "0s" }}>
+                  <span className="hhFeedItemDot" style={{ background: members[item.member].gradient }} />
+                  <span className="hhFeedItemText">{item.text}</span>
+                </div>
+              ))}
+              {feedItems.length === 0 && (
+                <div className="hhFeedItem" style={{ opacity: 0.4 }}>
+                  <span className="hhFeedItemDot" style={{ background: "rgba(255,255,255,0.15)" }} />
+                  <span className="hhFeedItemText">Waiting for activity...</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1651,175 +1688,154 @@ function SiteStyles() {
         100% { opacity: 1; transform: translateY(0); }
       }
 
-      /* Animated member orbs */
-      .eventMembers{
+      /* Member constellation */
+      .hhConstellation{
+        position: relative;
+        margin: 40px auto 0;
+        max-width: 360px;
+      }
+      .hhConstellationSvg{
+        position: absolute;
+        top: 18px;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        pointer-events: none;
+      }
+      .hhConstellationDot{
+        transition: fill 0.5s ease;
+      }
+      .hhMemberRow{
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 18px;
-        margin-top: 28px;
+        justify-content: space-between;
         position: relative;
+        z-index: 1;
       }
-      .eventMemberLine{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 200px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(140,90,255,0.18), transparent);
-        z-index: 0;
-        overflow: visible;
-      }
-      .eventMemberLine::before{
-        content:"";
-        position: absolute;
-        top: -2px;
-        left: 0;
-        width: 20px;
-        height: 5px;
-        border-radius: 999px;
-        background: radial-gradient(ellipse, rgba(140,90,255,0.60), transparent);
-        filter: blur(2px);
-        animation: particleTravel 2s ease-in-out infinite;
-      }
-      @keyframes particleTravel{
-        0% { left: -10%; opacity: 0; }
-        15% { opacity: 1; }
-        85% { opacity: 1; }
-        100% { left: 100%; opacity: 0; }
-      }
-      .eventMember{
+      .hhMemberNode{
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
-        position: relative;
-        z-index: 1;
+        gap: 8px;
         transition: transform 0.5s cubic-bezier(0.34, 1, 0.64, 1);
-        animation: memberIdle 4s ease-in-out infinite;
       }
-      .eventMember:nth-child(1){ animation-delay: 0s; }
-      .eventMember:nth-child(2){ animation-delay: 0.8s; }
-      .eventMember:nth-child(3){ animation-delay: 1.6s; }
-      @keyframes memberIdle{
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-4px); }
+      .hhMemberNode.hhMemberNodeActive{
+        transform: translateY(-4px);
       }
-      .eventMember.eventMemberActive{
-        transform: scale(1.15) translateY(-5px);
-        animation: memberActivePulse 1.5s ease-in-out infinite;
-      }
-      @keyframes memberActivePulse{
-        0%, 100% { transform: scale(1.15) translateY(-5px); }
-        50% { transform: scale(1.18) translateY(-8px); }
-      }
-      .eventMemberIcon{
-        width: 52px;
-        height: 52px;
+      .hhMemberAvatar{
+        width: 48px;
+        height: 48px;
         border-radius: 999px;
-        border: 1.5px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
-        transition: all 0.5s ease;
         position: relative;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.30);
+        transition: box-shadow 0.5s ease;
       }
-      .eventMemberActive .eventMemberIcon{
-        border-color: color-mix(in srgb, var(--member-color) 50%, transparent);
-        background: color-mix(in srgb, var(--member-color) 12%, transparent);
-        box-shadow: 0 0 28px color-mix(in srgb, var(--member-color) 25%, transparent);
+      .hhMemberNodeActive .hhMemberAvatar{
+        box-shadow: 0 4px 30px rgba(0,0,0,0.30), 0 0 20px rgba(255,255,255,0.06);
       }
-      .eventMemberRing{
+      .hhMemberInitial{
+        font-size: 16px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.95);
+        letter-spacing: -0.02em;
+      }
+      .hhMemberPulseRing{
         position: absolute;
-        top: -4px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 60px;
+        inset: -6px;
         border-radius: 999px;
-        border: 1px solid var(--member-color);
-        opacity: 0;
-        animation: memberRing 1.5s ease-out forwards;
+        border: 1.5px solid;
+        animation: hhPulseRing 2s ease-out infinite;
         pointer-events: none;
       }
-      @keyframes memberRing{
-        0% { transform: translateX(-50%) scale(0.8); opacity: 0.5; }
-        100% { transform: translateX(-50%) scale(1.4); opacity: 0; }
+      @keyframes hhPulseRing{
+        0% { transform: scale(0.9); opacity: 0.6; }
+        100% { transform: scale(1.3); opacity: 0; }
       }
-      .eventMemberName{
+      .hhMemberLabel{
         font-size: 12px;
-        font-weight: 700;
-        color: rgba(255,255,255,0.55);
-        transition: color 0.5s ease;
+        font-weight: 550;
+        color: rgba(255,255,255,0.40);
+        transition: color 0.4s ease;
       }
-      .eventMemberActive .eventMemberName{
-        color: rgba(255,255,255,0.90);
+      .hhMemberNodeActive .hhMemberLabel{
+        color: rgba(255,255,255,0.80);
       }
 
-      .eventMetrics{
-        margin-top: 28px;
-        display:grid;
-        grid-template-columns: repeat(3, minmax(0,1fr));
-        gap: 12px;
-        opacity: 0;
-        transform: translateY(16px);
-        transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
+      /* Live activity feed */
+      .hhLiveFeed{
+        max-width: 340px;
+        margin: 32px auto 0;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.02);
+        padding: 14px 16px;
+        backdrop-filter: blur(12px);
       }
-      .eventMetrics.eventMetricsVisible{
-        opacity: 1;
-        transform: translateY(0);
+      .hhFeedHeader{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 12px;
       }
-      .metric{
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: rgba(255,255,255,0.03);
-        padding: 18px 14px;
-        transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
+      .hhFeedDot{
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(88,200,250,0.70);
+        animation: hhFeedDotPulse 1.5s ease-in-out infinite;
       }
-      .eventMetricsVisible .metric{
-        opacity: 1;
-        transform: translateY(0) scale(1);
+      @keyframes hhFeedDotPulse{
+        0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(88,200,250,0.40); }
+        50% { opacity: 0.5; box-shadow: none; }
       }
-      .eventMetricsVisible .metric:nth-child(1){ transition-delay: 0s; }
-      .eventMetricsVisible .metric:nth-child(2){ transition-delay: 0.15s; }
-      .eventMetricsVisible .metric:nth-child(3){ transition-delay: 0.30s; }
-      .metric:hover{
-        border-color: rgba(140,90,255,0.20);
-        box-shadow: 0 0 40px rgba(140,90,255,0.10);
-        transform: translateY(-3px) scale(1.02);
+      .hhFeedTitle{
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.10em;
+        text-transform: uppercase;
+        color: rgba(88,200,250,0.60);
       }
-      .metricNum{
-        font-size: 32px;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        animation: metricGlow 3s ease-in-out infinite;
+      .hhFeedList{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
       }
-      @keyframes metricGlow{
-        0%, 100% { text-shadow: none; }
-        50% { text-shadow: 0 0 20px rgba(140,90,255,0.15); }
+      .hhFeedItem{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: hhFeedSlideIn 0.4s cubic-bezier(0.34, 1, 0.64, 1) both;
       }
-      .metricLabel{
-        margin-top: 4px;
+      @keyframes hhFeedSlideIn{
+        0% { opacity: 0; transform: translateY(-6px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .hhFeedItemDot{
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        flex-shrink: 0;
+      }
+      .hhFeedItemText{
         font-size: 13px;
-        color: rgba(255,255,255,0.55);
+        color: rgba(255,255,255,0.50);
+        font-weight: 450;
       }
       .eventSplit{
-        margin-top: 22px;
+        margin-top: 36px;
         display:grid;
         grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 14px;
+        gap: 16px;
       }
       .splitCard{
         text-align:left;
         border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: rgba(255,255,255,0.03);
-        padding: 20px 18px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.02);
+        padding: 24px 22px;
         position: relative;
         overflow: hidden;
         transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.5s cubic-bezier(0.34, 1, 0.64, 1);
@@ -1867,8 +1883,6 @@ function SiteStyles() {
       @keyframes svgPulse{
         0%, 100% { opacity: 0.65; transform: scale(1); }
         50% { opacity: 0.90; transform: scale(1.06); }
-      }
-        color: rgba(255,255,255,0.65);
       }
       .splitTitle{
         font-weight: 700;
