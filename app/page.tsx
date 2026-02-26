@@ -1252,9 +1252,9 @@ function SiteStyles() {
 
       .screen-day{
         background:
-          radial-gradient(circle at 50% 0%, rgba(180,210,240,0.60), transparent 50%),
-          radial-gradient(circle at 30% 80%, rgba(200,220,245,0.30), transparent 50%),
-          linear-gradient(180deg, #C8D8EE 0%, #D6E2F0 40%, #E0EAF4 100%);
+          radial-gradient(circle at 50% 8%, rgba(100,160,220,0.28), transparent 45%),
+          radial-gradient(circle at 30% 70%, rgba(90,140,200,0.12), transparent 50%),
+          linear-gradient(180deg, #16203A 0%, #111A2E 45%, #0C1220 100%);
       }
 
       .screen-dusk{
@@ -1760,36 +1760,7 @@ function SiteStyles() {
         line-height: 1.5;
       }
 
-      /* --- Day light-theme overrides --- */
-      .screen-day .statusBar{
-        color: rgba(0,0,0,0.80);
-      }
-      .screen-day .sbCenter{
-        background: rgba(0,0,0,0.10);
-        border-color: rgba(0,0,0,0.04);
-      }
-      .screen-day .sig,
-      .screen-day .wifi,
-      .screen-day .bat{
-        background: rgba(0,0,0,0.48);
-      }
-      .screen-day .circleBtn{
-        background: rgba(255,255,255,0.60);
-        border-color: rgba(255,255,255,0.45);
-        color: rgba(0,0,0,0.65);
-        box-shadow: 0 1px 6px rgba(0,0,0,0.05);
-      }
-      .screen-day .topCenter{
-        background: rgba(255,255,255,0.35);
-        border-color: rgba(255,255,255,0.45);
-      }
-      .screen-day .topTitle{
-        color: rgba(0,0,0,0.78);
-      }
-      .screen-day .phoneFrame,
-      .screen-day{
-        /* Ensure light frame edge */
-      }
+      /* --- Day dark-translucent overrides --- */
 
       .dayScreen{
         padding: 4px 8px 0;
@@ -1806,14 +1777,14 @@ function SiteStyles() {
         width: 10px;
         height: 10px;
         border-radius: 999px;
-        background: #2B4BCC;
-        box-shadow: 0 0 8px rgba(43,75,204,0.30);
+        background: #58A8FF;
+        box-shadow: 0 0 8px rgba(88,168,255,0.35);
       }
       .dayStoreText{
         font-size: 22px;
         font-weight: 900;
         letter-spacing: -0.03em;
-        color: rgba(0,0,0,0.90);
+        color: rgba(255,255,255,0.96);
       }
 
       .dayChipRow{
@@ -1825,15 +1796,15 @@ function SiteStyles() {
       .dayNearbyChip{
         padding: 3px 9px;
         border-radius: 999px;
-        background: rgba(43,75,204,0.08);
-        color: #2B4BCC;
+        background: rgba(88,168,255,0.14);
+        color: #58A8FF;
         font-weight: 700;
         font-size: 10px;
         letter-spacing: 0.01em;
       }
       .dayArrived{
         font-size: 10px;
-        color: rgba(0,0,0,0.42);
+        color: rgba(255,255,255,0.45);
         font-weight: 500;
       }
 
@@ -1841,16 +1812,16 @@ function SiteStyles() {
       .dayCompCard{
         margin-top: 10px;
         border-radius: 16px;
-        background: rgba(255,255,255,0.72);
-        border: 1px solid rgba(255,255,255,0.80);
-        box-shadow: 0 6px 30px rgba(0,0,0,0.05);
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        box-shadow: 0 6px 30px rgba(0,0,0,0.30);
         backdrop-filter: blur(16px);
         padding: 10px 11px 10px;
         transition: box-shadow 1s ease, border-color 1s ease;
       }
       .dayCompCard.dayCompCardLit{
-        border-color: rgba(88,190,80,0.18);
-        box-shadow: 0 6px 30px rgba(0,0,0,0.05), 0 0 24px rgba(88,190,80,0.06);
+        border-color: rgba(88,190,80,0.22);
+        box-shadow: 0 6px 30px rgba(0,0,0,0.30), 0 0 24px rgba(88,190,80,0.08);
       }
 
       .dayCompTop{
@@ -1863,34 +1834,34 @@ function SiteStyles() {
         width: 36px;
         height: 36px;
         border-radius: 10px;
-        background: rgba(200,210,225,0.50);
+        background: rgba(255,255,255,0.08);
         display: flex;
         align-items: center;
         justify-content: center;
         transition: background 0.5s ease;
       }
       .dayToggle.dayToggleOn{
-        background: rgba(220,230,245,0.70);
+        background: rgba(88,168,255,0.14);
       }
       .dayToggleDot{
         width: 13px;
         height: 13px;
         border-radius: 999px;
-        background: #2B4BCC;
-        box-shadow: 0 0 8px rgba(43,75,204,0.28);
+        background: #58A8FF;
+        box-shadow: 0 0 8px rgba(88,168,255,0.35);
       }
       .dayCompText{ flex: 1; }
       .dayCompTitle{
         font-size: 13px;
         font-weight: 850;
         letter-spacing: -0.02em;
-        color: rgba(0,0,0,0.88);
+        color: rgba(255,255,255,0.92);
         transition: color 0.5s ease;
       }
       .dayCompSub{
         margin-top: 1px;
         font-size: 10px;
-        color: rgba(0,0,0,0.42);
+        color: rgba(255,255,255,0.45);
         font-weight: 500;
       }
 
@@ -1899,8 +1870,8 @@ function SiteStyles() {
         padding: 11px 0;
         border-radius: 12px;
         border: none;
-        background: rgba(180,195,210,0.32);
-        color: rgba(0,0,0,0.28);
+        background: rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.35);
         font-weight: 800;
         font-size: 13px;
         letter-spacing: -0.01em;
@@ -1916,8 +1887,8 @@ function SiteStyles() {
         color: #fff;
         box-shadow:
           0 4px 18px rgba(76,175,80,0.28),
-          0 0 40px rgba(76,175,80,0.06);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.10);
+          0 0 40px rgba(76,175,80,0.08);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.12);
       }
       .dayBtnCheck{
         font-weight: 900;
@@ -1928,13 +1899,13 @@ function SiteStyles() {
         margin-top: 10px;
         height: 3px;
         border-radius: 999px;
-        background: rgba(180,195,210,0.28);
+        background: rgba(255,255,255,0.10);
         overflow: hidden;
       }
       .dayProgressFill{
         height: 100%;
         border-radius: 999px;
-        background: #2B4BCC;
+        background: #58A8FF;
       }
 
       /* Up Next */
@@ -1949,11 +1920,11 @@ function SiteStyles() {
         font-size: 14px;
         font-weight: 850;
         letter-spacing: -0.02em;
-        color: rgba(0,0,0,0.82);
+        color: rgba(255,255,255,0.88);
       }
       .dayUpNextCount{
         font-size: 10px;
-        color: rgba(0,0,0,0.38);
+        color: rgba(255,255,255,0.38);
         font-weight: 500;
       }
 
@@ -1970,20 +1941,20 @@ function SiteStyles() {
         gap: 10px;
         padding: 10px 12px;
         border-radius: 14px;
-        background: rgba(255,255,255,0.50);
-        border: 1px solid rgba(255,255,255,0.60);
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
         backdrop-filter: blur(12px);
         transition: background 0.4s ease;
       }
       .dayItemCard.dayItemDone{
-        background: rgba(255,255,255,0.35);
+        background: rgba(255,255,255,0.03);
       }
 
       .dayCheckbox{
         width: 22px;
         height: 22px;
         border-radius: 6px;
-        border: 1.5px solid rgba(0,0,0,0.12);
+        border: 1.5px solid rgba(255,255,255,0.18);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1991,8 +1962,8 @@ function SiteStyles() {
       }
       .dayCheckbox.dayChecked{
         border: none;
-        background: #6B8CFF;
-        box-shadow: 0 2px 8px rgba(107,140,255,0.28);
+        background: #58A8FF;
+        box-shadow: 0 2px 8px rgba(88,168,255,0.30);
       }
       .dayCheckIcon{
         color: #fff;
@@ -2006,19 +1977,19 @@ function SiteStyles() {
         font-size: 12px;
         font-weight: 700;
         letter-spacing: -0.01em;
-        color: rgba(0,0,0,0.72);
+        color: rgba(255,255,255,0.78);
         transition: all 0.5s ease;
       }
       .dayItemName.dayItemStrike{
         text-decoration: line-through;
         text-decoration-thickness: 1px;
-        text-decoration-color: rgba(0,0,0,0.18);
-        color: rgba(0,0,0,0.32);
+        text-decoration-color: rgba(255,255,255,0.18);
+        color: rgba(255,255,255,0.35);
       }
       .dayItemDetail{
         margin-top: 1px;
         font-size: 10px;
-        color: rgba(0,0,0,0.36);
+        color: rgba(255,255,255,0.38);
         font-weight: 500;
       }
 
@@ -2026,7 +1997,7 @@ function SiteStyles() {
         margin-top: 12px;
         text-align: center;
         font-size: 9px;
-        color: rgba(0,0,0,0.30);
+        color: rgba(255,255,255,0.28);
         font-weight: 500;
         letter-spacing: 0.02em;
       }
