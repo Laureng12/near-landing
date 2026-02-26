@@ -375,225 +375,145 @@ function SunrisePlacesScreen() {
   )
 }
 
-/* --------- DAY: Animated completion, Apple-grade reveal ---------------- */
+/* --------- DAY: Light theme, completion reveal matching reference ------- */
 
 function DayPlaceViewScreen() {
   const items = useMemo(() => [
-    { label: "Milk" },
-    { label: "Blueberries" },
-    { label: "Paper towels" },
-    { label: "Batteries" },
+    { label: "Paper towels", detail: "Bounty, 6-pack" },
+    { label: "Dish soap", detail: "Dawn Platinum" },
+    { label: "Almond milk", detail: "Unsweetened Vanilla" },
   ], [])
 
   const [checkedCount, setCheckedCount] = useState(0)
   const [showComplete, setShowComplete] = useState(false)
-  const [glowActive, setGlowActive] = useState(false)
 
   useEffect(() => {
-    const delays = [1200, 2600, 4200, 5800]
+    const delays = [1400, 3000, 4600]
     const timers: ReturnType<typeof setTimeout>[] = []
 
     items.forEach((_, i) => {
-      timers.push(setTimeout(() => {
-        setCheckedCount(i + 1)
-      }, delays[i]))
+      timers.push(setTimeout(() => setCheckedCount(i + 1), delays[i]))
     })
 
-    // After all items checked, reveal "Complete"
-    timers.push(setTimeout(() => {
-      setShowComplete(true)
-    }, 7000))
+    timers.push(setTimeout(() => setShowComplete(true), 6200))
 
-    // Subtle success glow
     timers.push(setTimeout(() => {
-      setGlowActive(true)
-    }, 7400))
-
-    // Reset the cycle
-    timers.push(setTimeout(() => {
-      setGlowActive(false)
       setShowComplete(false)
       setCheckedCount(0)
-    }, 12000))
+    }, 11000))
 
-    // Restart loop
     const loop = setInterval(() => {
-      setGlowActive(false)
       setShowComplete(false)
       setCheckedCount(0)
 
       items.forEach((_, i) => {
-        timers.push(setTimeout(() => {
-          setCheckedCount(i + 1)
-        }, delays[i]))
+        timers.push(setTimeout(() => setCheckedCount(i + 1), delays[i]))
       })
-
+      timers.push(setTimeout(() => setShowComplete(true), 6200))
       timers.push(setTimeout(() => {
-        setShowComplete(true)
-      }, 7000))
-
-      timers.push(setTimeout(() => {
-        setGlowActive(true)
-      }, 7400))
-
-      timers.push(setTimeout(() => {
-        setGlowActive(false)
         setShowComplete(false)
         setCheckedCount(0)
-      }, 12000))
-    }, 12000)
+      }, 11000))
+    }, 11000)
 
-    return () => {
-      timers.forEach(clearTimeout)
-      clearInterval(loop)
-    }
+    return () => { timers.forEach(clearTimeout); clearInterval(loop) }
   }, [items])
 
   const allDone = checkedCount >= items.length
 
   return (
     <PhoneChrome theme="day">
-      <div className="pad">
-        <div className="titleBlock">
-          <div className="h1">Publix</div>
-          <div
-            className="sub"
-            style={{
-              transition: "opacity 0.6s ease",
-              opacity: showComplete ? 0 : 1,
-            }}
-          >
-            {checkedCount < items.length
-              ? `${items.length - checkedCount} thing${items.length - checkedCount !== 1 ? "s" : ""} left. Quietly handled.`
-              : "All done."
-            }
+      <div className="dayScreen">
+        {/* Store header */}
+        <div className="dayHeader">
+          <div className="dayStoreName">
+            <span className="dayBlueDot" />
+            <span className="dayStoreText">Target</span>
           </div>
-          <div
-            className="sub dayCompleteSub"
-            style={{
-              transition: "opacity 0.8s ease",
-              opacity: showComplete ? 1 : 0,
-              position: showComplete ? "relative" : "absolute",
-              pointerEvents: showComplete ? "auto" : "none",
-            }}
-          >
+          <div className="dayChipRow">
+            <span className="dayNearbyChip">Nearby</span>
+            <span className="dayArrived">Arrived 2 min ago</span>
+          </div>
+        </div>
+
+        {/* Completion card */}
+        <div className={`dayCompCard ${showComplete ? "dayCompCardLit" : ""}`}>
+          <div className="dayCompTop">
+            <div className={`dayToggle ${allDone ? "dayToggleOn" : ""}`}>
+              <div className="dayToggleDot" />
+            </div>
+            <div className="dayCompText">
+              <div className="dayCompTitle">
+                {allDone ? "All done!" : `${items.length - checkedCount} remaining`}
+              </div>
+              <div className="dayCompSub">
+                {allDone ? "Everything checked off" : "Checking items..."}
+              </div>
+            </div>
+          </div>
+
+          <button className={`dayCompleteBtn ${showComplete ? "dayCompleteBtnLit" : ""}`}>
+            {showComplete && <span className="dayBtnCheck">{"✓"}</span>}
             Complete
-          </div>
-        </div>
+          </button>
 
-        <div className="arrivedChip">
-          <span className="arrivedDot" />
-          Arrived
-        </div>
-
-        <div className="card card-main">
-          <div className="cardHeader">
-            <div className="cardTitle">When you arrive</div>
+          <div className="dayProgressBar">
             <div
-              className="cardMeta"
-              style={{ transition: "opacity 0.5s ease" }}
-            >
-              {allDone ? "All done" : "Auto list"}
-            </div>
-          </div>
-
-          <div className="tasks">
-            {items.map((item, i) => {
-              const done = i < checkedCount
-              return (
-                <TaskRow
-                  key={item.label}
-                  state={done ? "done" : "todo"}
-                  label={item.label}
-                  animating={i === checkedCount - 1}
-                />
-              )
-            })}
-          </div>
-
-          <div className="completeRow">
-            <div
-              className={`completeStamp ${showComplete ? "stampLit" : ""}`}
-              aria-hidden="true"
-            >
-              <span className="stampRing" />
-              <span className="stampText">COMPLETE</span>
-            </div>
-
-            <button className={`miniBtn ${showComplete ? "miniBtnLit" : ""}`}>
-              Quick complete
-            </button>
-          </div>
-
-          <div className="cardFooterNote">
-            No timers. No remembering. Just a little less chaos.
+              className="dayProgressFill"
+              style={{
+                width: `${(checkedCount / items.length) * 100}%`,
+                transition: "width 0.6s cubic-bezier(0.34, 1, 0.64, 1)",
+              }}
+            />
           </div>
         </div>
 
-        <div
-          className="softGlow"
-          aria-hidden="true"
-          style={{
-            opacity: glowActive ? 0.8 : 0.35,
-            transition: "opacity 1.2s ease",
-          }}
-        />
-        <div
-          className="successGlow"
-          aria-hidden="true"
-          style={{
-            opacity: glowActive ? 1 : 0,
-            transition: "opacity 1.4s ease",
-          }}
-        />
+        {/* Up Next */}
+        <div className="dayUpNextHeader">
+          <span className="dayUpNextTitle">Up Next</span>
+          <span className="dayUpNextCount">{allDone ? "0 items" : `${items.length - checkedCount} item${items.length - checkedCount !== 1 ? "s" : ""}`}</span>
+        </div>
+
+        {/* Item cards */}
+        <div className="dayItems">
+          {items.map((item, i) => {
+            const done = i < checkedCount
+            return (
+              <div
+                key={item.label}
+                className={`dayItemCard ${done ? "dayItemDone" : ""}`}
+              >
+                <div
+                  className={`dayCheckbox ${done ? "dayChecked" : ""}`}
+                  style={{
+                    transition: "all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
+                >
+                  {done && (
+                    <span
+                      className="dayCheckIcon"
+                      style={{
+                        animation: i === checkedCount - 1
+                          ? "checkReveal 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) forwards"
+                          : undefined,
+                      }}
+                    >
+                      {"✓"}
+                    </span>
+                  )}
+                </div>
+                <div className="dayItemText">
+                  <div className={`dayItemName ${done ? "dayItemStrike" : ""}`}>
+                    {item.label}
+                  </div>
+                  <div className="dayItemDetail">{item.detail}</div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </PhoneChrome>
-  )
-}
-
-function TaskRow(props: { state: "done" | "todo"; label: string; animating?: boolean }) {
-  const done = props.state === "done"
-  return (
-    <div
-      className={`taskRow ${done ? "done" : ""}`}
-      style={{
-        transition: "background 0.4s ease",
-        background: props.animating ? "rgba(88,217,255,0.06)" : undefined,
-      }}
-    >
-      <div
-        className={`box ${done ? "checked" : ""}`}
-        aria-hidden="true"
-        style={{
-          transition: "all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
-          transform: done ? "scale(1)" : "scale(0.92)",
-        }}
-      >
-        {done ? (
-          <span
-            className="check"
-            style={{
-              animation: props.animating ? "checkReveal 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) forwards" : undefined,
-            }}
-          >
-            {"✓"}
-          </span>
-        ) : null}
-      </div>
-      <div
-        className="taskLabel"
-        style={{
-          transition: "opacity 0.5s ease, color 0.5s ease",
-        }}
-      >
-        {props.label}
-      </div>
-      <div className="taskSpacer" />
-      {done
-        ? <div className="taskPill taskPillDone" style={{ transition: "all 0.5s ease" }}>done</div>
-        : <div className="taskPill faint">to do</div>
-      }
-    </div>
   )
 }
 
@@ -1296,9 +1216,9 @@ function SiteStyles() {
 
       .screen-day{
         background:
-          radial-gradient(circle at 50% 12%, rgba(88,217,255,0.32), transparent 45%),
-          radial-gradient(circle at 35% 50%, rgba(107,92,255,0.20), transparent 50%),
-          linear-gradient(180deg, #0B1848 0%, #070C22 50%, #04050C 100%);
+          radial-gradient(circle at 50% 0%, rgba(180,210,240,0.60), transparent 50%),
+          radial-gradient(circle at 30% 80%, rgba(200,220,245,0.30), transparent 50%),
+          linear-gradient(180deg, #C8D8EE 0%, #D6E2F0 40%, #E0EAF4 100%);
       }
 
       .screen-dusk{
@@ -1479,181 +1399,14 @@ function SiteStyles() {
         color: rgba(255,255,255,0.58);
       }
 
-      .arrivedChip{
-        margin-top: 10px;
-        display:inline-flex;
-        align-items:center;
-        gap: 8px;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(88,217,255,0.16);
-        background: rgba(88,217,255,0.06);
-        color: rgba(255,255,255,0.88);
-        font-size: 12px;
-        font-weight: 750;
-      }
-      .arrivedDot{
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: #58D9FF;
-        box-shadow: 0 0 12px rgba(88,217,255,0.50);
-        animation: dotPulse 2.4s ease-in-out infinite;
-      }
-      @keyframes dotPulse{
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.6; }
-      }
+
 
       .duskCard{
         background: rgba(255,255,255,0.06);
         border-color: rgba(140,90,255,0.14);
       }
 
-      .tasks{
-        padding: 2px 12px 8px;
-      }
-      .taskRow{
-        display:flex;
-        align-items:center;
-        gap: 10px;
-        padding: 10px 6px;
-        border-radius: 14px;
-      }
-      .taskRow:hover{
-        background: rgba(255,255,255,0.04);
-      }
-      .box{
-        width: 20px;
-        height: 20px;
-        border-radius: 7px;
-        border: 2px solid rgba(255,255,255,0.24);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      .box.checked{
-        border: none;
-        background: linear-gradient(135deg, #58D9FF, #6B8CFF);
-        box-shadow: 0 0 18px rgba(88,217,255,0.30);
-      }
-      .check{
-        color: rgba(0,0,0,0.92);
-        font-weight: 900;
-        font-size: 14px;
-        line-height: 1;
-        transform: translateY(-0.5px);
-      }
-      .taskLabel{
-        font-size: 14px;
-        font-weight: 750;
-        letter-spacing: -0.02em;
-        color: rgba(255,255,255,0.95);
-      }
-      .taskRow.done .taskLabel{
-        opacity: 0.50;
-        text-decoration: line-through;
-        text-decoration-thickness: 1.5px;
-        text-decoration-color: rgba(255,255,255,0.22);
-      }
-      .taskSpacer{ flex:1; }
-      .taskPill{
-        font-size: 11px;
-        font-weight: 850;
-        padding: 6px 8px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.82);
-      }
-      .taskPill.faint{
-        color: rgba(255,255,255,0.62);
-      }
 
-      .completeRow{
-        display:flex;
-        align-items:center;
-        justify-content: space-between;
-        padding: 10px 14px 14px;
-        gap: 10px;
-      }
-
-      .completeStamp{
-        position: relative;
-        width: 120px;
-        height: 44px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.22);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        overflow:hidden;
-        opacity: 0.4;
-        transition: opacity 1s ease, border-color 1s ease, background 1s ease, box-shadow 1s ease;
-      }
-      .completeStamp.stampLit{
-        opacity: 1;
-        border-color: rgba(100,180,255,0.55);
-        background: linear-gradient(135deg, rgba(100,180,255,0.30), rgba(80,160,240,0.22));
-        box-shadow:
-          0 0 26px rgba(100,180,255,0.30),
-          0 0 64px rgba(100,180,255,0.12),
-          inset 0 1px 0 rgba(255,255,255,0.12);
-      }
-      .stampRing{
-        position:absolute;
-        inset:-18px;
-        background: radial-gradient(circle, rgba(88,217,255,0.16), rgba(107,92,255,0.08), transparent 58%);
-        filter: blur(12px);
-        opacity: 0.5;
-        transition: opacity 1s ease;
-      }
-      .stampLit .stampRing{
-        opacity: 1;
-        background: radial-gradient(circle, rgba(100,180,255,0.36), rgba(80,160,240,0.18), transparent 58%);
-        animation: stampPulse 3.2s ease-in-out infinite;
-      }
-      .stampText{
-        position: relative;
-        font-size: 11px;
-        letter-spacing: 0.20em;
-        font-weight: 950;
-        color: rgba(255,255,255,0.70);
-        transition: color 1s ease;
-      }
-      .stampLit .stampText{
-        color: #fff;
-        text-shadow: 0 0 8px rgba(100,180,255,0.45);
-      }
-
-      .miniBtn{
-        padding: 10px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.50);
-        font-weight: 750;
-        font-size: 12px;
-        transition: all 1s ease;
-      }
-      .miniBtn:hover{
-        background: rgba(255,255,255,0.09);
-      }
-      .miniBtn.miniBtnLit{
-        border-color: rgba(130,230,150,0.55);
-        background: linear-gradient(135deg, rgba(130,230,150,0.32), rgba(100,210,130,0.24));
-        color: #fff;
-        box-shadow:
-          0 0 26px rgba(130,230,150,0.30),
-          0 0 64px rgba(130,230,150,0.12),
-          inset 0 1px 0 rgba(255,255,255,0.14);
-        text-shadow: 0 0 8px rgba(130,230,150,0.40);
-      }
-      .miniBtn:hover{
-        background: rgba(255,255,255,0.09);
-      }
 
       .cardFooterNote{
         padding: 0 14px 14px;
@@ -1662,41 +1415,261 @@ function SiteStyles() {
         line-height: 1.5;
       }
 
-      .dayCompleteSub{
+      /* --- Day light-theme overrides --- */
+      .screen-day .statusBar{
+        color: rgba(0,0,0,0.80);
+      }
+      .screen-day .sbCenter{
+        background: rgba(0,0,0,0.12);
+        border-color: rgba(0,0,0,0.06);
+      }
+      .screen-day .sig,
+      .screen-day .wifi,
+      .screen-day .bat{
+        background: rgba(0,0,0,0.50);
+      }
+      .screen-day .circleBtn{
+        background: rgba(255,255,255,0.65);
+        border-color: rgba(255,255,255,0.50);
+        color: rgba(0,0,0,0.75);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      }
+      .screen-day .topCenter{
+        background: rgba(255,255,255,0.40);
+        border-color: rgba(255,255,255,0.50);
+      }
+      .screen-day .topTitle{
+        color: rgba(0,0,0,0.80);
+      }
+
+      .dayScreen{
+        padding: 8px 10px 0;
+      }
+
+      .dayHeader{ margin-top: 6px; }
+
+      .dayStoreName{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dayBlueDot{
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        background: #2B4BCC;
+        box-shadow: 0 0 10px rgba(43,75,204,0.35);
+      }
+      .dayStoreText{
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: rgba(0,0,0,0.88);
+      }
+
+      .dayChipRow{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .dayNearbyChip{
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: rgba(43,75,204,0.08);
+        color: #2B4BCC;
+        font-weight: 750;
+        font-size: 12px;
+      }
+      .dayArrived{
+        font-size: 13px;
+        color: rgba(0,0,0,0.48);
+        font-weight: 500;
+      }
+
+      /* Completion card */
+      .dayCompCard{
+        margin-top: 16px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(255,255,255,0.80);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+        backdrop-filter: blur(16px);
+        padding: 16px;
+        transition: box-shadow 1s ease, border-color 1s ease;
+      }
+      .dayCompCard.dayCompCardLit{
+        border-color: rgba(88,190,80,0.20);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.06), 0 0 30px rgba(88,190,80,0.06);
+      }
+
+      .dayCompTop{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 14px;
+      }
+      .dayToggle{
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(200,210,225,0.50);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.5s ease;
+      }
+      .dayToggle.dayToggleOn{
+        background: rgba(220,230,245,0.70);
+      }
+      .dayToggleDot{
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: #2B4BCC;
+        box-shadow: 0 0 10px rgba(43,75,204,0.30);
+      }
+      .dayCompText{ flex: 1; }
+      .dayCompTitle{
+        font-size: 17px;
+        font-weight: 850;
+        letter-spacing: -0.02em;
+        color: rgba(0,0,0,0.88);
+        transition: color 0.5s ease;
+      }
+      .dayCompSub{
+        margin-top: 2px;
+        font-size: 13px;
+        color: rgba(0,0,0,0.44);
+        font-weight: 500;
+      }
+
+      .dayCompleteBtn{
+        width: 100%;
+        padding: 15px 0;
+        border-radius: 16px;
+        border: none;
+        background: rgba(180,195,210,0.35);
+        color: rgba(0,0,0,0.30);
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: default;
+        transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
+      }
+      .dayCompleteBtn.dayCompleteBtnLit{
+        background: linear-gradient(135deg, #4CAF50, #56B85A);
+        color: #fff;
+        box-shadow:
+          0 6px 24px rgba(76,175,80,0.30),
+          0 0 50px rgba(76,175,80,0.08);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      }
+      .dayBtnCheck{
+        font-weight: 900;
+        font-size: 15px;
+      }
+
+      .dayProgressBar{
+        margin-top: 14px;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(180,195,210,0.30);
+        overflow: hidden;
+      }
+      .dayProgressFill{
+        height: 100%;
+        border-radius: 999px;
+        background: #2B4BCC;
+      }
+
+      /* Up Next */
+      .dayUpNextHeader{
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 20px;
+        padding: 0 4px;
+      }
+      .dayUpNextTitle{
+        font-size: 19px;
+        font-weight: 850;
+        letter-spacing: -0.02em;
+        color: rgba(0,0,0,0.82);
+      }
+      .dayUpNextCount{
+        font-size: 13px;
+        color: rgba(0,0,0,0.40);
+        font-weight: 500;
+      }
+
+      /* Item cards */
+      .dayItems{
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .dayItemCard{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.55);
+        border: 1px solid rgba(255,255,255,0.65);
+        backdrop-filter: blur(12px);
+        transition: background 0.4s ease;
+      }
+      .dayItemCard.dayItemDone{
+        background: rgba(255,255,255,0.40);
+      }
+
+      .dayCheckbox{
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        border: 2px solid rgba(0,0,0,0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .dayCheckbox.dayChecked{
+        border: none;
+        background: #6B8CFF;
+        box-shadow: 0 2px 10px rgba(107,140,255,0.30);
+      }
+      .dayCheckIcon{
+        color: #fff;
+        font-weight: 900;
+        font-size: 15px;
+        line-height: 1;
+      }
+
+      .dayItemText{ flex: 1; min-width: 0; }
+      .dayItemName{
+        font-size: 15px;
         font-weight: 700;
-        letter-spacing: 0.04em;
-        color: rgba(88,217,255,0.90);
-        font-size: 14px;
+        letter-spacing: -0.01em;
+        color: rgba(0,0,0,0.75);
+        transition: all 0.5s ease;
       }
-
-      .taskPillDone{
-        background: rgba(88,217,255,0.10);
-        border-color: rgba(88,217,255,0.22);
-        color: rgba(88,217,255,0.90);
+      .dayItemName.dayItemStrike{
+        text-decoration: line-through;
+        text-decoration-thickness: 1.5px;
+        text-decoration-color: rgba(0,0,0,0.20);
+        color: rgba(0,0,0,0.35);
       }
-
-      .softGlow{
-        position:absolute;
-        left: 50%;
-        bottom: 22px;
-        width: 240px;
-        height: 140px;
-        transform: translateX(-50%);
-        background: radial-gradient(circle, rgba(88,217,255,0.22), transparent 60%);
-        filter: blur(40px);
-        pointer-events:none;
-      }
-
-      .successGlow{
-        position:absolute;
-        left: 50%;
-        top: 40%;
-        width: 300px;
-        height: 300px;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(circle, rgba(88,217,255,0.10), rgba(107,92,255,0.06), transparent 65%);
-        filter: blur(60px);
-        pointer-events:none;
+      .dayItemDetail{
+        margin-top: 2px;
+        font-size: 12px;
+        color: rgba(0,0,0,0.40);
+        font-weight: 500;
       }
 
       .avatar{
@@ -1732,10 +1705,7 @@ function SiteStyles() {
         0%, 100% { transform: scale(1); opacity: 0.98; }
         50% { transform: scale(1.03); opacity: 1; }
       }
-      @keyframes stampPulse{
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.08); opacity: 1; }
-      }
+
       @keyframes checkReveal{
         0% { opacity: 0; transform: scale(0.3) translateY(-0.5px); }
         60% { opacity: 1; transform: scale(1.1) translateY(-0.5px); }
