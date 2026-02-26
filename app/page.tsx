@@ -340,12 +340,13 @@ function SunrisePlacesScreen() {
   }, [])
 
   const places = useMemo(() => [
-    { name: "Publix", items: 3, dist: "0.3 mi", color: "c1", nearby: true },
+    { name: "Publix", items: 3, dist: "0.3 mi", color: "c1", nearby: true,
+      expanded: true, tasks: ["Milk", "Blueberries", "Paper towels"] },
     { name: "Target", items: 4, dist: "1.2 mi", color: "c2", nearby: false },
     { name: "Home Depot", items: 1, dist: "2.8 mi", color: "c3", nearby: false },
     { name: "Dry Cleaners", items: 2, dist: "3.4 mi", color: "c4", nearby: false },
     { name: "Walgreens", items: 1, dist: "4.1 mi", color: "c5", nearby: false },
-  ], [])
+  ] as const, [])
 
   return (
     <PhoneChrome theme="sunrise">
@@ -362,7 +363,7 @@ function SunrisePlacesScreen() {
               Want to stop in and knock some things off your list?
             </div>
           </div>
-          <div className="nearbyBannerChev">{"›"}</div>
+          <div className="nearbyBannerChev">{">"}</div>
         </div>
 
         <div className="duskTitleBlock">
@@ -377,21 +378,45 @@ function SunrisePlacesScreen() {
           </div>
 
           {places.map((p) => (
-            <div key={p.name} className="duskRow">
-              <div className={`duskDot ${p.color}`} />
-              <div className="duskRowMain">
-                <div className="duskRowName">{p.name}</div>
-                <div className="duskRowHint">
-                  {p.items} item{p.items !== 1 ? "s" : ""}
+            <div key={p.name}>
+              <div className="duskRow">
+                <div className={`duskDot ${p.color} ${p.nearby ? "duskDotPulse" : ""}`} />
+                <div className="duskRowMain">
+                  <div className="duskRowName">{p.name}</div>
+                  <div className="duskRowHint">
+                    {p.items} item{p.items !== 1 ? "s" : ""}
+                  </div>
                 </div>
+                <div className="duskRowDist">
+                  {p.nearby && <span className="duskNearbyTag">Nearby</span>}
+                  <span className="duskDistText">{p.dist}</span>
+                </div>
+                <div className="duskChev">{">"}</div>
               </div>
-              <div className="duskRowDist">
-                {p.nearby && <span className="duskNearbyTag">Nearby</span>}
-                <span className="duskDistText">{p.dist}</span>
-              </div>
-              <div className="duskChev">{"›"}</div>
+              {"expanded" in p && p.expanded && (
+                <div className="duskExpandedItems">
+                  {p.tasks.map((task) => (
+                    <div key={task} className="duskExpandedRow">
+                      <div className="duskExpandedBox" />
+                      <span className="duskExpandedLabel">{task}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
+        </div>
+
+        <div className="duskSectionLabel">RECENT ACTIVITY</div>
+        <div className="duskRecentCard">
+          <span className="duskRecentDot" />
+          <span className="duskRecentText">You checked off Soap at Target</span>
+          <span className="duskRecentTime">2m ago</span>
+        </div>
+        <div className="duskRecentCard">
+          <span className="duskRecentDot duskRecentDotAlt" />
+          <span className="duskRecentText">JM added Light bulbs</span>
+          <span className="duskRecentTime">8m ago</span>
         </div>
 
         <div className="duskFooterNote">
@@ -559,23 +584,62 @@ function DuskHouseholdScreen() {
     { initials: "KR", icon: "\uD83C\uDF3F", active: false },
   ], [])
 
-  const sharedPlaces = useMemo(() => [
-    {
-      name: "Grocery Store",
-      items: ["Soap", "Paper towels", "Milk"],
-      color: "c1",
-    },
-    {
-      name: "Target",
-      items: ["Dog food", "Light bulbs"],
-      color: "c2",
-    },
-    {
-      name: "Sunday Reset",
-      items: ["Vacuum upstairs", "Wipe counters", "Laundry"],
-      color: "c3",
-    },
+  /* Grocery items get checked off by "JM" one at a time */
+  const groceryItems = useMemo(() => [
+    "Soap", "Paper towels", "Milk",
   ], [])
+  const targetItems = useMemo(() => [
+    "Dog food", "Light bulbs",
+  ], [])
+  const sundayItems = useMemo(() => [
+    "Vacuum upstairs", "Wipe counters", "Laundry",
+  ], [])
+
+  const [groceryChecked, setGroceryChecked] = useState(0)
+  const [activeChecker, setActiveChecker] = useState<string | null>(null)
+  const [activityMsg, setActivityMsg] = useState("You added an item")
+
+  useEffect(() => {
+    const delays = [2000, 4200, 6400]
+    const timers: ReturnType<typeof setTimeout>[] = []
+
+    delays.forEach((d, i) => {
+      timers.push(setTimeout(() => {
+        setGroceryChecked(i + 1)
+        setActiveChecker("JM")
+        setActivityMsg(`JM checked off ${groceryItems[i]}`)
+      }, d))
+    })
+
+    // Reset cycle
+    timers.push(setTimeout(() => {
+      setGroceryChecked(0)
+      setActiveChecker(null)
+      setActivityMsg("You added an item")
+    }, 10000))
+
+    const loop = setInterval(() => {
+      setGroceryChecked(0)
+      setActiveChecker(null)
+      setActivityMsg("You added an item")
+
+      delays.forEach((d, i) => {
+        timers.push(setTimeout(() => {
+          setGroceryChecked(i + 1)
+          setActiveChecker("JM")
+          setActivityMsg(`JM checked off ${groceryItems[i]}`)
+        }, d))
+      })
+
+      timers.push(setTimeout(() => {
+        setGroceryChecked(0)
+        setActiveChecker(null)
+        setActivityMsg("You added an item")
+      }, 10000))
+    }, 10000)
+
+    return () => { timers.forEach(clearTimeout); clearInterval(loop) }
+  }, [groceryItems])
 
   return (
     <PhoneChrome theme="dusk">
@@ -588,7 +652,10 @@ function DuskHouseholdScreen() {
         {/* Avatar row */}
         <div className="hhAvatars">
           {people.map((p) => (
-            <div key={p.initials} className={`hhAvatar ${p.active ? "hhAvatarActive" : ""}`}>
+            <div
+              key={p.initials}
+              className={`hhAvatar ${p.active ? "hhAvatarActive" : ""} ${activeChecker === p.initials ? "hhAvatarChecking" : ""}`}
+            >
               <span className="hhAvatarIcon">{p.icon}</span>
               <span className="hhAvatarText">{p.initials}</span>
             </div>
@@ -597,8 +664,8 @@ function DuskHouseholdScreen() {
 
         {/* Activity line */}
         <div className="hhActivity">
-          <span className="hhActivityDot" />
-          <span className="hhActivityText">You added an item</span>
+          <span className={`hhActivityDot ${activeChecker ? "hhActivityDotLive" : ""}`} />
+          <span className="hhActivityText">{activityMsg}</span>
         </div>
 
         {/* Section header */}
@@ -606,23 +673,81 @@ function DuskHouseholdScreen() {
 
         {/* Place cards */}
         <div className="hhPlaces">
-          {sharedPlaces.map((place) => (
-            <div key={place.name} className="hhPlaceCard">
-              <div className="hhPlaceHeader">
-                <div className={`hhPlaceDot ${place.color}`} />
-                <div className="hhPlaceName">{place.name}</div>
-                <div className="hhPlaceCount">{place.items.length}</div>
-              </div>
-              <div className="hhPlaceItems">
-                {place.items.map((item) => (
-                  <div key={item} className="hhPlaceItem">
-                    <div className="hhItemBox" />
-                    <span className="hhItemLabel">{item}</span>
-                  </div>
-                ))}
-              </div>
+          {/* Grocery Store -- animated checking */}
+          <div className="hhPlaceCard">
+            <div className="hhPlaceHeader">
+              <div className="hhPlaceDot c1" />
+              <div className="hhPlaceName">Grocery Store</div>
+              {activeChecker && groceryChecked > 0 && (
+                <span className="hhCheckerBadge">
+                  <span className="hhCheckerIcon">{"\uD83C\uDFB5"}</span>
+                </span>
+              )}
+              <div className="hhPlaceCount">{groceryItems.length - groceryChecked}</div>
             </div>
-          ))}
+            <div className="hhPlaceItems">
+              {groceryItems.map((item, i) => {
+                const done = i < groceryChecked
+                const justChecked = i === groceryChecked - 1
+                return (
+                  <div key={item} className={`hhPlaceItem ${done ? "hhItemDone" : ""}`}>
+                    <div
+                      className={`hhItemBox ${done ? "hhItemBoxChecked" : ""}`}
+                      style={{ transition: "all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)" }}
+                    >
+                      {done && (
+                        <span
+                          className="hhItemCheck"
+                          style={{
+                            animation: justChecked
+                              ? "checkReveal 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) forwards"
+                              : undefined,
+                          }}
+                        >
+                          {"\u2713"}
+                        </span>
+                      )}
+                    </div>
+                    <span className={`hhItemLabel ${done ? "hhItemLabelDone" : ""}`}>{item}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Target */}
+          <div className="hhPlaceCard">
+            <div className="hhPlaceHeader">
+              <div className="hhPlaceDot c2" />
+              <div className="hhPlaceName">Target</div>
+              <div className="hhPlaceCount">{targetItems.length}</div>
+            </div>
+            <div className="hhPlaceItems">
+              {targetItems.map((item) => (
+                <div key={item} className="hhPlaceItem">
+                  <div className="hhItemBox" />
+                  <span className="hhItemLabel">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sunday Reset */}
+          <div className="hhPlaceCard">
+            <div className="hhPlaceHeader">
+              <div className="hhPlaceDot c3" />
+              <div className="hhPlaceName">Sunday Reset</div>
+              <div className="hhPlaceCount">{sundayItems.length}</div>
+            </div>
+            <div className="hhPlaceItems">
+              {sundayItems.map((item) => (
+                <div key={item} className="hhPlaceItem">
+                  <div className="hhItemBox" />
+                  <span className="hhItemLabel">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </PhoneChrome>
@@ -1617,8 +1742,82 @@ function SiteStyles() {
         flex-shrink: 0;
       }
 
-      .duskFooterNote{
+      /* Pulsating dot for Publix */
+      .duskDotPulse{
+        animation: duskDotPulse 2s ease-in-out infinite;
+      }
+      @keyframes duskDotPulse{
+        0%, 100% { box-shadow: 0 0 4px rgba(88,217,255,0.30); transform: scale(1); }
+        50% { box-shadow: 0 0 14px rgba(88,217,255,0.65); transform: scale(1.25); }
+      }
+
+      /* Expanded place items (Publix) */
+      .duskExpandedItems{
+        padding: 2px 12px 6px 29px;
+      }
+      .duskExpandedRow{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 3px 0;
+      }
+      .duskExpandedBox{
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        border: 1.5px solid rgba(255,255,255,0.16);
+        flex-shrink: 0;
+      }
+      .duskExpandedLabel{
+        font-size: 10px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.65);
+      }
+
+      /* Recent activity section */
+      .duskSectionLabel{
         margin-top: 10px;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: rgba(255,255,255,0.32);
+        padding-left: 2px;
+      }
+      .duskRecentCard{
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 6px 10px;
+        margin-top: 4px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.06);
+      }
+      .duskRecentDot{
+        width: 5px;
+        height: 5px;
+        border-radius: 999px;
+        background: rgba(255,160,100,0.60);
+        flex-shrink: 0;
+      }
+      .duskRecentDotAlt{
+        background: rgba(140,90,255,0.60);
+      }
+      .duskRecentText{
+        flex: 1;
+        font-size: 9px;
+        color: rgba(255,255,255,0.50);
+        font-weight: 500;
+      }
+      .duskRecentTime{
+        font-size: 8px;
+        color: rgba(255,255,255,0.30);
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      .duskFooterNote{
+        margin-top: 8px;
         text-align: center;
         font-size: 9px;
         color: rgba(255,255,255,0.28);
@@ -1774,6 +1973,69 @@ function SiteStyles() {
         gap: 8px;
         padding: 4px 0;
       }
+      /* Active checker avatar glow */
+      .hhAvatar.hhAvatarChecking{
+        border-color: rgba(88,217,255,0.50);
+        background: rgba(88,217,255,0.14);
+        box-shadow: 0 0 16px rgba(88,217,255,0.24);
+      }
+      .hhAvatarChecking .hhAvatarText{
+        color: rgba(255,255,255,0.96);
+      }
+
+      /* Live activity dot */
+      .hhActivityDotLive{
+        background: rgba(88,217,255,0.80);
+        animation: hhDotPulse 1.2s ease-in-out infinite;
+      }
+      @keyframes hhDotPulse{
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      /* Checker badge by grocery store */
+      .hhCheckerBadge{
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: rgba(88,217,255,0.14);
+        border: 1px solid rgba(88,217,255,0.28);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: hhBadgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes hhBadgePop{
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .hhCheckerIcon{
+        font-size: 8px;
+        line-height: 1;
+      }
+
+      /* Checked item states */
+      .hhItemBoxChecked{
+        border-color: transparent;
+        background: rgba(140,90,255,0.60);
+        box-shadow: 0 1px 6px rgba(140,90,255,0.25);
+      }
+      .hhItemCheck{
+        color: #fff;
+        font-weight: 900;
+        font-size: 9px;
+        line-height: 1;
+      }
+      .hhItemDone{
+        opacity: 0.65;
+      }
+      .hhItemLabelDone{
+        text-decoration: line-through;
+        text-decoration-thickness: 1px;
+        text-decoration-color: rgba(255,255,255,0.20);
+        color: rgba(255,255,255,0.45);
+      }
+
       .hhItemBox{
         width: 16px;
         height: 16px;
