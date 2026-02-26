@@ -66,7 +66,7 @@ function Hero() {
 
         <div className="heroTitleGlow" aria-hidden="true" />
         <h1 className="heroTitle">
-          Never Forget Anything Again.
+          Never Forget<br />Anything Again.
         </h1>
 
         <p className="heroSub">
@@ -1127,7 +1127,9 @@ function SiteStyles() {
       .heroIconCapsuleWrap{
         display:flex;
         justify-content:center;
-        margin: 20px 0 32px;
+        margin: 12px 0 24px;
+        transform: scale(0.60);
+        transform-origin: center center;
       }
 
       .heroTitleGlow{
@@ -1239,37 +1241,37 @@ function SiteStyles() {
         padding: 28px 28px;
         width: min(380px, 88vw);
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.06);
         box-shadow:
-          0 40px 100px rgba(0,0,0,0.50),
-          0 0 60px rgba(88,200,250,0.08),
-          inset 0 1px 0 rgba(255,255,255,0.04);
+          0 24px 60px rgba(0,0,0,0.40),
+          0 0 30px rgba(88,200,250,0.04),
+          inset 0 1px 0 rgba(255,255,255,0.03);
         backdrop-filter: blur(24px);
         overflow:hidden;
         transition: all 0.5s cubic-bezier(0.34, 1, 0.64, 1);
       }
       .iconCapsule:hover{
         box-shadow:
-          0 40px 100px rgba(0,0,0,0.50),
-          0 0 80px rgba(88,200,250,0.12),
-          inset 0 1px 0 rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.12);
+          0 24px 60px rgba(0,0,0,0.40),
+          0 0 40px rgba(88,200,250,0.06),
+          inset 0 1px 0 rgba(255,255,255,0.04);
+        border-color: rgba(255,255,255,0.10);
       }
       .halo{
         position:absolute;
-        width: 220px;
-        height: 220px;
+        width: 160px;
+        height: 160px;
         left: 50%;
         top: 52%;
         transform: translate(-50%,-50%);
-        background: radial-gradient(circle, rgba(88,200,250,0.30), rgba(123,77,255,0.12), transparent 65%);
-        filter: blur(50px);
+        background: radial-gradient(circle, rgba(88,200,250,0.15), rgba(123,77,255,0.06), transparent 60%);
+        filter: blur(30px);
         pointer-events:none;
         animation: haloBreathe 6s ease-in-out infinite;
       }
       @keyframes haloBreathe{
-        0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
-        50% { transform: translate(-50%,-50%) scale(1.08); opacity: 1; }
+        0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+        50% { transform: translate(-50%,-50%) scale(1.05); opacity: 0.7; }
       }
       .iconStack{
         position: relative;
