@@ -554,73 +554,75 @@ function DayPlaceViewScreen() {
 
 function DuskHouseholdScreen() {
   const people = useMemo(() => [
-    { name: "Lauren", role: "Admin", active: true },
-    { name: "Brian", role: "Member", active: false },
-    { name: "Reese", role: "Member", active: false },
+    { initials: "You", icon: "\u2728", active: true },
+    { initials: "JM", icon: "\uD83C\uDFB5", active: false },
+    { initials: "KR", icon: "\uD83C\uDF3F", active: false },
+  ], [])
+
+  const sharedPlaces = useMemo(() => [
+    {
+      name: "Grocery Store",
+      items: ["Soap", "Paper towels", "Milk"],
+      color: "c1",
+    },
+    {
+      name: "Target",
+      items: ["Dog food", "Light bulbs"],
+      color: "c2",
+    },
+    {
+      name: "Sunday Reset",
+      items: ["Vacuum upstairs", "Wipe counters", "Laundry"],
+      color: "c3",
+    },
   ], [])
 
   return (
     <PhoneChrome theme="dusk">
-      <div className="pad">
-        <div className="titleBlock">
-          <div className="h1">Household</div>
-          <div className="sub">Shared calm. Shared memory.</div>
+      <div className="hhPad">
+        <div className="hhTitleBlock">
+          <div className="hhH1">Household</div>
+          <div className="hhSub">Shared with 2 people</div>
         </div>
 
-        <div className="card card-strong duskCard">
-          <div className="cardHeader">
-            <div className="cardTitle">Members</div>
-            <div className="cardMeta">3</div>
-          </div>
-
-          <div className="list">
-            {people.map((p) => (
-              <div key={p.name} className="row">
-                <div className={`avatar ${p.active ? "active" : ""}`} />
-                <div className="rowMain">
-                  <div className="rowTitle">{p.name}</div>
-                  <div className="rowSub">{p.role}</div>
-                </div>
-                <div className={`presence ${p.active ? "on" : ""}`} />
-              </div>
-            ))}
-          </div>
+        {/* Avatar row */}
+        <div className="hhAvatars">
+          {people.map((p) => (
+            <div key={p.initials} className={`hhAvatar ${p.active ? "hhAvatarActive" : ""}`}>
+              <span className="hhAvatarIcon">{p.icon}</span>
+              <span className="hhAvatarText">{p.initials}</span>
+            </div>
+          ))}
         </div>
 
-        <div className="card card-strong duskCard" style={{ marginTop: 14 }}>
-          <div className="cardHeader">
-            <div className="cardTitle">Shared lists</div>
-            <div className="cardMeta">3 active</div>
-          </div>
+        {/* Activity line */}
+        <div className="hhActivity">
+          <span className="hhActivityDot" />
+          <span className="hhActivityText">You added an item</span>
+        </div>
 
-          <div className="list">
-            <div className="row">
-              <div className="dot c2" />
-              <div className="rowMain">
-                <div className="rowTitle">Target Run</div>
-                <div className="rowSub">4 tasks</div>
-              </div>
-              <div className="chev">›</div>
-            </div>
+        {/* Section header */}
+        <div className="hhSectionLabel">SHARED PLACES</div>
 
-            <div className="row">
-              <div className="dot c3" />
-              <div className="rowMain">
-                <div className="rowTitle">Sunday Reset</div>
-                <div className="rowSub">7 tasks</div>
+        {/* Place cards */}
+        <div className="hhPlaces">
+          {sharedPlaces.map((place) => (
+            <div key={place.name} className="hhPlaceCard">
+              <div className="hhPlaceHeader">
+                <div className={`hhPlaceDot ${place.color}`} />
+                <div className="hhPlaceName">{place.name}</div>
+                <div className="hhPlaceCount">{place.items.length}</div>
               </div>
-              <div className="chev">›</div>
-            </div>
-
-            <div className="row">
-              <div className="dot c1" />
-              <div className="rowMain">
-                <div className="rowTitle">Vacation Packing</div>
-                <div className="rowSub">12 tasks</div>
+              <div className="hhPlaceItems">
+                {place.items.map((item) => (
+                  <div key={item} className="hhPlaceItem">
+                    <div className="hhItemBox" />
+                    <span className="hhItemLabel">{item}</span>
+                  </div>
+                ))}
               </div>
-              <div className="chev">›</div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </PhoneChrome>
@@ -1593,6 +1595,160 @@ function SiteStyles() {
       .duskCard{
         background: rgba(255,255,255,0.06);
         border-color: rgba(140,90,255,0.14);
+      }
+
+      /* --- Dusk Household Screen --- */
+      .hhPad{ padding: 4px 8px 0; }
+
+      .hhTitleBlock{ margin-top: 2px; }
+      .hhH1{
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: rgba(255,255,255,0.96);
+      }
+      .hhSub{
+        margin-top: 2px;
+        font-size: 10px;
+        color: rgba(255,255,255,0.48);
+        font-weight: 500;
+      }
+
+      .hhAvatars{
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .hhAvatar{
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1.5px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.06);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        transition: all 0.3s ease;
+      }
+      .hhAvatar.hhAvatarActive{
+        border-color: rgba(140,90,255,0.50);
+        background: rgba(140,90,255,0.18);
+        box-shadow: 0 0 14px rgba(140,90,255,0.20);
+      }
+      .hhAvatarIcon{
+        font-size: 10px;
+        line-height: 1;
+      }
+      .hhAvatarText{
+        font-size: 8px;
+        font-weight: 750;
+        color: rgba(255,255,255,0.80);
+        letter-spacing: 0.02em;
+      }
+      .hhAvatarActive .hhAvatarText{
+        color: rgba(255,255,255,0.96);
+      }
+
+      .hhActivity{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .hhActivityDot{
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(140,90,255,0.70);
+        flex-shrink: 0;
+      }
+      .hhActivityText{
+        font-size: 10px;
+        color: rgba(255,255,255,0.55);
+        font-weight: 500;
+      }
+
+      .hhSectionLabel{
+        margin-top: 12px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: rgba(255,255,255,0.38);
+        padding-left: 2px;
+      }
+
+      .hhPlaces{
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .hhPlaceCard{
+        border-radius: 14px;
+        background: rgba(140,90,255,0.10);
+        border: 1px solid rgba(140,90,255,0.18);
+        padding: 10px 11px 8px;
+      }
+      .hhPlaceHeader{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .hhPlaceDot{
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+      }
+      .hhPlaceDot.c1{ background: #FFA064; }
+      .hhPlaceDot.c2{ background: #FFA064; }
+      .hhPlaceDot.c3{ background: #70E0A0; }
+      .hhPlaceName{
+        flex: 1;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: rgba(255,255,255,0.92);
+      }
+      .hhPlaceCount{
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.10);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        font-weight: 750;
+        color: rgba(255,255,255,0.60);
+      }
+
+      .hhPlaceItems{
+        margin-top: 6px;
+        padding-left: 16px;
+      }
+      .hhPlaceItem{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 0;
+      }
+      .hhItemBox{
+        width: 16px;
+        height: 16px;
+        border-radius: 5px;
+        border: 1.5px solid rgba(255,255,255,0.18);
+        flex-shrink: 0;
+      }
+      .hhItemLabel{
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.72);
       }
 
 
