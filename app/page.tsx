@@ -2793,11 +2793,11 @@ function SiteStyles() {
         transition: all 0.8s cubic-bezier(0.34, 1, 0.64, 1);
       }
       .dayCompleteBtn.dayCompleteBtnLit{
-        background: linear-gradient(135deg, rgba(167,255,196,0.68), rgba(130,240,170,0.55));
+        background: linear-gradient(135deg, rgba(111,92,252,0.75), rgba(93,72,230,0.60));
         color: #fff;
         box-shadow:
-          0 4px 22px rgba(167,255,196,0.32),
-          0 0 48px rgba(167,255,196,0.12);
+          0 4px 22px rgba(111,92,252,0.35),
+          0 0 48px rgba(111,92,252,0.14);
         text-shadow: 0 1px 3px rgba(0,0,0,0.18);
         backdrop-filter: blur(8px);
       }
