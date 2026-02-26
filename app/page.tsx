@@ -513,24 +513,14 @@ function DayPlaceViewScreen() {
 
           <div className="completeRow">
             <div
-              className="completeStamp"
+              className={`completeStamp ${showComplete ? "stampLit" : ""}`}
               aria-hidden="true"
-              style={{
-                opacity: showComplete ? 1 : 0.4,
-                transition: "opacity 0.8s ease",
-              }}
             >
-              <span
-                className="stampRing"
-                style={{
-                  opacity: showComplete ? 1 : 0.5,
-                  transition: "opacity 0.8s ease",
-                }}
-              />
+              <span className="stampRing" />
               <span className="stampText">COMPLETE</span>
             </div>
 
-            <button className="miniBtn">
+            <button className={`miniBtn ${showComplete ? "miniBtnLit" : ""}`}>
               Quick complete
             </button>
           </div>
@@ -1594,19 +1584,32 @@ function SiteStyles() {
         width: 120px;
         height: 44px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.10);
         background: rgba(0,0,0,0.22);
         display:flex;
         align-items:center;
         justify-content:center;
         overflow:hidden;
-        transition: opacity 0.8s ease, border-color 0.8s ease;
+        opacity: 0.4;
+        transition: opacity 1s ease, border-color 1s ease, background 1s ease, box-shadow 1s ease;
+      }
+      .completeStamp.stampLit{
+        opacity: 1;
+        border-color: rgba(88,217,255,0.30);
+        background: rgba(88,217,255,0.08);
+        box-shadow: 0 0 28px rgba(88,217,255,0.18), 0 0 60px rgba(88,217,255,0.08);
       }
       .stampRing{
         position:absolute;
         inset:-18px;
-        background: radial-gradient(circle, rgba(88,217,255,0.24), rgba(107,92,255,0.12), transparent 58%);
+        background: radial-gradient(circle, rgba(88,217,255,0.16), rgba(107,92,255,0.08), transparent 58%);
         filter: blur(12px);
+        opacity: 0.5;
+        transition: opacity 1s ease;
+      }
+      .stampLit .stampRing{
+        opacity: 1;
+        background: radial-gradient(circle, rgba(88,217,255,0.34), rgba(107,92,255,0.16), transparent 58%);
         animation: stampPulse 3.2s ease-in-out infinite;
       }
       .stampText{
@@ -1614,17 +1617,31 @@ function SiteStyles() {
         font-size: 11px;
         letter-spacing: 0.20em;
         font-weight: 950;
-        color: rgba(255,255,255,0.88);
+        color: rgba(255,255,255,0.70);
+        transition: color 1s ease;
+      }
+      .stampLit .stampText{
+        color: rgba(255,255,255,0.96);
       }
 
       .miniBtn{
         padding: 10px 12px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(255,255,255,0.06);
-        color: rgba(255,255,255,0.92);
-        font-weight: 850;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.05);
+        color: rgba(255,255,255,0.50);
+        font-weight: 750;
         font-size: 12px;
+        transition: all 1s ease;
+      }
+      .miniBtn:hover{
+        background: rgba(255,255,255,0.09);
+      }
+      .miniBtn.miniBtnLit{
+        border-color: rgba(88,217,255,0.24);
+        background: rgba(88,217,255,0.06);
+        color: rgba(255,255,255,0.92);
+        box-shadow: 0 0 20px rgba(88,217,255,0.10);
       }
       .miniBtn:hover{
         background: rgba(255,255,255,0.09);
