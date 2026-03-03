@@ -11,9 +11,19 @@ export default function Page() {
 
       <Hero />
 
+      <PainPointsSection />
+
       <PhoneShowcase />
 
+      <NearRemembersSection />
+
+      <MagicSection />
+
       <AppleEventSections />
+
+      <BusyMindsSection />
+
+      <SecondBrainCTA />
 
       <FinalCTA />
 
@@ -53,26 +63,14 @@ function Hero() {
       <div className="heroGrid" aria-hidden="true" />
 
       <div className="heroInner">
-        <div className="heroLogoRow">
-          <div className="heroLogo">
-            <NearMark sizePx={34} />
-            <span className="heroWord">near</span>
-          </div>
-        </div>
-
-        <div className="heroIconCapsuleWrap">
-          <IconCapsule />
-        </div>
-
         <div className="heroTitleGlow" aria-hidden="true" />
         <h1 className="heroTitle">
           Never Forget<br />Anything Again.
         </h1>
 
         <p className="heroSub">
-          Near turns location into action.{"\n"}
-          You don{"'"}t check lists.{"\n"}
-          They check in when you arrive.
+          Location-aware reminders that think ahead.<br />
+          So you don{"'"}t have to.
         </p>
 
         <div className="heroCtas">
@@ -394,6 +392,180 @@ function AppleEventSections() {
 }
 
 /* --------------------------------- CTA --------------------------------- */
+
+/* ---------------------- SECTION 2: PAIN POINTS ----------------------- */
+
+function PainPointsSection() {
+  return (
+    <section className="painSection">
+      <div className="painInner">
+        <h2 className="painHeadline">Your brain is overloaded.</h2>
+        <p className="painBody">
+          Calendar. Slack. Texts. Groceries. Life.<br />
+          Important things fall through.
+        </p>
+
+        <div className="painGrid">
+          <div className="painCard">
+            <svg className="painIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 15s1.5-2 4-2 4 2 4 2" />
+              <line x1="9" y1="9" x2="9.01" y2="9" strokeWidth="2" />
+              <line x1="15" y1="9" x2="15.01" y2="9" strokeWidth="2" />
+            </svg>
+            <span className="painLabel">Forgot it again.</span>
+          </div>
+          <div className="painCard">
+            <svg className="painIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+              <path d="M4 12h12" />
+              <circle cx="19" cy="12" r="2" />
+            </svg>
+            <span className="painLabel">Drove past it.</span>
+          </div>
+          <div className="painCard">
+            <svg className="painIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <span className="painLabel">Remembered too late.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------- SECTION 3: NEAR REMEMBERS FOR YOU ---------------- */
+
+function NearRemembersSection() {
+  return (
+    <section className="remembersSection">
+      <div className="remembersInner">
+        <div className="remembersLeft">
+          <div className="remembersPhoneWrap">
+            <div className="phoneFrame remembersPhone">
+              <DayPlaceViewScreen />
+            </div>
+          </div>
+        </div>
+
+        <div className="remembersRight">
+          <h2 className="remembersHeadline">Near remembers<br />for you.</h2>
+
+          <div className="remembersSteps">
+            <div className="remembersStep">
+              <div className="remembersStepNum">1</div>
+              <div className="remembersStepContent">
+                <div className="remembersStepTitle">Add anything.</div>
+                <div className="remembersStepDesc">Groceries. Errands. That thing you always forget.</div>
+              </div>
+            </div>
+            <div className="remembersStep">
+              <div className="remembersStepNum">2</div>
+              <div className="remembersStepContent">
+                <div className="remembersStepTitle">Attach it to a place.</div>
+                <div className="remembersStepDesc">A store. A street. Anywhere you go.</div>
+              </div>
+            </div>
+            <div className="remembersStep">
+              <div className="remembersStepNum">3</div>
+              <div className="remembersStepContent">
+                <div className="remembersStepTitle">Get notified when you arrive.</div>
+                <div className="remembersStepDesc">No timers. No extra taps. It just works.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* -------------------- SECTION 4: MAGIC SECTION ------------------------ */
+
+function MagicSection() {
+  const [glowing, setGlowing] = useState(false)
+
+  useEffect(() => {
+    const int = setInterval(() => {
+      setGlowing(true)
+      setTimeout(() => setGlowing(false), 1200)
+    }, 3500)
+    return () => clearInterval(int)
+  }, [])
+
+  return (
+    <section className="magicSection">
+      <div className="magicInner">
+        <h2 className="magicHeadline">It feels a little like magic.</h2>
+        <p className="magicSub">But it{"'"}s just intelligence done right.</p>
+
+        <div className="magicDemo">
+          <div className={`magicCard ${glowing ? "magicCardGlow" : ""}`}>
+            <div className="magicCardRow">
+              <svg className="magicCheck" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span className="magicTask">Pick up dry cleaning</span>
+            </div>
+            <div className="magicCardMeta">Completed at Southside Cleaners</div>
+            {glowing && <div className="magicPulse" aria-hidden="true" />}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* -------------------- SECTION 5: BUSY MINDS -------------------------- */
+
+function BusyMindsSection() {
+  const features = [
+    { icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2", circle: "9 7 4", label: "Household sync" },
+    { icon: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z", circle: "12 9 2.5", label: "Always-on location" },
+    { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z", circle: "", label: "Private by design" },
+    { icon: "M18.36 6.64A9 9 0 0 1 21 12c0 4.97-4.03 9-9 9a9 9 0 0 1-9-9 9 9 0 0 1 15.36-5.36", circle: "", label: "Works quietly in the background" },
+  ]
+
+  return (
+    <section className="busySection">
+      <div className="busyInner">
+        <h2 className="busyHeadline">Built for busy minds.</h2>
+
+        <div className="busyGrid">
+          {features.map((f, i) => (
+            <div key={i} className="busyCard">
+              <svg className="busyIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d={f.icon} />
+                {f.circle && <circle cx={f.circle.split(" ")[0]} cy={f.circle.split(" ")[1]} r={f.circle.split(" ")[2]} />}
+              </svg>
+              <span className="busyLabel">{f.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* -------------------- SECTION 6: SECOND BRAIN CTA --------------------- */
+
+function SecondBrainCTA() {
+  return (
+    <section className="secondBrainSection">
+      <div className="secondBrainInner">
+        <div className="secondBrainGlow" aria-hidden="true" />
+        <h2 className="secondBrainHeadline">Your second brain.<br />In your pocket.</h2>
+        <div className="secondBrainCtas">
+          <a className="primaryBtn big" href={APP_STORE_URL}>Download Near</a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ----------------------------- ORIGINAL CTA --------------------------- */
 
 function FinalCTA() {
   return (
@@ -1082,15 +1254,14 @@ function SiteStyles() {
         position:absolute;
         inset:-40%;
         background:
-          radial-gradient(ellipse 50% 40% at 50% 20%, rgba(88,200,250,0.18), transparent),
-          radial-gradient(circle at 30% 60%, rgba(123,77,255,0.08), transparent 50%),
-          linear-gradient(180deg, rgba(4,5,12,0) 0%, rgba(4,5,12,1) 75%);
-        filter: blur(12px);
-        animation: heroBgDrift 12s ease-in-out infinite;
+          radial-gradient(ellipse 60% 40% at 50% 45%, rgba(111,92,252,0.10), transparent 55%),
+          linear-gradient(180deg, #06081A 0%, #04050C 40%, #030410 100%);
+        filter: blur(8px);
+        animation: heroBgDrift 14s ease-in-out infinite;
       }
       @keyframes heroBgDrift{
         0%, 100% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-20px) scale(1.02); }
+        50% { transform: translateY(-12px) scale(1.01); }
       }
       .heroGrid{
         position:absolute;
@@ -1147,16 +1318,13 @@ function SiteStyles() {
       .heroTitle{
         position: relative;
         z-index: 1;
-        font-size: clamp(48px, 6.4vw, 80px);
-        line-height: 1.0;
-        margin: 12px 0 24px;
-        letter-spacing: -0.04em;
+        font-size: clamp(56px, 7.5vw, 96px);
+        line-height: 0.98;
+        margin: 0 0 28px;
+        letter-spacing: -0.035em;
         font-weight: 800;
-        background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.72) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: heroTitleIn 0.4s ease-out both;
+        color: #FFFFFF;
+        animation: heroTitleIn 0.6s ease-out both;
       }
       @keyframes heroTitleIn{
         0% { opacity: 0; transform: translateY(8px); }
@@ -1167,11 +1335,10 @@ function SiteStyles() {
         z-index: 1;
         margin: 0 auto;
         max-width: 520px;
-        font-size: 17px;
-        line-height: 1.7;
-        color: rgba(255,255,255,0.50);
+        font-size: 18px;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.70);
         font-weight: 420;
-        white-space: pre-line;
       }
 
       .heroCtas{
@@ -2979,6 +3146,311 @@ function SiteStyles() {
         100% { opacity: 1; transform: scale(1) translateY(-0.5px); }
       }
 
+      /* ========= SECTION 2: PAIN POINTS ========= */
+      .painSection{
+        position: relative;
+        padding: 100px 24px;
+        text-align: center;
+      }
+      .painInner{
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .painHeadline{
+        font-size: clamp(32px, 4vw, 52px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.0;
+        color: #FFFFFF;
+        margin: 0 0 14px;
+      }
+      .painBody{
+        font-size: 17px;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.50);
+        font-weight: 420;
+        margin: 0 0 48px;
+      }
+      .painGrid{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .painCard{
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.02);
+        padding: 36px 20px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        transition: border-color 0.4s ease, background 0.4s ease;
+      }
+      .painCard:hover{
+        border-color: rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+      }
+      .painIcon{
+        width: 28px;
+        height: 28px;
+        color: rgba(255,255,255,0.35);
+      }
+      .painLabel{
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.70);
+        letter-spacing: -0.01em;
+      }
+
+      /* ========= SECTION 3: NEAR REMEMBERS ========= */
+      .remembersSection{
+        position: relative;
+        padding: 120px 24px;
+      }
+      .remembersInner{
+        max-width: 1060px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+      }
+      .remembersLeft{
+        flex: 0 0 auto;
+      }
+      .remembersPhoneWrap{
+        width: 280px;
+      }
+      .remembersPhone{
+        width: 280px !important;
+        height: 578px !important;
+        border-radius: 42px !important;
+      }
+      .remembersRight{
+        flex: 1;
+      }
+      .remembersHeadline{
+        font-size: clamp(30px, 3.6vw, 48px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.04;
+        color: #FFFFFF;
+        margin: 0 0 40px;
+      }
+      .remembersSteps{
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+      .remembersStep{
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+      }
+      .remembersStepNum{
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: rgba(111,92,252,0.12);
+        border: 1px solid rgba(111,92,252,0.20);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(111,92,252,0.80);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .remembersStepContent{
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .remembersStepTitle{
+        font-size: 18px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.92);
+        letter-spacing: -0.01em;
+      }
+      .remembersStepDesc{
+        font-size: 15px;
+        color: rgba(255,255,255,0.45);
+        font-weight: 420;
+        line-height: 1.5;
+      }
+
+      /* ========= SECTION 4: MAGIC ========= */
+      .magicSection{
+        position: relative;
+        padding: 120px 24px;
+        text-align: center;
+      }
+      .magicInner{
+        max-width: 680px;
+        margin: 0 auto;
+      }
+      .magicHeadline{
+        font-size: clamp(32px, 4vw, 52px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.0;
+        color: #FFFFFF;
+        margin: 0 0 12px;
+      }
+      .magicSub{
+        font-size: 17px;
+        color: rgba(255,255,255,0.50);
+        font-weight: 420;
+        margin: 0 0 48px;
+      }
+      .magicDemo{
+        display: flex;
+        justify-content: center;
+      }
+      .magicCard{
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.02);
+        padding: 22px 24px;
+        text-align: left;
+        overflow: hidden;
+        transition: border-color 0.6s ease, box-shadow 0.6s ease;
+      }
+      .magicCard.magicCardGlow{
+        border-color: rgba(111,92,252,0.25);
+        box-shadow: 0 0 40px rgba(111,92,252,0.08);
+      }
+      .magicCardRow{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .magicCheck{
+        width: 20px;
+        height: 20px;
+        color: rgba(111,92,252,0.80);
+        flex-shrink: 0;
+      }
+      .magicTask{
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.80);
+        text-decoration: line-through;
+        text-decoration-color: rgba(255,255,255,0.20);
+      }
+      .magicCardMeta{
+        margin-top: 8px;
+        padding-left: 32px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.35);
+        font-weight: 450;
+      }
+      .magicPulse{
+        position: absolute;
+        inset: -1px;
+        border-radius: 20px;
+        border: 1.5px solid rgba(111,92,252,0.40);
+        animation: magicPulseAnim 1.2s ease-out forwards;
+        pointer-events: none;
+      }
+      @keyframes magicPulseAnim{
+        0% { opacity: 0.8; transform: scale(1); }
+        100% { opacity: 0; transform: scale(1.04); }
+      }
+
+      /* ========= SECTION 5: BUSY MINDS ========= */
+      .busySection{
+        position: relative;
+        padding: 120px 24px;
+        text-align: center;
+      }
+      .busyInner{
+        max-width: 780px;
+        margin: 0 auto;
+      }
+      .busyHeadline{
+        font-size: clamp(32px, 4vw, 52px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.0;
+        color: #FFFFFF;
+        margin: 0 0 48px;
+      }
+      .busyGrid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        text-align: left;
+      }
+      .busyCard{
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background: rgba(255,255,255,0.02);
+        padding: 24px 22px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        transition: border-color 0.4s ease;
+      }
+      .busyCard:hover{
+        border-color: rgba(255,255,255,0.10);
+      }
+      .busyIcon{
+        width: 22px;
+        height: 22px;
+        color: rgba(255,255,255,0.35);
+        flex-shrink: 0;
+      }
+      .busyLabel{
+        font-size: 15px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.72);
+        letter-spacing: -0.01em;
+      }
+
+      /* ========= SECTION 6: SECOND BRAIN CTA ========= */
+      .secondBrainSection{
+        position: relative;
+        padding: 140px 24px;
+        text-align: center;
+        overflow: hidden;
+      }
+      .secondBrainInner{
+        max-width: 680px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .secondBrainGlow{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 300px;
+        background: radial-gradient(ellipse, rgba(111,92,252,0.08), transparent 60%);
+        filter: blur(60px);
+        pointer-events: none;
+      }
+      .secondBrainHeadline{
+        position: relative;
+        font-size: clamp(36px, 4.6vw, 58px);
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.04;
+        color: #FFFFFF;
+        margin: 0 0 32px;
+      }
+      .secondBrainCtas{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+      }
+
       /* Responsive */
       @media (max-width: 1100px){
         .showcaseInner{
@@ -2995,10 +3467,28 @@ function SiteStyles() {
         .featureGrid{
           grid-template-columns: 1fr;
         }
-        .eventMetrics{
+        .eventSplit{
           grid-template-columns: 1fr;
         }
-        .eventSplit{
+        .remembersInner{
+          flex-direction: column;
+          text-align: center;
+        }
+        .remembersHeadline{
+          text-align: center;
+        }
+        .remembersSteps{
+          align-items: center;
+        }
+        .remembersStep{
+          max-width: 340px;
+        }
+        .painGrid{
+          grid-template-columns: 1fr;
+          max-width: 320px;
+          margin: 0 auto;
+        }
+        .busyGrid{
           grid-template-columns: 1fr;
         }
       }
