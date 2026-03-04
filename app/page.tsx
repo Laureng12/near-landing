@@ -11,19 +11,19 @@ export default function Page() {
 
       <Hero />
 
-      <PainPointsSection />
-
       <PhoneShowcase />
 
-      <NearRemembersSection />
+      <PainPointsSection />
+
+      <FeatureCardsSection />
+
+      <HouseholdSection />
 
       <MagicSection />
 
-      <AppleEventSections />
+      <PrivacySection />
 
-      <BusyMindsSection />
-
-      <SecondBrainCTA />
+      <BusyBrainSection />
 
       <FinalCTA />
 
@@ -63,6 +63,10 @@ function Hero() {
       <div className="heroGrid" aria-hidden="true" />
 
       <div className="heroInner">
+        <div className="heroIconCapsuleWrap">
+          <IconCapsule />
+        </div>
+
         <div className="heroTitleGlow" aria-hidden="true" />
         <h1 className="heroTitle">
           Never Forget<br />Anything Again.
@@ -164,8 +168,16 @@ function PhoneShowcase() {
         </div>
 
       </div>
+    </section>
+  )
+}
 
-      <div className="showcaseCopy" id="features">
+/* -------- FEATURE CARDS (separated from showcase) -------- */
+
+function FeatureCardsSection() {
+  return (
+    <section className="featureCardsStandalone" id="features">
+      <div className="featureCardsInner">
         <h2 className="sectionTitle">It runs in the background. Quietly.</h2>
         <p className="sectionSub">
           You do not schedule reminders. You do not open the app. Location becomes action.
@@ -253,7 +265,7 @@ function AnimatedFeatureCard(props: {
 
 /* -------------------------- APPLE EVENT SECTIONS ------------------------ */
 
-function AppleEventSections() {
+function HouseholdSection() {
   const [activeMember, setActiveMember] = useState(0)
   const [feedItems, setFeedItems] = useState<{text: string; member: number; visible: boolean}[]>([])
 
@@ -285,109 +297,111 @@ function AppleEventSections() {
   }, [feedMessages])
 
   return (
-    <>
-      <section className="eventSection" id="household">
-        <div className="eventGlow" aria-hidden="true" />
-        <div className="eventInner">
-          <div className="eventKicker">Household</div>
-          <h3 className="eventHeadline">One list. Everyone benefits.</h3>
-          <p className="eventBody">
-            Near syncs your household in real time. Brian swings by Publix --
-            the list is already there. Reese passes Target -- she sees it too.
-            No forwarding. No group chat. Just calm coordination.
-          </p>
+    <section className="eventSection" id="household">
+      <div className="eventGlow" aria-hidden="true" />
+      <div className="eventInner">
+        <div className="eventKicker">Household</div>
+        <h3 className="eventHeadline">One list. Everyone benefits.</h3>
+        <p className="eventBody">
+          Near syncs your household in real time. Brian swings by Publix --
+          the list is already there. Reese passes Target -- she sees it too.
+          No forwarding. No group chat. Just calm coordination.
+        </p>
 
-          {/* Member constellation */}
-          <div className="hhConstellation">
-            <svg className="hhConstellationSvg" viewBox="0 0 300 80" fill="none" aria-hidden="true">
-              <line x1="75" y1="40" x2="150" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-              <line x1="150" y1="40" x2="225" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-              <circle cx="75" cy="40" r="2" fill={activeMember === 0 ? "rgba(88,200,250,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
-              <circle cx="150" cy="40" r="2" fill={activeMember === 1 ? "rgba(255,160,100,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
-              <circle cx="225" cy="40" r="2" fill={activeMember === 2 ? "rgba(140,90,255,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
-              {/* Traveling pulse */}
-              <circle r="3" fill="rgba(88,200,250,0.50)" filter="url(#pulseBlur)">
-                <animateMotion dur="3s" repeatCount="indefinite" path="M75,40 L150,40 L225,40 L150,40 Z" />
-              </circle>
-              <defs>
-                <filter id="pulseBlur"><feGaussianBlur stdDeviation="2" /></filter>
-              </defs>
-            </svg>
+        {/* Member constellation */}
+        <div className="hhConstellation">
+          <svg className="hhConstellationSvg" viewBox="0 0 300 80" fill="none" aria-hidden="true">
+            <line x1="75" y1="40" x2="150" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <line x1="150" y1="40" x2="225" y2="40" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <circle cx="75" cy="40" r="2" fill={activeMember === 0 ? "rgba(88,200,250,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
+            <circle cx="150" cy="40" r="2" fill={activeMember === 1 ? "rgba(255,160,100,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
+            <circle cx="225" cy="40" r="2" fill={activeMember === 2 ? "rgba(140,90,255,0.60)" : "rgba(255,255,255,0.10)"} className="hhConstellationDot" />
+            {/* Traveling pulse */}
+            <circle r="3" fill="rgba(88,200,250,0.50)" filter="url(#pulseBlur)">
+              <animateMotion dur="3s" repeatCount="indefinite" path="M75,40 L150,40 L225,40 L150,40 Z" />
+            </circle>
+            <defs>
+              <filter id="pulseBlur"><feGaussianBlur stdDeviation="2" /></filter>
+            </defs>
+          </svg>
 
-            <div className="hhMemberRow">
-              {members.map((m, i) => (
-                <div key={m.name} className={`hhMemberNode ${activeMember === i ? "hhMemberNodeActive" : ""}`}>
-                  <div className="hhMemberAvatar" style={{ background: m.gradient }}>
-                    <span className="hhMemberInitial">{m.initials}</span>
-                    {activeMember === i && <span className="hhMemberPulseRing" style={{ borderColor: i === 0 ? "rgba(88,200,250,0.40)" : i === 1 ? "rgba(255,160,100,0.40)" : "rgba(140,90,255,0.40)" }} />}
-                  </div>
-                  <span className="hhMemberLabel">{m.name}</span>
+          <div className="hhMemberRow">
+            {members.map((m, i) => (
+              <div key={m.name} className={`hhMemberNode ${activeMember === i ? "hhMemberNodeActive" : ""}`}>
+                <div className="hhMemberAvatar" style={{ background: m.gradient }}>
+                  <span className="hhMemberInitial">{m.initials}</span>
+                  {activeMember === i && <span className="hhMemberPulseRing" style={{ borderColor: i === 0 ? "rgba(88,200,250,0.40)" : i === 1 ? "rgba(255,160,100,0.40)" : "rgba(140,90,255,0.40)" }} />}
                 </div>
-              ))}
+                <span className="hhMemberLabel">{m.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Live activity feed */}
+        <div className="hhLiveFeed">
+          <div className="hhFeedHeader">
+            <span className="hhFeedDot" />
+            <span className="hhFeedTitle">Live</span>
+          </div>
+          <div className="hhFeedList">
+            {feedItems.map((item, i) => (
+              <div key={`${item.text}-${i}`} className="hhFeedItem" style={{ opacity: 1 - i * 0.3, animationDelay: "0s" }}>
+                <span className="hhFeedItemDot" style={{ background: members[item.member].gradient }} />
+                <span className="hhFeedItemText">{item.text}</span>
+              </div>
+            ))}
+            {feedItems.length === 0 && (
+              <div className="hhFeedItem" style={{ opacity: 0.4 }}>
+                <span className="hhFeedItemDot" style={{ background: "rgba(255,255,255,0.15)" }} />
+                <span className="hhFeedItemText">Waiting for activity...</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function PrivacySection() {
+  return (
+    <section className="eventSection alt">
+      <div className="eventInner">
+        <div className="eventKicker">Privacy</div>
+        <h3 className="eventHeadline">Location, used responsibly.</h3>
+        <p className="eventBody">
+          Near is not a feed. It is not social. It is not trying to become your personality.
+          It uses location to do one job: show you the right list at the right time.
+        </p>
+
+        <div className="eventSplit">
+          <div className="splitCard splitCardAnimated">
+            <div className="splitIcon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
+                <rect x="5" y="2" width="14" height="20" rx="3" />
+                <line x1="12" y1="18" x2="12" y2="18.01" strokeWidth="2" />
+              </svg>
+            </div>
+            <div className="splitTitle">Designed for iPhone</div>
+            <div className="splitText">
+              Polished, native-feeling, and calm. The point is less thinking, not more features.
             </div>
           </div>
-
-          {/* Live activity feed */}
-          <div className="hhLiveFeed">
-            <div className="hhFeedHeader">
-              <span className="hhFeedDot" />
-              <span className="hhFeedTitle">Live</span>
+          <div className="splitCard splitCardAnimated">
+            <div className="splitIcon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" />
+              </svg>
             </div>
-            <div className="hhFeedList">
-              {feedItems.map((item, i) => (
-                <div key={`${item.text}-${i}`} className="hhFeedItem" style={{ opacity: 1 - i * 0.3, animationDelay: "0s" }}>
-                  <span className="hhFeedItemDot" style={{ background: members[item.member].gradient }} />
-                  <span className="hhFeedItemText">{item.text}</span>
-                </div>
-              ))}
-              {feedItems.length === 0 && (
-                <div className="hhFeedItem" style={{ opacity: 0.4 }}>
-                  <span className="hhFeedItemDot" style={{ background: "rgba(255,255,255,0.15)" }} />
-                  <span className="hhFeedItemText">Waiting for activity...</span>
-                </div>
-              )}
+            <div className="splitTitle">Built for momentum</div>
+            <div className="splitText">
+              The best productivity system is the one you actually use. Near meets you where you already are.
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="eventSection alt">
-        <div className="eventInner">
-          <div className="eventKicker">Privacy</div>
-          <h3 className="eventHeadline">Location, used responsibly.</h3>
-          <p className="eventBody">
-            Near is not a feed. It is not social. It is not trying to become your personality.
-            It uses location to do one job: show you the right list at the right time.
-          </p>
-
-          <div className="eventSplit">
-            <div className="splitCard splitCardAnimated">
-              <div className="splitIcon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
-                  <rect x="5" y="2" width="14" height="20" rx="3" />
-                  <line x1="12" y1="18" x2="12" y2="18.01" strokeWidth="2" />
-                </svg>
-              </div>
-              <div className="splitTitle">Designed for iPhone</div>
-              <div className="splitText">
-                Polished, native-feeling, and calm. The point is less thinking, not more features.
-              </div>
-            </div>
-            <div className="splitCard splitCardAnimated">
-              <div className="splitIcon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" />
-                </svg>
-              </div>
-              <div className="splitTitle">Built for momentum</div>
-              <div className="splitText">
-                The best productivity system is the one you actually use. Near meets you where you already are.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
 
@@ -436,52 +450,6 @@ function PainPointsSection() {
   )
 }
 
-/* ------------------- SECTION 3: NEAR REMEMBERS FOR YOU ---------------- */
-
-function NearRemembersSection() {
-  return (
-    <section className="remembersSection">
-      <div className="remembersInner">
-        <div className="remembersLeft">
-          <div className="remembersPhoneWrap">
-            <div className="phoneFrame remembersPhone">
-              <DayPlaceViewScreen />
-            </div>
-          </div>
-        </div>
-
-        <div className="remembersRight">
-          <h2 className="remembersHeadline">Near remembers<br />for you.</h2>
-
-          <div className="remembersSteps">
-            <div className="remembersStep">
-              <div className="remembersStepNum">1</div>
-              <div className="remembersStepContent">
-                <div className="remembersStepTitle">Add anything.</div>
-                <div className="remembersStepDesc">Groceries. Errands. That thing you always forget.</div>
-              </div>
-            </div>
-            <div className="remembersStep">
-              <div className="remembersStepNum">2</div>
-              <div className="remembersStepContent">
-                <div className="remembersStepTitle">Attach it to a place.</div>
-                <div className="remembersStepDesc">A store. A street. Anywhere you go.</div>
-              </div>
-            </div>
-            <div className="remembersStep">
-              <div className="remembersStepNum">3</div>
-              <div className="remembersStepContent">
-                <div className="remembersStepTitle">Get notified when you arrive.</div>
-                <div className="remembersStepDesc">No timers. No extra taps. It just works.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* -------------------- SECTION 4: MAGIC SECTION ------------------------ */
 
 function MagicSection() {
@@ -520,7 +488,7 @@ function MagicSection() {
 
 /* -------------------- SECTION 5: BUSY MINDS -------------------------- */
 
-function BusyMindsSection() {
+function BusyBrainSection() {
   const features = [
     { icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2", circle: "9 7 4", label: "Household sync" },
     { icon: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z", circle: "12 9 2.5", label: "Always-on location" },
@@ -532,6 +500,7 @@ function BusyMindsSection() {
     <section className="busySection">
       <div className="busyInner">
         <h2 className="busyHeadline">Built for busy minds.</h2>
+        <p className="busySub">Your second brain. In your pocket.</p>
 
         <div className="busyGrid">
           {features.map((f, i) => (
@@ -544,20 +513,8 @@ function BusyMindsSection() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  )
-}
 
-/* -------------------- SECTION 6: SECOND BRAIN CTA --------------------- */
-
-function SecondBrainCTA() {
-  return (
-    <section className="secondBrainSection">
-      <div className="secondBrainInner">
-        <div className="secondBrainGlow" aria-hidden="true" />
-        <h2 className="secondBrainHeadline">Your second brain.<br />In your pocket.</h2>
-        <div className="secondBrainCtas">
+        <div className="busyCta">
           <a className="primaryBtn big" href={APP_STORE_URL}>Download Near</a>
         </div>
       </div>
@@ -1614,6 +1571,17 @@ function SiteStyles() {
         max-width: 900px;
         margin: 100px auto 0;
         text-align:center;
+      }
+
+      /* Feature cards standalone section */
+      .featureCardsStandalone{
+        position: relative;
+        padding: 80px 24px 120px;
+        text-align: center;
+      }
+      .featureCardsInner{
+        max-width: 900px;
+        margin: 0 auto;
       }
       .sectionTitle{
         font-size: clamp(28px, 3.4vw, 44px);
@@ -3378,7 +3346,18 @@ function SiteStyles() {
         letter-spacing: -0.035em;
         line-height: 1.0;
         color: #FFFFFF;
+        margin: 0 0 10px;
+      }
+      .busySub{
+        font-size: 18px;
+        color: rgba(255,255,255,0.50);
+        font-weight: 420;
         margin: 0 0 48px;
+      }
+      .busyCta{
+        margin-top: 48px;
+        display: flex;
+        justify-content: center;
       }
       .busyGrid{
         display: grid;
@@ -3469,19 +3448,6 @@ function SiteStyles() {
         }
         .eventSplit{
           grid-template-columns: 1fr;
-        }
-        .remembersInner{
-          flex-direction: column;
-          text-align: center;
-        }
-        .remembersHeadline{
-          text-align: center;
-        }
-        .remembersSteps{
-          align-items: center;
-        }
-        .remembersStep{
-          max-width: 340px;
         }
         .painGrid{
           grid-template-columns: 1fr;
