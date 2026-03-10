@@ -13,19 +13,13 @@ export default function Page() {
 
       <PhoneShowcase />
 
-      <PainPointsSection />
+      <StatementSection />
 
-      <FeatureCardsSection />
+      <HowItWorksSection />
 
       <HouseholdSection />
 
-      <MagicSection />
-
-      <PrivacySection />
-
-      <BusyBrainSection />
-
-      <FinalCTA />
+      <ClosingCTA />
 
       <SiteStyles />
     </main>
@@ -172,94 +166,58 @@ function PhoneShowcase() {
   )
 }
 
-/* -------- FEATURE CARDS (separated from showcase) -------- */
+/* -------- STATEMENT SECTION -------- */
 
-function FeatureCardsSection() {
+function StatementSection() {
   return (
-    <section className="featureCardsStandalone" id="features">
-      <div className="featureCardsInner">
-        <h2 className="sectionTitle">It runs in the background. Quietly.</h2>
-        <p className="sectionSub">
-          You do not schedule reminders. You do not open the app. Location becomes action.
+    <section className="statementSection">
+      <div className="statementInner">
+        <h2 className="statementHeadline">
+          You drove past the pharmacy.<br />
+          Again.
+        </h2>
+        <p className="statementBody">
+          Near would have caught that.
         </p>
-
-        <div className="featureGrid">
-          <AnimatedFeatureCard
-            icon="location"
-            title="Arrive. It appears."
-            desc="Pull in and your list is waiting. Like it should have been there all along."
-            tag="Automatic"
-            accent="rgba(88,217,255,0.60)"
-          />
-          <AnimatedFeatureCard
-            icon="radar"
-            title="Drive by. It reminds you."
-            desc="Even if you were not planning to stop. Near catches the near-misses."
-            tag="Smart"
-            accent="rgba(255,160,100,0.60)"
-          />
-          <AnimatedFeatureCard
-            icon="people"
-            title="Household sync, instantly."
-            desc="If someone in your home is there, they see it. Shared calm. Shared memory."
-            tag="Shared"
-            accent="rgba(140,90,255,0.60)"
-          />
-        </div>
       </div>
     </section>
   )
 }
 
-function AnimatedFeatureCard(props: {
-  icon: "location" | "radar" | "people"
-  title: string
-  desc: string
-  tag: string
-  accent: string
-}) {
-  const [active, setActive] = useState(false)
+/* -------- HOW IT WORKS -------- */
 
-  useEffect(() => {
-    const delay = props.icon === "location" ? 800 : props.icon === "radar" ? 2400 : 4000
-    const timer = setTimeout(() => setActive(true), delay)
-    return () => clearTimeout(timer)
-  }, [props.icon])
-
+function HowItWorksSection() {
   return (
-    <div
-      className={`featureCard ${active ? "featureCardActive" : ""}`}
-      style={{ "--feat-accent": props.accent } as React.CSSProperties}
-    >
-      <div className="featureIconWrap">
-        {props.icon === "location" && (
-          <svg className="featureIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z" />
-            <circle cx="12" cy="9" r="2.5" />
-          </svg>
-        )}
-        {props.icon === "radar" && (
-          <svg className="featureIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 2a10 10 0 0 1 10 10" className="featureRadar1" />
-            <path d="M12 5a7 7 0 0 1 7 7" className="featureRadar2" />
-          </svg>
-        )}
-        {props.icon === "people" && (
-          <svg className="featureIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="9" cy="7" r="3" />
-            <circle cx="17" cy="7" r="2.5" />
-            <path d="M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1" />
-            <path d="M17 10a4 4 0 0 1 4 4v1" className="featurePeople2" />
-          </svg>
-        )}
-        <div className="featureIconGlow" aria-hidden="true" />
+    <section className="howSection" id="how">
+      <div className="howInner">
+        <h2 className="howHeadline">Add it once. Forget about it.</h2>
+        <p className="howSub">Near handles the rest.</p>
+
+        <div className="howSteps">
+          <div className="howStep">
+            <div className="howStepNumber">1</div>
+            <div className="howStepText">
+              <span className="howStepTitle">Add a task to a place.</span>
+              <span className="howStepDesc">{"\""}Pick up prescription{"\""} at CVS.</span>
+            </div>
+          </div>
+          <div className="howStep">
+            <div className="howStepNumber">2</div>
+            <div className="howStepText">
+              <span className="howStepTitle">Go about your day.</span>
+              <span className="howStepDesc">No alarms. No calendar blocks.</span>
+            </div>
+          </div>
+          <div className="howStep">
+            <div className="howStepNumber">3</div>
+            <div className="howStepText">
+              <span className="howStepTitle">Arrive. Get reminded.</span>
+              <span className="howStepDesc">The right task. The right moment.</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="featureTag">{props.tag}</div>
-      <div className="featureTitle">{props.title}</div>
-      <div className="featureDesc">{props.desc}</div>
-      <div className="featureShine" aria-hidden="true" />
-    </div>
+    </section>
   )
 }
 
@@ -300,13 +258,10 @@ function HouseholdSection() {
     <section className="eventSection" id="household">
       <div className="eventGlow" aria-hidden="true" />
       <div className="eventInner">
-        <div className="eventKicker">Household</div>
-        <h3 className="eventHeadline">One list. Everyone benefits.</h3>
-        <p className="eventBody">
-          Near syncs your household in real time. Brian swings by Publix --
-          the list is already there. Reese passes Target -- she sees it too.
-          No forwarding. No group chat. Just calm coordination.
-        </p>
+        <h3 className="eventHeadline">Your partner drives past Target.<br />They see your list.</h3>
+          <p className="eventBody">
+            No texts. No forwarding. Just shared memory.
+          </p>
 
         {/* Member constellation */}
         <div className="hhConstellation">
@@ -364,41 +319,29 @@ function HouseholdSection() {
   )
 }
 
-function PrivacySection() {
-  return (
-    <section className="eventSection alt">
-      <div className="eventInner">
-        <div className="eventKicker">Privacy</div>
-        <h3 className="eventHeadline">Location, used responsibly.</h3>
-        <p className="eventBody">
-          Near is not a feed. It is not social. It is not trying to become your personality.
-          It uses location to do one job: show you the right list at the right time.
-        </p>
+/* ----------------------------- CLOSING CTA --------------------------- */
 
-        <div className="eventSplit">
-          <div className="splitCard splitCardAnimated">
-            <div className="splitIcon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
-                <rect x="5" y="2" width="14" height="20" rx="3" />
-                <line x1="12" y1="18" x2="12" y2="18.01" strokeWidth="2" />
-              </svg>
-            </div>
-            <div className="splitTitle">Designed for iPhone</div>
-            <div className="splitText">
-              Polished, native-feeling, and calm. The point is less thinking, not more features.
-            </div>
+function ClosingCTA() {
+  return (
+    <section className="closingCta">
+      <div className="closingInner">
+        <div className="closingGlow" aria-hidden="true" />
+
+        <h2 className="closingHeadline">
+          Stop forgetting.<br />Start arriving.
+        </h2>
+        <p className="closingSub">Free on iPhone.</p>
+
+        <div className="closingButtons">
+          <a className="primaryBtn big" href={APP_STORE_URL}>Download Near</a>
+        </div>
+
+        <div className="footerMini">
+          <div className="footerBrand">
+            <NearMark sizePx={24} />
+            <span className="footerWord">near</span>
           </div>
-          <div className="splitCard splitCardAnimated">
-            <div className="splitIcon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="splitSvg">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" />
-              </svg>
-            </div>
-            <div className="splitTitle">Built for momentum</div>
-            <div className="splitText">
-              The best productivity system is the one you actually use. Near meets you where you already are.
-            </div>
-          </div>
+          <p className="footerNote">Made with care in Atlanta.</p>
         </div>
       </div>
     </section>
@@ -3114,316 +3057,138 @@ function SiteStyles() {
         100% { opacity: 1; transform: scale(1) translateY(-0.5px); }
       }
 
-      /* ========= SECTION 2: PAIN POINTS ========= */
-      .painSection{
+      /* ========= STATEMENT SECTION ========= */
+      .statementSection{
         position: relative;
-        padding: 100px 24px;
+        padding: 140px 24px;
         text-align: center;
       }
-      .painInner{
-        max-width: 860px;
+      .statementInner{
+        max-width: 720px;
         margin: 0 auto;
       }
-      .painHeadline{
-        font-size: clamp(32px, 4vw, 52px);
+      .statementHeadline{
+        font-size: clamp(36px, 4.8vw, 60px);
         font-weight: 800;
         letter-spacing: -0.035em;
-        line-height: 1.0;
+        line-height: 1.08;
         color: #FFFFFF;
-        margin: 0 0 14px;
+        margin: 0 0 20px;
       }
-      .painBody{
-        font-size: 17px;
-        line-height: 1.6;
-        color: rgba(255,255,255,0.50);
-        font-weight: 420;
-        margin: 0 0 48px;
-      }
-      .painGrid{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-      .painCard{
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.06);
-        background: rgba(255,255,255,0.02);
-        padding: 36px 20px 32px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-        transition: border-color 0.4s ease, background 0.4s ease;
-      }
-      .painCard:hover{
-        border-color: rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.03);
-      }
-      .painIcon{
-        width: 28px;
-        height: 28px;
-        color: rgba(255,255,255,0.35);
-      }
-      .painLabel{
-        font-size: 16px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.70);
-        letter-spacing: -0.01em;
+      .statementBody{
+        font-size: 20px;
+        color: rgba(111,92,252,0.85);
+        font-weight: 500;
+        margin: 0;
       }
 
-      /* ========= SECTION 3: NEAR REMEMBERS ========= */
-      .remembersSection{
+      /* ========= HOW IT WORKS ========= */
+      .howSection{
         position: relative;
-        padding: 120px 24px;
+        padding: 100px 24px 120px;
+        text-align: center;
       }
-      .remembersInner{
-        max-width: 1060px;
+      .howInner{
+        max-width: 560px;
         margin: 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 60px;
       }
-      .remembersLeft{
-        flex: 0 0 auto;
-      }
-      .remembersPhoneWrap{
-        width: 280px;
-      }
-      .remembersPhone{
-        width: 280px !important;
-        height: 578px !important;
-        border-radius: 42px !important;
-      }
-      .remembersRight{
-        flex: 1;
-      }
-      .remembersHeadline{
-        font-size: clamp(30px, 3.6vw, 48px);
+      .howHeadline{
+        font-size: clamp(30px, 4vw, 48px);
         font-weight: 800;
         letter-spacing: -0.035em;
         line-height: 1.04;
         color: #FFFFFF;
-        margin: 0 0 40px;
+        margin: 0 0 8px;
       }
-      .remembersSteps{
+      .howSub{
+        font-size: 17px;
+        color: rgba(255,255,255,0.50);
+        font-weight: 420;
+        margin: 0 0 48px;
+      }
+      .howSteps{
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 24px;
+        text-align: left;
       }
-      .remembersStep{
+      .howStep{
         display: flex;
         align-items: flex-start;
         gap: 18px;
       }
-      .remembersStepNum{
+      .howStepNumber{
         width: 32px;
         height: 32px;
         border-radius: 999px;
         background: rgba(111,92,252,0.12);
-        border: 1px solid rgba(111,92,252,0.20);
+        border: 1px solid rgba(111,92,252,0.18);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: rgba(111,92,252,0.80);
         flex-shrink: 0;
-        margin-top: 2px;
       }
-      .remembersStepContent{
+      .howStepText{
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 2px;
+        padding-top: 4px;
       }
-      .remembersStepTitle{
-        font-size: 18px;
+      .howStepTitle{
+        font-size: 17px;
         font-weight: 700;
         color: rgba(255,255,255,0.92);
         letter-spacing: -0.01em;
       }
-      .remembersStepDesc{
+      .howStepDesc{
         font-size: 15px;
         color: rgba(255,255,255,0.45);
         font-weight: 420;
-        line-height: 1.5;
       }
 
-      /* ========= SECTION 4: MAGIC ========= */
-      .magicSection{
+      /* ========= CLOSING CTA ========= */
+      .closingCta{
         position: relative;
-        padding: 120px 24px;
-        text-align: center;
-      }
-      .magicInner{
-        max-width: 680px;
-        margin: 0 auto;
-      }
-      .magicHeadline{
-        font-size: clamp(32px, 4vw, 52px);
-        font-weight: 800;
-        letter-spacing: -0.035em;
-        line-height: 1.0;
-        color: #FFFFFF;
-        margin: 0 0 12px;
-      }
-      .magicSub{
-        font-size: 17px;
-        color: rgba(255,255,255,0.50);
-        font-weight: 420;
-        margin: 0 0 48px;
-      }
-      .magicDemo{
-        display: flex;
-        justify-content: center;
-      }
-      .magicCard{
-        position: relative;
-        width: 100%;
-        max-width: 380px;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.06);
-        background: rgba(255,255,255,0.02);
-        padding: 22px 24px;
-        text-align: left;
-        overflow: hidden;
-        transition: border-color 0.6s ease, box-shadow 0.6s ease;
-      }
-      .magicCard.magicCardGlow{
-        border-color: rgba(111,92,252,0.25);
-        box-shadow: 0 0 40px rgba(111,92,252,0.08);
-      }
-      .magicCardRow{
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .magicCheck{
-        width: 20px;
-        height: 20px;
-        color: rgba(111,92,252,0.80);
-        flex-shrink: 0;
-      }
-      .magicTask{
-        font-size: 16px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.80);
-        text-decoration: line-through;
-        text-decoration-color: rgba(255,255,255,0.20);
-      }
-      .magicCardMeta{
-        margin-top: 8px;
-        padding-left: 32px;
-        font-size: 13px;
-        color: rgba(255,255,255,0.35);
-        font-weight: 450;
-      }
-      .magicPulse{
-        position: absolute;
-        inset: -1px;
-        border-radius: 20px;
-        border: 1.5px solid rgba(111,92,252,0.40);
-        animation: magicPulseAnim 1.2s ease-out forwards;
-        pointer-events: none;
-      }
-      @keyframes magicPulseAnim{
-        0% { opacity: 0.8; transform: scale(1); }
-        100% { opacity: 0; transform: scale(1.04); }
-      }
-
-      /* ========= SECTION 5: BUSY MINDS ========= */
-      .busySection{
-        position: relative;
-        padding: 120px 24px;
-        text-align: center;
-      }
-      .busyInner{
-        max-width: 780px;
-        margin: 0 auto;
-      }
-      .busyHeadline{
-        font-size: clamp(32px, 4vw, 52px);
-        font-weight: 800;
-        letter-spacing: -0.035em;
-        line-height: 1.0;
-        color: #FFFFFF;
-        margin: 0 0 10px;
-      }
-      .busySub{
-        font-size: 18px;
-        color: rgba(255,255,255,0.50);
-        font-weight: 420;
-        margin: 0 0 48px;
-      }
-      .busyCta{
-        margin-top: 48px;
-        display: flex;
-        justify-content: center;
-      }
-      .busyGrid{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        text-align: left;
-      }
-      .busyCard{
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.06);
-        background: rgba(255,255,255,0.02);
-        padding: 24px 22px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        transition: border-color 0.4s ease;
-      }
-      .busyCard:hover{
-        border-color: rgba(255,255,255,0.10);
-      }
-      .busyIcon{
-        width: 22px;
-        height: 22px;
-        color: rgba(255,255,255,0.35);
-        flex-shrink: 0;
-      }
-      .busyLabel{
-        font-size: 15px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.72);
-        letter-spacing: -0.01em;
-      }
-
-      /* ========= SECTION 6: SECOND BRAIN CTA ========= */
-      .secondBrainSection{
-        position: relative;
-        padding: 140px 24px;
+        padding: 140px 24px 100px;
         text-align: center;
         overflow: hidden;
       }
-      .secondBrainInner{
+      .closingInner{
         max-width: 680px;
         margin: 0 auto;
         position: relative;
       }
-      .secondBrainGlow{
+      .closingGlow{
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 600px;
+        width: 500px;
         height: 300px;
-        background: radial-gradient(ellipse, rgba(111,92,252,0.08), transparent 60%);
+        background: radial-gradient(ellipse, rgba(111,92,252,0.10), transparent 55%);
         filter: blur(60px);
         pointer-events: none;
       }
-      .secondBrainHeadline{
+      .closingHeadline{
         position: relative;
-        font-size: clamp(36px, 4.6vw, 58px);
+        font-size: clamp(36px, 4.8vw, 60px);
         font-weight: 800;
         letter-spacing: -0.035em;
-        line-height: 1.04;
+        line-height: 1.08;
         color: #FFFFFF;
+        margin: 0 0 12px;
+      }
+      .closingSub{
+        position: relative;
+        font-size: 17px;
+        color: rgba(255,255,255,0.50);
+        font-weight: 420;
         margin: 0 0 32px;
       }
-      .secondBrainCtas{
+      .closingButtons{
         position: relative;
         display: flex;
         justify-content: center;
@@ -3449,13 +3214,12 @@ function SiteStyles() {
         .eventSplit{
           grid-template-columns: 1fr;
         }
-        .painGrid{
-          grid-template-columns: 1fr;
-          max-width: 320px;
+        .howSteps{
+          max-width: 360px;
           margin: 0 auto;
         }
-        .busyGrid{
-          grid-template-columns: 1fr;
+        .statementHeadline{
+          font-size: clamp(28px, 6vw, 44px);
         }
       }
     `}</style>
