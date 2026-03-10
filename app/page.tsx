@@ -1,1531 +1,1434 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from "react"
+import Image from "next/image"
+import { PhoneShowcase } from "./PhoneShowcase"
 
-const APP_STORE_URL = "#"
+const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+
+const proofItems = [
+  { icon: "◎", label: "Location-based reminders" },
+  { icon: "◌", label: "Shared household lists" },
+  { icon: "◐", label: "Designed for iPhone" },
+]
+
+const painPoints = [
+  "Sticky notes work great until they stay home.",
+  "Texting yourself is just procrastination with bubbles.",
+  "Ordinary reminders know the time. Near knows the moment.",
+]
+
+const steps = [
+  {
+    label: "Pin it",
+    title: "Attach tasks to real places",
+    description:
+      "Groceries go to the grocery store. Returns go to the mall. Dry cleaning waits at the cleaner, not in your head.",
+  },
+  {
+    label: "Forget it",
+    title: "Near runs quietly in the background",
+    description:
+      "No timer choreography. No opening the app every six minutes. Just live normally while Near keeps the context.",
+  },
+  {
+    label: "Arrive",
+    title: "Your list appears at exactly the right time",
+    description:
+      "Pull into the lot and your tasks are already there. It feels obvious after you see it once.",
+  },
+]
+
+const storyCards = [
+  {
+    eyebrow: "For busy people",
+    title: "Errands stop leaking out of your day.",
+    copy:
+      "Near turns all those tiny, expensive misses into easy wins. Pick up the prescription. Drop off the package. Grab the batteries while you are already there.",
+  },
+  {
+    eyebrow: "For couples and families",
+    title: "One household. One shared memory.",
+    copy:
+      "When someone is closest to the store, they get the nudge. Less coordination. Less resentment. Far fewer 'I thought you were getting that.' moments.",
+  },
+  {
+    eyebrow: "For repeat routines",
+    title: "The app gets smarter without getting louder.",
+    copy:
+      "Near is useful on day one, then compounds. Favorite places, recurring needs, grocery habits, and all the little rituals that make life run.",
+  },
+]
+
+const featureCards = [
+  {
+    icon: "↗",
+    title: "Drive-by nudges",
+    description:
+      "Passing Target with three unfinished tasks? Near notices before you miss the turn.",
+  },
+  {
+    icon: "⌂",
+    title: "Shared grocery flow",
+    description:
+      "Everyone can add items. The right person sees the list when they arrive. The fridge stays stocked.",
+  },
+  {
+    icon: "+",
+    title: "Fast capture",
+    description:
+      "Type it, say it, scan it, or snap it. Near is built for the half-second when you remember.",
+  },
+  {
+    icon: "—",
+    title: "Quiet by design",
+    description:
+      "No ads, no social feed, no nonsense. It behaves like a utility, not a platform.",
+  },
+]
+
+const useCases = [
+  {
+    icon: "◍",
+    name: "Groceries",
+    lines: ["Milk, berries, oat milk", "Sorted when you arrive", "Shared with your household"],
+  },
+  {
+    icon: "△",
+    name: "Errands",
+    lines: ["Return the package", "Pick up dry cleaning", "Grab birthday candles"],
+  },
+  {
+    icon: "□",
+    name: "Home",
+    lines: ["Take measurements", "Replace the air filter", "Bring the charger upstairs"],
+  },
+]
 
 export default function Page() {
   return (
     <main className="page">
       <TopNav />
-
       <Hero />
-
+      <ProofBar />
       <PhoneShowcase />
-
-      <AppleEventSections />
-
+      <ProblemSection />
+      <HowItWorks />
+      <StorySection />
+      <UseCaseSection />
+      <HouseholdSection />
+      <PrivacySection />
       <FinalCTA />
-
       <SiteStyles />
     </main>
   )
 }
 
-/* --------------------------------- NAV --------------------------------- */
-
 function TopNav() {
   return (
     <header className="nav">
       <div className="navInner">
-        <div className="brand">
-          <NearMark sizePx={28} />
-          <span className="brandWord">near</span>
-        </div>
+        <a className="brand" href="#top">
+          <span className="brandMark">
+            <Image src="/near-logo-dark.png" alt="Near" className="brandLogo" width={384} height={256} priority quality={90} />
+          </span>
+        </a>
 
-        <div className="navActions">
-          <a className="navLink" href="#how">How it works</a>
-          <a className="navLink" href="#features">Features</a>
-          <a className="navLink" href="#household">Household</a>
-          <a className="navCta" href={APP_STORE_URL}>Download</a>
-        </div>
+        <nav className="navLinks" aria-label="Primary">
+          <a className="navLink hideOnMobile" href="#how-it-works">
+            How it works
+          </a>
+          <a className="navLink hideOnMobile" href="#story">
+            Why Near
+          </a>
+          <a className="navLink hideOnMobile" href="#household">
+            Household
+          </a>
+          <a className="navCta" href={APP_STORE_URL}>
+            Download
+          </a>
+        </nav>
       </div>
     </header>
   )
 }
 
-/* --------------------------------- HERO -------------------------------- */
-
 function Hero() {
   return (
     <section className="hero" id="top">
-      <div className="heroBg" aria-hidden="true" />
-      <div className="heroGrid" aria-hidden="true" />
-
+      <div className="heroGlow heroGlowOne" aria-hidden="true" />
+      <div className="heroGlow heroGlowTwo" aria-hidden="true" />
       <div className="heroInner">
-        <div className="heroLogoRow">
-          <div className="heroLogo">
-            <NearMark sizePx={34} />
-            <span className="heroWord">near</span>
+        <div className="heroCopy">
+          <span className="eyebrow">The location-aware to-do list</span>
+          <h1 className="heroTitle">Never Forget Anything Again.</h1>
+          <p className="heroSub">
+            Near ties tasks to places, so the right reminder appears exactly when it can
+            become action. Beautifully simple for one person. Surprisingly great for a whole
+            household.
+          </p>
+
+          <div className="heroCtas">
+            <a className="primaryBtn" href={APP_STORE_URL}>Download Free</a>
+            <a className="secondaryBtn" href="#how-it-works">See the magic</a>
+          </div>
+
+          <div className="heroMeta">
+            <span>Free to start</span>
+            <span>No account required</span>
+            <span>Works with real life</span>
           </div>
         </div>
 
-        <div className="heroIconCapsuleWrap">
-          <IconCapsule />
-        </div>
+        <div className="heroPanel">
+          <div className="statusCard">
+            <div className="statusHeader">
+              <span className="statusLabel">Now arriving</span>
+              <span className="statusDot" />
+            </div>
 
-        <h1 className="heroTitle">
-          Your list appears when you arrive.
-        </h1>
+            <div className="statusPlace">Trader Joe&apos;s</div>
+            <div className="statusTasks">
+              <TaskRow text="Sparkling water" animateClass="checkOne" />
+              <TaskRow text="Lemons" animateClass="checkTwo" />
+              <TaskRow text="Flowers for Friday" animateClass="checkThree" />
+            </div>
 
-        <p className="heroSub">
-          Add tasks to places. When you drive by or someone in your home is there, Near reminds you.
-          So you never forget anything ever again.
-        </p>
+            <div className="statusFooter">
+              <div>
+                <div className="statusMiniLabel">Household</div>
+                <div className="statusMiniValue">Lauren is closest, so Lauren gets the nudge.</div>
+              </div>
+              <div className="miniStamp">Near</div>
+            </div>
+          </div>
 
-        <div className="heroCtas">
-          <a className="primaryBtn" href={APP_STORE_URL}>
-            Download Free
-          </a>
-          <a className="secondaryBtn" href="#how">
-            See how it works
-          </a>
-        </div>
-
-        <div className="heroMeta">
-          <span className="pill">No timers</span>
-          <span className="pill">No opening the app</span>
-          <span className="pill">Household sync</span>
+          <div className="floatingQuote">
+            <span className="quoteKicker">Tiny but important</span>
+            <p>
+              The milk. The return. The batteries. The gift bag. The whole category of things
+              you only remember when it is too late.
+            </p>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-/* ---------------------------- ICON CAPSULE ------------------------------ */
-
-function IconCapsule() {
-  const [hover, setHover] = useState(false)
-
+function TaskRow({
+  text,
+  animateClass = "",
+}: {
+  text: string
+  animateClass?: string
+}) {
   return (
-    <div
-      className="iconCapsule"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      <div
-        className="halo"
-        style={{
-          opacity: hover ? 1 : 0.8,
-          transform: `translate(-50%, -50%) scale(${hover ? 1.15 : 1})`,
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="iconStack">
-        <div
-          className="iconFloat"
-          style={{ transform: `translateY(${hover ? -6 : 0}px)` }}
-        >
-          <div className="iconGlow" aria-hidden="true" />
-          <div className="iconPlate">
-            <NearMark sizePx={140} />
-          </div>
-        </div>
-
-        <div className="iconText">
-          <div className="iconName">Near</div>
-          <div className={`iconCaption ${hover ? "grad" : ""}`}>
-            {hover ? "Arrive. Remember nothing." : "Ambient task intelligence"}
-          </div>
-        </div>
-      </div>
+    <div className={`taskRow ${animateClass}`}>
+      <span className="taskCheck" aria-hidden="true">✓</span>
+      <span className="taskText">{text}</span>
     </div>
   )
 }
 
-/* ---------------------------- PHONE SHOWCASE ---------------------------- */
-
-function PhoneShowcase() {
+function ProofBar() {
   return (
-    <section className="showcase" id="how">
-      <div className="showcaseBg" aria-hidden="true" />
-      <div className="showcaseInner">
+    <section className="proofBar" aria-label="Product proof points">
+        <div className="proofInner">
+          {proofItems.map((item) => (
+            <span className="proofPill" key={item}>
+              <span className="proofIcon" aria-hidden="true">
+                {item.icon}
+              </span>
+              {item.label}
+            </span>
+          ))}
+        </div>
+    </section>
+  )
+}
 
-        {/* LEFT – SUNRISE */}
-        <div className="phone phoneLeft">
-          <div className="phoneFrame">
-            <SunrisePlacesScreen />
-          </div>
+function ProblemSection() {
+  return (
+    <section className="section sectionLight">
+      <div className="sectionShell split">
+        <div>
+          <span className="eyebrow dark">Why this matters</span>
+          <h2 className="sectionTitle dark">Your brain should be for ideas, not batteries and oat milk.</h2>
         </div>
 
-        {/* CENTER – DAY (PRIMARY) */}
-        <div className="phone phoneCenter">
-          <div className="phoneFrame phoneFrameMain">
-            <DayPlaceViewScreen />
-          </div>
-        </div>
-
-        {/* RIGHT – DUSK */}
-        <div className="phone phoneRight">
-          <div className="phoneFrame">
-            <DuskHouseholdScreen />
-          </div>
-        </div>
-
-      </div>
-
-      <div className="showcaseCopy" id="features">
-        <h2 className="sectionTitle">It runs in the background. Quietly.</h2>
-        <p className="sectionSub">
-          You do not schedule reminders. You do not open the app. Location becomes action.
-        </p>
-
-        <div className="featureGrid">
-          <FeatureCard
-            title="Arrive. It appears."
-            desc="Pull in and your list is waiting. Like it should have been there all along."
-            tag="Automatic"
-          />
-          <FeatureCard
-            title="Drive by. It reminds you."
-            desc="Even if you were not planning to stop. Near catches the near-misses."
-            tag="Smart"
-          />
-          <FeatureCard
-            title="Household sync, instantly."
-            desc="If someone in your home is there, they see it. Shared calm. Shared memory."
-            tag="Shared"
-          />
+        <div className="problemList">
+          {painPoints.map((point) => (
+            <div className="problemCard" key={point}>
+              {point}
+            </div>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-function FeatureCard(props: { title: string; desc: string; tag: string }) {
+function HowItWorks() {
   return (
-    <div className="featureCard">
-      <div className="featureTag">{props.tag}</div>
-      <div className="featureTitle">{props.title}</div>
-      <div className="featureDesc">{props.desc}</div>
-    </div>
+    <section className="section sectionLight" id="how-it-works">
+      <div className="sectionShell">
+        <div className="sectionHeading">
+          <span className="eyebrow dark">How it works</span>
+          <h2 className="sectionTitle dark">Three steps. Zero nagging.</h2>
+          <p className="sectionSub dark">
+            Near feels smart because it removes effort, not because it adds settings. The
+            setup is obvious. The payoff is immediate.
+          </p>
+        </div>
+
+        <div className="stepGrid">
+          {steps.map((step) => (
+            <article className="stepCard" key={step.title}>
+              <div className="stepLabel">{step.label}</div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
-/* -------------------------- APPLE EVENT SECTIONS ------------------------ */
-
-function AppleEventSections() {
+function StorySection() {
   return (
-    <>
-      <section className="eventSection" id="household">
-        <div className="eventInner">
-          <div className="eventKicker">Household</div>
-          <h3 className="eventHeadline">One list. Everyone benefits.</h3>
-          <p className="eventBody">
-            Near is built for real life. If Brian swings by Publix, the list is there.
-            If Reese stops at Target, the reminder still shows up. No forwarding. No group chat.
+    <section className="section sectionTint" id="story">
+      <div className="sectionShell">
+        <div className="sectionHeading">
+          <span className="eyebrow dark">Why Near wins</span>
+          <h2 className="sectionTitle dark">A to-do list with timing is useful. A to-do list with place is power.</h2>
+          <p className="sectionSub dark">
+            Most reminder apps interrupt you at random. Near waits until the reminder can
+            actually be done. That changes everything.
           </p>
-
-          <div className="eventMetrics">
-            <div className="metric">
-              <div className="metricNum">0</div>
-              <div className="metricLabel">scheduled reminders</div>
-            </div>
-            <div className="metric">
-              <div className="metricNum">0</div>
-              <div className="metricLabel">extra taps to remember</div>
-            </div>
-            <div className="metric">
-              <div className="metricNum">∞</div>
-              <div className="metricLabel">times you feel like a genius</div>
-            </div>
-          </div>
         </div>
-      </section>
 
-      <section className="eventSection alt">
-        <div className="eventInner">
-          <div className="eventKicker">Privacy</div>
-          <h3 className="eventHeadline">Location, used responsibly.</h3>
-          <p className="eventBody">
-            Near is not a feed. It is not social. It is not trying to become your personality.
-            It uses location to do one job: show you the right list at the right time.
-          </p>
-
-          <div className="eventSplit">
-            <div className="splitCard">
-              <div className="splitTitle">Designed for iPhone</div>
-              <div className="splitText">
-                Polished, native-feeling, and calm. The point is less thinking, not more features.
-              </div>
-            </div>
-            <div className="splitCard">
-              <div className="splitTitle">Built for momentum</div>
-              <div className="splitText">
-                The best productivity system is the one you actually use. Near meets you where you already are.
-              </div>
-            </div>
-          </div>
+        <div className="storyGrid">
+          {storyCards.map((card) => (
+            <article className="storyCard" key={card.title}>
+              <span className="storyEyebrow">{card.eyebrow}</span>
+              <h3>{card.title}</h3>
+              <p>{card.copy}</p>
+            </article>
+          ))}
         </div>
-      </section>
-    </>
+
+        <div className="featureBand">
+          {featureCards.map((feature) => (
+            <div className="featureMini" key={feature.title}>
+              <span className="miniIcon" aria-hidden="true">
+                {feature.icon}
+              </span>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
-/* --------------------------------- CTA --------------------------------- */
+function UseCaseSection() {
+  return (
+    <section className="section sectionLight">
+      <div className="sectionShell">
+        <div className="sectionHeading">
+          <span className="eyebrow dark">Use cases</span>
+          <h2 className="sectionTitle dark">Built for all the things life throws at a parking lot.</h2>
+        </div>
+
+        <div className="useCaseGrid">
+          {useCases.map((item) => (
+            <article className="useCaseCard" key={item.name}>
+              <div className="useCaseTop">
+                <div className="useCaseTitleWrap">
+                  <span className="useCaseIcon" aria-hidden="true">
+                    {item.icon}
+                  </span>
+                  <h3>{item.name}</h3>
+                </div>
+                <span>Ready on arrival</span>
+              </div>
+              <div className="useCaseList">
+                {item.lines.map((line) => (
+                  <div className="useCaseLine" key={line}>
+                    <span className="useCaseDot" />
+                    {line}
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function HouseholdSection() {
+  return (
+    <section className="section sectionDark" id="household">
+      <div className="sectionShell householdShell">
+        <div className="householdCopy">
+          <span className="eyebrow">Household mode</span>
+          <h2 className="sectionTitle">The shared brain your household never had.</h2>
+          <p className="sectionSub">
+            Near is unusually good at domestic logistics. One person adds the item. Another
+            person passes the store. The app handles the handoff without a single follow-up text.
+          </p>
+        </div>
+
+        <div className="householdBoard">
+          <div className="householdMetric">
+            <strong>0</strong>
+            <span>group-text reminders required</span>
+          </div>
+          <div className="householdMetric">
+            <strong>1</strong>
+            <span>shared source of truth</span>
+          </div>
+          <div className="householdMetric">
+            <strong>∞</strong>
+            <span>small frustrations avoided</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function PrivacySection() {
+  return (
+    <section className="section sectionLight">
+      <div className="sectionShell privacyShell">
+        <div className="sectionHeading">
+          <span className="eyebrow dark">Privacy</span>
+          <h2 className="sectionTitle dark">Useful, not creepy.</h2>
+          <p className="sectionSub dark">
+            Near uses location to help you get things done. Not to build an audience graph, sell
+            ads, or invent a feed nobody asked for.
+          </p>
+        </div>
+
+        <div className="privacyGrid">
+          <span>No ads</span>
+          <span>No account required</span>
+          <span>No social theater</span>
+          <span>Built for utility</span>
+          <span>Works quietly in the background</span>
+          <span>Designed for trust</span>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function FinalCTA() {
   return (
     <section className="finalCta">
-      <div className="finalInner">
-        <div className="finalGlow" aria-hidden="true" />
-
-        <h2 className="finalTitle">Never forget anything again.</h2>
-        <p className="finalSub">Free. Always.</p>
-
-        <div className="finalButtons">
-          <a className="primaryBtn big" href={APP_STORE_URL}>Download Near</a>
-          <a className="secondaryBtn big" href="#top">Back to top</a>
-        </div>
-
-        <div className="footerMini">
-          <div className="footerBrand">
-            <NearMark sizePx={26} />
-            <span className="footerWord">near</span>
-          </div>
-          <div className="footerNote">Ambient task intelligence.</div>
-        </div>
+      <div className="finalShell">
+        <span className="eyebrow">Start now</span>
+        <h2 className="finalTitle">The smartest reminder is the one that waits for the right place.</h2>
+        <p className="finalSub">
+          Download Near and let your errands find you for a change.
+        </p>
+        <a className="primaryBtn finalBtn" href={APP_STORE_URL}>
+          Download Free on the App Store
+        </a>
       </div>
     </section>
   )
 }
 
-/* ------------------------------ PHONE UI -------------------------------- */
-
-/** Shared iPhone chrome */
-function PhoneChrome(props: {
-  titleLeft?: string
-  titleCenter?: string
-  titleRight?: string
-  children: React.ReactNode
-  theme: "sunrise" | "day" | "dusk"
-}) {
-  return (
-    <div className={`screen screen-${props.theme}`}>
-      <div className="statusBar">
-        <div className="sbLeft">9:41</div>
-        <div className="sbCenter" />
-        <div className="sbRight">
-          <span className="sig" />
-          <span className="wifi" />
-          <span className="bat" />
-        </div>
-      </div>
-
-      <div className="topBar">
-        <button className="circleBtn" aria-label="Back">‹</button>
-
-        <div className="topCenter">
-          <NearMark sizePx={18} />
-          <div className="topTitle">near</div>
-        </div>
-
-        <button className="circleBtn" aria-label="Add">+</button>
-      </div>
-
-      <div className="screenBody">{props.children}</div>
-    </div>
-  )
-}
-
-/* --------- SUNRISE: Higher contrast, warm edge light, crisp text -------- */
-
-function SunrisePlacesScreen() {
-  const places = useMemo(() => [
-    { name: "Publix", hint: "3 items", color: "c1" },
-    { name: "Target", hint: "4 items", color: "c2" },
-    { name: "Home Depot", hint: "1 item", color: "c3" },
-    { name: "Dry Cleaners", hint: "2 items", color: "c4" },
-  ], [])
-
-  return (
-    <PhoneChrome theme="sunrise">
-      <div className="pad">
-        <div className="titleBlock">
-          <div className="h1">Places</div>
-          <div className="sub">Your lists, anchored to where life happens.</div>
-        </div>
-
-        <div className="card card-strong">
-          <div className="cardHeader">
-            <div className="cardTitle">Next up</div>
-            <div className="cardMeta">4 saved places</div>
-          </div>
-
-          <div className="list">
-            {places.map((p) => (
-              <div key={p.name} className="row">
-                <div className={`dot ${p.color}`} />
-                <div className="rowMain">
-                  <div className="rowTitle">{p.name}</div>
-                  <div className="rowSub">{p.hint}</div>
-                </div>
-                <div className="chev">›</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="miniNote">
-          Tip: Add recurring places once. Near does the rest.
-        </div>
-      </div>
-    </PhoneChrome>
-  )
-}
-
-/* --------- DAY: Checked tasks, "Complete" stamp, premium clarity -------- */
-
-function DayPlaceViewScreen() {
-  const [pulse, setPulse] = useState(0)
-
-  useEffect(() => {
-    const t = setInterval(() => setPulse((p) => (p + 1) % 1000), 1800)
-    return () => clearInterval(t)
-  }, [])
-
-  return (
-    <PhoneChrome theme="day">
-      <div className="pad">
-        <div className="titleBlock">
-          <div className="h1">Publix</div>
-          <div className="sub">3 things left. Quietly handled.</div>
-        </div>
-
-        <div className="arrivedChip">
-          <span className="arrivedDot" />
-          Arrived
-        </div>
-
-        <div className="card card-main">
-          <div className="cardHeader">
-            <div className="cardTitle">When you arrive</div>
-            <div className="cardMeta">Auto list</div>
-          </div>
-
-          <div className="tasks">
-            <TaskRow state="done" label="Milk" />
-            <TaskRow state="done" label="Blueberries" />
-            <TaskRow state="todo" label="Paper towels" />
-            <TaskRow state="todo" label="Batteries" />
-          </div>
-
-          <div className="completeRow">
-            <div className="completeStamp" aria-hidden="true">
-              <span className="stampRing" style={{ opacity: 0.9 }} />
-              <span className="stampText">COMPLETE</span>
-            </div>
-
-            <button className="miniBtn">
-              Quick complete
-            </button>
-          </div>
-
-          <div className="cardFooterNote">
-            No timers. No remembering. Just a little less chaos.
-          </div>
-        </div>
-
-        <div className="softGlow" aria-hidden="true" style={{ opacity: 0.55 + (pulse % 2) * 0.1 }} />
-      </div>
-    </PhoneChrome>
-  )
-}
-
-function TaskRow(props: { state: "done" | "todo"; label: string }) {
-  const done = props.state === "done"
-  return (
-    <div className={`taskRow ${done ? "done" : ""}`}>
-      <div className={`box ${done ? "checked" : ""}`} aria-hidden="true">
-        {done ? <span className="check">✓</span> : null}
-      </div>
-      <div className="taskLabel">{props.label}</div>
-      <div className="taskSpacer" />
-      {done ? <div className="taskPill">done</div> : <div className="taskPill faint">to do</div>}
-    </div>
-  )
-}
-
-/* --------- DUSK: Higher contrast, deeper navy, sharper cards ----------- */
-
-function DuskHouseholdScreen() {
-  const people = useMemo(() => [
-    { name: "Lauren", role: "Admin", active: true },
-    { name: "Brian", role: "Member", active: false },
-    { name: "Reese", role: "Member", active: false },
-  ], [])
-
-  return (
-    <PhoneChrome theme="dusk">
-      <div className="pad">
-        <div className="titleBlock">
-          <div className="h1">Household</div>
-          <div className="sub">Shared calm. Shared memory.</div>
-        </div>
-
-        <div className="card card-strong duskCard">
-          <div className="cardHeader">
-            <div className="cardTitle">Members</div>
-            <div className="cardMeta">3</div>
-          </div>
-
-          <div className="list">
-            {people.map((p) => (
-              <div key={p.name} className="row">
-                <div className={`avatar ${p.active ? "active" : ""}`} />
-                <div className="rowMain">
-                  <div className="rowTitle">{p.name}</div>
-                  <div className="rowSub">{p.role}</div>
-                </div>
-                <div className={`presence ${p.active ? "on" : ""}`} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="card card-strong duskCard" style={{ marginTop: 14 }}>
-          <div className="cardHeader">
-            <div className="cardTitle">Shared lists</div>
-            <div className="cardMeta">3 active</div>
-          </div>
-
-          <div className="list">
-            <div className="row">
-              <div className="dot c2" />
-              <div className="rowMain">
-                <div className="rowTitle">Target Run</div>
-                <div className="rowSub">4 tasks</div>
-              </div>
-              <div className="chev">›</div>
-            </div>
-
-            <div className="row">
-              <div className="dot c3" />
-              <div className="rowMain">
-                <div className="rowTitle">Sunday Reset</div>
-                <div className="rowSub">7 tasks</div>
-              </div>
-              <div className="chev">›</div>
-            </div>
-
-            <div className="row">
-              <div className="dot c1" />
-              <div className="rowMain">
-                <div className="rowTitle">Vacation Packing</div>
-                <div className="rowSub">12 tasks</div>
-              </div>
-              <div className="chev">›</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </PhoneChrome>
-  )
-}
-
-/* ------------------------- BRAND MARK (SVG) ----------------------------- */
-
-function NearMark({ sizePx }: { sizePx: number }) {
-  return (
-    <svg
-      className="nearMark"
-      viewBox="0 0 512 512"
-      xmlns="http://www.w3.org/2000/svg"
-      role="img"
-      aria-label="Near icon"
-      style={{ width: sizePx, height: sizePx, display: "block" }}
-    >
-      <defs>
-        <radialGradient id="nearField" cx="50%" cy="52%" r="58%">
-          <stop offset="0%" stopColor="var(--near-core)" />
-          <stop offset="22%" stopColor="var(--near-mid1)" />
-          <stop offset="45%" stopColor="var(--near-mid2)" />
-          <stop offset="70%" stopColor="var(--near-mid3)" />
-          <stop offset="100%" stopColor="var(--near-edge)" />
-        </radialGradient>
-
-        <radialGradient id="nearVignette" cx="50%" cy="50%" r="70%">
-          <stop offset="55%" stopColor="rgba(0,0,0,0)" />
-          <stop offset="100%" stopColor="rgba(0,0,0,0.22)" />
-        </radialGradient>
-
-        <clipPath id="nearSquircle">
-          <path d="M108 0h296c60 0 108 48 108 108v296c0 60-48 108-108 108H108C48 512 0 464 0 404V108C0 48 48 0 108 0Z" />
-        </clipPath>
-      </defs>
-
-      <g clipPath="url(#nearSquircle)">
-        <rect width="512" height="512" fill="var(--near-edge)" />
-        <circle className="nearPulse" cx="256" cy="256" r="180" fill="url(#nearField)" />
-        <rect width="512" height="512" fill="url(#nearVignette)" />
-        <circle cx="210" cy="185" r="140" fill="rgba(255,255,255,0.05)" />
-      </g>
-    </svg>
-  )
-}
-
-/* -------------------------------- STYLES ------------------------------- */
-
 function SiteStyles() {
   return (
     <style jsx global>{`
-      :root{
-        --near-core:#BCEBFF;
-        --near-mid1:#5BC7FF;
-        --near-mid2:#4A7DFF;
-        --near-mid3:#7A56FF;
-        --near-edge:#0C1020;
-
-        --bg0:#04050C;
-        --bg1:#070A18;
-        --text:#FFFFFF;
-        --muted:rgba(255,255,255,0.68);
-        --faint:rgba(255,255,255,0.45);
-        --stroke:rgba(255,255,255,0.08);
+      :root {
+        --ink: #f5f5f7;
+        --paper: #000000;
+        --paper-strong: #0a0a0a;
+        --sand: #1d1d1f;
+        --line: rgba(255, 255, 255, 0.08);
+        --line-dark: rgba(255, 255, 255, 0.12);
+        --muted: rgba(245, 245, 247, 0.6);
+        --muted-dark: rgba(245, 245, 247, 0.7);
+        --blue: #2997ff;
+        --sky: #2997ff;
+        --violet: #2997ff;
       }
 
-      html, body {
-        padding:0;
-        margin:0;
-        background: var(--bg0);
-        color: var(--text);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      * {
+        box-sizing: border-box;
       }
 
-      * { box-sizing:border-box; }
-      a { color: inherit; text-decoration:none; }
-
-      .page{
-        min-height:100vh;
-        background: #04050C;
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--paper);
+        color: var(--ink);
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      /* NAV */
-      .nav{
+      body {
+        font-family: var(--font-sans);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        min-height: 100vh;
+        background: #000000;
+      }
+
+      .nav {
         position: sticky;
-        top:0;
+        top: 0;
         z-index: 50;
-        backdrop-filter: blur(14px);
-        background: rgba(4,5,12,0.55);
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        background: rgba(0, 0, 0, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
 
-      .navInner{
+      .navInner {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 14px 18px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
+        padding: 14px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
       }
 
-      .brand{
-        display:flex;
-        align-items:center;
-        gap:10px;
-      }
-      .brandWord{
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        font-size: 18px;
-        opacity: 0.95;
+      .brand,
+      .navLinks {
+        display: flex;
+        align-items: center;
+        gap: 14px;
       }
 
-      .navActions{
-        display:flex;
-        align-items:center;
-        gap: 16px;
+      .brandMark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
       }
-      .navLink{
-        font-size: 14px;
-        color: rgba(255,255,255,0.72);
-      }
-      .navLink:hover{ color: rgba(255,255,255,0.95); }
 
-      .navCta{
-        padding: 10px 14px;
+      .brandLogo {
+        width: auto;
+        height: 64px;
+        display: block;
+        object-fit: contain;
+      }
+
+      .navLink {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.64);
+      }
+
+      .navLink:hover {
+        color: var(--ink);
+      }
+
+      .navCta,
+      .primaryBtn,
+      .secondaryBtn {
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.06);
-        font-size: 14px;
-        font-weight: 650;
-      }
-      .navCta:hover{
-        background: rgba(255,255,255,0.10);
+        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
       }
 
-      /* HERO */
-      .hero{
+      .navCta {
+        padding: 0.55rem 1.1rem;
+        color: white;
+        background: var(--blue);
+        font-size: 0.88rem;
+        font-weight: 600;
+        box-shadow: none;
+      }
+
+      .hero {
         position: relative;
-        padding: 92px 18px 40px;
         overflow: hidden;
+        padding: 8rem 1.5rem 5rem;
       }
-      .heroBg{
-        position:absolute;
-        inset:-40%;
-        background:
-          radial-gradient(circle at 35% 25%, rgba(123,77,255,0.30), transparent 42%),
-          radial-gradient(circle at 60% 35%, rgba(90,200,250,0.26), transparent 45%),
-          radial-gradient(circle at 50% 80%, rgba(0,217,255,0.12), transparent 55%),
-          linear-gradient(180deg, rgba(4,5,12,0) 0%, rgba(4,5,12,1) 72%);
-        filter: blur(10px);
+
+      .heroGlow {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(80px);
+        pointer-events: none;
       }
-      .heroGrid{
-        position:absolute;
-        inset:0;
-        background:
-          radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-        background-size: 34px 34px;
-        opacity: 0.04;
-        mask-image: radial-gradient(circle at 50% 35%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+
+      .heroGlowOne {
+        top: -10rem;
+        left: -4rem;
+        width: 30rem;
+        height: 30rem;
+        background: rgba(41, 151, 255, 0.08);
       }
-      .heroInner{
-        position: relative;
-        max-width: 980px;
+
+      .heroGlowTwo {
+        right: -4rem;
+        top: 0;
+        width: 26rem;
+        height: 26rem;
+        background: rgba(41, 151, 255, 0.06);
+      }
+
+      .heroInner,
+      .sectionShell,
+      .finalShell {
+        max-width: 1200px;
         margin: 0 auto;
-        text-align: center;
       }
-      .heroLogoRow{
-        display:flex;
-        justify-content:center;
-        margin-bottom: 18px;
+
+      .heroInner {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+        gap: 2.5rem;
+        align-items: center;
       }
-      .heroLogo{
-        display:flex;
-        align-items:center;
-        gap: 10px;
-        opacity: 0.92;
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 0;
+        border-radius: 0;
+        background: none;
+        border: none;
+        color: var(--blue);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
       }
-      .heroWord{
+
+      .eyebrow.dark {
+        background: none;
+        border-color: transparent;
+        color: var(--blue);
+      }
+
+      .heroTitle,
+      .sectionTitle,
+      .finalTitle {
+        margin: 0;
+        font-family: var(--font-sans);
+        letter-spacing: -0.04em;
+        line-height: 1.06;
         font-weight: 700;
-        letter-spacing: -0.03em;
-        font-size: 28px;
       }
 
-      .heroIconCapsuleWrap{
-        display:flex;
-        justify-content:center;
-        margin: 18px 0 26px;
+      .heroTitle {
+        margin-top: 1rem;
+        font-size: clamp(3.9rem, 8vw, 7.6rem);
+        max-width: 10ch;
       }
 
-      .heroTitle{
-        font-size: clamp(44px, 6vw, 72px);
-        line-height: 1.02;
-        margin: 10px 0 16px;
+      .heroSub,
+      .sectionSub,
+      .finalSub {
+        font-size: 1.18rem;
+        line-height: 1.5;
+        letter-spacing: 0;
+        font-family: var(--font-sans);
+      }
+
+      .heroSub {
+        max-width: 38rem;
+        margin: 1.5rem 0 0;
+        color: var(--muted);
+      }
+
+      .sectionTitle {
+        text-wrap: balance;
+        max-width: 12ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .heroCtas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 2rem;
+      }
+
+      .primaryBtn,
+      .secondaryBtn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.85rem 1.6rem;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0;
+        overflow: hidden;
+        text-wrap: nowrap;
+      }
+
+      .primaryBtn {
+        color: white;
+        background: var(--blue);
+        border: none;
+        box-shadow: none;
+      }
+
+      .primaryBtn::before,
+      .secondaryBtn::before {
+        display: none;
+      }
+
+      .primaryBtn::after {
+        display: none;
+      }
+
+      .secondaryBtn {
+        color: var(--blue);
+        background: transparent;
+        border: 1px solid rgba(41, 151, 255, 0.4);
+        box-shadow: none;
+      }
+
+      .navCta:hover,
+      .primaryBtn:hover {
+        transform: none;
+        background: #0077ed;
+      }
+
+      .secondaryBtn:hover {
+        transform: none;
+        background: rgba(41, 151, 255, 0.1);
+      }
+
+      .primaryBtn:active,
+      .secondaryBtn:active {
+        transform: scale(0.98);
+      }
+
+      .heroMeta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 1.5rem;
+        color: rgba(245, 245, 247, 0.4);
+        font-size: 0.86rem;
+      }
+
+      .heroMeta span {
+        padding: 0;
+        border-radius: 0;
+        background: none;
+        border: none;
+      }
+
+      .heroMeta span + span::before {
+        content: "·";
+        margin-right: 0.6rem;
+      }
+
+      .heroPanel {
+        position: relative;
+        min-height: 31rem;
+      }
+
+      .statusCard,
+      .floatingQuote,
+      .problemCard,
+      .stepCard,
+      .storyCard,
+      .featureMini,
+      .useCaseCard,
+      .householdBoard,
+      .privacyGrid span {
+        box-shadow: none;
+      }
+
+      .statusCard {
+        position: relative;
+        z-index: 2;
+        padding: 1.4rem;
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .statusHeader,
+      .statusFooter,
+      .useCaseTop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .statusLabel,
+      .statusMiniLabel,
+      .stepLabel,
+      .storyEyebrow,
+      .quoteKicker {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .statusLabel,
+      .statusMiniLabel,
+      .quoteKicker {
+        color: rgba(255, 255, 255, 0.52);
+      }
+
+      .statusDot,
+      .useCaseDot {
+        width: 0.65rem;
+        height: 0.65rem;
+        border-radius: 999px;
+        background: var(--blue);
+        box-shadow: none;
+      }
+
+      .statusPlace {
+        margin-top: 1rem;
+        font-family: var(--font-sans);
+        font-size: clamp(2.2rem, 4vw, 3rem);
+        font-weight: 700;
         letter-spacing: -0.04em;
       }
-      .heroSub{
-        margin: 0 auto;
-        max-width: 780px;
-        font-size: 18px;
-        line-height: 1.55;
-        color: rgba(255,255,255,0.68);
+
+      .statusTasks {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: 1.2rem;
       }
 
-      .heroCtas{
-        display:flex;
-        gap: 12px;
-        justify-content:center;
-        margin-top: 22px;
-        flex-wrap: wrap;
-      }
-      .primaryBtn, .secondaryBtn{
-        padding: 14px 18px;
-        border-radius: 999px;
-        font-weight: 750;
-        font-size: 16px;
-        transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-        will-change: transform;
-      }
-      .primaryBtn{
-        background: linear-gradient(90deg, #58D9FF, #6B5CFF, #EC4899);
-        color: rgba(0,0,0,0.92);
-        box-shadow: 0 20px 60px rgba(88,217,255,0.18);
-        border: 1px solid rgba(255,255,255,0.10);
-      }
-      .primaryBtn:hover{ transform: translateY(-1px); }
-      .secondaryBtn{
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.10);
-        color: rgba(255,255,255,0.90);
-      }
-      .secondaryBtn:hover{
-        transform: translateY(-1px);
-        background: rgba(255,255,255,0.08);
-      }
-      .primaryBtn.big, .secondaryBtn.big{
-        padding: 16px 22px;
-        font-size: 16px;
-      }
-
-      .heroMeta{
-        display:flex;
-        gap: 10px;
-        justify-content:center;
-        margin-top: 16px;
-        flex-wrap: wrap;
-      }
-      .pill{
-        padding: 8px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: rgba(255,255,255,0.04);
-        color: rgba(255,255,255,0.66);
-        font-size: 13px;
-      }
-
-      /* ICON CAPSULE */
-      .iconCapsule{
+      .taskRow {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.95rem 1rem;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         position: relative;
-        border-radius: 28px;
-        padding: 26px 26px;
-        width: min(420px, 92vw);
-        background: linear-gradient(135deg, rgba(0,217,255,0.10), rgba(139,92,246,0.10));
-        border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 24px 90px rgba(0,0,0,0.65), 0 0 80px rgba(90,200,250,0.18);
-        backdrop-filter: blur(20px);
-        overflow:hidden;
+        overflow: hidden;
       }
-      .halo{
-        position:absolute;
-        width: 260px;
-        height: 260px;
-        left: 50%;
-        top: 52%;
-        transform: translate(-50%,-50%);
-        background: radial-gradient(circle, rgba(0,217,255,0.40), rgba(139,92,246,0.28), rgba(236,72,153,0.18), transparent 70%);
-        filter: blur(46px);
-        pointer-events:none;
-      }
-      .iconStack{
-        position: relative;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap: 12px;
-      }
-      .iconFloat{
-        transition: transform 0.35s ease;
-      }
-      .iconPlate{
-        width: 160px;
-        height: 160px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        filter: drop-shadow(0 0 18px rgba(90,200,250,0.45)) drop-shadow(0 0 34px rgba(123,77,255,0.30));
-      }
-      .iconGlow{
-        position:absolute;
-        inset: 0;
-      }
-      .iconText{ text-align:center; }
-      .iconName{
-        font-size: 26px;
-        font-weight: 720;
-        letter-spacing: -0.02em;
-      }
-      .iconCaption{
-        margin-top: 4px;
-        font-size: 14px;
-        font-weight: 560;
-        color: rgba(255,255,255,0.72);
-      }
-      .iconCaption.grad{
-        background: linear-gradient(90deg, #58D9FF, #6B5CFF, #EC4899);
-        -webkit-background-clip: text;
-        background-clip: text;
+
+      .taskCheck {
+        display: inline-flex;
+        width: 1.4rem;
+        height: 1.4rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        font-size: 0.82rem;
+        font-weight: 800;
         color: transparent;
+        background: rgba(255, 255, 255, 0.02);
+        transition: background 220ms ease, color 220ms ease, border-color 220ms ease,
+          box-shadow 220ms ease, transform 220ms ease;
       }
 
-      /* SHOWCASE */
-      .showcase{
-        position: relative;
-        padding: 90px 18px 90px;
-        overflow:hidden;
-      }
-      .showcaseBg{
-        position:absolute;
-        inset: -30%;
-        background:
-          radial-gradient(circle at 50% 25%, rgba(90,200,250,0.18), transparent 45%),
-          radial-gradient(circle at 20% 80%, rgba(123,77,255,0.16), transparent 55%),
-          radial-gradient(circle at 70% 70%, rgba(236,72,153,0.10), transparent 55%);
-        filter: blur(18px);
-        opacity: 0.8;
-        pointer-events:none;
+      .taskText {
+        font-size: 0.98rem;
+        font-weight: 600;
+        transition: color 220ms ease, opacity 220ms ease, transform 220ms ease;
       }
 
-      .showcaseInner{
-        position: relative;
-        max-width: 1320px;
-        margin: 0 auto;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap: 110px;
-        padding-top: 26px;
+      .checkOne,
+      .checkTwo,
+      .checkThree {
+        animation: taskGlowLoop 6.8s ease-in-out infinite;
       }
 
-      .phone{
-        position: relative;
-        transition: transform 0.6s ease, opacity 0.6s ease;
-        will-change: transform;
-      }
-      .phoneFrame{
-        width: 332px;
-        height: 684px;
-        border-radius: 50px;
-        overflow:hidden;
-        background: #000;
-        border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 70px 150px rgba(0,0,0,0.90);
+      .checkOne .taskCheck,
+      .checkTwo .taskCheck,
+      .checkThree .taskCheck {
+        animation: boxTickLoop 6.8s ease-in-out infinite;
       }
 
-      .phoneCenter{
-        z-index: 3;
-        transform: scale(1.12);
-      }
-      .phoneFrameMain{
-        box-shadow: 0 90px 190px rgba(0,0,0,0.95), 0 0 200px rgba(90,200,250,0.18);
+      .checkOne .taskText,
+      .checkTwo .taskText,
+      .checkThree .taskText {
+        animation: textTickLoop 6.8s ease-in-out infinite;
       }
 
-      .phoneLeft{
-        opacity: 0.58;
-        transform: scale(0.90) rotate(-6deg) translateX(60px);
-      }
-      .phoneRight{
-        opacity: 0.58;
-        transform: scale(0.90) rotate(6deg) translateX(-60px);
+      .checkOne {
+        animation-delay: 0s;
       }
 
-      .phoneCenter:hover{
-        transform: scale(1.14);
+      .checkOne .taskCheck,
+      .checkOne .taskText {
+        animation-delay: 0s;
       }
 
-      .phoneCenter::before{
-        content:"";
-        position:absolute;
-        inset: -170px;
-        background: radial-gradient(circle, rgba(90,200,250,0.26), transparent 60%);
-        filter: blur(90px);
-        z-index: -1;
+      .checkTwo {
+        animation-delay: 2.05s;
       }
 
-      .showcaseCopy{
-        position: relative;
-        max-width: 1060px;
-        margin: 60px auto 0;
-        text-align:center;
-      }
-      .sectionTitle{
-        font-size: clamp(30px, 3.5vw, 44px);
-        letter-spacing: -0.03em;
-        margin: 0 0 10px;
-      }
-      .sectionSub{
-        margin: 0 auto;
-        max-width: 760px;
-        color: rgba(255,255,255,0.68);
-        font-size: 16px;
-        line-height: 1.6;
+      .checkTwo .taskCheck,
+      .checkTwo .taskText {
+        animation-delay: 2.05s;
       }
 
-      .featureGrid{
-        display:grid;
-        grid-template-columns: repeat(3, minmax(0,1fr));
-        gap: 14px;
-        margin-top: 22px;
-      }
-      .featureCard{
-        text-align:left;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 16px 16px 14px;
-        box-shadow: 0 18px 60px rgba(0,0,0,0.35);
-      }
-      .featureTag{
-        display:inline-flex;
-        padding: 6px 10px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.72);
-      }
-      .featureTitle{
-        margin-top: 10px;
-        font-weight: 820;
-        letter-spacing: -0.02em;
-        font-size: 16px;
-      }
-      .featureDesc{
-        margin-top: 8px;
-        color: rgba(255,255,255,0.68);
-        font-size: 14px;
-        line-height: 1.55;
+      .checkThree {
+        animation-delay: 4.1s;
       }
 
-      /* EVENT SECTIONS */
-      .eventSection{
-        position: relative;
-        padding: 90px 18px;
-        overflow:hidden;
-      }
-      .eventSection.alt{
-        background: radial-gradient(circle at 50% 30%, rgba(123,77,255,0.14), transparent 55%), #04050C;
-      }
-      .eventInner{
-        max-width: 980px;
-        margin: 0 auto;
-        text-align: center;
-      }
-      .eventKicker{
-        display:inline-flex;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        color: rgba(255,255,255,0.70);
-        font-size: 13px;
-        font-weight: 750;
-      }
-      .eventHeadline{
-        margin: 14px 0 10px;
-        font-size: clamp(30px, 3.6vw, 46px);
-        letter-spacing: -0.03em;
-      }
-      .eventBody{
-        margin: 0 auto;
-        max-width: 760px;
-        color: rgba(255,255,255,0.68);
-        font-size: 16px;
-        line-height: 1.65;
-      }
-      .eventMetrics{
-        margin-top: 22px;
-        display:grid;
-        grid-template-columns: repeat(3, minmax(0,1fr));
-        gap: 12px;
-      }
-      .metric{
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 14px 14px;
-      }
-      .metricNum{
-        font-size: 28px;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-      }
-      .metricLabel{
-        margin-top: 4px;
-        font-size: 13px;
-        color: rgba(255,255,255,0.62);
-      }
-      .eventSplit{
-        margin-top: 18px;
-        display:grid;
-        grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 12px;
-      }
-      .splitCard{
-        text-align:left;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        padding: 16px 16px;
-      }
-      .splitTitle{
-        font-weight: 850;
-        letter-spacing: -0.02em;
-      }
-      .splitText{
-        margin-top: 8px;
-        color: rgba(255,255,255,0.68);
-        line-height: 1.6;
-        font-size: 14px;
+      .checkThree .taskCheck,
+      .checkThree .taskText {
+        animation-delay: 4.1s;
       }
 
-      /* FINAL CTA */
-      .finalCta{
-        position: relative;
-        padding: 92px 18px 70px;
-        overflow:hidden;
-        background:
-          radial-gradient(circle at 50% 0%, rgba(90,200,250,0.22), transparent 55%),
-          radial-gradient(circle at 70% 30%, rgba(236,72,153,0.12), transparent 55%),
-          #04050C;
-      }
-      .finalInner{
-        position: relative;
-        max-width: 980px;
-        margin: 0 auto;
-        text-align:center;
-      }
-      .finalGlow{
-        position:absolute;
-        inset: -30%;
-        background: radial-gradient(circle, rgba(90,200,250,0.18), rgba(123,77,255,0.12), transparent 60%);
-        filter: blur(90px);
-        opacity: 0.8;
-        pointer-events:none;
-      }
-      .finalTitle{
-        position: relative;
-        margin: 0 0 10px;
-        font-size: clamp(34px, 4.6vw, 56px);
-        letter-spacing: -0.03em;
-      }
-      .finalSub{
-        position: relative;
-        margin: 0;
-        color: rgba(255,255,255,0.62);
-        font-size: 16px;
-      }
-      .finalButtons{
-        position: relative;
-        margin-top: 20px;
-        display:flex;
-        justify-content:center;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      .footerMini{
-        position: relative;
-        margin-top: 34px;
-        display:flex;
-        flex-direction: column;
-        align-items:center;
-        gap: 8px;
-        opacity: 0.85;
-      }
-      .footerBrand{
-        display:flex;
-        align-items:center;
-        gap: 10px;
-      }
-      .footerWord{
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        font-size: 18px;
-      }
-      .footerNote{
-        font-size: 13px;
-        color: rgba(255,255,255,0.62);
+      .statusFooter {
+        margin-top: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
 
-      /* SCREEN UI */
-      .screen{
-        width:100%;
-        height:100%;
-        position: relative;
-        border-radius: 50px;
-        overflow:hidden;
-        display:flex;
-        flex-direction:column;
-      }
-
-      .screen-sunrise{
-        background:
-          radial-gradient(circle at 30% 20%, rgba(255,190,120,0.24), transparent 45%),
-          radial-gradient(circle at 60% 40%, rgba(90,200,250,0.18), transparent 55%),
-          linear-gradient(180deg, #0A1024 0%, #050816 55%, #04050C 100%);
-      }
-
-      .screen-day{
-        background:
-          radial-gradient(circle at 50% 20%, rgba(90,200,250,0.22), transparent 48%),
-          radial-gradient(circle at 40% 55%, rgba(123,77,255,0.16), transparent 55%),
-          linear-gradient(180deg, #08113A 0%, #070A18 55%, #04050C 100%);
-      }
-
-      .screen-dusk{
-        background:
-          radial-gradient(circle at 50% 15%, rgba(123,77,255,0.22), transparent 48%),
-          radial-gradient(circle at 70% 45%, rgba(236,72,153,0.10), transparent 58%),
-          linear-gradient(180deg, #05061B 0%, #04050C 70%, #03040A 100%);
-      }
-
-      .statusBar{
-        padding: 12px 16px 6px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        color: rgba(255,255,255,0.85);
-        font-weight: 650;
-        font-size: 12px;
-      }
-      .sbCenter{
-        width: 150px;
-        height: 26px;
-        border-radius: 999px;
-        background: rgba(0,0,0,0.35);
-        border: 1px solid rgba(255,255,255,0.06);
-      }
-      .sbRight{
-        display:flex;
-        gap: 6px;
-        align-items:center;
-      }
-      .sig, .wifi, .bat{
-        width: 14px;
-        height: 10px;
-        border-radius: 3px;
-        background: rgba(255,255,255,0.55);
-        opacity: 0.9;
-      }
-      .bat{ width: 18px; }
-
-      .topBar{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        padding: 10px 14px 6px;
-      }
-      .circleBtn{
-        width: 36px;
-        height: 36px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.92);
-        font-size: 20px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-      }
-      .topCenter{
-        display:flex;
-        align-items:center;
-        gap: 8px;
-        padding: 7px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-      }
-      .topTitle{
-        font-weight: 750;
-        letter-spacing: -0.02em;
-        font-size: 14px;
-        color: rgba(255,255,255,0.86);
-      }
-
-      .screenBody{
-        padding: 0 14px 16px;
-        flex: 1;
-        display:flex;
-        flex-direction: column;
-      }
-
-      .pad{ padding: 8px 6px 0; }
-
-      .titleBlock{ margin-top: 10px; }
-      .h1{
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: -0.03em;
-        margin: 0;
-      }
-      .sub{
-        margin-top: 6px;
-        color: rgba(255,255,255,0.70);
-        font-size: 13px;
-        line-height: 1.45;
-      }
-
-      .card{
-        margin-top: 14px;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        box-shadow: 0 22px 70px rgba(0,0,0,0.45);
-        overflow:hidden;
-        position: relative;
-      }
-      .card-strong{
-        background: rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.12);
-      }
-      .card-main{
-        background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.04) 100%);
-        border-color: rgba(255,255,255,0.14);
-      }
-
-      .cardHeader{
-        padding: 14px 14px 10px;
-        display:flex;
-        align-items: baseline;
-        justify-content: space-between;
-      }
-      .cardTitle{
-        font-weight: 850;
-        letter-spacing: -0.02em;
-        font-size: 14px;
-        color: rgba(255,255,255,0.92);
-      }
-      .cardMeta{
-        font-size: 12px;
-        color: rgba(255,255,255,0.62);
-      }
-
-      .list{ padding: 2px 10px 12px; }
-      .row{
-        display:flex;
-        align-items:center;
-        gap: 10px;
-        padding: 10px 6px;
-        border-radius: 14px;
-      }
-      .row:hover{
-        background: rgba(255,255,255,0.04);
-      }
-      .rowMain{ flex:1; }
-      .rowTitle{
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        font-size: 14px;
-        color: rgba(255,255,255,0.92);
-      }
-      .rowSub{
-        margin-top: 2px;
-        font-size: 12px;
-        color: rgba(255,255,255,0.62);
-      }
-      .chev{
-        color: rgba(255,255,255,0.55);
-        font-size: 18px;
-        padding-right: 4px;
-      }
-
-      .dot{
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        box-shadow: 0 0 16px rgba(90,200,250,0.18);
-      }
-      .c1{ background: #58D9FF; }
-      .c2{ background: #6B5CFF; }
-      .c3{ background: #EC4899; }
-      .c4{ background: #FFB86B; }
-
-      .miniNote{
-        margin-top: 12px;
-        font-size: 12px;
-        color: rgba(255,255,255,0.58);
-      }
-
-      .arrivedChip{
-        margin-top: 10px;
-        display:inline-flex;
-        align-items:center;
-        gap: 8px;
-        padding: 8px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.84);
-        font-size: 12px;
-        font-weight: 750;
-      }
-      .arrivedDot{
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: #58D9FF;
-        box-shadow: 0 0 16px rgba(88,217,255,0.55);
-      }
-
-      .tasks{
-        padding: 2px 12px 8px;
-      }
-      .taskRow{
-        display:flex;
-        align-items:center;
-        gap: 10px;
-        padding: 10px 6px;
-        border-radius: 14px;
-      }
-      .taskRow:hover{
-        background: rgba(255,255,255,0.04);
-      }
-      .box{
-        width: 20px;
-        height: 20px;
-        border-radius: 7px;
-        border: 2px solid rgba(255,255,255,0.28);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-      }
-      .box.checked{
-        border: none;
-        background: linear-gradient(135deg, #58D9FF, #6B5CFF);
-        box-shadow: 0 0 22px rgba(88,217,255,0.26);
-      }
-      .check{
-        color: rgba(0,0,0,0.90);
-        font-weight: 900;
-        font-size: 14px;
-        line-height: 1;
-        transform: translateY(-0.5px);
-      }
-      .taskLabel{
-        font-size: 14px;
-        font-weight: 750;
-        letter-spacing: -0.02em;
-        color: rgba(255,255,255,0.92);
-      }
-      .taskRow.done .taskLabel{
-        opacity: 0.60;
-        text-decoration: line-through;
-        text-decoration-thickness: 2px;
-        text-decoration-color: rgba(255,255,255,0.28);
-      }
-      .taskSpacer{ flex:1; }
-      .taskPill{
-        font-size: 11px;
-        font-weight: 850;
-        padding: 6px 8px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.05);
-        color: rgba(255,255,255,0.82);
-      }
-      .taskPill.faint{
-        color: rgba(255,255,255,0.62);
-      }
-
-      .completeRow{
-        display:flex;
-        align-items:center;
-        justify-content: space-between;
-        padding: 10px 14px 14px;
-        gap: 10px;
-      }
-
-      .completeStamp{
-        position: relative;
-        width: 120px;
-        height: 44px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.14);
-        background: rgba(0,0,0,0.18);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        overflow:hidden;
-      }
-      .stampRing{
-        position:absolute;
-        inset:-18px;
-        background: radial-gradient(circle, rgba(88,217,255,0.30), rgba(107,92,255,0.16), transparent 58%);
-        filter: blur(10px);
-        animation: stampPulse 2.6s ease-in-out infinite;
-      }
-      .stampText{
-        position: relative;
-        font-size: 12px;
-        letter-spacing: 0.18em;
-        font-weight: 950;
-        color: rgba(255,255,255,0.86);
-      }
-
-      .miniBtn{
-        padding: 10px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(255,255,255,0.06);
-        color: rgba(255,255,255,0.92);
-        font-weight: 850;
-        font-size: 12px;
-      }
-      .miniBtn:hover{
-        background: rgba(255,255,255,0.09);
-      }
-
-      .cardFooterNote{
-        padding: 0 14px 14px;
-        color: rgba(255,255,255,0.62);
-        font-size: 12px;
+      .statusMiniValue {
+        margin-top: 0.25rem;
+        max-width: 17rem;
+        color: rgba(255, 255, 255, 0.72);
         line-height: 1.5;
       }
 
-      .softGlow{
-        position:absolute;
-        left: 50%;
-        bottom: 22px;
-        width: 240px;
-        height: 140px;
-        transform: translateX(-50%);
-        background: radial-gradient(circle, rgba(88,217,255,0.22), transparent 60%);
-        filter: blur(40px);
-        pointer-events:none;
-      }
-
-      .avatar{
-        width: 34px;
-        height: 34px;
+      .miniStamp {
+        flex-shrink: 0;
+        padding: 0.8rem 1rem;
         border-radius: 999px;
-        background: rgba(255,255,255,0.14);
-        border: 1px solid rgba(255,255,255,0.10);
+        background: var(--blue);
+        color: white;
+        font-weight: 600;
       }
-      .avatar.active{
-        background: linear-gradient(135deg, rgba(88,217,255,0.30), rgba(107,92,255,0.22));
-        box-shadow: 0 0 22px rgba(88,217,255,0.22);
+
+      .floatingQuote {
+        position: absolute;
+        right: -1rem;
+        bottom: -2rem;
+        width: min(18rem, 100%);
+        padding: 1.2rem 1.25rem;
+        border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
-      .presence{
-        width: 10px;
-        height: 10px;
+
+      .floatingQuote p {
+        margin: 0.5rem 0 0;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+      }
+
+      .proofBar {
+        padding: 0 1.5rem 2rem;
+      }
+
+      .proofInner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        justify-content: center;
+      }
+
+      .proofPill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.9rem 1rem;
         border-radius: 999px;
-        background: rgba(255,255,255,0.18);
-        border: 1px solid rgba(255,255,255,0.12);
-      }
-      .presence.on{
-        background: #58D9FF;
-        box-shadow: 0 0 18px rgba(88,217,255,0.52);
-        border: none;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.95rem;
       }
 
-      /* Near icon pulse */
-      .nearPulse{
-        transform-origin: 256px 256px;
-        animation: nearPulse 2.8s ease-in-out infinite;
-      }
-      @keyframes nearPulse{
-        0%, 100% { transform: scale(1); opacity: 0.98; }
-        50% { transform: scale(1.03); opacity: 1; }
-      }
-      @keyframes stampPulse{
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.12); opacity: 1; }
+      .proofIcon,
+      .miniIcon,
+      .useCaseIcon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        color: white;
+        background: var(--blue);
       }
 
-      /* Responsive */
-      @media (max-width: 1100px){
-        .showcaseInner{
-          flex-direction: column;
-          gap: 60px;
+      .proofIcon {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .section {
+        padding: 8rem 1.5rem;
+      }
+
+      .sectionLight {
+        color: var(--ink);
+      }
+
+      .sectionTint {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .sectionDark {
+        background: #111111;
+        color: white;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .sectionHeading {
+        max-width: 48rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .sectionTitle {
+        margin-top: 0.9rem;
+        font-size: clamp(2.7rem, 5vw, 4.9rem);
+        line-height: 1.02;
+      }
+
+      .sectionTitle.dark {
+        color: var(--ink);
+      }
+
+      .sectionSub {
+        max-width: 42rem;
+        margin: 1rem auto 0;
+        color: var(--muted-dark);
+      }
+
+      .sectionSub.dark {
+        color: var(--muted);
+      }
+
+      .problemList,
+      .stepGrid,
+      .storyGrid,
+      .featureBand,
+      .useCaseGrid,
+      .privacyGrid {
+        margin-top: 2.5rem;
+      }
+
+      .problemList {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .problemCard,
+      .stepCard,
+      .storyCard,
+      .featureMini,
+      .useCaseCard {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .problemCard {
+        padding: 1.3rem 1.4rem;
+        border-radius: 1.35rem;
+        font-size: 1.05rem;
+        line-height: 1.55;
+      }
+
+      .stepGrid,
+      .storyGrid,
+      .featureBand,
+      .useCaseGrid,
+      .privacyGrid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .stepGrid,
+      .storyGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .stepCard,
+      .storyCard,
+      .featureMini,
+      .useCaseCard {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+      }
+
+      .stepCard h3,
+      .storyCard h3,
+      .featureMini h3,
+      .useCaseCard h3 {
+        margin: 0.65rem 0 0;
+        font-family: var(--font-sans), sans-serif;
+        font-size: 1.32rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.22;
+        text-wrap: balance;
+      }
+
+      .stepCard p,
+      .storyCard p,
+      .featureMini p {
+        margin: 0.8rem 0 0;
+        color: var(--muted);
+        font-size: 1.03rem;
+        line-height: 1.72;
+      }
+
+      .stepLabel,
+      .storyEyebrow {
+        color: var(--blue);
+      }
+
+      .featureBand {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .miniIcon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      .useCaseGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .useCaseTop span {
+        color: rgba(255, 255, 255, 0.46);
+        font-size: 0.82rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .useCaseTitleWrap {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .useCaseIcon {
+        width: 2.1rem;
+        height: 2.1rem;
+        font-size: 0.86rem;
+        font-weight: 800;
+      }
+
+      .useCaseList {
+        display: grid;
+        gap: 0.85rem;
+        margin-top: 1.1rem;
+      }
+
+      .useCaseLine {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .householdShell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.95fr);
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .householdBoard {
+        display: grid;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 1.75rem;
+        border: 1px solid var(--line-dark);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .householdMetric {
+        padding: 1.1rem 1.15rem;
+        border-radius: 1.2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .householdMetric strong {
+        display: block;
+        font-family: var(--font-sans);
+        font-size: clamp(2.3rem, 5vw, 4rem);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .householdMetric span {
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 1.02rem;
+        line-height: 1.6;
+      }
+
+      .privacyShell {
+        max-width: 1050px;
+      }
+
+      .privacyGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .privacyGrid span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.15rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.72);
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .finalCta {
+        padding: 4rem 1.5rem 6rem;
+      }
+
+      .finalShell {
+        padding: 5rem 1.5rem;
+        border-radius: 2rem;
+        text-align: center;
+        background: #111111;
+        color: white;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .finalIcon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 1.2rem;
+      }
+
+      .finalTitle {
+        margin-top: 1rem;
+        font-size: clamp(2.6rem, 5.5vw, 5.2rem);
+        max-width: 11ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .finalSub {
+        max-width: 38rem;
+        margin: 1rem auto 0;
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .finalBtn {
+        margin-top: 1.8rem;
+        display: inline-flex;
+      }
+
+      @keyframes buttonSweep {
+        0%,
+        100% {
+          transform: translateX(-180%) rotate(18deg);
+          opacity: 0;
         }
-        .phoneLeft, .phoneRight{
-          transform: scale(0.96);
-          opacity: 0.75;
+
+        16% {
+          opacity: 1;
         }
-        .phoneCenter{
+
+        38% {
+          transform: translateX(390%) rotate(18deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes boxTickLoop {
+        0%,
+        22% {
+          color: transparent;
+          background: rgba(255, 255, 255, 0.02);
+          border-color: rgba(255, 255, 255, 0.18);
+          box-shadow: none;
           transform: scale(1);
         }
-        .featureGrid{
+
+        30%,
+        74% {
+          color: white;
+          background: var(--blue);
+          border-color: transparent;
+          box-shadow: none;
+          transform: scale(1.04);
+        }
+
+        84%,
+        100% {
+          color: transparent;
+          background: rgba(255, 255, 255, 0.02);
+          border-color: rgba(255, 255, 255, 0.18);
+          box-shadow: none;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes textTickLoop {
+        0%,
+        22% {
+          color: rgba(255, 255, 255, 0.92);
+          opacity: 1;
+          transform: translateX(0);
+          text-decoration: none;
+        }
+
+        30%,
+        74% {
+          color: rgba(255, 255, 255, 0.5);
+          opacity: 0.82;
+          transform: translateX(2px);
+          text-decoration: line-through;
+        }
+
+        84%,
+        100% {
+          color: rgba(255, 255, 255, 0.92);
+          opacity: 1;
+          transform: translateX(0);
+          text-decoration: none;
+        }
+      }
+
+      @keyframes taskGlowLoop {
+        0%,
+        22%,
+        84%,
+        100% {
+          background: rgba(255, 255, 255, 0.05);
+          border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        30%,
+        74% {
+          background: rgba(41, 151, 255, 0.08);
+          border-color: rgba(41, 151, 255, 0.15);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .heroInner,
+        .split,
+        .householdShell,
+        .stepGrid,
+        .storyGrid,
+        .featureBand,
+        .useCaseGrid,
+        .privacyGrid {
           grid-template-columns: 1fr;
         }
-        .eventMetrics{
+
+        .heroPanel {
+          min-height: auto;
+        }
+
+        .floatingQuote {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          width: 100%;
+          margin-top: 1rem;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .hideOnMobile {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 4.5rem;
+        }
+
+        .heroTitle {
+          font-size: clamp(3.2rem, 16vw, 5.1rem);
+        }
+
+        .section {
+          padding: 4.5rem 1.25rem;
+        }
+
+        .navInner,
+        .hero,
+        .proofBar,
+        .section,
+        .finalCta {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .heroCtas,
+        .heroMeta {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .primaryBtn,
+        .secondaryBtn,
+        .navCta,
+        .finalBtn {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .brandMark {
+          padding: 0;
+        }
+
+        .brandLogo {
+          height: 48px;
+        }
+
+        .privacyGrid {
           grid-template-columns: 1fr;
         }
-        .eventSplit{
-          grid-template-columns: 1fr;
+
+        .finalShell {
+          padding: 2.5rem 1.2rem;
         }
       }
     `}</style>

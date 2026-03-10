@@ -1,84 +1,67 @@
 "use client";
 
+import Image from "next/image";
+
 export function PhoneShowcase() {
   return (
     <section className="showcase" aria-label="Near app previews">
+      <div className="showcaseIntro">
+        <span className="showcaseKicker">See the product</span>
+        <h2 className="showcaseTitle">The reminder shows up when the place does.</h2>
+        <p className="showcaseSub">
+          Near is built around one simple, magical behavior: you arrive, and what matters is already waiting.
+        </p>
+      </div>
+
       <div className="inner">
-        {/* SUNRISE */}
-        <div className="phone left" aria-label="Sunrise preview">
-          <div className="device">
+        {/* LEFT — Home / Arrival */}
+        <div className="phone left" aria-label="Arrival reminder preview">
+          <div className="device dawn-glow">
+            <div className="arrivalOrb orbOne" aria-hidden="true" />
+            <div className="arrivalOrb orbTwo" aria-hidden="true" />
             <div className="bezel">
-              <div className="screen sunrise">
-                <TopBar time="7:42" />
-                <Header title="Grocery Run" subtitle="Arrive. It appears." />
-                <TaskList
-                  items={[
-                    { text: "Milk", dot: "sun" },
-                    { text: "Bread", dot: "sun" },
-                    { text: "Eggs", dot: "sun" },
-                    { text: "Berries", dot: "sun" },
-                  ]}
-                />
-                <FooterHint text="No timers. No opening the app." />
+              <div className="screenImg">
+                <div className="arrivalCard" aria-hidden="true">
+                  <span className="arrivalPing" />
+                  Arriving now
+                </div>
+                <Image src="/screen-home.svg" alt="Near home screen" width={280} height={580} />
               </div>
             </div>
-            <div className="glass" />
+          </div>
+          <div className="phoneLabel">
+            <span className="labelTime">Arrive</span>
+            <span className="labelScreen">Your list is ready</span>
           </div>
         </div>
 
-        {/* DAY */}
-        <div className="phone center" aria-label="Day preview">
-          <div className="device">
+        {/* CENTER — Places / Nudge */}
+        <div className="phone center" aria-label="Drive-by reminder preview">
+          <div className="device night-glow">
             <div className="bezel">
-              <div className="screen day">
-                <TopBar time="2:14" />
-                <Header title="Target" subtitle="3 done. 1 left." />
-                <TaskList
-                  items={[
-                    { text: "Paper Towels", checked: true, dot: "day" },
-                    { text: "Dish Soap", checked: true, dot: "day" },
-                    { text: "Trash Bags", checked: true, dot: "day" },
-                    { text: "Batteries", checked: false, dot: "day" },
-                  ]}
-                />
-                <div className="completeRow">
-                  <div className="completePill">
-                    <span className="completeDot" />
-                    Complete
-                  </div>
-                  <div className="micro">Checked off automatically</div>
-                </div>
-                <FooterHint text="Drive by. It reminds you." />
+              <div className="screenImg">
+                <Image src="/screen-places.svg" alt="Near places screen" width={280} height={580} />
               </div>
             </div>
-            <div className="glass" />
+          </div>
+          <div className="phoneLabel">
+            <span className="labelTime">Drive by</span>
+            <span className="labelScreen">Get the nudge</span>
           </div>
         </div>
 
-        {/* DUSK */}
-        <div className="phone right" aria-label="Dusk preview">
-          <div className="device">
+        {/* RIGHT — Household */}
+        <div className="phone right" aria-label="Household sync preview">
+          <div className="device dusk-glow">
             <div className="bezel">
-              <div className="screen dusk">
-                <TopBar time="8:05" />
-                <Header title="Home" subtitle="Household sync, instantly." />
-                <TaskList
-                  items={[
-                    { text: "Unload groceries", dot: "dusk" },
-                    { text: "Prep lunch", dot: "dusk" },
-                    { text: "Set reminders", dot: "dusk" },
-                    { text: "Charge headphones", dot: "dusk" },
-                  ]}
-                />
-                <div className="householdCard">
-                  <div className="hcTitle">Household</div>
-                  <div className="hcSub">Lauren • Brian • Reese</div>
-                  <div className="hcChip">Live</div>
-                </div>
-                <FooterHint text="If someone’s there, they see it." />
+              <div className="screenImg">
+                <Image src="/screen-household.svg" alt="Near household screen" width={280} height={580} />
               </div>
             </div>
-            <div className="glass" />
+          </div>
+          <div className="phoneLabel">
+            <span className="labelTime">Share</span>
+            <span className="labelScreen">Closest person gets the glory</span>
           </div>
         </div>
       </div>
@@ -86,21 +69,58 @@ export function PhoneShowcase() {
       <style jsx>{`
         .showcase {
           position: relative;
-          padding: 160px 0 190px;
+          padding: 80px 0 160px;
           overflow: hidden;
-          background: radial-gradient(900px 600px at 50% 30%, rgba(99, 102, 241, 0.18), rgba(0, 0, 0, 0) 60%),
-            radial-gradient(700px 500px at 25% 55%, rgba(236, 72, 153, 0.12), rgba(0, 0, 0, 0) 65%),
-            radial-gradient(800px 520px at 75% 60%, rgba(34, 211, 238, 0.12), rgba(0, 0, 0, 0) 65%),
-            linear-gradient(180deg, #04050b 0%, #05060f 40%, #02030a 100%);
+          background: #000000;
         }
 
         .showcase:before {
           content: "";
           position: absolute;
           inset: -2px;
-          background: radial-gradient(600px 380px at 50% 35%, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0) 60%);
-          filter: blur(30px);
+          background: radial-gradient(800px 500px at 50% 30%, rgba(41, 151, 255, 0.06), rgba(0, 0, 0, 0) 60%);
+          filter: blur(60px);
           pointer-events: none;
+        }
+
+        .showcaseIntro {
+          position: relative;
+          z-index: 2;
+          max-width: 820px;
+          margin: 0 auto 36px;
+          padding: 0 24px;
+          text-align: center;
+        }
+
+        .showcaseKicker {
+          display: inline-flex;
+          padding: 0;
+          border-radius: 0;
+          border: none;
+          background: none;
+          color: #2997ff;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          margin-bottom: 16px;
+        }
+
+        .showcaseTitle {
+          margin: 0 0 12px;
+          font-size: clamp(32px, 4.2vw, 52px);
+          line-height: 1.08;
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          color: #f5f5f7;
+        }
+
+        .showcaseSub {
+          margin: 0 auto;
+          max-width: 640px;
+          font-size: 18px;
+          line-height: 1.62;
+          color: rgba(255,255,255,0.60);
         }
 
         .inner {
@@ -110,335 +130,237 @@ export function PhoneShowcase() {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 72px;
+          gap: 48px;
           padding: 0 24px;
         }
 
         .phone {
           position: relative;
-          transition: transform 0.6s ease, opacity 0.6s ease, filter 0.6s ease;
-          will-change: transform;
+          transition: transform 0.4s ease;
         }
 
-        .left,
-        .right {
-          opacity: 0.72;
-          filter: saturate(0.98);
-          transform: scale(0.92);
+        .device {
+          position: relative;
         }
 
         .left {
-          transform: scale(0.92) translateX(44px);
+          opacity: 0.85;
+          transform: scale(0.95) translateX(20px);
         }
+
         .right {
-          transform: scale(0.92) translateX(-44px);
+          opacity: 0.85;
+          transform: scale(0.95) translateX(-20px);
         }
 
         .center {
           z-index: 3;
-          transform: scale(1.08);
+          transform: scale(1.06);
+        }
+
+        .dawn-glow .bezel {
+          box-shadow: 0 50px 120px rgba(0,0,0,0.7), 0 0 80px rgba(41, 151, 255, 0.12);
+        }
+
+        .arrivalOrb {
+          position: absolute;
+          border-radius: 999px;
+          pointer-events: none;
+          z-index: 0;
+          filter: blur(6px);
+        }
+
+        .orbOne {
+          top: 42px;
+          left: -18px;
+          width: 92px;
+          height: 92px;
+          background: radial-gradient(circle, rgba(41, 151, 255, 0.2), rgba(41, 151, 255, 0) 72%);
+          animation: orbDriftOne 6s ease-in-out infinite;
+        }
+
+        .orbTwo {
+          right: -12px;
+          bottom: 110px;
+          width: 74px;
+          height: 74px;
+          background: radial-gradient(circle, rgba(41, 151, 255, 0.15), rgba(41, 151, 255, 0) 74%);
+          animation: orbDriftTwo 5s ease-in-out infinite;
+        }
+
+        .arrivalCard {
+          position: absolute;
+          left: 16px;
+          top: 18px;
+          z-index: 4;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 13px;
+          border-radius: 999px;
+          color: rgba(255,255,255,0.92);
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          background: rgba(11, 15, 28, 0.82);
+          border: 1px solid rgba(255,255,255,0.12);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.38);
+          animation: arrivalCardFloat 3.6s ease-in-out infinite;
+          backdrop-filter: blur(14px);
+        }
+
+        .arrivalPing {
+          width: 9px;
+          height: 9px;
+          border-radius: 999px;
+          background: #2997ff;
+          box-shadow: 0 0 0 0 rgba(41, 151, 255, 0.36);
+          animation: pingPulse 2.2s ease-out infinite;
+        }
+        .night-glow .bezel {
+          box-shadow: 0 50px 120px rgba(0,0,0,0.7), 0 0 100px rgba(41, 151, 255, 0.18);
+        }
+        .dusk-glow .bezel {
+          box-shadow: 0 50px 120px rgba(0,0,0,0.7), 0 0 90px rgba(41, 151, 255, 0.12);
         }
 
         .center:before {
           content: "";
           position: absolute;
-          inset: -120px;
-          background: radial-gradient(circle, rgba(34, 211, 238, 0.18), rgba(99, 102, 241, 0.14), rgba(0, 0, 0, 0) 62%);
+          inset: -100px;
+          background: radial-gradient(circle, rgba(41, 151, 255, 0.1), rgba(0, 0, 0, 0) 60%);
           filter: blur(60px);
           z-index: -1;
         }
 
-        .center:hover {
-          transform: scale(1.11);
-        }
-
-        /* Device */
-        .device {
-          position: relative;
-        }
-
         .bezel {
-          width: 320px;
-          height: 640px;
-          border-radius: 48px;
-          padding: 12px;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+          width: 280px;
+          height: 580px;
+          border-radius: 44px;
+          padding: 10px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
           border: 1px solid rgba(255, 255, 255, 0.14);
-          box-shadow: 0 50px 120px rgba(0, 0, 0, 0.75);
+          box-shadow: 0 50px 120px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          overflow: hidden;
         }
 
-        .screen {
+        .screenImg {
           width: 100%;
           height: 100%;
-          border-radius: 40px;
+          border-radius: 36px;
           overflow: hidden;
+          background: #0a0a0a;
           position: relative;
-          padding: 18px 18px 16px;
-          color: rgba(255, 255, 255, 0.92);
         }
 
-        .glass {
-          position: absolute;
-          inset: 14px;
-          border-radius: 40px;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
-          opacity: 0.55;
-          pointer-events: none;
-          mix-blend-mode: screen;
+        .screenImg :global(img) {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
 
-        /* Screen themes with more contrast */
-        .sunrise {
-          background:
-            radial-gradient(700px 420px at 40% 10%, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0) 55%),
-            radial-gradient(600px 520px at 70% 85%, rgba(255, 180, 90, 0.38), rgba(0, 0, 0, 0) 62%),
-            linear-gradient(180deg, #2b1020 0%, #5b1830 30%, #ff6a3d 100%);
-        }
-
-        .day {
-          background:
-            radial-gradient(900px 520px at 50% 0%, rgba(255, 255, 255, 0.18), rgba(0, 0, 0, 0) 58%),
-            radial-gradient(700px 480px at 55% 60%, rgba(34, 211, 238, 0.35), rgba(0, 0, 0, 0) 65%),
-            linear-gradient(180deg, #0b1b3a 0%, #103b9a 35%, #19b7d7 100%);
-        }
-
-        .dusk {
-          background:
-            radial-gradient(700px 420px at 55% 15%, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0) 55%),
-            radial-gradient(600px 520px at 50% 85%, rgba(99, 102, 241, 0.26), rgba(0, 0, 0, 0) 66%),
-            linear-gradient(180deg, #070816 0%, #0e1330 45%, #101a3a 100%);
-        }
-
-        /* Notch + top chrome */
-        .topbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-          padding: 2px 4px 10px;
-          font-size: 12px;
-          letter-spacing: 0.02em;
-          color: rgba(255, 255, 255, 0.72);
-        }
-        .notch {
-          height: 18px;
-          width: 120px;
-          border-radius: 999px;
-          background: rgba(0, 0, 0, 0.38);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        }
-
-        .header {
-          margin-top: 4px;
-        }
-        .hTitle {
-          font-size: 28px;
-          font-weight: 700;
-          line-height: 1.1;
-          letter-spacing: -0.02em;
-          text-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-        }
-        .hSub {
-          margin-top: 6px;
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.72);
-        }
-
-        .tasks {
-          margin-top: 18px;
+        .phoneLabel {
+          text-align: center;
+          margin-top: 20px;
           display: flex;
           flex-direction: column;
-          gap: 12px;
-          padding: 0;
-          list-style: none;
-        }
-
-        .task {
-          display: flex;
           align-items: center;
-          gap: 10px;
-          padding: 12px 12px;
-          border-radius: 14px;
-          background: rgba(255, 255, 255, 0.10);
-          border: 1px solid rgba(255, 255, 255, 0.10);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
-          backdrop-filter: blur(10px);
+          gap: 4px;
         }
 
-        .dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.35);
-          box-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
-          flex: 0 0 auto;
-        }
-
-        .dot.day {
-          background: rgba(34, 211, 238, 0.92);
-          box-shadow: 0 0 18px rgba(34, 211, 238, 0.35);
-        }
-        .dot.sun {
-          background: rgba(255, 180, 90, 0.92);
-          box-shadow: 0 0 18px rgba(255, 180, 90, 0.30);
-        }
-        .dot.dusk {
-          background: rgba(99, 102, 241, 0.92);
-          box-shadow: 0 0 18px rgba(99, 102, 241, 0.30);
-        }
-
-        .taskText {
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: -0.01em;
-        }
-
-        .checked {
-          opacity: 0.66;
-          text-decoration: line-through;
-        }
-
-        .check {
-          margin-left: auto;
+        .labelTime {
           font-size: 12px;
-          color: rgba(255, 255, 255, 0.72);
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.09em;
+          color: rgba(255, 255, 255, 0.42);
         }
 
-        .completeRow {
-          margin-top: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-        }
-
-        .completePill {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px 12px;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          font-weight: 700;
-          letter-spacing: -0.01em;
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-        }
-
-        .completeDot {
-          width: 10px;
-          height: 10px;
-          border-radius: 999px;
-          background: rgba(34, 211, 238, 0.92);
-          box-shadow: 0 0 22px rgba(34, 211, 238, 0.55);
-        }
-
-        .micro {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.66);
-          text-align: right;
-        }
-
-        .householdCard {
-          margin-top: 14px;
-          padding: 14px 14px;
-          border-radius: 16px;
-          background: rgba(255, 255, 255, 0.10);
-          border: 1px solid rgba(255, 255, 255, 0.10);
-          backdrop-filter: blur(10px);
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
-          position: relative;
-        }
-
-        .hcTitle {
+        .labelScreen {
+          font-size: 17px;
           font-weight: 800;
           letter-spacing: -0.02em;
-        }
-        .hcSub {
-          margin-top: 6px;
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.72);
-        }
-        .hcChip {
-          position: absolute;
-          right: 12px;
-          top: 12px;
-          font-size: 11px;
-          font-weight: 800;
-          padding: 6px 10px;
-          border-radius: 999px;
-          background: rgba(99, 102, 241, 0.22);
-          border: 1px solid rgba(99, 102, 241, 0.32);
-        }
-
-        .hint {
-          margin-top: auto;
-          padding-top: 14px;
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.62);
-          text-align: center;
+          color: rgba(255, 255, 255, 0.90);
+          max-width: 220px;
+          line-height: 1.24;
         }
 
         @media (max-width: 1100px) {
           .inner {
             flex-direction: column;
-            gap: 54px;
+            gap: 40px;
           }
-          .left,
+          .left {
+            transform: scale(1);
+            opacity: 0.9;
+          }
           .right {
-            transform: scale(0.92);
-            opacity: 0.85;
+            transform: scale(1);
+            opacity: 0.9;
           }
           .center {
-            transform: scale(1);
+            transform: scale(1.02);
+          }
+        }
+
+        @keyframes arrivalCardFloat {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-10px) translateX(6px); }
+        }
+
+        @keyframes orbDriftOne {
+          0%, 100% { transform: translateY(0) scale(1); opacity: 0.9; }
+          50% { transform: translateY(-18px) translateX(8px) scale(1.08); opacity: 1; }
+        }
+
+        @keyframes orbDriftTwo {
+          0%, 100% { transform: translateY(0) scale(1); opacity: 0.72; }
+          50% { transform: translateY(14px) translateX(-8px) scale(1.1); opacity: 0.95; }
+        }
+
+        @keyframes pingPulse {
+          0% {
+            transform: scale(0.9);
+            box-shadow: 0 0 0 0 rgba(41, 151, 255, 0.34);
+          }
+
+          70% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 10px rgba(41, 151, 255, 0);
+          }
+
+          100% {
+            transform: scale(0.9);
+            box-shadow: 0 0 0 0 rgba(41, 151, 255, 0);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .bezel {
+            width: 240px;
+            height: 500px;
+            border-radius: 38px;
+          }
+
+          .arrivalCard {
+            left: 12px;
+            top: 14px;
+            padding: 8px 12px;
+            font-size: 11px;
+          }
+          .screenImg {
+            border-radius: 30px;
+          }
+          .showcase {
+            padding: 48px 0 96px;
+          }
+          .showcaseSub {
+            font-size: 16px;
           }
         }
       `}</style>
     </section>
   );
-}
-
-function TopBar({ time }: { time: string }) {
-  return (
-    <div className="topbar">
-      <div>{time}</div>
-      <div className="notch" aria-hidden="true" />
-      <div style={{ display: "flex", gap: 8, opacity: 0.85 }}>
-        <span>●●●</span>
-        <span>▮▮</span>
-      </div>
-    </div>
-  );
-}
-
-function Header({ title, subtitle }: { title: string; subtitle: string }) {
-  return (
-    <div className="header">
-      <div className="hTitle">{title}</div>
-      <div className="hSub">{subtitle}</div>
-    </div>
-  );
-}
-
-function TaskList({
-  items,
-}: {
-  items: { text: string; checked?: boolean; dot?: "sun" | "day" | "dusk" }[];
-}) {
-  return (
-    <ul className="tasks">
-      {items.map((it) => (
-        <li className="task" key={it.text}>
-          <span className={`dot ${it.dot ?? ""}`} aria-hidden="true" />
-          <span className={`taskText ${it.checked ? "checked" : ""}`}>{it.text}</span>
-          {it.checked ? <span className="check">✓</span> : null}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function FooterHint({ text }: { text: string }) {
-  return <div className="hint">{text}</div>;
 }
