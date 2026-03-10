@@ -651,10 +651,10 @@ function SunrisePlacesScreen() {
 
 function DayPlaceViewScreen() {
   const items = useMemo(() => [
-    { label: "Paper towels", detail: "Bounty, 6-pack" },
-    { label: "Dish soap", detail: "Dawn Platinum" },
-    { label: "Almond milk", detail: "Unsweetened Vanilla" },
-    { label: "Sparkling water", detail: "Topo Chico, 12-pk" },
+    { label: "Paper towels", detail: "Bounty, 6-pack", location: "Target", distance: "0.2 mi" },
+    { label: "Dish soap", detail: "Dawn Platinum", location: "Target", distance: "0.2 mi" },
+    { label: "Almond milk", detail: "Unsweetened Vanilla", location: "Publix", distance: "0.8 mi" },
+    { label: "Sparkling water", detail: "Topo Chico, 12-pk", location: "Costco", distance: "1.4 mi" },
   ], [])
 
   const [checkedCount, setCheckedCount] = useState(0)
@@ -781,6 +781,10 @@ function DayPlaceViewScreen() {
                   </div>
                   <div className="dayItemDetail">{item.detail}</div>
                 </div>
+                <div className="dayItemLocation">
+                  <span className="dayItemLocName">{item.location}</span>
+                  <span className="dayItemLocDist">{item.distance}</span>
+                </div>
               </div>
             )
           })}
@@ -788,7 +792,7 @@ function DayPlaceViewScreen() {
 
         {/* Bottom context */}
         <div className="dayFooter">
-          Near auto-sorted your list by aisle.
+          Near sorted by location and distance.
         </div>
       </div>
     </PhoneChrome>
@@ -3046,6 +3050,27 @@ function SiteStyles() {
         font-size: 10px;
         color: rgba(255,255,255,0.38);
         font-weight: 500;
+      }
+
+      .dayItemLocation{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        flex-shrink: 0;
+        gap: 1px;
+      }
+      .dayItemLocName{
+        font-size: 9px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.50);
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+      .dayItemLocDist{
+        font-size: 8px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.30);
+        white-space: nowrap;
       }
 
       .dayFooter{
