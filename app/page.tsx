@@ -146,21 +146,21 @@ function PhoneShowcase() {
       <div className="showcaseBg" aria-hidden="true" />
       <div className="showcaseInner">
 
-        {/* LEFT â SUNRISE */}
+        {/* LEFT -- SUNRISE */}
         <div className="phone phoneLeft">
           <div className="phoneFrame">
             <SunrisePlacesScreen />
           </div>
         </div>
 
-        {/* CENTER â DAY (PRIMARY) */}
+        {/* CENTER -- DAY (PRIMARY) */}
         <div className="phone phoneCenter">
           <div className="phoneFrame phoneFrameMain">
             <DayPlaceViewScreen />
           </div>
         </div>
 
-        {/* RIGHT â DUSK */}
+        {/* RIGHT -- DUSK */}
         <div className="phone phoneRight">
           <div className="phoneFrame">
             <DuskHouseholdScreen />
@@ -486,7 +486,7 @@ function PhoneChrome(props: {
       </div>
 
       <div className="topBar">
-        <button className="circleBtn" aria-label="Back">â¹</button>
+        <button className="circleBtn" aria-label="Back">{"\u2039"}</button>
 
         <div className="topCenter">
           <NearMark sizePx={18} />
@@ -726,7 +726,7 @@ function DayPlaceViewScreen() {
           </div>
 
           <button className={`dayCompleteBtn ${showComplete ? "dayCompleteBtnLit" : ""}`}>
-            {showComplete && <span className="dayBtnCheck">{"â"}</span>}
+            {showComplete && <span className="dayBtnCheck">{"\u2713"}</span>}
             Complete
           </button>
 
@@ -771,7 +771,7 @@ function DayPlaceViewScreen() {
                           : undefined,
                       }}
                     >
-                      {"â"}
+                      {"\u2713"}
                     </span>
                   )}
                 </div>
