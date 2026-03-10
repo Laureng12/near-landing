@@ -4,7 +4,7 @@ import Image from "next/image"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 export default function Page() {
   return (
-    <main className="page">
+    <main className="page"
       <TopNav />
       <Hero />
       <PhoneShowcase />
@@ -471,7 +471,7 @@ function PrivacySection() {
 }
 /* --------------------------- COMPARISON STRIP --------------------------- */
 function ComparisonStrip() {
-  const rows = [
+  const rows: { feature: string; near: boolean | "partial"; reminders: boolean | "partial"; todoist: boolean | "partial" }[] = [
     { feature: "Location-based reminders", near: true, reminders: "partial", todoist: false },
     { feature: "Automatic nudges when you arrive", near: true, reminders: false, todoist: false },
     { feature: "Shared household lists", near: true, reminders: true, todoist: true },
