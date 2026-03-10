@@ -4,7 +4,7 @@ import Image from "next/image"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 export default function Page() {
   return (
-    <main className="page"
+    <main className="page">
       <TopNav />
       <Hero />
       <PhoneShowcase />
