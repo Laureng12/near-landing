@@ -129,7 +129,7 @@ function TopNav() {
       <div className="navInner">
         <a className="brand" href="#top">
           <span className="brandMark">
-            <Image src="/near-logo-dark.png" alt="Near" className="brandLogo" width={384} height={256} priority quality={90} />
+            <Image src="/Near-Logo-Dark-1024.png" alt="Near" className="brandLogo" width={1024} height={1024} priority quality={100} />
           </span>
         </a>
 
@@ -531,9 +531,10 @@ function SiteStyles() {
 
       .brandLogo {
         width: auto;
-        height: 64px;
+        height: 280px;
         display: block;
         object-fit: contain;
+        margin: -100px -80px;
       }
 
       .navLink {
@@ -1420,7 +1421,8 @@ function SiteStyles() {
         }
 
         .brandLogo {
-          height: 48px;
+          height: 200px;
+          margin: -72px -56px;
         }
 
         .privacyGrid {
