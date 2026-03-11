@@ -963,8 +963,9 @@ function SiteStyles() {
 
       .floatingQuote {
         position: absolute;
-        right: -1rem;
-        bottom: -2rem;
+        left: 105%;
+        top: 50%;
+        transform: translateY(-50%);
         width: min(18rem, 100%);
         padding: 1.2rem 1.25rem;
         border-radius: 1.25rem;
