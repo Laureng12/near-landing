@@ -168,7 +168,7 @@ function Hero() {
       <div className="heroGlow heroGlowTwo" aria-hidden="true" />
       <div className="heroHeadlineWrap">
         <span className="eyebrow">The location-aware to-do list</span>
-        <h1 className="heroTitle">Never Forget Anything Again.</h1>
+        <h1 className="heroTitle">Never Forget<br />Anything Again.</h1>
       </div>
       <div className="heroInner">
         <div className="heroCopy">
