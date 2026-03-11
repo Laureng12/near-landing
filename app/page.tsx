@@ -1276,7 +1276,7 @@ function SiteStyles() {
       }
 
       .faqItem[open] .faqQ::after {
-        content: '\2212';
+        content: '−';
       }
 
       .faqA {
