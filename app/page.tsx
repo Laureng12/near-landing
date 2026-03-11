@@ -1230,7 +1230,7 @@ function SiteStyles() {
       }
 
       .exampleList li::before {
-        content: '\u2022';
+        content: '•';
         position: absolute;
         left: 0;
         color: var(--blue);
@@ -1276,7 +1276,7 @@ function SiteStyles() {
       }
 
       .faqItem[open] .faqQ::after {
-        content: '\u2212';
+        content: '\2212';
       }
 
       .faqA {
