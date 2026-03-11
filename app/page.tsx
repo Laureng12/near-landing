@@ -166,10 +166,12 @@ function Hero() {
     <section className="hero" id="top">
       <div className="heroGlow heroGlowOne" aria-hidden="true" />
       <div className="heroGlow heroGlowTwo" aria-hidden="true" />
+      <div className="heroHeadlineWrap">
+        <span className="eyebrow">The location-aware to-do list</span>
+        <h1 className="heroTitle">Never Forget Anything Again.</h1>
+      </div>
       <div className="heroInner">
         <div className="heroCopy">
-          <span className="eyebrow">The location-aware to-do list</span>
-          <h1 className="heroTitle">Never Forget Anything Again.</h1>
           <div className="heroCtas">
             <a className="secondaryBtn" href="#how-it-works">See the magic</a>
           </div>
@@ -637,10 +639,16 @@ function SiteStyles() {
         font-weight: 700;
       }
 
+      .heroHeadlineWrap {
+        max-width: 1200px;
+        margin: 0 auto 3rem;
+        text-align: center;
+      }
+
       .heroTitle {
         margin-top: 1rem;
         font-size: clamp(3.9rem, 8vw, 7.6rem);
-        max-width: 10ch;
+        max-width: none;
       }
 
       .heroSub,
