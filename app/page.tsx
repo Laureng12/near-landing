@@ -170,14 +170,7 @@ function Hero() {
         <div className="heroCopy">
           <span className="eyebrow">The location-aware to-do list</span>
           <h1 className="heroTitle">Never Forget Anything Again.</h1>
-          <p className="heroSub">
-            Near ties tasks to places, so the right reminder appears exactly when it can
-            become action. Beautifully simple for one person. Surprisingly great for a whole
-            household.
-          </p>
-
           <div className="heroCtas">
-            <a className="primaryBtn" href={APP_STORE_URL}>Download Free</a>
             <a className="secondaryBtn" href="#how-it-works">See the magic</a>
           </div>
 
