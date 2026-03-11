@@ -139,9 +139,12 @@ function Hero() {
         />
         <span className="eyebrow">Ambient life logistics</span>
         <h1 className="heroTitle">
-          The right task.<br />At the right place.
+          Never Forget<br />Anything Again.
         </h1>
         <p className="heroSub">
+          The right task. At the right place.
+        </p>
+        <p className="heroSub2">
           Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.
         </p>
         <p className="heroMeta">
@@ -634,9 +637,18 @@ function SiteStyles() {
       .heroSub {
         margin: 1.5rem auto 0;
         max-width: 640px;
-        font-size: 21px;
+        font-size: 28px;
         font-weight: 400;
-        line-height: 1.4;
+        line-height: 1.2;
+        color: #1D1D1F;
+      }
+
+      .heroSub2 {
+        margin: 1rem auto 0;
+        max-width: 640px;
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 1.5;
         color: #6E6E73;
       }
 
