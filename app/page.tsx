@@ -167,6 +167,7 @@ function Hero() {
       <div className="heroGlow heroGlowOne" aria-hidden="true" />
       <div className="heroGlow heroGlowTwo" aria-hidden="true" />
       <div className="heroHeadlineWrap">
+        <Image src="/near-icon-hero.png" alt="Near app icon" className="heroIcon" width={851} height={893} priority quality={100} />
         <span className="eyebrow">The location-aware to-do list</span>
         <h1 className="heroTitle">Never Forget<br />Anything Again.</h1>
       </div>
@@ -643,6 +644,15 @@ function SiteStyles() {
         max-width: 1200px;
         margin: 0 auto 3rem;
         text-align: center;
+      }
+
+      .heroIcon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        margin: 0 auto 1.5rem;
+        display: block;
+        clip-path: inset(4px round 18px);
       }
 
       .heroTitle {
