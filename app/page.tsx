@@ -171,19 +171,17 @@ function Hero() {
         <span className="eyebrow">The location-aware to-do list</span>
         <h1 className="heroTitle">Never Forget<br />Anything Again.</h1>
         <p className="heroSub">Near turns location into action. You stop checking lists. They show up when it matters.</p>
+        <div className="heroCtas heroCtasCentered">
+          <a className="primaryBtn" href={APP_STORE_URL}>Download Near</a>
+          <a className="secondaryBtn" href="#how-it-works">See it in action</a>
+        </div>
+        <div className="heroMeta heroMetaCentered">
+          <span>No timers</span>
+          <span>No opening the app</span>
+          <span>Household sync</span>
+        </div>
       </div>
       <div className="heroInner">
-        <div className="heroCopy">
-          <div className="heroCtas">
-            <a className="secondaryBtn" href="#how-it-works">See the magic</a>
-          </div>
-
-          <div className="heroMeta">
-            <span>Free to start</span>
-            <span>No account required</span>
-            <span>Works with real life</span>
-          </div>
-        </div>
 
         <div className="heroPanel">
           <div className="statusCard">
@@ -745,6 +743,10 @@ function SiteStyles() {
         transform: scale(0.98);
       }
 
+      .heroCtasCentered {
+        justify-content: center;
+      }
+
       .heroMeta {
         display: flex;
         flex-wrap: wrap;
@@ -759,6 +761,21 @@ function SiteStyles() {
         border-radius: 0;
         background: none;
         border: none;
+      }
+
+      .heroMetaCentered {
+        justify-content: center;
+      }
+
+      .heroMeta.heroMetaCentered span {
+        padding: 0.45rem 1rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .heroMeta.heroMetaCentered span + span::before {
+        display: none;
       }
 
       .heroMeta span + span::before {
