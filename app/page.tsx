@@ -388,18 +388,23 @@ function HouseholdSection() {
           </p>
         </div>
 
-        <div className="householdBoard">
-          <div className="householdMetric">
-            <strong>0</strong>
-            <span>group-text reminders required</span>
+        <div className="householdPhone">
+          <div className="householdNotif">
+            <div className="notifHeader">
+              <div className="notifIcon">📍</div>
+              <div className="notifApp">Near</div>
+              <div className="notifTime">now</div>
+            </div>
+            <div className="notifTitle">Brian is near Target</div>
+            <div className="notifBody">You have items you need at Target. Add those items to his list?</div>
+            <div className="notifActions">
+              <button className="notifBtn notifBtnPrimary">Add to Brian&apos;s list</button>
+              <button className="notifBtn notifBtnSecondary">Dismiss</button>
+            </div>
           </div>
-          <div className="householdMetric">
-            <strong>1</strong>
-            <span>shared source of truth</span>
-          </div>
-          <div className="householdMetric">
-            <strong>∞</strong>
-            <span>small frustrations avoided</span>
+          <div className="householdFooter">
+            <div className="householdFooterLabel">Household</div>
+            <div className="householdFooterValue">Brian is close, so Brian gets a nudge.</div>
           </div>
         </div>
       </div>
@@ -1211,34 +1216,109 @@ function SiteStyles() {
         align-items: center;
       }
 
-      .householdBoard {
-        display: grid;
-        gap: 1rem;
-        padding: 1rem;
-        border-radius: 1.75rem;
-        border: 1px solid var(--line-dark);
-        background: rgba(255, 255, 255, 0.04);
+      .householdPhone {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
       }
 
-      .householdMetric {
-        padding: 1.1rem 1.15rem;
-        border-radius: 1.2rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+      .householdNotif {
+        position: relative;
+        padding: 1.4rem 1.5rem;
+        border-radius: 1.5rem;
+        background: rgba(20, 20, 30, 0.85);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 0 60px rgba(41, 151, 255, 0.12),
+          0 0 120px rgba(41, 151, 255, 0.06),
+          0 8px 32px rgba(0, 0, 0, 0.4);
       }
 
-      .householdMetric strong {
-        display: block;
-        font-family: var(--font-sans);
-        font-size: clamp(2.3rem, 5vw, 4rem);
+      .notifHeader {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .notifIcon {
+        font-size: 1.1rem;
+      }
+
+      .notifApp {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .notifTime {
+        margin-left: auto;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      .notifTitle {
+        font-size: 1.1rem;
         font-weight: 700;
-        letter-spacing: -0.04em;
+        color: #fff;
+        margin-bottom: 0.4rem;
       }
 
-      .householdMetric span {
-        color: rgba(255, 255, 255, 0.68);
-        font-size: 1.02rem;
-        line-height: 1.6;
+      .notifBody {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+
+      .notifActions {
+        display: flex;
+        gap: 0.6rem;
+      }
+
+      .notifBtn {
+        padding: 0.55rem 1.1rem;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-family: var(--font-sans);
+      }
+
+      .notifBtnPrimary {
+        background: var(--blue);
+        color: #fff;
+      }
+
+      .notifBtnSecondary {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .householdFooter {
+        padding: 0 0.25rem;
+      }
+
+      .householdFooterLabel {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 0.35rem;
+      }
+
+      .householdFooterValue {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 1.5;
       }
 
       .privacyShell {
