@@ -118,6 +118,15 @@ export default function Page() {
       <HouseholdSection />
       <PrivacySection />
       <FinalCTA />
+      <footer className="siteFooter">
+        <div className="footerInner">
+          <span className="footerCopy">&copy; {new Date().getFullYear()} Near</span>
+          <nav className="footerLinks">
+            <a href="/terms" className="footerLink">Terms &amp; Conditions</a>
+            <a href="/privacy" className="footerLink">Privacy Policy</a>
+          </nav>
+        </div>
+      </footer>
       <SiteStyles />
     </main>
   )
@@ -1260,6 +1269,41 @@ function SiteStyles() {
       .finalBtn {
         margin-top: 1.8rem;
         display: inline-flex;
+      }
+
+      .siteFooter {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 2rem 1.5rem;
+        background: #000;
+      }
+
+      .footerInner {
+        max-width: 980px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footerCopy {
+        font-size: 0.85rem;
+        color: rgba(245, 245, 247, 0.4);
+      }
+
+      .footerLinks {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .footerLink {
+        font-size: 0.85rem;
+        color: rgba(245, 245, 247, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .footerLink:hover {
+        color: rgba(245, 245, 247, 0.8);
       }
 
       @keyframes buttonSweep {
