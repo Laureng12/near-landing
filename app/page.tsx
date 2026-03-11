@@ -170,6 +170,7 @@ function Hero() {
         <Image src="/near-icon-hero.png" alt="Near app icon" className="heroIcon" width={861} height={891} priority quality={100} unoptimized />
         <span className="eyebrow">The location-aware to-do list</span>
         <h1 className="heroTitle">Never Forget<br />Anything Again.</h1>
+        <p className="heroSub">Near turns location into action. You stop checking lists. They show up when it matters.</p>
       </div>
       <div className="heroInner">
         <div className="heroCopy">
@@ -671,8 +672,9 @@ function SiteStyles() {
 
       .heroSub {
         max-width: 38rem;
-        margin: 1.5rem 0 0;
+        margin: 1.5rem auto 0;
         color: var(--muted);
+        text-align: center;
       }
 
       .sectionTitle {
