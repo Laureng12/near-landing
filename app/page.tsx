@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { useEffect, useRef } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
@@ -121,41 +122,217 @@ function TopNav() {
   )
 }
 
-/* ─── Hero ─── */
+/* ─── Hero (scroll-driven) ─── */
 
 function Hero() {
+  const heroRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const el = heroRef.current
+    if (!el) return
+
+    const update = () => {
+      const rect = el.getBoundingClientRect()
+      const scrollable = el.offsetHeight - window.innerHeight
+      if (scrollable <= 0) return
+      const p = Math.min(Math.max(-rect.top / scrollable, 0), 1)
+
+      /* fade helper: smooth in/out within a range */
+      const fade = (start: number, end: number) => {
+        const fi = 0.06
+        const fo = 0.06
+        if (p < start) return 0
+        if (p < start + fi) return (p - start) / fi
+        if (p < end - fo) return 1
+        if (p < end) return 1 - (p - (end - fo)) / fo
+        return 0
+      }
+
+      const idleText = p < 0.12 ? 1 : p < 0.18 ? 1 - (p - 0.12) / 0.06 : 0
+      const idleReturn = p < 0.86 ? 0 : p < 0.92 ? (p - 0.86) / 0.06 : 1
+      const idlePhone = Math.max(idleText, idleReturn)
+      const grocery = fade(0.18, 0.42)
+      const target = fade(0.42, 0.68)
+      const home = fade(0.68, 0.88)
+      const ctaEm = p < 0.86 ? 0 : p < 0.92 ? (p - 0.86) / 0.06 : 1
+
+      el.style.setProperty("--idle", idleText.toFixed(3))
+      el.style.setProperty("--idle-phone", idlePhone.toFixed(3))
+      el.style.setProperty("--g", grocery.toFixed(3))
+      el.style.setProperty("--t", target.toFixed(3))
+      el.style.setProperty("--ho", home.toFixed(3))
+      el.style.setProperty("--cta-em", ctaEm.toFixed(3))
+    }
+
+    window.addEventListener("scroll", update, { passive: true })
+    update()
+    return () => window.removeEventListener("scroll", update)
+  }, [])
+
   return (
-    <section className="hero" id="top">
-      <div className="heroShell">
-        <Image
-          src="/near-icon-hero.png"
-          alt="Near app icon"
-          className="heroIcon"
-          width={861}
-          height={891}
-          priority
-          quality={100}
-          unoptimized
-        />
-        <span className="eyebrow">Ambient life logistics</span>
-        <h1 className="heroTitle">
-          Never Forget<br />Anything Again.
-        </h1>
-        <p className="heroSub">
-          The right task. At the right place.
-        </p>
-        <p className="heroSub2">
-          Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.
-        </p>
-        <p className="heroMeta">
-          No lists to check. No reminders to manage. Just the right moment.
-        </p>
-        <div className="heroCtas">
-          <a className="primaryBtn" href={APP_STORE_URL}>Download on the App Store</a>
-          <a className="secondaryBtn" href="#how-it-works">See how it works</a>
+    <section className="hero" id="top" ref={heroRef}>
+      <div className="heroSticky">
+        <div className="heroGlow" />
+        <div className="heroSplit">
+          <div className="heroCopy">
+            <Image
+              src="/near-icon-hero.png"
+              alt="Near app icon"
+              className="heroIcon"
+              width={861}
+              height={891}
+              priority
+              quality={100}
+              unoptimized
+            />
+            <span className="eyebrow">Ambient life logistics</span>
+            <h1 className="heroTitle">
+              Never Forget<br />Anything Again.
+            </h1>
+            <p className="heroSub">
+              The right task. At the right place.
+            </p>
+            <div className="heroPhases">
+              <p className="heroPhaseText phaseIdle">
+                Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.
+              </p>
+              <p className="heroPhaseText phaseGrocery">
+                Arrive at the store. Your list is already there.
+              </p>
+              <p className="heroPhaseText phaseTarget">
+                Passing a place you need. Near notices before you miss the turn.
+              </p>
+              <p className="heroPhaseText phaseHome">
+                Even home has a list. Near remembers so you don&apos;t have to.
+              </p>
+              <p className="heroPhaseText phaseCta">
+                No lists to check. No reminders to manage. Just the right moment.
+              </p>
+            </div>
+            <div className="heroCtas">
+              <a className="primaryBtn" href={APP_STORE_URL}>Download on the App Store</a>
+              <a className="secondaryBtn" href="#how-it-works">See how it works</a>
+            </div>
+          </div>
+          <div className="heroPhone">
+            <PhoneMockup />
+          </div>
         </div>
       </div>
     </section>
+  )
+}
+
+/* ─── Phone Mockup (scroll-driven phases) ─── */
+
+function PhoneMockup() {
+  return (
+    <div className="phoneMockup">
+      <div className="phoneDynamic" />
+      <div className="phoneScreen">
+        {/* Status bar */}
+        <div className="phoneStatusBar">
+          <span className="phoneTime">9:41</span>
+          <div className="phoneStatusRight">
+            <div className="phoneBatt">
+              <div className="phoneBattFill" />
+            </div>
+          </div>
+        </div>
+
+        {/* Notification banner — grocery phase */}
+        <div className="phoneNotif">
+          <Image
+            src="/near-icon-hero.png"
+            alt=""
+            width={36}
+            height={36}
+            className="phoneNotifAppIcon"
+          />
+          <div className="phoneNotifContent">
+            <div className="phoneNotifTitle">Arriving at Trader Joe&apos;s</div>
+            <div className="phoneNotifBody">Your grocery list is ready</div>
+          </div>
+        </div>
+
+        {/* Phase: Idle — Places list */}
+        <div className="phoneContent phoneContentIdle">
+          <div className="phoneAppHeader">
+            <div className="phoneAppTitle">Places</div>
+            <div className="phoneAppCount">4 nearby</div>
+          </div>
+          <div className="phoneTaskList">
+            <div className="phoneTaskRow">
+              <span className="placeIcon">{"\uD83C\uDF4E"}</span>
+              <span className="phoneTaskText">Trader Joe&apos;s</span>
+              <span className="phoneBadge">4</span>
+            </div>
+            <div className="phoneTaskRow">
+              <span className="placeIcon">{"\uD83C\uDFAF"}</span>
+              <span className="phoneTaskText">Target</span>
+              <span className="phoneBadge">2</span>
+            </div>
+            <div className="phoneTaskRow">
+              <span className="placeIcon">{"\uD83C\uDFE0"}</span>
+              <span className="phoneTaskText">Home</span>
+              <span className="phoneBadge">3</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Phase: Grocery — Trader Joe's detail */}
+        <div className="phoneContent phoneContentGrocery">
+          <div className="phoneAppHeader">
+            <div className="phoneAppTitle">Trader Joe&apos;s</div>
+            <div className="phoneAppCount">3 items</div>
+          </div>
+          <div className="phoneTaskList glassTaskList">
+            <div className="phoneTaskRow">
+              <span className="phoneCheck">{"\u2713"}</span>
+              <span className="phoneTaskText">Sparkling water</span>
+            </div>
+            <div className="phoneTaskRow">
+              <span className="phoneCheck">{"\u2713"}</span>
+              <span className="phoneTaskText">Lemons</span>
+            </div>
+            <div className="phoneTaskRow">
+              <span className="phoneCheck">{"\u2713"}</span>
+              <span className="phoneTaskText">Flowers for Friday</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Phase: Target — CarPlay card */}
+        <div className="phoneContent phoneContentTarget">
+          <div className="phoneCarplay">
+            <div className="phoneCarplayLabel">Nearby errand</div>
+            <div className="phoneCarplayStore">Target</div>
+            <div className="phoneCarplayTasks">
+              <span>Return package</span>
+              <span>Buy batteries</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Phase: Home — quiet notification */}
+        <div className="phoneContent phoneContentHome">
+          <div className="phoneAppHeader">
+            <div className="phoneAppTitle">Home</div>
+            <div className="phoneAppCount">2 items</div>
+          </div>
+          <div className="phoneTaskList glassTaskList">
+            <div className="phoneTaskRow">
+              <span className="phoneCheck">{"\u2713"}</span>
+              <span className="phoneTaskText">Replace air filter</span>
+            </div>
+            <div className="phoneTaskRow">
+              <span className="phoneCheck">{"\u2713"}</span>
+              <span className="phoneTaskText">Bring charger upstairs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -578,41 +755,78 @@ function SiteStyles() {
 
       .navCta:hover { background: var(--blue-hover); }
 
-      /* ── Hero ── */
+      /* ── Hero (scroll-driven) ── */
 
       .hero {
-        padding: 10rem 1.5rem 6rem;
-        text-align: center;
+        height: 350vh;
         position: relative;
+      }
+
+      .heroSticky {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
         overflow: hidden;
       }
 
-      .hero::before {
-        content: '';
+      .heroGlow {
         position: absolute;
-        top: -20%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 800px;
-        height: 800px;
+        top: 50%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+        width: 900px;
+        height: 900px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(47, 109, 255, 0.06) 0%, transparent 70%);
+        background: radial-gradient(
+          circle,
+          rgba(47, 109, 255, 0.1) 0%,
+          rgba(47, 109, 255, 0.04) 40%,
+          transparent 70%
+        );
         pointer-events: none;
+        animation: glowBreathe 5.5s ease-in-out infinite;
       }
 
-      .heroShell {
-        max-width: 980px;
+      @keyframes glowBreathe {
+        0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+      }
+
+      .heroSplit {
+        max-width: 1080px;
         margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 4rem;
         position: relative;
+        width: 100%;
+      }
+
+      .heroCopy {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .heroPhone {
+        flex-shrink: 0;
       }
 
       .heroIcon {
         width: 80px;
         height: 80px;
-        margin: 0 auto 1.5rem;
+        margin: 0 0 1.5rem;
         display: block;
         border-radius: 18px;
         box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25);
+        animation: iconPulse 5.5s ease-in-out infinite;
+      }
+
+      @keyframes iconPulse {
+        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25); }
+        50% { transform: scale(1.03); box-shadow: 0 12px 36px rgba(47, 109, 255, 0.35); }
       }
 
       .eyebrow {
@@ -635,37 +849,45 @@ function SiteStyles() {
       }
 
       .heroSub {
-        margin: 1.5rem auto 0;
-        max-width: 640px;
+        margin: 1.5rem 0 0;
         font-size: 28px;
         font-weight: 400;
         line-height: 1.2;
         color: #1D1D1F;
       }
 
-      .heroSub2 {
-        margin: 1rem auto 0;
-        max-width: 640px;
+      /* Phase-rotating subtext */
+      .heroPhases {
+        position: relative;
+        min-height: 60px;
+        margin: 1rem 0 0;
+      }
+
+      .heroPhaseText {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
         font-size: 19px;
         font-weight: 400;
         line-height: 1.5;
         color: #6E6E73;
+        will-change: opacity;
       }
 
-      .heroMeta {
-        margin: 1rem auto 0;
-        max-width: 640px;
-        font-size: 17px;
-        color: rgba(29, 29, 31, 0.4);
-        line-height: 1.4;
-      }
+      .phaseIdle { opacity: var(--idle, 1); }
+      .phaseGrocery { opacity: var(--g, 0); }
+      .phaseTarget { opacity: var(--t, 0); }
+      .phaseHome { opacity: var(--ho, 0); }
+      .phaseCta { opacity: var(--cta-em, 0); }
 
       .heroCtas {
         display: flex;
         flex-wrap: wrap;
         gap: 0.9rem;
         margin-top: 2.5rem;
-        justify-content: center;
+        justify-content: flex-start;
       }
 
       .primaryBtn, .secondaryBtn {
@@ -1386,9 +1608,338 @@ function SiteStyles() {
 
       .footerLink:hover { color: #1D1D1F; }
 
+      /* ── Phone Mockup (scroll-driven) ── */
+
+      .phoneMockup {
+        width: 280px;
+        height: 572px;
+        border-radius: 44px;
+        background: #000;
+        padding: 6px;
+        position: relative;
+        box-shadow:
+          0 0 0 2px #1A1A1E,
+          0 0 0 4px #2A2A2E,
+          0 20px 60px rgba(0, 0, 0, 0.25),
+          0 8px 24px rgba(0, 0, 0, 0.15);
+        animation: phoneFloat 6s ease-in-out infinite;
+      }
+
+      @keyframes phoneFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+
+      .phoneDynamic {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 32px;
+        border-radius: 16px;
+        background: #000;
+        z-index: 10;
+      }
+
+      .phoneScreen {
+        width: 100%;
+        height: 100%;
+        border-radius: 38px;
+        background: #F2F2F7;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Status bar */
+      .phoneStatusBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px 0;
+        height: 48px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .phoneTime {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1D1D1F;
+      }
+
+      .phoneStatusRight {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .phoneBatt {
+        width: 22px;
+        height: 10px;
+        border: 1.5px solid #1D1D1F;
+        border-radius: 3px;
+        padding: 1.5px;
+        position: relative;
+      }
+
+      .phoneBatt::after {
+        content: '';
+        position: absolute;
+        right: -4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2px;
+        height: 5px;
+        border-radius: 0 1px 1px 0;
+        background: #1D1D1F;
+      }
+
+      .phoneBattFill {
+        width: 75%;
+        height: 100%;
+        border-radius: 1px;
+        background: #1D1D1F;
+      }
+
+      /* Notification banner — driven by --g (grocery scroll) */
+      .phoneNotif {
+        position: absolute;
+        top: 12px;
+        left: 8px;
+        right: 8px;
+        padding: 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 20;
+        opacity: var(--g, 0);
+        transform: translateY(calc(-100% * (1 - var(--g, 0))));
+      }
+
+      .phoneNotifAppIcon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+
+      .phoneNotifContent {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .phoneNotifTitle {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1D1D1F;
+        line-height: 1.2;
+      }
+
+      .phoneNotifBody {
+        font-size: 12px;
+        color: #6E6E73;
+        margin-top: 1px;
+      }
+
+      /* Phase content layers */
+      .phoneContent {
+        position: absolute;
+        top: 48px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 12px 16px 16px;
+        will-change: opacity, transform;
+      }
+
+      .phoneContentIdle { opacity: var(--idle-phone, 1); }
+
+      .phoneContentGrocery {
+        opacity: var(--g, 0);
+        transform: translateY(calc((1 - var(--g, 0)) * 16px));
+      }
+
+      .phoneContentTarget {
+        opacity: var(--t, 0);
+        transform: translateX(calc((1 - var(--t, 0)) * 30px));
+      }
+
+      .phoneContentHome {
+        opacity: var(--ho, 0);
+      }
+
+      /* App header (inside phone) */
+      .phoneAppHeader {
+        margin-bottom: 16px;
+        padding: 0 2px;
+      }
+
+      .phoneAppTitle {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1D1D1F;
+        letter-spacing: -0.02em;
+      }
+
+      .phoneAppCount {
+        font-size: 14px;
+        color: #6E6E73;
+        margin-top: 2px;
+      }
+
+      /* Task list (inside phone) */
+      .phoneTaskList {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .phoneTaskRow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 14px;
+        background: white;
+      }
+
+      .phoneCheck {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: transparent;
+        background: transparent;
+        flex-shrink: 0;
+      }
+
+      .phoneTaskText {
+        font-size: 15px;
+        font-weight: 400;
+        color: #1D1D1F;
+        flex: 1;
+      }
+
+      /* Places badge (idle list) */
+      .placeIcon {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .phoneBadge {
+        font-size: 12px;
+        font-weight: 600;
+        color: white;
+        background: var(--blue);
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Glass card styling */
+      .glassTaskList {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+      }
+
+      .glassTaskList .phoneTaskRow {
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      /* CarPlay card (inside phone — Target phase) */
+      .phoneCarplay {
+        background: rgba(28, 28, 30, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-radius: 16px;
+        padding: 16px;
+        color: white;
+        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .phoneCarplayLabel {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .phoneCarplayStore {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .phoneCarplayTasks {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 10px;
+      }
+
+      .phoneCarplayTasks span {
+        padding: 8px 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
       /* ── Responsive ── */
 
       @media (max-width: 1024px) {
+        .hero { height: 300vh; }
+
+        .heroSplit { gap: 2.5rem; }
+
+        .heroGlow {
+          left: 50%;
+          width: 600px;
+          height: 600px;
+        }
+
+        .phoneMockup {
+          width: 230px;
+          height: 470px;
+          border-radius: 40px;
+        }
+
+        .phoneScreen { border-radius: 34px; }
+
+        .phoneDynamic {
+          width: 100px;
+          height: 28px;
+          border-radius: 14px;
+          top: 10px;
+        }
+
+        .heroTitle { font-size: clamp(2.4rem, 6vw, 3.5rem); }
+
         .splitGrid {
           grid-template-columns: 1fr;
           gap: 2.5rem;
@@ -1409,13 +1960,50 @@ function SiteStyles() {
       @media (max-width: 720px) {
         .hideOnMobile { display: none; }
 
-        .hero { padding: 6rem 1rem 4rem; }
+        .hero { height: 260vh; }
+
+        .heroSticky {
+          padding: 0 0.5rem;
+          align-items: flex-start;
+          padding-top: 56px;
+          overflow: visible;
+        }
+
+        .heroSplit {
+          flex-direction: column;
+          text-align: center;
+          gap: 1rem;
+        }
+
+        .heroPhone { order: -1; }
+
+        .heroCopy { text-align: center; }
+
+        .heroIcon { margin-left: auto; margin-right: auto; }
+
+        .heroPhases { margin-left: auto; margin-right: auto; max-width: 320px; }
+
+        .heroCtas { justify-content: center; }
 
         .section { padding: 5rem 1rem; }
 
-        .heroTitle {
-          font-size: clamp(2.4rem, 10vw, 3.5rem);
+        .heroIcon {
+          width: 44px;
+          height: 44px;
+          margin-bottom: 0.5rem;
+          border-radius: 11px;
         }
+
+        .eyebrow { font-size: 12px; margin-bottom: 0.4rem; }
+
+        .heroTitle {
+          font-size: clamp(2rem, 9vw, 3rem);
+        }
+
+        .heroSub { font-size: 17px; margin-top: 0.5rem; }
+
+        .heroPhaseText { font-size: 15px; }
+        .heroPhases { min-height: 44px; margin-top: 0.5rem; }
 
         .sectionTitle {
           font-size: clamp(1.8rem, 7vw, 2.4rem);
@@ -1424,11 +2012,83 @@ function SiteStyles() {
         .heroCtas {
           flex-direction: column;
           align-items: stretch;
+          margin-top: 1.25rem;
         }
 
         .primaryBtn, .secondaryBtn {
           justify-content: center;
           text-align: center;
+          padding: 0.75rem 1.4rem;
+          font-size: 0.9rem;
+        }
+
+        .phoneMockup {
+          width: 160px;
+          height: 327px;
+          border-radius: 30px;
+          padding: 4px;
+        }
+
+        .phoneScreen { border-radius: 26px; }
+
+        .phoneDynamic {
+          width: 80px;
+          height: 24px;
+          border-radius: 12px;
+          top: 8px;
+        }
+
+        .phoneStatusBar {
+          padding: 12px 16px 0;
+          height: 38px;
+        }
+
+        .phoneTime { font-size: 12px; }
+
+        .phoneContent { top: 38px; padding: 8px 10px 10px; }
+
+        .phoneAppTitle { font-size: 20px; }
+        .phoneAppCount { font-size: 12px; }
+        .phoneAppHeader { margin-bottom: 10px; }
+
+        .phoneTaskRow { padding: 9px 10px; gap: 8px; }
+        .phoneTaskText { font-size: 13px; }
+        .phoneCheck { width: 18px; height: 18px; font-size: 10px; }
+        .placeIcon { font-size: 0.9rem; }
+        .phoneBadge { width: 18px; height: 18px; font-size: 10px; }
+
+        .phoneNotif {
+          top: 8px;
+          left: 5px;
+          right: 5px;
+          padding: 8px;
+          border-radius: 14px;
+          gap: 6px;
+        }
+
+        .phoneNotifAppIcon {
+          width: 24px;
+          height: 24px;
+          border-radius: 6px;
+        }
+
+        .phoneNotifTitle { font-size: 11px; }
+        .phoneNotifBody { font-size: 10px; }
+
+        .phoneCarplay {
+          margin-top: 10px;
+          padding: 10px;
+          border-radius: 12px;
+        }
+
+        .phoneCarplayLabel { font-size: 9px; }
+        .phoneCarplayStore { font-size: 16px; }
+        .phoneCarplayTasks { gap: 4px; margin-top: 6px; }
+        .phoneCarplayTasks span { padding: 6px 8px; font-size: 11px; border-radius: 6px; }
+
+        .heroGlow {
+          width: 400px;
+          height: 400px;
         }
 
         .ecoGrid {
