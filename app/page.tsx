@@ -12,9 +12,10 @@ const proofItems = [
 ]
 
 const painPoints = [
-  "Sticky notes work great until they stay home.",
+  "Reminder apps that don\u2019t understand place.",
+  "Sticky notes that stay home when you don\u2019t.",
   "Texting yourself is just procrastination with bubbles.",
-  "Ordinary reminders know the time. Near knows the moment.",
+  "The mental load of invisible logistics.",
 ]
 
 const steps = [
@@ -22,19 +23,19 @@ const steps = [
     label: "Pin it",
     title: "Attach tasks to real places",
     description:
-      "Groceries go to the grocery store. Returns go to the mall. Dry cleaning waits at the cleaner, not in your head.",
+      "Groceries \u2192 the grocery store. Returns \u2192 the mall. Batteries \u2192 Target.",
   },
   {
     label: "Forget it",
     title: "Near runs quietly in the background",
     description:
-      "No timer choreography. No opening the app every six minutes. Just live normally while Near keeps the context.",
+      "No timers. No opening the app. Just live normally while Near keeps the context.",
   },
   {
     label: "Arrive",
-    title: "Your list appears at exactly the right time",
+    title: "Your tasks appear when the place does",
     description:
-      "Pull into the lot and your tasks are already there. It feels obvious after you see it once.",
+      "Pull into the lot and the list is already waiting.",
   },
 ]
 
@@ -62,15 +63,15 @@ const storyCards = [
 const featureCards = [
   {
     icon: "↗",
-    title: "Drive-by nudges",
+    title: "Drive-by intelligence",
     description:
-      "Passing Target with three unfinished tasks? Near notices before you miss the turn.",
+      "Passing Target with three unfinished errands? Near nudges you before you miss the turn. These small moments compound into hours saved every week.",
   },
   {
     icon: "⌂",
     title: "Shared grocery flow",
     description:
-      "Everyone can add items. The right person sees the list when they arrive. The fridge stays stocked.",
+      "Anyone can add items. Whoever is closest to the store gets the reminder. The fridge stays stocked without coordination overhead.",
   },
   {
     icon: "+",
@@ -82,7 +83,7 @@ const featureCards = [
     icon: "—",
     title: "Quiet by design",
     description:
-      "No ads, no social feed, no nonsense. It behaves like a utility, not a platform.",
+      "No ads. No social feed. No audience graph. No manipulation loops. Location is used for one thing: helping you get things done.",
   },
 ]
 
@@ -90,17 +91,17 @@ const useCases = [
   {
     icon: "◍",
     name: "Groceries",
-    lines: ["Milk, berries, oat milk", "Sorted when you arrive", "Shared with your household"],
+    lines: ["Your list appears when you arrive", "Shared across the household", "No more forgetting the one thing you came for"],
   },
   {
     icon: "△",
     name: "Errands",
-    lines: ["Return the package", "Pick up dry cleaning", "Grab birthday candles"],
+    lines: ["Returns, batteries, dry cleaning", "Triggered by proximity, not memory", "The stuff that falls through the cracks"],
   },
   {
     icon: "□",
-    name: "Home",
-    lines: ["Take measurements", "Replace the air filter", "Bring the charger upstairs"],
+    name: "Home tasks",
+    lines: ["Things you only remember when you\u2019re already there", "Measure the window. Fix the drawer.", "Surfaces when you walk in the door"],
   },
 ]
 
@@ -117,6 +118,7 @@ export default function Page() {
       <UseCaseSection />
       <HouseholdSection />
       <PrivacySection />
+      <DefinitionSection />
       <FinalCTA />
       <footer className="siteFooter">
         <div className="footerInner">
@@ -168,9 +170,9 @@ function Hero() {
       <div className="heroGlow heroGlowTwo" aria-hidden="true" />
       <div className="heroHeadlineWrap">
         <Image src="/near-icon-hero.png" alt="Near app icon" className="heroIcon" width={861} height={891} priority quality={100} unoptimized />
-        <span className="eyebrow">The location-aware to-do list</span>
+        <span className="eyebrow">Ambient Life Logistics</span>
         <h1 className="heroTitle">Never Forget<br />Anything Again.</h1>
-        <p className="heroSub">Near turns location into action. You stop checking lists. They show up when it matters.</p>
+        <p className="heroSub">Near quietly coordinates errands, reminders, and household tasks using location and context. Arrive somewhere, and what matters is already waiting.</p>
         <div className="heroCtas heroCtasCentered">
           <a className="primaryBtn" href={APP_STORE_URL}>Download Near</a>
           <a className="secondaryBtn" href="#how-it-works">See it in action</a>
@@ -256,8 +258,8 @@ function ProblemSection() {
     <section className="section sectionLight">
       <div className="sectionShell split">
         <div>
-          <span className="eyebrow dark">Why this matters</span>
-          <h2 className="sectionTitle dark">Your brain should be for ideas, not batteries and oat milk.</h2>
+          <span className="eyebrow dark">The problem</span>
+          <h2 className="sectionTitle dark">Life runs on invisible logistics.</h2>
         </div>
 
         <div className="problemList">
@@ -277,11 +279,10 @@ function HowItWorks() {
     <section className="section sectionLight" id="how-it-works">
       <div className="sectionShell">
         <div className="sectionHeading">
-          <span className="eyebrow dark">How it works</span>
-          <h2 className="sectionTitle dark">Three steps. Zero nagging.</h2>
+          <span className="eyebrow dark">The system</span>
+          <h2 className="sectionTitle dark">How Near Works</h2>
           <p className="sectionSub dark">
-            Near feels smart because it removes effort, not because it adds settings. The
-            setup is obvious. The payoff is immediate.
+            Near turns real-world places into triggers for action.
           </p>
         </div>
 
@@ -304,11 +305,10 @@ function StorySection() {
     <section className="section sectionTint" id="story">
       <div className="sectionShell">
         <div className="sectionHeading">
-          <span className="eyebrow dark">Why Near wins</span>
-          <h2 className="sectionTitle dark">A to-do list with timing is useful. A to-do list with place is power.</h2>
+          <span className="eyebrow dark">What Near is</span>
+          <h2 className="sectionTitle dark">A new kind of productivity system.</h2>
           <p className="sectionSub dark">
-            Most reminder apps interrupt you at random. Near waits until the reminder can
-            actually be done. That changes everything.
+            Near is an ambient life logistics system that surfaces tasks automatically when they become relevant. Your life already has the context. Near simply listens for it.
           </p>
         </div>
 
@@ -343,8 +343,8 @@ function UseCaseSection() {
     <section className="section sectionLight">
       <div className="sectionShell">
         <div className="sectionHeading">
-          <span className="eyebrow dark">Use cases</span>
-          <h2 className="sectionTitle dark">Built for all the things life throws at a parking lot.</h2>
+          <span className="eyebrow dark">Built for the small things</span>
+          <h2 className="sectionTitle dark">Near shines in the moments where life usually leaks.</h2>
         </div>
 
         <div className="useCaseGrid">
@@ -380,11 +380,10 @@ function HouseholdSection() {
     <section className="section sectionDark" id="household">
       <div className="sectionShell householdShell">
         <div className="householdCopy">
-          <span className="eyebrow">Household mode</span>
-          <h2 className="sectionTitle">The shared brain your household never had.</h2>
+          <span className="eyebrow">Household logistics</span>
+          <h2 className="sectionTitle">One household. One shared memory.</h2>
           <p className="sectionSub">
-            Near is unusually good at domestic logistics. One person adds the item. Another
-            person passes the store. The app handles the handoff without a single follow-up text.
+            Near coordinates tasks across the people who live together. Anyone can add items. Whoever is closest to the store gets the reminder. No group chat. No follow-up text. Just done.
           </p>
         </div>
 
@@ -417,22 +416,37 @@ function PrivacySection() {
     <section className="section sectionLight">
       <div className="sectionShell privacyShell">
         <div className="sectionHeading">
-          <span className="eyebrow dark">Privacy</span>
-          <h2 className="sectionTitle dark">Useful, not creepy.</h2>
+          <span className="eyebrow dark">Quiet by design</span>
+          <h2 className="sectionTitle dark">Near behaves like a utility, not a platform.</h2>
           <p className="sectionSub dark">
-            Near uses location to help you get things done. Not to build an audience graph, sell
-            ads, or invent a feed nobody asked for.
+            Location is used for one thing: helping you get things done. No ads. No social feed. No audience graph. No manipulation loops.
           </p>
         </div>
 
         <div className="privacyGrid">
           <span>No ads</span>
-          <span>No account required</span>
-          <span>No social theater</span>
-          <span>Built for utility</span>
-          <span>Works quietly in the background</span>
-          <span>Designed for trust</span>
+          <span>No social feed</span>
+          <span>No audience graph</span>
+          <span>No manipulation loops</span>
         </div>
+      </div>
+    </section>
+  )
+}
+
+function DefinitionSection() {
+  return (
+    <section className="section sectionTint">
+      <div className="sectionShell definitionShell">
+        <span className="eyebrow">What is ambient life logistics?</span>
+        <blockquote className="definitionBlock">
+          <p className="definitionText">
+            <strong>Ambient Life Logistics</strong> <em>(n.)</em> &mdash; A system that surfaces the right task, at the right place, at the right time &mdash; without requiring the user to remember, check, or act on a schedule. The environment becomes the trigger.
+          </p>
+        </blockquote>
+        <p className="definitionAttribution">
+          Near is the first app built around this principle.
+        </p>
       </div>
     </section>
   )
@@ -445,7 +459,7 @@ function FinalCTA() {
         <span className="eyebrow">Start now</span>
         <h2 className="finalTitle">The smartest reminder is the one that waits for the right place.</h2>
         <p className="finalSub">
-          Download Near and let your errands find you for a change.
+          Download Near and let your errands find you.
         </p>
         <a className="primaryBtn finalBtn" href={APP_STORE_URL}>
           Download Free on the App Store
@@ -682,7 +696,7 @@ function SiteStyles() {
 
       .sectionTitle {
         text-wrap: balance;
-        max-width: 12ch;
+        max-width: 20ch;
         margin-left: auto;
         margin-right: auto;
       }
@@ -1326,7 +1340,7 @@ function SiteStyles() {
       }
 
       .privacyGrid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .privacyGrid span {
@@ -1340,6 +1354,41 @@ function SiteStyles() {
         color: rgba(255, 255, 255, 0.72);
         text-align: center;
         font-size: 1rem;
+      }
+
+      .definitionShell {
+        max-width: 720px;
+        text-align: center;
+      }
+
+      .definitionBlock {
+        margin: 2rem 0 0;
+        padding: 0;
+        border: none;
+      }
+
+      .definitionText {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: rgba(245, 245, 247, 0.8);
+        font-style: normal;
+      }
+
+      .definitionText strong {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .definitionText em {
+        color: rgba(245, 245, 247, 0.5);
+        font-style: italic;
+      }
+
+      .definitionAttribution {
+        margin-top: 1.5rem;
+        font-size: 0.95rem;
+        color: var(--blue);
+        font-weight: 600;
       }
 
       .finalCta {
@@ -1511,9 +1560,12 @@ function SiteStyles() {
         .stepGrid,
         .storyGrid,
         .featureBand,
-        .useCaseGrid,
-        .privacyGrid {
+        .useCaseGrid {
           grid-template-columns: 1fr;
+        }
+
+        .privacyGrid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .heroPanel {
