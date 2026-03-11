@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #f5f5f7;
+  --background: #FFFFFF;
+  --foreground: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --surface: #F5F5F7;
+  --blue: #2F6DFF;
+  --blue-hover: #1C56E5;
+  --line: rgba(0, 0, 0, 0.08);
+  --line-strong: rgba(0, 0, 0, 0.12);
+  --glow: rgba(47, 109, 255, 0.25);
   --font-sans: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --font-display: -apple-system, "SF Pro Display", system-ui, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
@@ -14,4 +21,5 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }

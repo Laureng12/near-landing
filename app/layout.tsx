@@ -2,10 +2,11 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Near | Never Forget Anything Again.",
+  title: "Near | The right task. At the right place.",
   description:
-    "Near is the location-aware to-do list for iPhone. Attach tasks to places, get reminded when you arrive, and keep your household in sync.",
+    "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
   keywords: [
+    "ambient life logistics",
     "location reminders",
     "location based tasks",
     "grocery list app",
@@ -16,12 +17,14 @@ export const metadata: Metadata = {
     "shared grocery list",
     "family task app",
     "remember when you arrive",
+    "automatic reminders",
+    "location-based task manager",
   ],
   metadataBase: new URL("https://nearesttask.com"),
   openGraph: {
-    title: "Near | Never Forget Anything Again.",
+    title: "Near | Ambient Life Logistics",
     description:
-      "Attach tasks to places. Near reminds you when you arrive, helps your household stay in sync, and makes errands feel effortless.",
+      "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
     url: "https://nearesttask.com",
     siteName: "Near",
     type: "website",
@@ -30,15 +33,15 @@ export const metadata: Metadata = {
         url: "/near-og.png",
         width: 1200,
         height: 630,
-        alt: "Near - Ambient task intelligence for iPhone",
+        alt: "Near - Ambient life logistics for iPhone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Near | Never Forget Anything Again.",
+    title: "Near | The right task. At the right place.",
     description:
-      "The location-aware to-do list for iPhone. The right reminder, at the right place, at the right time.",
+      "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
     images: ["/near-og.png"],
   },
   appleWebApp: {
@@ -74,7 +77,50 @@ export default function RootLayout({
                 priceCurrency: "USD",
               },
               description:
-                "Near is the location-aware to-do list for iPhone. Add tasks to places and let the reminder appear when it can actually be done.",
+                "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is a location-based reminder?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A location-based reminder is a task that appears when you arrive at or pass a specific place. Near uses location awareness to automatically show errands and reminders when they become relevant.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How does Near know when I arrive somewhere?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Near uses iPhone location services to detect when you arrive at a location such as a grocery store, pharmacy, or home. When you reach that location, the relevant tasks appear automatically.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Can Near share grocery lists with family members?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Yes. Near supports shared household lists so anyone in the household can add items. When someone is near the store, they receive the reminder.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Does Near track my location?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "No. Near uses location only to show tasks when they matter. Data stays on your device and is never used for advertising.",
+                  },
+                },
+              ],
             }),
           }}
         />

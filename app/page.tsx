@@ -1,124 +1,84 @@
 "use client"
 
 import Image from "next/image"
-import { PhoneShowcase } from "./PhoneShowcase"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
-const proofItems = [
-  { icon: "◎", label: "Location-based reminders" },
-  { icon: "◌", label: "Shared household lists" },
-  { icon: "◐", label: "Designed for iPhone" },
-]
+const KEY_SENTENCE =
+  "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location."
 
-const painPoints = [
-  "Reminder apps that don\u2019t understand place.",
-  "Sticky notes that stay home when you don\u2019t.",
-  "Texting yourself is just procrastination with bubbles.",
-  "The mental load of invisible logistics.",
-]
-
-const steps = [
+const ecosystemItems = [
   {
-    label: "Pin it",
-    title: "Attach tasks to real places",
+    icon: "\uD83D\uDCF1",
+    title: "iPhone",
     description:
-      "Groceries \u2192 the grocery store. Returns \u2192 the mall. Batteries \u2192 Target.",
+      "Tasks appear on your lock screen when you arrive.",
   },
   {
-    label: "Forget it",
-    title: "Near runs quietly in the background",
+    icon: "\u231A",
+    title: "Apple Watch",
     description:
-      "No timers. No opening the app. Just live normally while Near keeps the context.",
+      "A gentle tap when something nearby matters.",
   },
   {
-    label: "Arrive",
-    title: "Your tasks appear when the place does",
+    icon: "\uD83D\uDE97",
+    title: "CarPlay",
     description:
-      "Pull into the lot and the list is already waiting.",
+      "Errands surface while you\u2019re already on the road.",
+  },
+  {
+    icon: "\uD83C\uDF10",
+    title: "Siri & Maps",
+    description:
+      "Ask naturally. See tasks where places already live.",
   },
 ]
 
-const storyCards = [
+const placesUI = [
+  { name: "Trader Joe\u2019s", count: 4, emoji: "\uD83C\uDF4E" },
+  { name: "Target", count: 2, emoji: "\uD83C\uDFAF" },
+  { name: "Home", count: 3, emoji: "\uD83C\uDFE0" },
+  { name: "Walgreens", count: 1, emoji: "\uD83D\uDC8A" },
+]
+
+const faqItems = [
   {
-    eyebrow: "For busy people",
-    title: "Errands stop leaking out of your day.",
-    copy:
-      "Near turns all those tiny, expensive misses into easy wins. Pick up the prescription. Drop off the package. Grab the batteries while you are already there.",
+    q: "What is a location-based reminder?",
+    a: "A location-based reminder is a task that appears when you arrive at or pass a specific place. Near uses location awareness to automatically show errands and reminders when they become relevant.",
   },
   {
-    eyebrow: "For couples and families",
-    title: "One household. One shared memory.",
-    copy:
-      "When someone is closest to the store, they get the nudge. Less coordination. Less resentment. Far fewer 'I thought you were getting that.' moments.",
+    q: "How does Near know when I arrive somewhere?",
+    a: "Near uses iPhone location services to detect when you arrive at a location such as a grocery store, pharmacy, or home. When you reach that location, the relevant tasks appear automatically.",
   },
   {
-    eyebrow: "For repeat routines",
-    title: "The app gets smarter without getting louder.",
-    copy:
-      "Near is useful on day one, then compounds. Favorite places, recurring needs, grocery habits, and all the little rituals that make life run.",
+    q: "Can Near share grocery lists with family members?",
+    a: "Yes. Near supports shared household lists so anyone in the household can add items. When someone is near the store, they receive the reminder.",
+  },
+  {
+    q: "Does Near track my location?",
+    a: "No. Near uses location only to show tasks when they matter. Data stays on your device and is never used for advertising.",
   },
 ]
 
-const featureCards = [
-  {
-    icon: "↗",
-    title: "Drive-by intelligence",
-    description:
-      "Passing Target with three unfinished errands? Near nudges you before you miss the turn. These small moments compound into hours saved every week.",
-  },
-  {
-    icon: "⌂",
-    title: "Shared grocery flow",
-    description:
-      "Anyone can add items. Whoever is closest to the store gets the reminder. The fridge stays stocked without coordination overhead.",
-  },
-  {
-    icon: "+",
-    title: "Fast capture",
-    description:
-      "Type it, say it, scan it, or snap it. Near is built for the half-second when you remember.",
-  },
-  {
-    icon: "—",
-    title: "Quiet by design",
-    description:
-      "No ads. No social feed. No audience graph. No manipulation loops. Location is used for one thing: helping you get things done.",
-  },
-]
-
-const useCases = [
-  {
-    icon: "◍",
-    name: "Groceries",
-    lines: ["Your list appears when you arrive", "Shared across the household", "No more forgetting the one thing you came for"],
-  },
-  {
-    icon: "△",
-    name: "Errands",
-    lines: ["Returns, batteries, dry cleaning", "Triggered by proximity, not memory", "The stuff that falls through the cracks"],
-  },
-  {
-    icon: "□",
-    name: "Home tasks",
-    lines: ["Things you only remember when you\u2019re already there", "Measure the window. Fix the drawer.", "Surfaces when you walk in the door"],
-  },
-]
+/* ─── Page ─── */
 
 export default function Page() {
   return (
     <main className="page">
       <TopNav />
       <Hero />
-      <ProofBar />
-      <PhoneShowcase />
-      <ProblemSection />
-      <HowItWorks />
-      <StorySection />
-      <UseCaseSection />
+      <AIDefinition />
+      <ArriveSection />
+      <PassingBySection />
+      <EcosystemSection />
+      <SimplerInterface />
+      <NaturalInput />
       <HouseholdSection />
+      <MapsSection />
+      <CalmTechnology />
       <PrivacySection />
-      <DefinitionSection />
+      <PhilosophySection />
+      <FAQSection />
       <FinalCTA />
       <footer className="siteFooter">
         <div className="footerInner">
@@ -134,92 +94,126 @@ export default function Page() {
   )
 }
 
+/* ─── Nav ─── */
+
 function TopNav() {
   return (
     <header className="nav">
       <div className="navInner">
         <a className="brand" href="#top">
-          <span className="brandMark">
-            <Image src="/near-logo-dark-cropped.png" alt="Near" className="brandLogo" width={515} height={220} priority quality={100} />
-          </span>
+          <Image
+            src="/near-logo-light-cropped.png"
+            alt="Near"
+            className="brandLogo"
+            width={777}
+            height={305}
+            priority
+            quality={100}
+          />
         </a>
-
         <nav className="navLinks" aria-label="Primary">
-          <a className="navLink hideOnMobile" href="#how-it-works">
-            How it works
-          </a>
-          <a className="navLink hideOnMobile" href="#story">
-            Why Near
-          </a>
-          <a className="navLink hideOnMobile" href="#household">
-            Household
-          </a>
-          <a className="navCta" href={APP_STORE_URL}>
-            Download
-          </a>
+          <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
+          <a className="navLink hideOnMobile" href="#household">Household</a>
+          <a className="navCta" href={APP_STORE_URL}>Download</a>
         </nav>
       </div>
     </header>
   )
 }
 
+/* ─── Hero ─── */
+
 function Hero() {
   return (
     <section className="hero" id="top">
-      <div className="heroGlow heroGlowOne" aria-hidden="true" />
-      <div className="heroGlow heroGlowTwo" aria-hidden="true" />
-      <div className="heroHeadlineWrap">
-        <Image src="/near-icon-hero.png" alt="Near app icon" className="heroIcon" width={861} height={891} priority quality={100} unoptimized />
-        <span className="eyebrow">Ambient Life Logistics</span>
-        <h1 className="heroTitle">Never Forget<br />Anything Again.</h1>
-        <p className="heroSub">Near quietly coordinates errands, reminders, and household tasks using location and context. Arrive somewhere, and what matters is already waiting.</p>
-        <div className="heroCtas heroCtasCentered">
-          <a className="primaryBtn" href={APP_STORE_URL}>Download Near</a>
-          <a className="secondaryBtn" href="#how-it-works">See it in action</a>
-        </div>
-        <div className="heroMeta heroMetaCentered">
-          <span>No timers</span>
-          <span>No opening the app</span>
-          <span>Household sync</span>
+      <div className="heroShell">
+        <Image
+          src="/near-icon-hero.png"
+          alt="Near app icon"
+          className="heroIcon"
+          width={861}
+          height={891}
+          priority
+          quality={100}
+          unoptimized
+        />
+        <span className="eyebrow">Ambient life logistics</span>
+        <h1 className="heroTitle">
+          The right task.<br />At the right place.
+        </h1>
+        <p className="heroSub">
+          Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.
+        </p>
+        <p className="heroMeta">
+          No lists to check. No reminders to manage. Just the right moment.
+        </p>
+        <div className="heroCtas">
+          <a className="primaryBtn" href={APP_STORE_URL}>Download on the App Store</a>
+          <a className="secondaryBtn" href="#how-it-works">See how it works</a>
         </div>
       </div>
-      <div className="heroInner">
+    </section>
+  )
+}
 
-        <div className="heroPanel">
-          <div className="statusCard">
-            <div className="statusHeader">
-              <span className="statusLabel">Now arriving</span>
-              <span className="statusDot" />
+/* ─── AI Definition ─── */
+
+function AIDefinition() {
+  return (
+    <section className="section sectionSurface" id="what-is-near">
+      <div className="sectionShell narrow">
+        <h2 className="sectionTitle">What is Near?</h2>
+        <p className="bodyText">{KEY_SENTENCE}</p>
+        <p className="bodyText">
+          Instead of checking lists or setting timers, tasks appear when you arrive at the places where they can actually be completed.
+        </p>
+        <ul className="exampleList">
+          <li>Groceries appearing at the grocery store</li>
+          <li>Errand reminders appearing when you pass a store</li>
+          <li>Home tasks appearing when you arrive home</li>
+        </ul>
+        <p className="bodyAccent">Near turns everyday places into reminders.</p>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Arrive ─── */
+
+function ArriveSection() {
+  return (
+    <section className="section" id="how-it-works">
+      <div className="sectionShell splitGrid">
+        <div className="splitCopy">
+          <h2 className="sectionTitle left">
+            Arrive somewhere.<br />Your list is already there.
+          </h2>
+          <p className="bodyText">
+            Near understands that most tasks belong to places. When you arrive somewhere, the tasks that belong there appear automatically.
+          </p>
+          <p className="caption">No app opening required.</p>
+        </div>
+        <div className="splitVisual">
+          <div className="arriveCard">
+            <div className="arriveHeader">
+              <span className="arriveLabel">Now arriving</span>
+              <span className="arriveDot" />
             </div>
-
-            <div className="statusPlace">Trader Joe&apos;s</div>
-            <div className="statusTasks">
-              <TaskRow text="Sparkling water" animateClass="checkOne" />
+            <div className="arrivePlace">Trader Joe&apos;s</div>
+            <p className="arriveSubline">Your grocery list is ready</p>
+            <div className="arriveTasks">
+              <TaskRow text="Milk" animateClass="checkOne" />
               <TaskRow text="Lemons" animateClass="checkTwo" />
-              <TaskRow text="Flowers for Friday" animateClass="checkThree" />
+              <TaskRow text="Sparkling water" animateClass="checkThree" />
             </div>
-
-            <div className="statusFooter">
-              <div>
-                <div className="statusMiniLabel">Household</div>
-                <div className="statusMiniValue">Lauren is closest, so Lauren gets the nudge.</div>
-              </div>
-              <div className="miniStamp">Near</div>
-            </div>
-          </div>
-
-          <div className="floatingQuote">
-            <span className="quoteKicker">Tiny but important</span>
-            <p>
-              The milk. The return. The batteries. The gift bag. The whole category of things
-              you only remember when it is too late.
-            </p>
           </div>
         </div>
       </div>
     </section>
   )
 }
+
+/* ─── TaskRow (reused) ─── */
 
 function TaskRow({
   text,
@@ -230,43 +224,58 @@ function TaskRow({
 }) {
   return (
     <div className={`taskRow ${animateClass}`}>
-      <span className="taskCheck" aria-hidden="true">✓</span>
+      <span className="taskCheck" aria-hidden="true">{"\u2713"}</span>
       <span className="taskText">{text}</span>
     </div>
   )
 }
 
-function ProofBar() {
+/* ─── Passing By ─── */
+
+function PassingBySection() {
   return (
-    <section className="proofBar" aria-label="Product proof points">
-        <div className="proofInner">
-          {proofItems.map((item) => (
-            <span className="proofPill" key={item}>
-              <span className="proofIcon" aria-hidden="true">
-                {item.icon}
-              </span>
-              {item.label}
-            </span>
-          ))}
+    <section className="section sectionSurface">
+      <div className="sectionShell splitGrid reverse">
+        <div className="splitCopy">
+          <h2 className="sectionTitle left">
+            Passing a place you need.<br />Near notices before you miss the turn.
+          </h2>
+          <p className="bodyText">
+            Near can surface errands when you pass a place where they can be completed.
+          </p>
+          <p className="caption">Helpful while driving. Quiet by design.</p>
         </div>
+        <div className="splitVisual">
+          <div className="carplayCard">
+            <div className="carplayHeader">Nearby errand</div>
+            <div className="carplayStore">Target</div>
+            <div className="carplayTasks">
+              <span>Return package</span>
+              <span>Buy batteries</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
 
-function ProblemSection() {
-  return (
-    <section className="section sectionLight">
-      <div className="sectionShell split">
-        <div>
-          <span className="eyebrow dark">The problem</span>
-          <h2 className="sectionTitle dark">Life runs on invisible logistics.</h2>
-        </div>
+/* ─── Ecosystem ─── */
 
-        <div className="problemList">
-          {painPoints.map((point) => (
-            <div className="problemCard" key={point}>
-              {point}
-            </div>
+function EcosystemSection() {
+  return (
+    <section className="section">
+      <div className="sectionShell">
+        <div className="sectionHeading">
+          <h2 className="sectionTitle">Designed for the Apple ecosystem.</h2>
+        </div>
+        <div className="ecoGrid">
+          {ecosystemItems.map((item) => (
+            <article className="ecoCard" key={item.title}>
+              <span className="ecoIcon">{item.icon}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
           ))}
         </div>
       </div>
@@ -274,246 +283,244 @@ function ProblemSection() {
   )
 }
 
-function HowItWorks() {
+/* ─── Simpler Interface ─── */
+
+function SimplerInterface() {
   return (
-    <section className="section sectionLight" id="how-it-works">
-      <div className="sectionShell">
-        <div className="sectionHeading">
-          <span className="eyebrow dark">The system</span>
-          <h2 className="sectionTitle dark">How Near Works</h2>
-          <p className="sectionSub dark">
-            Near turns real-world places into triggers for action.
+    <section className="section sectionSurface">
+      <div className="sectionShell splitGrid">
+        <div className="splitCopy">
+          <h2 className="sectionTitle left">Just places.</h2>
+          <p className="bodyText">
+            Near organizes tasks around places instead of lists.<br />
+            Because errands belong somewhere.
+          </p>
+          <p className="caption">No folders. No tags. No projects.</p>
+        </div>
+        <div className="splitVisual">
+          <div className="placesCard">
+            {placesUI.map((p) => (
+              <div className="placeRow" key={p.name}>
+                <span className="placeEmoji">{p.emoji}</span>
+                <span className="placeName">{p.name}</span>
+                <span className="placeCount">{p.count} {p.count === 1 ? "task" : "tasks"}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Natural Input ─── */
+
+function NaturalInput() {
+  return (
+    <section className="section">
+      <div className="sectionShell splitGrid reverse">
+        <div className="splitCopy">
+          <h2 className="sectionTitle left">Add tasks the way you think.</h2>
+          <p className="bodyText">
+            Type what you need and Near suggests where it belongs.<br />
+            Or just ask Siri.
           </p>
         </div>
-
-        <div className="stepGrid">
-          {steps.map((step) => (
-            <article className="stepCard" key={step.title}>
-              <div className="stepLabel">{step.label}</div>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function StorySection() {
-  return (
-    <section className="section sectionTint" id="story">
-      <div className="sectionShell">
-        <div className="sectionHeading">
-          <span className="eyebrow dark">What Near is</span>
-          <h2 className="sectionTitle dark">A new kind of productivity system.</h2>
-          <p className="sectionSub dark">
-            Near is an ambient life logistics system that surfaces tasks automatically when they become relevant. Your life already has the context. Near simply listens for it.
-          </p>
-        </div>
-
-        <div className="storyGrid">
-          {storyCards.map((card) => (
-            <article className="storyCard" key={card.title}>
-              <span className="storyEyebrow">{card.eyebrow}</span>
-              <h3>{card.title}</h3>
-              <p>{card.copy}</p>
-            </article>
-          ))}
-        </div>
-
-        <div className="featureBand">
-          {featureCards.map((feature) => (
-            <div className="featureMini" key={feature.title}>
-              <span className="miniIcon" aria-hidden="true">
-                {feature.icon}
-              </span>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
+        <div className="splitVisual">
+          <div className="inputCard">
+            <div className="inputField">Buy batteries</div>
+            <div className="inputSuggestions">
+              <span className="inputLabel">Attach to:</span>
+              <span className="inputChip chipActive">Target</span>
+              <span className="inputChip">Home Depot</span>
+              <span className="inputChip">Walgreens</span>
             </div>
-          ))}
+            <div className="inputVoice">
+              <span className="voiceIcon">{"\uD83C\uDF99\uFE0F"}</span>
+              <span className="voiceText">&ldquo;Siri, remind me to buy batteries at Target.&rdquo;</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-function UseCaseSection() {
-  return (
-    <section className="section sectionLight">
-      <div className="sectionShell">
-        <div className="sectionHeading">
-          <span className="eyebrow dark">Built for the small things</span>
-          <h2 className="sectionTitle dark">Near shines in the moments where life usually leaks.</h2>
-        </div>
-
-        <div className="useCaseGrid">
-          {useCases.map((item) => (
-            <article className="useCaseCard" key={item.name}>
-              <div className="useCaseTop">
-                <div className="useCaseTitleWrap">
-                  <span className="useCaseIcon" aria-hidden="true">
-                    {item.icon}
-                  </span>
-                  <h3>{item.name}</h3>
-                </div>
-                <span>Ready on arrival</span>
-              </div>
-              <div className="useCaseList">
-                {item.lines.map((line) => (
-                  <div className="useCaseLine" key={line}>
-                    <span className="useCaseDot" />
-                    {line}
-                  </div>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
+/* ─── Household ─── */
 
 function HouseholdSection() {
   return (
-    <section className="section sectionDark" id="household">
-      <div className="sectionShell householdShell">
-        <div className="householdCopy">
-          <span className="eyebrow">Household logistics</span>
-          <h2 className="sectionTitle">One household. One shared memory.</h2>
-          <p className="sectionSub">
-            Near coordinates tasks across the people who live together. Anyone can add items. Whoever is closest to the store gets the reminder. No group chat. No follow-up text. Just done.
+    <section className="section sectionSurface" id="household">
+      <div className="sectionShell splitGrid">
+        <div className="splitCopy">
+          <h2 className="sectionTitle left">One household.<br />One shared memory.</h2>
+          <p className="bodyText">
+            Anyone can add items.<br />
+            When someone is near the store, Near shows the list.
           </p>
         </div>
-
-        <div className="householdPhone">
+        <div className="splitVisual">
           <div className="householdNotif">
             <div className="notifHeader">
-              <div className="notifIcon">📍</div>
+              <div className="notifIcon">{"\uD83D\uDCCD"}</div>
               <div className="notifApp">Near</div>
               <div className="notifTime">now</div>
             </div>
             <div className="notifTitle">Brian is near Target</div>
-            <div className="notifBody">You have items you need at Target. Add those items to his list?</div>
+            <div className="notifBody">Send the grocery list?</div>
             <div className="notifActions">
-              <button className="notifBtn notifBtnPrimary">Add to Brian&apos;s list</button>
-              <button className="notifBtn notifBtnSecondary">Dismiss</button>
+              <button className="notifBtn notifBtnPrimary">Send</button>
+              <button className="notifBtn notifBtnSecondary">Not now</button>
             </div>
-          </div>
-          <div className="householdFooter">
-            <div className="householdFooterLabel">Household</div>
-            <div className="householdFooterValue">Brian is close, so Brian gets a nudge.</div>
           </div>
         </div>
       </div>
     </section>
   )
 }
+
+/* ─── Maps ─── */
+
+function MapsSection() {
+  return (
+    <section className="section">
+      <div className="sectionShell splitGrid reverse">
+        <div className="splitCopy">
+          <h2 className="sectionTitle left">Built around the places you go.</h2>
+          <p className="bodyText">
+            Search for a place in Maps and Near shows the tasks waiting there.
+          </p>
+        </div>
+        <div className="splitVisual">
+          <div className="mapsCard">
+            <div className="mapsPin">{"\uD83D\uDCCD"}</div>
+            <div className="mapsInfo">
+              <div className="mapsName">Walgreens</div>
+              <div className="mapsTask">Pick up prescription</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Calm Technology ─── */
+
+function CalmTechnology() {
+  return (
+    <section className="section sectionSurface">
+      <div className="sectionShell narrow center">
+        <h2 className="sectionTitle">Technology that stays out of the way.</h2>
+        <p className="bodyText center">
+          Near is designed to be quiet. Only high-value moments.
+        </p>
+        <div className="pillGrid">
+          <span className="pill">No feeds</span>
+          <span className="pill">No streaks</span>
+          <span className="pill">No productivity pressure</span>
+          <span className="pill">No noise</span>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Privacy ─── */
 
 function PrivacySection() {
   return (
-    <section className="section sectionLight">
-      <div className="sectionShell privacyShell">
-        <div className="sectionHeading">
-          <span className="eyebrow dark">Quiet by design</span>
-          <h2 className="sectionTitle dark">Near behaves like a utility, not a platform.</h2>
-          <p className="sectionSub dark">
-            Location is used for one thing: helping you get things done. No ads. No social feed. No audience graph. No manipulation loops.
-          </p>
-        </div>
-
-        <div className="privacyGrid">
-          <span>No ads</span>
-          <span>No social feed</span>
-          <span>No audience graph</span>
-          <span>No manipulation loops</span>
+    <section className="section">
+      <div className="sectionShell narrow center">
+        <h2 className="sectionTitle">Your life logistics. Kept private.</h2>
+        <p className="bodyText center">
+          Near uses location only to show tasks when they matter.<br />
+          Your data stays on your device.
+        </p>
+        <div className="pillGrid">
+          <span className="pill">No ads</span>
+          <span className="pill">No tracking</span>
+          <span className="pill">No profiling</span>
         </div>
       </div>
     </section>
   )
 }
 
-function DefinitionSection() {
+/* ─── Philosophy ─── */
+
+function PhilosophySection() {
   return (
-    <section className="section sectionTint">
-      <div className="sectionShell definitionShell">
-        <span className="eyebrow">What is ambient life logistics?</span>
-        <blockquote className="definitionBlock">
-          <p className="definitionText">
-            <strong>Ambient Life Logistics</strong> <em>(n.)</em> &mdash; A system that surfaces the right task, at the right place, at the right time &mdash; without requiring the user to remember, check, or act on a schedule. The environment becomes the trigger.
-          </p>
-        </blockquote>
-        <p className="definitionAttribution">
-          Near is the first app built around this principle.
+    <section className="section sectionSurface">
+      <div className="sectionShell narrow center">
+        <h2 className="sectionTitle">Your brain is for ideas.</h2>
+        <p className="bodyText center">
+          Not batteries. Not milk. Not remembering to return the package.
+        </p>
+        <p className="bodyText center">
+          Near handles the small logistics of everyday life so you don&apos;t have to think about them.
         </p>
       </div>
     </section>
   )
 }
+
+/* ─── FAQ ─── */
+
+function FAQSection() {
+  return (
+    <section className="section" id="faq">
+      <div className="sectionShell narrow">
+        <h2 className="sectionTitle center">Frequently asked questions</h2>
+        <div className="faqList">
+          {faqItems.map((item) => (
+            <details className="faqItem" key={item.q}>
+              <summary className="faqQ">{item.q}</summary>
+              <p className="faqA">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Final CTA ─── */
 
 function FinalCTA() {
   return (
     <section className="finalCta">
       <div className="finalShell">
-        <span className="eyebrow">Start now</span>
-        <h2 className="finalTitle">The smartest reminder is the one that waits for the right place.</h2>
-        <p className="finalSub">
-          Download Near and let your errands find you.
-        </p>
+        <h2 className="finalTitle">
+          The smartest reminder is the one that waits for the right place.
+        </h2>
+        <p className="finalSub">Download Near and let errands find you.</p>
         <a className="primaryBtn finalBtn" href={APP_STORE_URL}>
-          Download Free on the App Store
+          Download on the App Store
         </a>
       </div>
     </section>
   )
 }
 
+/* ─── Styles ─── */
+
 function SiteStyles() {
   return (
     <style jsx global>{`
-      :root {
-        --ink: #f5f5f7;
-        --paper: #000000;
-        --paper-strong: #0a0a0a;
-        --sand: #1d1d1f;
-        --line: rgba(255, 255, 255, 0.08);
-        --line-dark: rgba(255, 255, 255, 0.12);
-        --muted: rgba(245, 245, 247, 0.6);
-        --muted-dark: rgba(245, 245, 247, 0.7);
-        --blue: #2997ff;
-        --sky: #2997ff;
-        --violet: #2997ff;
-      }
 
-      * {
-        box-sizing: border-box;
-      }
+      /* ── Reset ── */
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        background: var(--paper);
-        color: var(--ink);
-        scroll-behavior: smooth;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      body {
-        font-family: var(--font-sans);
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
+      * { box-sizing: border-box; }
+      a { color: inherit; text-decoration: none; }
 
       .page {
         min-height: 100vh;
-        background: #000000;
+        background: #FFFFFF;
+        color: #1D1D1F;
       }
+
+      /* ── Nav ── */
 
       .nav {
         position: sticky;
@@ -521,147 +528,79 @@ function SiteStyles() {
         z-index: 50;
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
-        background: rgba(0, 0, 0, 0.8);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.8);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       }
 
       .navInner {
-        max-width: 1200px;
+        max-width: 980px;
         margin: 0 auto;
-        padding: 14px 22px;
+        padding: 14px 24px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 24px;
       }
 
-      .brand,
-      .navLinks {
+      .brand, .navLinks {
         display: flex;
         align-items: center;
         gap: 14px;
       }
 
-      .brandMark {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        background: none;
-        border: none;
-        box-shadow: none;
-      }
-
       .brandLogo {
         width: auto;
-        height: 44px;
+        height: 36px;
         display: block;
         object-fit: contain;
       }
 
       .navLink {
         font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.64);
+        color: rgba(29, 29, 31, 0.6);
+        transition: color 0.2s;
       }
 
-      .navLink:hover {
-        color: var(--ink);
-      }
-
-      .navCta,
-      .primaryBtn,
-      .secondaryBtn {
-        border-radius: 999px;
-        transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
-      }
+      .navLink:hover { color: #1D1D1F; }
 
       .navCta {
-        padding: 0.55rem 1.1rem;
+        padding: 0.5rem 1.1rem;
         color: white;
         background: var(--blue);
         font-size: 0.88rem;
         font-weight: 600;
-        box-shadow: none;
+        border-radius: 999px;
+        transition: background 0.16s;
       }
+
+      .navCta:hover { background: var(--blue-hover); }
+
+      /* ── Hero ── */
 
       .hero {
+        padding: 10rem 1.5rem 6rem;
+        text-align: center;
         position: relative;
         overflow: hidden;
-        padding: 8rem 1.5rem 5rem;
       }
 
-      .heroGlow {
+      .hero::before {
+        content: '';
         position: absolute;
-        border-radius: 999px;
-        filter: blur(80px);
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(47, 109, 255, 0.06) 0%, transparent 70%);
         pointer-events: none;
       }
 
-      .heroGlowOne {
-        top: -10rem;
-        left: -4rem;
-        width: 30rem;
-        height: 30rem;
-        background: rgba(41, 151, 255, 0.08);
-      }
-
-      .heroGlowTwo {
-        right: -4rem;
-        top: 0;
-        width: 26rem;
-        height: 26rem;
-        background: rgba(41, 151, 255, 0.06);
-      }
-
-      .heroInner,
-      .sectionShell,
-      .finalShell {
-        max-width: 1200px;
+      .heroShell {
+        max-width: 980px;
         margin: 0 auto;
-      }
-
-      .heroInner {
         position: relative;
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-        gap: 2.5rem;
-        align-items: center;
-      }
-
-      .eyebrow {
-        display: inline-flex;
-        align-items: center;
-        padding: 0;
-        border-radius: 0;
-        background: none;
-        border: none;
-        color: var(--blue);
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
-
-      .eyebrow.dark {
-        background: none;
-        border-color: transparent;
-        color: var(--blue);
-      }
-
-      .heroTitle,
-      .sectionTitle,
-      .finalTitle {
-        margin: 0;
-        font-family: var(--font-sans);
-        letter-spacing: -0.04em;
-        line-height: 1.06;
-        font-weight: 700;
-      }
-
-      .heroHeadlineWrap {
-        max-width: 1200px;
-        margin: 0 auto 3rem;
-        text-align: center;
       }
 
       .heroIcon {
@@ -670,585 +609,497 @@ function SiteStyles() {
         margin: 0 auto 1.5rem;
         display: block;
         border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25);
+      }
+
+      .eyebrow {
+        display: block;
+        color: var(--blue);
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 1rem;
       }
 
       .heroTitle {
-        margin-top: 1rem;
-        font-size: clamp(3.9rem, 8vw, 7.6rem);
-        max-width: none;
-      }
-
-      .heroSub,
-      .sectionSub,
-      .finalSub {
-        font-size: 1.18rem;
-        line-height: 1.5;
-        letter-spacing: 0;
-        font-family: var(--font-sans);
+        margin: 0;
+        font-size: clamp(3rem, 8vw, 72px);
+        font-weight: 600;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: #1D1D1F;
       }
 
       .heroSub {
-        max-width: 38rem;
         margin: 1.5rem auto 0;
-        color: var(--muted);
-        text-align: center;
+        max-width: 640px;
+        font-size: 21px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: #6E6E73;
       }
 
-      .sectionTitle {
-        text-wrap: balance;
-        max-width: 20ch;
-        margin-left: auto;
-        margin-right: auto;
+      .heroMeta {
+        margin: 1rem auto 0;
+        max-width: 640px;
+        font-size: 17px;
+        color: rgba(29, 29, 31, 0.4);
+        line-height: 1.4;
       }
 
       .heroCtas {
         display: flex;
         flex-wrap: wrap;
         gap: 0.9rem;
-        margin-top: 2rem;
+        margin-top: 2.5rem;
+        justify-content: center;
       }
 
-      .primaryBtn,
-      .secondaryBtn {
-        position: relative;
+      .primaryBtn, .secondaryBtn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         padding: 0.85rem 1.6rem;
-        font-family: var(--font-sans);
         font-size: 1rem;
         font-weight: 600;
-        letter-spacing: 0;
-        overflow: hidden;
-        text-wrap: nowrap;
+        border-radius: 999px;
+        transition: background 0.16s, transform 0.16s;
+        white-space: nowrap;
       }
 
       .primaryBtn {
         color: white;
         background: var(--blue);
         border: none;
-        box-shadow: none;
+        box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25);
       }
 
-      .primaryBtn::before,
-      .secondaryBtn::before {
-        display: none;
-      }
-
-      .primaryBtn::after {
-        display: none;
-      }
+      .primaryBtn:hover { background: var(--blue-hover); }
+      .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
       .secondaryBtn {
         color: var(--blue);
         background: transparent;
-        border: 1px solid rgba(41, 151, 255, 0.4);
-        box-shadow: none;
+        border: 1px solid rgba(47, 109, 255, 0.3);
       }
 
-      .navCta:hover,
-      .primaryBtn:hover {
-        transform: none;
-        background: #0077ed;
-      }
+      .secondaryBtn:hover { background: rgba(47, 109, 255, 0.06); }
 
-      .secondaryBtn:hover {
-        transform: none;
-        background: rgba(41, 151, 255, 0.1);
-      }
-
-      .primaryBtn:active,
-      .secondaryBtn:active {
-        transform: scale(0.98);
-      }
-
-      .heroCtasCentered {
-        justify-content: center;
-      }
-
-      .heroMeta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        margin-top: 1.5rem;
-        color: rgba(245, 245, 247, 0.4);
-        font-size: 0.86rem;
-      }
-
-      .heroMeta span {
-        padding: 0;
-        border-radius: 0;
-        background: none;
-        border: none;
-      }
-
-      .heroMetaCentered {
-        justify-content: center;
-      }
-
-      .heroMeta.heroMetaCentered span {
-        padding: 0.45rem 1rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .heroMeta.heroMetaCentered span + span::before {
-        display: none;
-      }
-
-      .heroMeta span + span::before {
-        content: "·";
-        margin-right: 0.6rem;
-      }
-
-      .heroPanel {
-        position: relative;
-        min-height: 31rem;
-      }
-
-      .statusCard,
-      .floatingQuote,
-      .problemCard,
-      .stepCard,
-      .storyCard,
-      .featureMini,
-      .useCaseCard,
-      .householdBoard,
-      .privacyGrid span {
-        box-shadow: none;
-      }
-
-      .statusCard {
-        position: relative;
-        z-index: 2;
-        padding: 1.4rem;
-        border-radius: 1.5rem;
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(40px);
-        -webkit-backdrop-filter: blur(40px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .statusHeader,
-      .statusFooter,
-      .useCaseTop {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-      }
-
-      .statusLabel,
-      .statusMiniLabel,
-      .stepLabel,
-      .storyEyebrow,
-      .quoteKicker {
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .statusLabel,
-      .statusMiniLabel,
-      .quoteKicker {
-        color: rgba(255, 255, 255, 0.52);
-      }
-
-      .statusDot,
-      .useCaseDot {
-        width: 0.65rem;
-        height: 0.65rem;
-        border-radius: 999px;
-        background: var(--blue);
-        box-shadow: none;
-      }
-
-      .statusPlace {
-        margin-top: 1rem;
-        font-family: var(--font-sans);
-        font-size: clamp(2.2rem, 4vw, 3rem);
-        font-weight: 700;
-        letter-spacing: -0.04em;
-      }
-
-      .statusTasks {
-        display: grid;
-        gap: 0.8rem;
-        margin-top: 1.2rem;
-      }
-
-      .taskRow {
-        display: flex;
-        align-items: center;
-        gap: 0.85rem;
-        padding: 0.95rem 1rem;
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .taskCheck {
-        display: inline-flex;
-        width: 1.4rem;
-        height: 1.4rem;
-        align-items: center;
-        justify-content: center;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        font-size: 0.82rem;
-        font-weight: 800;
-        color: transparent;
-        background: rgba(255, 255, 255, 0.02);
-        transition: background 220ms ease, color 220ms ease, border-color 220ms ease,
-          box-shadow 220ms ease, transform 220ms ease;
-      }
-
-      .taskText {
-        font-size: 0.98rem;
-        font-weight: 600;
-        transition: color 220ms ease, opacity 220ms ease, transform 220ms ease;
-      }
-
-      .checkOne,
-      .checkTwo,
-      .checkThree {
-        animation: taskGlowLoop 6.8s ease-in-out infinite;
-      }
-
-      .checkOne .taskCheck,
-      .checkTwo .taskCheck,
-      .checkThree .taskCheck {
-        animation: boxTickLoop 6.8s ease-in-out infinite;
-      }
-
-      .checkOne .taskText,
-      .checkTwo .taskText,
-      .checkThree .taskText {
-        animation: textTickLoop 6.8s ease-in-out infinite;
-      }
-
-      .checkOne {
-        animation-delay: 0s;
-      }
-
-      .checkOne .taskCheck,
-      .checkOne .taskText {
-        animation-delay: 0s;
-      }
-
-      .checkTwo {
-        animation-delay: 2.05s;
-      }
-
-      .checkTwo .taskCheck,
-      .checkTwo .taskText {
-        animation-delay: 2.05s;
-      }
-
-      .checkThree {
-        animation-delay: 4.1s;
-      }
-
-      .checkThree .taskCheck,
-      .checkThree .taskText {
-        animation-delay: 4.1s;
-      }
-
-      .statusFooter {
-        margin-top: 1.2rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .statusMiniValue {
-        margin-top: 0.25rem;
-        max-width: 17rem;
-        color: rgba(255, 255, 255, 0.72);
-        line-height: 1.5;
-      }
-
-      .miniStamp {
-        flex-shrink: 0;
-        padding: 0.8rem 1rem;
-        border-radius: 999px;
-        background: var(--blue);
-        color: white;
-        font-weight: 600;
-      }
-
-      .floatingQuote {
-        position: absolute;
-        left: 105%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: min(18rem, 100%);
-        padding: 1.2rem 1.25rem;
-        border-radius: 1.25rem;
-        background: rgba(255, 255, 255, 0.04);
-        backdrop-filter: blur(40px);
-        -webkit-backdrop-filter: blur(40px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .floatingQuote p {
-        margin: 0.5rem 0 0;
-        color: rgba(255, 255, 255, 0.7);
-        line-height: 1.6;
-      }
-
-      .proofBar {
-        padding: 0 1.5rem 2rem;
-      }
-
-      .proofInner {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.9rem;
-        justify-content: center;
-      }
-
-      .proofPill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.65rem;
-        padding: 0.9rem 1rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 0.95rem;
-      }
-
-      .proofIcon,
-      .miniIcon,
-      .useCaseIcon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 999px;
-        color: white;
-        background: var(--blue);
-      }
-
-      .proofIcon {
-        width: 1.5rem;
-        height: 1.5rem;
-        font-size: 0.72rem;
-        font-weight: 700;
-      }
+      /* ── Sections ── */
 
       .section {
         padding: 8rem 1.5rem;
       }
 
-      .sectionLight {
-        color: var(--ink);
+      .sectionSurface {
+        background: #F5F5F7;
       }
 
-      .sectionTint {
-        background: rgba(255, 255, 255, 0.02);
+      .sectionShell {
+        max-width: 980px;
+        margin: 0 auto;
       }
 
-      .sectionDark {
-        background: #111111;
-        color: white;
-      }
-
-      .split {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        gap: 2rem;
-        align-items: start;
+      .sectionShell.narrow {
+        max-width: 640px;
       }
 
       .sectionHeading {
-        max-width: 48rem;
-        margin: 0 auto;
         text-align: center;
+        margin-bottom: 3rem;
       }
 
       .sectionTitle {
-        margin-top: 0.9rem;
-        font-size: clamp(2.7rem, 5vw, 4.9rem);
-        line-height: 1.02;
-      }
-
-      .sectionTitle.dark {
-        color: var(--ink);
-      }
-
-      .sectionSub {
-        max-width: 42rem;
-        margin: 1rem auto 0;
-        color: var(--muted-dark);
-      }
-
-      .sectionSub.dark {
-        color: var(--muted);
-      }
-
-      .problemList,
-      .stepGrid,
-      .storyGrid,
-      .featureBand,
-      .useCaseGrid,
-      .privacyGrid {
-        margin-top: 2.5rem;
-      }
-
-      .problemList {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .problemCard,
-      .stepCard,
-      .storyCard,
-      .featureMini,
-      .useCaseCard {
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .problemCard {
-        padding: 1.3rem 1.4rem;
-        border-radius: 1.35rem;
-        font-size: 1.05rem;
-        line-height: 1.55;
-      }
-
-      .stepGrid,
-      .storyGrid,
-      .featureBand,
-      .useCaseGrid,
-      .privacyGrid {
-        display: grid;
-        gap: 1rem;
-      }
-
-      .stepGrid,
-      .storyGrid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .stepCard,
-      .storyCard,
-      .featureMini,
-      .useCaseCard {
-        padding: 1.5rem;
-        border-radius: 1.5rem;
-      }
-
-      .stepCard h3,
-      .storyCard h3,
-      .featureMini h3,
-      .useCaseCard h3 {
-        margin: 0.65rem 0 0;
-        font-family: var(--font-sans), sans-serif;
-        font-size: 1.32rem;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        line-height: 1.22;
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 48px);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        color: #1D1D1F;
         text-wrap: balance;
       }
 
-      .stepCard p,
-      .storyCard p,
-      .featureMini p {
-        margin: 0.8rem 0 0;
-        color: var(--muted);
-        font-size: 1.03rem;
-        line-height: 1.72;
+      .sectionTitle.center { text-align: center; }
+      .sectionTitle.left { text-align: left; }
+
+      .bodyText {
+        margin: 1.2rem 0 0;
+        font-size: 19px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #6E6E73;
       }
 
-      .stepLabel,
-      .storyEyebrow {
+      .bodyText.center { text-align: center; }
+
+      .bodyAccent {
+        margin: 1.5rem 0 0;
+        font-size: 19px;
+        font-weight: 600;
         color: var(--blue);
       }
 
-      .featureBand {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+      .caption {
+        margin: 1.5rem 0 0;
+        font-size: 15px;
+        font-weight: 400;
+        color: rgba(29, 29, 31, 0.4);
+        letter-spacing: 0.01em;
       }
 
-      .miniIcon {
-        width: 2rem;
-        height: 2rem;
-        font-size: 0.9rem;
-        font-weight: 800;
+      /* ── Split Grid ── */
+
+      .splitGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
       }
 
-      .useCaseGrid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .splitGrid.reverse .splitCopy { order: 2; }
+      .splitGrid.reverse .splitVisual { order: 1; }
+
+      /* ── Arrive Card ── */
+
+      .arriveCard {
+        padding: 2rem;
+        border-radius: 1.5rem;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
       }
 
-      .useCaseTop span {
-        color: rgba(255, 255, 255, 0.46);
-        font-size: 0.82rem;
-        font-weight: 700;
+      .sectionSurface .arriveCard {
+        background: #FFFFFF;
+      }
+
+      .arriveHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .arriveLabel {
+        font-size: 13px;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.08em;
+        color: rgba(29, 29, 31, 0.4);
       }
 
-      .useCaseTitleWrap {
+      .arriveDot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--blue);
+      }
+
+      .arrivePlace {
+        margin-top: 0.8rem;
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: #1D1D1F;
+      }
+
+      .arriveSubline {
+        margin: 0.3rem 0 1rem;
+        font-size: 15px;
+        color: #6E6E73;
+      }
+
+      .arriveTasks {
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      /* ── TaskRow ── */
+
+      .taskRow {
         display: flex;
         align-items: center;
-        gap: 0.8rem;
+        gap: 0.75rem;
+        padding: 0.8rem 1rem;
+        border-radius: 0.8rem;
+        background: #F5F5F7;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        transition: background 0.22s, border-color 0.22s;
       }
 
-      .useCaseIcon {
-        width: 2.1rem;
-        height: 2.1rem;
-        font-size: 0.86rem;
+      .taskCheck {
+        display: inline-flex;
+        width: 1.3rem;
+        height: 1.3rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 1.5px solid rgba(0, 0, 0, 0.15);
+        font-size: 0.75rem;
         font-weight: 800;
+        color: transparent;
+        background: transparent;
+        transition: all 0.22s;
       }
 
-      .useCaseList {
-        display: grid;
-        gap: 0.85rem;
-        margin-top: 1.1rem;
+      .taskText {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #1D1D1F;
+        transition: all 0.22s;
       }
 
-      .useCaseLine {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        color: var(--muted);
-        font-size: 1rem;
-        line-height: 1.6;
+      .checkOne, .checkTwo, .checkThree {
+        animation: taskGlowLoop 6.8s ease-in-out infinite;
+      }
+      .checkOne .taskCheck, .checkTwo .taskCheck, .checkThree .taskCheck {
+        animation: boxTickLoop 6.8s ease-in-out infinite;
+      }
+      .checkOne .taskText, .checkTwo .taskText, .checkThree .taskText {
+        animation: textTickLoop 6.8s ease-in-out infinite;
       }
 
-      .householdShell {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.95fr);
-        gap: 2rem;
-        align-items: center;
+      .checkOne, .checkOne .taskCheck, .checkOne .taskText { animation-delay: 0s; }
+      .checkTwo, .checkTwo .taskCheck, .checkTwo .taskText { animation-delay: 2.05s; }
+      .checkThree, .checkThree .taskCheck, .checkThree .taskText { animation-delay: 4.1s; }
+
+      @keyframes boxTickLoop {
+        0%, 22% {
+          color: transparent;
+          background: transparent;
+          border-color: rgba(0, 0, 0, 0.15);
+          transform: scale(1);
+        }
+        30%, 74% {
+          color: white;
+          background: var(--blue);
+          border-color: transparent;
+          transform: scale(1.04);
+        }
+        84%, 100% {
+          color: transparent;
+          background: transparent;
+          border-color: rgba(0, 0, 0, 0.15);
+          transform: scale(1);
+        }
       }
 
-      .householdPhone {
-        position: relative;
+      @keyframes textTickLoop {
+        0%, 22% {
+          color: #1D1D1F;
+          opacity: 1;
+          text-decoration: none;
+        }
+        30%, 74% {
+          color: rgba(29, 29, 31, 0.35);
+          opacity: 0.8;
+          text-decoration: line-through;
+        }
+        84%, 100% {
+          color: #1D1D1F;
+          opacity: 1;
+          text-decoration: none;
+        }
+      }
+
+      @keyframes taskGlowLoop {
+        0%, 22%, 84%, 100% {
+          background: #F5F5F7;
+          border-color: rgba(0, 0, 0, 0.06);
+        }
+        30%, 74% {
+          background: rgba(47, 109, 255, 0.04);
+          border-color: rgba(47, 109, 255, 0.12);
+        }
+      }
+
+      /* ── CarPlay Card ── */
+
+      .carplayCard {
+        padding: 2rem;
+        border-radius: 1.5rem;
+        background: #1D1D1F;
+        color: white;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .carplayHeader {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 0.6rem;
+      }
+
+      .carplayStore {
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .carplayTasks {
         display: flex;
         flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .carplayTasks span {
+        padding: 0.6rem 1rem;
+        border-radius: 0.6rem;
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ── Ecosystem Grid ── */
+
+      .ecoGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
         gap: 1.5rem;
       }
 
-      .householdNotif {
-        position: relative;
-        padding: 1.4rem 1.5rem;
+      .ecoCard {
+        padding: 2rem 1.5rem;
+        border-radius: 1.25rem;
+        background: #F5F5F7;
+        text-align: center;
+      }
+
+      .ecoIcon {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .ecoCard h3 {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #1D1D1F;
+      }
+
+      .ecoCard p {
+        margin: 0.5rem 0 0;
+        font-size: 15px;
+        color: #6E6E73;
+        line-height: 1.4;
+      }
+
+      /* ── Places Card ── */
+
+      .placesCard {
+        padding: 1.5rem;
         border-radius: 1.5rem;
-        background: rgba(20, 20, 30, 0.85);
-        backdrop-filter: blur(40px);
-        -webkit-backdrop-filter: blur(40px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow:
-          0 0 60px rgba(41, 151, 255, 0.12),
-          0 0 120px rgba(41, 151, 255, 0.06),
-          0 8px 32px rgba(0, 0, 0, 0.4);
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        display: grid;
+        gap: 0;
+      }
+
+      .placeRow {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem 0.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .placeRow:last-child { border-bottom: none; }
+
+      .placeEmoji { font-size: 1.3rem; }
+
+      .placeName {
+        flex: 1;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1D1D1F;
+      }
+
+      .placeCount {
+        font-size: 0.85rem;
+        color: #6E6E73;
+      }
+
+      /* ── Input Card ── */
+
+      .inputCard {
+        padding: 2rem;
+        border-radius: 1.5rem;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      }
+
+      .inputField {
+        padding: 0.9rem 1rem;
+        border-radius: 0.8rem;
+        background: #F5F5F7;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        font-size: 1rem;
+        font-weight: 500;
+        color: #1D1D1F;
+      }
+
+      .inputSuggestions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .inputLabel {
+        font-size: 13px;
+        font-weight: 600;
+        color: #6E6E73;
+        margin-right: 0.25rem;
+      }
+
+      .inputChip {
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        background: #F5F5F7;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #1D1D1F;
+      }
+
+      .inputChip.chipActive {
+        background: var(--blue);
+        color: white;
+        border-color: transparent;
+      }
+
+      .inputVoice {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-top: 1.25rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      .voiceIcon { font-size: 1.1rem; }
+
+      .voiceText {
+        font-size: 15px;
+        font-style: italic;
+        color: #6E6E73;
+      }
+
+      /* ── Household Notification ── */
+
+      .householdNotif {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+        background: #1D1D1F;
+        color: white;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
       }
 
       .notifHeader {
@@ -1258,12 +1109,10 @@ function SiteStyles() {
         margin-bottom: 0.75rem;
       }
 
-      .notifIcon {
-        font-size: 1.1rem;
-      }
+      .notifIcon { font-size: 1rem; }
 
       .notifApp {
-        font-size: 0.8rem;
+        font-size: 13px;
         font-weight: 600;
         color: rgba(255, 255, 255, 0.5);
         text-transform: uppercase;
@@ -1272,21 +1121,19 @@ function SiteStyles() {
 
       .notifTime {
         margin-left: auto;
-        font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.35);
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.3);
       }
 
       .notifTitle {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #fff;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.3rem;
       }
 
       .notifBody {
         font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.65);
-        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.6);
         margin-bottom: 1rem;
       }
 
@@ -1296,7 +1143,7 @@ function SiteStyles() {
       }
 
       .notifBtn {
-        padding: 0.55rem 1.1rem;
+        padding: 0.5rem 1rem;
         border-radius: 999px;
         font-size: 0.82rem;
         font-weight: 600;
@@ -1307,133 +1154,198 @@ function SiteStyles() {
 
       .notifBtnPrimary {
         background: var(--blue);
-        color: #fff;
+        color: white;
       }
 
       .notifBtnSecondary {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.1);
         color: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .householdFooter {
-        padding: 0 0.25rem;
+      /* ── Maps Card ── */
+
+      .mapsCard {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 1.5rem 2rem;
+        border-radius: 1.5rem;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
       }
 
-      .householdFooterLabel {
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: rgba(255, 255, 255, 0.35);
-        margin-bottom: 0.35rem;
+      .mapsPin { font-size: 2rem; }
+
+      .mapsName {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1D1D1F;
       }
 
-      .householdFooterValue {
+      .mapsTask {
         font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.55);
+        color: #6E6E73;
+        margin-top: 0.15rem;
+      }
+
+      /* ── Pills ── */
+
+      .pillGrid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        justify-content: center;
+      }
+
+      .pill {
+        padding: 0.65rem 1.25rem;
+        border-radius: 999px;
+        background: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #1D1D1F;
+      }
+
+      .sectionSurface .pill {
+        background: #FFFFFF;
+      }
+
+      /* ── Example List ── */
+
+      .exampleList {
+        margin: 1.5rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .exampleList li {
+        position: relative;
+        padding: 0.5rem 0 0.5rem 1.5rem;
+        font-size: 19px;
+        color: #6E6E73;
         line-height: 1.5;
       }
 
-      .privacyShell {
-        max-width: 1050px;
-      }
-
-      .privacyGrid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .privacyGrid span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1.15rem;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.72);
-        text-align: center;
-        font-size: 1rem;
-      }
-
-      .definitionShell {
-        max-width: 720px;
-        text-align: center;
-      }
-
-      .definitionBlock {
-        margin: 2rem 0 0;
-        padding: 0;
-        border: none;
-      }
-
-      .definitionText {
-        font-size: 1.2rem;
-        line-height: 1.7;
-        color: rgba(245, 245, 247, 0.8);
-        font-style: normal;
-      }
-
-      .definitionText strong {
-        color: var(--ink);
+      .exampleList li::before {
+        content: '\u2022';
+        position: absolute;
+        left: 0;
+        color: var(--blue);
         font-weight: 700;
       }
 
-      .definitionText em {
-        color: rgba(245, 245, 247, 0.5);
-        font-style: italic;
+      .center { text-align: center; }
+
+      /* ── FAQ ── */
+
+      .faqList {
+        margin-top: 2.5rem;
+        display: grid;
+        gap: 0;
       }
 
-      .definitionAttribution {
-        margin-top: 1.5rem;
-        font-size: 0.95rem;
-        color: var(--blue);
-        font-weight: 600;
+      .faqItem {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       }
+
+      .faqItem:first-child {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .faqQ {
+        padding: 1.25rem 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #1D1D1F;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .faqQ::-webkit-details-marker { display: none; }
+
+      .faqQ::after {
+        content: '+';
+        float: right;
+        font-size: 1.3rem;
+        font-weight: 300;
+        color: #6E6E73;
+        transition: transform 0.2s;
+      }
+
+      .faqItem[open] .faqQ::after {
+        content: '\u2212';
+      }
+
+      .faqA {
+        margin: 0 0 1.25rem;
+        font-size: 17px;
+        line-height: 1.5;
+        color: #6E6E73;
+      }
+
+      /* ── Final CTA ── */
 
       .finalCta {
         padding: 4rem 1.5rem 6rem;
       }
 
       .finalShell {
-        padding: 5rem 1.5rem;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 5rem 2rem;
         border-radius: 2rem;
         text-align: center;
-        background: #111111;
+        background: #1D1D1F;
         color: white;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        position: relative;
       }
 
-      .finalIcon {
-        width: 4rem;
-        height: 4rem;
-        border-radius: 1.2rem;
+      .finalShell::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(47, 109, 255, 0.15) 0%, transparent 70%);
+        pointer-events: none;
       }
 
       .finalTitle {
-        margin-top: 1rem;
-        font-size: clamp(2.6rem, 5.5vw, 5.2rem);
-        max-width: 11ch;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
+        font-size: clamp(2rem, 5vw, 48px);
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        max-width: 14ch;
+        position: relative;
       }
 
       .finalSub {
-        max-width: 38rem;
         margin: 1rem auto 0;
-        color: rgba(255, 255, 255, 0.76);
+        font-size: 19px;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 640px;
+        position: relative;
       }
 
       .finalBtn {
-        margin-top: 1.8rem;
-        display: inline-flex;
+        margin-top: 2rem;
+        position: relative;
       }
 
+      /* ── Footer ── */
+
       .siteFooter {
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
         padding: 2rem 1.5rem;
-        background: #000;
+        background: #FFFFFF;
       }
 
       .footerInner {
@@ -1446,7 +1358,7 @@ function SiteStyles() {
 
       .footerCopy {
         font-size: 0.85rem;
-        color: rgba(245, 245, 247, 0.4);
+        color: #6E6E73;
       }
 
       .footerLinks {
@@ -1456,187 +1368,77 @@ function SiteStyles() {
 
       .footerLink {
         font-size: 0.85rem;
-        color: rgba(245, 245, 247, 0.4);
-        text-decoration: none;
+        color: #6E6E73;
         transition: color 0.2s;
       }
 
-      .footerLink:hover {
-        color: rgba(245, 245, 247, 0.8);
-      }
+      .footerLink:hover { color: #1D1D1F; }
 
-      @keyframes buttonSweep {
-        0%,
-        100% {
-          transform: translateX(-180%) rotate(18deg);
-          opacity: 0;
-        }
-
-        16% {
-          opacity: 1;
-        }
-
-        38% {
-          transform: translateX(390%) rotate(18deg);
-          opacity: 0;
-        }
-      }
-
-      @keyframes boxTickLoop {
-        0%,
-        22% {
-          color: transparent;
-          background: rgba(255, 255, 255, 0.02);
-          border-color: rgba(255, 255, 255, 0.18);
-          box-shadow: none;
-          transform: scale(1);
-        }
-
-        30%,
-        74% {
-          color: white;
-          background: var(--blue);
-          border-color: transparent;
-          box-shadow: none;
-          transform: scale(1.04);
-        }
-
-        84%,
-        100% {
-          color: transparent;
-          background: rgba(255, 255, 255, 0.02);
-          border-color: rgba(255, 255, 255, 0.18);
-          box-shadow: none;
-          transform: scale(1);
-        }
-      }
-
-      @keyframes textTickLoop {
-        0%,
-        22% {
-          color: rgba(255, 255, 255, 0.92);
-          opacity: 1;
-          transform: translateX(0);
-          text-decoration: none;
-        }
-
-        30%,
-        74% {
-          color: rgba(255, 255, 255, 0.5);
-          opacity: 0.82;
-          transform: translateX(2px);
-          text-decoration: line-through;
-        }
-
-        84%,
-        100% {
-          color: rgba(255, 255, 255, 0.92);
-          opacity: 1;
-          transform: translateX(0);
-          text-decoration: none;
-        }
-      }
-
-      @keyframes taskGlowLoop {
-        0%,
-        22%,
-        84%,
-        100% {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.08);
-        }
-
-        30%,
-        74% {
-          background: rgba(41, 151, 255, 0.08);
-          border-color: rgba(41, 151, 255, 0.15);
-        }
-      }
+      /* ── Responsive ── */
 
       @media (max-width: 1024px) {
-        .heroInner,
-        .split,
-        .householdShell,
-        .stepGrid,
-        .storyGrid,
-        .featureBand,
-        .useCaseGrid {
+        .splitGrid {
           grid-template-columns: 1fr;
+          gap: 2.5rem;
         }
 
-        .privacyGrid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        .splitGrid.reverse .splitCopy { order: 1; }
+        .splitGrid.reverse .splitVisual { order: 2; }
+
+        .ecoGrid {
+          grid-template-columns: repeat(2, 1fr);
         }
 
-        .heroPanel {
-          min-height: auto;
-        }
-
-        .floatingQuote {
-          position: relative;
-          right: auto;
-          bottom: auto;
-          width: 100%;
-          margin-top: 1rem;
-        }
+        .sectionTitle.left { text-align: center; }
+        .splitCopy { text-align: center; }
+        .caption { text-align: center; }
       }
 
       @media (max-width: 720px) {
-        .hideOnMobile {
-          display: none;
-        }
+        .hideOnMobile { display: none; }
 
-        .hero {
-          padding-top: 4.5rem;
-        }
+        .hero { padding: 6rem 1rem 4rem; }
+
+        .section { padding: 5rem 1rem; }
 
         .heroTitle {
-          font-size: clamp(3.2rem, 16vw, 5.1rem);
+          font-size: clamp(2.4rem, 10vw, 3.5rem);
         }
 
-        .section {
-          padding: 4.5rem 1.25rem;
+        .sectionTitle {
+          font-size: clamp(1.8rem, 7vw, 2.4rem);
         }
 
-        .navInner,
-        .hero,
-        .proofBar,
-        .section,
-        .finalCta {
-          padding-left: 1rem;
-          padding-right: 1rem;
-        }
-
-        .heroCtas,
-        .heroMeta {
+        .heroCtas {
           flex-direction: column;
           align-items: stretch;
         }
 
-        .primaryBtn,
-        .secondaryBtn,
-        .navCta,
-        .finalBtn {
+        .primaryBtn, .secondaryBtn {
           justify-content: center;
           text-align: center;
         }
 
-        .brandMark {
-          padding: 0;
-        }
-
-        .brandLogo {
-          height: 36px;
-        }
-
-        .privacyGrid {
+        .ecoGrid {
           grid-template-columns: 1fr;
         }
 
-        .finalShell {
-          padding: 2.5rem 1.2rem;
+        .pillGrid {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .brandLogo { height: 30px; }
+
+        .finalShell { padding: 3rem 1.5rem; }
+
+        .footerInner {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
         }
       }
+
     `}</style>
   )
 }
