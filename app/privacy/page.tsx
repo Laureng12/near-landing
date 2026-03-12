@@ -3,13 +3,13 @@
 import Link from "next/link"
 import Image from "next/image"
 
-export default function PrivacyPage() {
+export default function PrivacyPage() 
   return (
     <>
       <header className="legalHeader">
         <Link href="/" className="legalLogo">
           <Image
-            src="/near-icon-hero.png"
+            src="/near-icon-hero.png
             alt="Near"
             width={32}
             height={32}
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Introduction</h2>
             <p>
-              Near is operated by Brief Case, LLC (&quot;we,&quot; &quot;us,&quot; &quot;our,&quot; or &quot;the Company&quot;). Near is a location-based task reminder app for iPhone that surfaces errands, groceries, and household tasks automatically when you arrive at the places where they can be completed.
+              Near is operated by Rise-X, Inc. (&quot;we,&quot; &quot;us,&quot; &quot;our,&quot; or &quot;the Company&quot;). Near is a location-based task reminder app for iPhone that surfaces errands, groceries, and household tasks automatically when you arrive at the places where they can be completed.
             </p>
             <p>
               This Privacy Policy explains what information Near collects, how it is used, how it may be shared, and the choices you have. By using Near, you consent to the practices described in this policy.
@@ -232,7 +232,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Business Transfers</h2>
             <p>
-              If Brief Case, LLC is involved in a merger, acquisition, reorganization, sale of assets, or bankruptcy, your information may be transferred as part of that transaction. In such an event, we will make reasonable efforts to notify you (for example, via a notice within the app or by email) before your personal information becomes subject to a different privacy policy. The acquiring entity will be bound by the commitments made in this Privacy Policy with respect to your personal information, unless you are notified otherwise and given the opportunity to opt out.
+              If Rise-X, Inc. is involved in a merger, acquisition, reorganization, sale of assets, or bankruptcy, your information may be transferred as part of that transaction. In such an event, we will make reasonable efforts to notify you (for example, via a notice within the app or by email) before your personal information becomes subject to a different privacy policy. The acquiring entity will be bound by the commitments made in this Privacy Policy with respect to your personal information, unless you are notified otherwise and given the opportunity to opt out.
             </p>
           </section>
 
@@ -369,7 +369,7 @@ export default function PrivacyPage() {
                 hello@nearesttask.com
               </a>
             </p>
-            <p>Brief Case, LLC</p>
+            <p>Rise-X, Inc.</p>
           </section>
         </article>
       </main>
