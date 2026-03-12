@@ -36,7 +36,7 @@ export default function FeaturesPage() {
           />
         </Link>
         <div className="ftNavLinks">
-          <Link href="/" className="ftNavLink">Home</Link>
+          <Link href="/" className="ftNavLink ftNavLinkHideMobile">Home</Link>
           <Link href="/features" className="ftNavLink ftNavLinkActive">Features</Link>
           <a href={APP_STORE_URL} className="ftNavCta">Download</a>
         </div>
@@ -635,14 +635,22 @@ export default function FeaturesPage() {
 
         /* ─── Responsive ─── */
         @media (max-width: 600px) {
-          .ftNav { padding: 0 16px; }
+          .ftNav { padding: 0 16px; height: 52px; }
+          :global(.ftNavLinkHideMobile) { display: none; }
+          .ftNavLogoImg { height: 30px; }
+          .ftNavLinks { gap: 1rem; }
+          .ftNavCta { padding: 6px 14px; font-size: 12px; }
           .ftHero { padding: 80px 16px 60px; }
-          .ftHeroTitle { font-size: 40px; letter-spacing: -1px; }
+          .ftHeroTitle { font-size: 36px; letter-spacing: -1px; }
           .ftHeroSub { font-size: 16px; }
           .ftSection { padding: 60px 16px; }
           .ftBlockTitle { font-size: 28px; }
           .ftBlockLead { font-size: 16px; }
           .ftCtaTitle { font-size: 36px; }
+          .ftPlatformStrip { gap: 8px; }
+          .ftPlatformChip { padding: 8px 14px; font-size: 13px; }
+          .ftPrivacyRow { gap: 10px; }
+          .ftPrivacyBadge { padding: 10px 14px; font-size: 13px; }
           .ftFooterInner { flex-direction: column; gap: 0.75rem; text-align: center; }
         }
       `}</style>
