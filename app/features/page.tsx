@@ -166,7 +166,7 @@ export default function FeaturesPage() {
                 <span className="ftPointIcon">🛣️</span>
                 <div>
                   <strong className="ftLight">On your route</strong>
-                  <p className="ftDim">Near analyzes your actual driving path and finds places with tasks along the way.</p>
+                  <p className="ftDim">Driving past a place with tasks? Near catches it and lets you know before you miss the turn.</p>
                 </div>
               </div>
               <div className="ftPoint ftPointDark">
@@ -188,36 +188,37 @@ export default function FeaturesPage() {
         </section>
 
 
-        {/* ─── 5. Grocery list, supercharged ─── */}
+        {/* ─── 5. Add in seconds, plan the whole trip ─── */}
         <section className="reveal ftSection">
           <div className="ftBlock">
-            <span className="ftBlockEmoji">🛒</span>
-            <h2 className="ftBlockTitle">Your grocery list, supercharged</h2>
+            <span className="ftBlockEmoji">📸</span>
+            <h2 className="ftBlockTitle">Snap a photo. Plan the trip.</h2>
             <p className="ftBlockLead">
-              Stop wandering every aisle because your list is in random order. Near organizes
-              items by department, learns which aisle things are on, and can even sync
-              directly to your Kroger cart.
+              See a list on the fridge? A recipe in a cookbook? Just take a picture —
+              Near reads it and turns it into organized tasks instantly. Then it maps out
+              every stop, gives you the fastest route, and tells you exactly how long
+              the whole run will take.
             </p>
             <div className="ftPoints">
+              <div className="ftPoint">
+                <span className="ftPointIcon">📷</span>
+                <div>
+                  <strong>Photo to list</strong>
+                  <p>Snap a handwritten note, a recipe, or a whiteboard. Near turns it into a task list in seconds.</p>
+                </div>
+              </div>
+              <div className="ftPoint">
+                <span className="ftPointIcon">🗺️</span>
+                <div>
+                  <strong>Errand game plan</strong>
+                  <p>See all your stops on a map with the optimal route, drive times between each, and a total trip estimate.</p>
+                </div>
+              </div>
               <div className="ftPoint">
                 <span className="ftPointIcon">🏬</span>
                 <div>
                   <strong>Sorted by department</strong>
-                  <p>Produce, dairy, frozen — your list follows the store layout, not the order you typed things in.</p>
-                </div>
-              </div>
-              <div className="ftPoint">
-                <span className="ftPointIcon">📷</span>
-                <div>
-                  <strong>Scan to add</strong>
-                  <p>Point your camera at a barcode. Near adds the item instantly.</p>
-                </div>
-              </div>
-              <div className="ftPoint">
-                <span className="ftPointIcon">🛒</span>
-                <div>
-                  <strong>Kroger cart sync</strong>
-                  <p>Items flow directly into your Kroger online cart for pickup or delivery.</p>
+                  <p>Grocery items auto-organize by department so you move through the store once, not back and forth.</p>
                 </div>
               </div>
             </div>
