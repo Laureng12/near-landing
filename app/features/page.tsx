@@ -28,8 +28,12 @@ export default function FeaturesPage() {
     <>
       <nav className="ftNav">
         <Link href="/" className="ftNavLogo">
-          <Image src="/near-icon-hero.png" alt="Near" width={28} height={28} className="ftNavIcon" />
-          <span className="ftNavName">near</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/near-logo-light-cropped.png"
+            alt="Near"
+            className="ftNavLogoImg"
+          />
         </Link>
         <div className="ftNavLinks">
           <Link href="/" className="ftNavLink">Home</Link>
@@ -313,9 +317,8 @@ export default function FeaturesPage() {
           backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid var(--line);
         }
-        .ftNavLogo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .ftNavIcon { border-radius: 6px; }
-        .ftNavName { font-size: 18px; font-weight: 700; color: var(--foreground); letter-spacing: -0.3px; }
+        .ftNavLogo { display: flex; align-items: center; text-decoration: none; }
+        .ftNavLogoImg { height: 36px; width: auto; display: block; object-fit: contain; }
         .ftNavLinks { display: flex; align-items: center; gap: 1.5rem; }
         .ftNavLink { font-size: 14px; color: var(--text-secondary); text-decoration: none; font-weight: 500; }
         .ftNavLink:hover { color: var(--foreground); }
