@@ -504,7 +504,7 @@ function PassingBySection() {
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
           <h2 className="sectionTitle left">
-            Passing a place you need.<br />Near notices before you miss the turn.
+            Passing a place you need to stop.<br />Near notices before you miss the turn.
           </h2>
           <p className="bodyText">
             Near can surface errands when you pass a place where they can be completed.
@@ -512,12 +512,27 @@ function PassingBySection() {
           <p className="caption">Helpful while driving. Quiet by design.</p>
         </div>
         <div className="splitVisual">
-          <div className="carplayCard">
-            <div className="carplayHeader">Nearby errand</div>
-            <div className="carplayStore">Target</div>
-            <div className="carplayTasks">
-              <span>Return package</span>
-              <span>Buy batteries</span>
+          <div className="passingByVisual">
+            <div className="passingByGlow" />
+            <div className="passingByGlow2" />
+            <div className="passingByNotif">
+              <div className="passingByIcon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#pinGrad)" />
+                  <circle cx="10" cy="9" r="2.5" fill="white" />
+                  <defs>
+                    <linearGradient id="pinGrad" x1="3" y1="2" x2="17" y2="18">
+                      <stop stopColor="#5B8DEF" />
+                      <stop offset="1" stopColor="#7B5CFF" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div className="passingByNotifBody">
+                <div className="passingByLabel">Near &middot; Nearby errand</div>
+                <div className="passingByTitle">Target is on your route</div>
+                <div className="passingByItems">Return package &middot; Buy batteries</div>
+              </div>
             </div>
           </div>
         </div>
@@ -626,17 +641,37 @@ function HouseholdSection() {
           </p>
         </div>
         <div className="splitVisual">
-          <div className="householdNotif">
-            <div className="notifHeader">
-              <div className="notifIcon">{"\uD83D\uDCCD"}</div>
-              <div className="notifApp">Near</div>
-              <div className="notifTime">now</div>
+          <div className="householdVisual">
+            <div className="householdGlow" />
+            <div className="householdGlow2" />
+            <div className="householdOrbit">
+              <div className="householdAvatar householdAvatar1">
+                <span>👩</span>
+              </div>
+              <div className="householdAvatar householdAvatar2">
+                <span>👨</span>
+              </div>
+              <div className="householdRing" />
+              <div className="householdRing householdRing2" />
             </div>
-            <div className="notifTitle">Brian is near Target</div>
-            <div className="notifBody">Send the grocery list?</div>
-            <div className="notifActions">
-              <button className="notifBtn notifBtnPrimary">Send</button>
-              <button className="notifBtn notifBtnSecondary">Not now</button>
+            <div className="householdNotif">
+              <div className="householdNotifIcon">
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#hhPinGrad)" />
+                  <circle cx="10" cy="9" r="2.5" fill="white" />
+                  <defs>
+                    <linearGradient id="hhPinGrad" x1="3" y1="2" x2="17" y2="18">
+                      <stop stopColor="#FF6B8A" />
+                      <stop offset="1" stopColor="#C74BF6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div className="householdNotifBody">
+                <div className="householdNotifLabel">Near &middot; now</div>
+                <div className="householdNotifTitle">Brian is near Target</div>
+                <div className="householdNotifSub">Send the grocery list?</div>
+              </div>
             </div>
           </div>
         </div>
@@ -698,6 +733,23 @@ function PrivacySection() {
   return (
     <section className="section">
       <div className="reveal sectionShell narrow center">
+        <div className="privacyVisual">
+          <div className="privacyGlow" />
+          <div className="privacyIcon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect x="12" y="22" width="24" height="18" rx="4" fill="url(#lockGrad)" />
+              <path d="M18 22V16a6 6 0 0 1 12 0v6" stroke="url(#lockGrad)" strokeWidth="3" strokeLinecap="round" fill="none" />
+              <circle cx="24" cy="32" r="2.5" fill="white" />
+              <defs>
+                <linearGradient id="lockGrad" x1="12" y1="16" x2="36" y2="40">
+                  <stop stopColor="#2F6DFF" />
+                  <stop offset="1" stopColor="#7B5CFF" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className="privacyRing" />
+        </div>
         <h2 className="sectionTitle">Your life logistics. <span className="gradientText">Kept private.</span></h2>
         <p className="bodyText center">
           Near uses location only to show tasks when they matter.<br />
@@ -719,6 +771,33 @@ function PhilosophySection() {
   return (
     <section className="section sectionSurface">
       <div className="reveal sectionShell narrow center">
+        <div className="philVisual">
+          <div className="philGlow" />
+          <div className="philGlow2" />
+          <div className="philIcon">
+            <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+              <path d="M26 6C18.27 6 12 12.27 12 20c0 4.5 2.12 8.5 5.43 11.07C18.56 32.01 19 33.2 19 34.5V38a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-3.5c0-1.3.44-2.49 1.57-3.43C37.88 28.5 40 24.5 40 20c0-7.73-6.27-14-14-14z" fill="url(#bulbGrad)" />
+              <rect x="21" y="42" width="10" height="2" rx="1" fill="url(#bulbGrad2)" />
+              <rect x="22" y="45" width="8" height="2" rx="1" fill="url(#bulbGrad2)" opacity="0.6" />
+              <circle cx="26" cy="22" r="4" fill="white" opacity="0.9" />
+              <line x1="26" y1="26" x2="26" y2="34" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+              <defs>
+                <linearGradient id="bulbGrad" x1="12" y1="6" x2="40" y2="46">
+                  <stop stopColor="#FFB347" />
+                  <stop offset="0.5" stopColor="#FF6B8A" />
+                  <stop offset="1" stopColor="#C74BF6" />
+                </linearGradient>
+                <linearGradient id="bulbGrad2" x1="21" y1="42" x2="30" y2="47">
+                  <stop stopColor="#C74BF6" />
+                  <stop offset="1" stopColor="#7B5CFF" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className="philSparkle philSparkle1" />
+          <div className="philSparkle philSparkle2" />
+          <div className="philSparkle philSparkle3" />
+        </div>
         <h2 className="sectionTitle">Your brain is for <span className="gradientText">ideas.</span></h2>
         <p className="bodyText center">
           Not batteries. Not milk. Not remembering to return the package.
@@ -1279,50 +1358,117 @@ function SiteStyles() {
         }
       }
 
-      /* ── CarPlay Card ── */
+      /* ── Passing-By Ambient Notification ── */
 
-      .carplayCard {
-        padding: 2rem;
-        border-radius: 1.5rem;
-        background: linear-gradient(145deg, #1D1D1F 0%, #2a2a3e 100%);
-        color: white;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .carplayCard:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
-      }
-
-      .carplayHeader {
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: rgba(255, 255, 255, 0.5);
-        margin-bottom: 0.6rem;
-      }
-
-      .carplayStore {
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-      }
-
-      .carplayTasks {
+      .passingByVisual {
+        position: relative;
         display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-top: 1rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 220px;
+        padding: 2rem;
       }
 
-      .carplayTasks span {
-        padding: 0.6rem 1rem;
-        border-radius: 0.6rem;
-        background: rgba(255, 255, 255, 0.08);
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.8);
+      .passingByGlow {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(91, 141, 239, 0.35) 0%, rgba(123, 92, 255, 0.15) 40%, transparent 70%);
+        filter: blur(40px);
+        animation: glowPulse 4s ease-in-out infinite;
+      }
+
+      .passingByGlow2 {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(199, 75, 246, 0.25) 0%, rgba(255, 107, 138, 0.1) 40%, transparent 70%);
+        filter: blur(30px);
+        animation: glowPulse2 5s ease-in-out infinite 1s;
+        transform: translate(30px, -20px);
+      }
+
+      @keyframes glowPulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.15); opacity: 1; }
+      }
+
+      @keyframes glowPulse2 {
+        0%, 100% { transform: translate(30px, -20px) scale(1); opacity: 0.6; }
+        50% { transform: translate(30px, -20px) scale(1.2); opacity: 0.9; }
+      }
+
+      .passingByNotif {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        box-shadow:
+          0 2px 12px rgba(91, 141, 239, 0.15),
+          0 8px 32px rgba(123, 92, 255, 0.1),
+          0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
+        max-width: 340px;
+        width: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: notifFloat 6s ease-in-out infinite;
+      }
+
+      @keyframes notifFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+
+      .passingByNotif:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow:
+          0 4px 20px rgba(91, 141, 239, 0.25),
+          0 12px 48px rgba(123, 92, 255, 0.15),
+          0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
+      }
+
+      .passingByIcon {
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #e8efff 0%, #f0eaff 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .passingByNotifBody {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .passingByLabel {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        letter-spacing: 0.01em;
+      }
+
+      .passingByTitle {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--foreground);
+        letter-spacing: -0.01em;
+        margin-top: 1px;
+      }
+
+      .passingByItems {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-top: 2px;
       }
 
       /* ── Ecosystem Grid ── */
@@ -1500,80 +1646,177 @@ function SiteStyles() {
         color: #6E6E73;
       }
 
-      /* ── Household Notification ── */
+      /* ── Household Visual ── */
+
+      .householdVisual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 280px;
+        padding: 2rem;
+      }
+
+      .householdGlow {
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 107, 138, 0.3) 0%, rgba(199, 75, 246, 0.12) 40%, transparent 70%);
+        filter: blur(40px);
+        animation: hhGlow1 5s ease-in-out infinite;
+      }
+
+      .householdGlow2 {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(123, 92, 255, 0.25) 0%, rgba(91, 141, 239, 0.1) 40%, transparent 70%);
+        filter: blur(30px);
+        animation: hhGlow2 6s ease-in-out infinite 1.5s;
+        transform: translate(-20px, 20px);
+      }
+
+      @keyframes hhGlow1 {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.18); opacity: 1; }
+      }
+
+      @keyframes hhGlow2 {
+        0%, 100% { transform: translate(-20px, 20px) scale(1); opacity: 0.5; }
+        50% { transform: translate(-20px, 20px) scale(1.22); opacity: 0.85; }
+      }
+
+      .householdOrbit {
+        position: absolute;
+        width: 160px;
+        height: 160px;
+      }
+
+      .householdRing {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1.5px solid rgba(199, 75, 246, 0.15);
+        animation: hhRingSpin 20s linear infinite;
+      }
+
+      .householdRing2 {
+        inset: -20px;
+        border-color: rgba(255, 107, 138, 0.1);
+        animation-duration: 28s;
+        animation-direction: reverse;
+      }
+
+      @keyframes hhRingSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .householdAvatar {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        z-index: 2;
+      }
+
+      .householdAvatar1 {
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #ffe0ec 0%, #ffd6e8 100%);
+        animation: hhFloat1 5s ease-in-out infinite;
+      }
+
+      .householdAvatar2 {
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #e0e8ff 0%, #d6deff 100%);
+        animation: hhFloat2 5s ease-in-out infinite 1s;
+      }
+
+      @keyframes hhFloat1 {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-8px); }
+      }
+
+      @keyframes hhFloat2 {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(8px); }
+      }
 
       .householdNotif {
-        padding: 1.5rem;
-        border-radius: 1.5rem;
-        background: linear-gradient(145deg, #1D1D1F 0%, #2a2a3e 100%);
-        color: white;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        box-shadow:
+          0 2px 12px rgba(199, 75, 246, 0.12),
+          0 8px 32px rgba(255, 107, 138, 0.08),
+          0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
+        max-width: 280px;
+        width: 100%;
+        animation: hhNotifFloat 6s ease-in-out infinite;
+      }
+
+      @keyframes hhNotifFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
       }
 
       .householdNotif:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow:
+          0 4px 20px rgba(199, 75, 246, 0.2),
+          0 12px 48px rgba(255, 107, 138, 0.12),
+          0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
       }
 
-      .notifHeader {
+      .householdNotifIcon {
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, #ffe0ec 0%, #f0eaff 100%);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
+        justify-content: center;
       }
 
-      .notifIcon { font-size: 1rem; }
+      .householdNotifBody { flex: 1; min-width: 0; }
 
-      .notifApp {
-        font-size: 13px;
+      .householdNotifLabel {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+
+      .householdNotifTitle {
+        font-size: 14px;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.5);
-        text-transform: uppercase;
-        letter-spacing: 0.04em;
+        color: var(--foreground);
+        letter-spacing: -0.01em;
+        margin-top: 1px;
       }
 
-      .notifTime {
-        margin-left: auto;
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.3);
-      }
-
-      .notifTitle {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 0.3rem;
-      }
-
-      .notifBody {
-        font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.6);
-        margin-bottom: 1rem;
-      }
-
-      .notifActions {
-        display: flex;
-        gap: 0.6rem;
-      }
-
-      .notifBtn {
-        padding: 0.5rem 1rem;
-        border-radius: 999px;
-        font-size: 0.82rem;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        font-family: var(--font-sans);
-      }
-
-      .notifBtnPrimary {
-        background: var(--blue);
-        color: white;
-      }
-
-      .notifBtnSecondary {
-        background: rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.6);
+      .householdNotifSub {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-top: 1px;
       }
 
       /* ── Maps Card ── */
@@ -1607,6 +1850,157 @@ function SiteStyles() {
         font-size: 0.95rem;
         color: #6E6E73;
         margin-top: 0.15rem;
+      }
+
+      /* ── Privacy Visual ── */
+
+      .privacyVisual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 2rem;
+      }
+
+      .privacyGlow {
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(47, 109, 255, 0.25) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
+        filter: blur(25px);
+        animation: privGlow 4s ease-in-out infinite;
+      }
+
+      @keyframes privGlow {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.15); opacity: 1; }
+      }
+
+      .privacyIcon {
+        position: relative;
+        z-index: 2;
+        width: 80px;
+        height: 80px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow:
+          0 4px 20px rgba(47, 109, 255, 0.12),
+          0 0 0 0.5px rgba(255, 255, 255, 0.5) inset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: privFloat 5s ease-in-out infinite;
+      }
+
+      @keyframes privFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+
+      .privacyRing {
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(47, 109, 255, 0.15);
+        animation: hhRingSpin 25s linear infinite;
+      }
+
+      /* ── Philosophy Visual ── */
+
+      .philVisual {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 130px;
+        margin: 0 auto 2rem;
+      }
+
+      .philGlow {
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 179, 71, 0.3) 0%, rgba(255, 107, 138, 0.12) 40%, transparent 70%);
+        filter: blur(30px);
+        animation: philGlowAnim 5s ease-in-out infinite;
+      }
+
+      .philGlow2 {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(199, 75, 246, 0.2) 0%, transparent 60%);
+        filter: blur(20px);
+        animation: philGlowAnim2 6s ease-in-out infinite 1s;
+        transform: translate(10px, -10px);
+      }
+
+      @keyframes philGlowAnim {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.2); opacity: 1; }
+      }
+
+      @keyframes philGlowAnim2 {
+        0%, 100% { transform: translate(10px, -10px) scale(1); opacity: 0.5; }
+        50% { transform: translate(10px, -10px) scale(1.15); opacity: 0.8; }
+      }
+
+      .philIcon {
+        position: relative;
+        z-index: 2;
+        animation: philFloat 5s ease-in-out infinite;
+      }
+
+      @keyframes philFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+
+      .philSparkle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 179, 71, 0.8);
+        z-index: 3;
+      }
+
+      .philSparkle1 {
+        top: 10px;
+        right: 5px;
+        animation: sparkle 3s ease-in-out infinite;
+      }
+
+      .philSparkle2 {
+        top: 20px;
+        left: 0;
+        width: 4px;
+        height: 4px;
+        background: rgba(199, 75, 246, 0.7);
+        animation: sparkle 3s ease-in-out infinite 1s;
+      }
+
+      .philSparkle3 {
+        bottom: 30px;
+        right: 0;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 107, 138, 0.7);
+        animation: sparkle 3s ease-in-out infinite 2s;
+      }
+
+      @keyframes sparkle {
+        0%, 100% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1.2); }
       }
 
       /* ── Pills ── */
