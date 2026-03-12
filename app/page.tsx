@@ -125,6 +125,7 @@ function TopNav() {
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
           <a className="navLink hideOnMobile" href="#household">Household</a>
+          <a className="navLink hideOnMobile" href="/features">Features</a>
           <a className="navCta" href={APP_STORE_URL}>Download</a>
         </nav>
       </div>

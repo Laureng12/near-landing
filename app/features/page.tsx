@@ -35,6 +35,7 @@ export default function FeaturesPage() {
         </Link>
         <div className="ftNavLinks">
           <Link href="/" className="ftNavLink">Home</Link>
+          <Link href="/features" className="ftNavLink ftNavLinkActive">Features</Link>
           <a href={APP_STORE_URL} className="ftNavCta">Download</a>
         </div>
       </nav>
@@ -296,6 +297,7 @@ export default function FeaturesPage() {
         .ftNavLinks { display: flex; align-items: center; gap: 1.5rem; }
         .ftNavLink { font-size: 14px; color: var(--text-secondary); text-decoration: none; font-weight: 500; }
         .ftNavLink:hover { color: var(--foreground); }
+        .ftNavLinkActive { color: var(--foreground); }
         .ftNavCta {
           font-size: 13px; font-weight: 600; color: #fff;
           background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 100%);
