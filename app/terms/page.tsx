@@ -30,7 +30,7 @@ export default function TermsPage() {
               By downloading, installing, or using Near (&quot;the app&quot;), you agree to be bound by these Terms &amp; Conditions (&quot;Terms&quot;). If you do not agree to these Terms, do not use the app.
             </p>
             <p>
-              These Terms constitute a legal agreement between you and Brief Case, LLC (&quot;the Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), the developer and operator of Near. Please read them carefully.
+              These Terms constitute a legal agreement between you and Rise-X, Inc. (&quot;the Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), the developer and operator of Near. Please read them carefully.
             </p>
           </section>
 
@@ -83,7 +83,7 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>License to Use Your Data</h2>
             <p>
-              You retain ownership of the content you create within Near (tasks, list names, notes, etc.). By using the app, you grant Brief Case, LLC a worldwide, non-exclusive, royalty-free, transferable, sublicensable license to use, reproduce, process, adapt, and display your content solely for the purposes of:
+              You retain ownership of the content you create within Near (tasks, list names, notes, etc.). By using the app, you grant Rise-X, Inc. a worldwide, non-exclusive, royalty-free, transferable, sublicensable license to use, reproduce, process, adapt, and display your content solely for the purposes of:
             </p>
             <ul>
               <li>Operating and providing the Near service</li>
@@ -142,10 +142,10 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Intellectual Property</h2>
             <p>
-              Near, including its design, code, graphics, logo, and all associated intellectual property, is owned by Brief Case, LLC and protected by applicable intellectual property laws. You may not copy, modify, distribute, or create derivative works based on Near without our prior written consent.
+              Near, including its design, code, graphics, logo, and all associated intellectual property, is owned by Rise-X, Inc. and protected by applicable intellectual property laws. You may not copy, modify, distribute, or create derivative works based on Near without our prior written consent.
             </p>
             <p>
-              All aggregated, anonymized, or de-identified data and any insights, analyses, or derivative works created from such data are the exclusive property of Brief Case, LLC.
+              All aggregated, anonymized, or de-identified data and any insights, analyses, or derivative works created from such data are the exclusive property of Rise-X, Inc..
             </p>
           </section>
 
@@ -170,7 +170,7 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Limitation of Liability</h2>
             <p>
-              To the maximum extent permitted by applicable law, Brief Case, LLC and its officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:
+              To the maximum extent permitted by applicable law, Rise-X, Inc. and its officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:
             </p>
             <ul>
               <li>Your use of or inability to use the app</li>
@@ -191,12 +191,12 @@ export default function TermsPage() {
               Any dispute, claim, or controversy arising out of or relating to these Terms or the use of Near shall be resolved through binding individual arbitration administered by the American Arbitration Association (&quot;AAA&quot;) under its Consumer Arbitration Rules, rather than in court. There is no judge or jury in arbitration, and court review of an arbitration award is limited.
             </p>
             <p>
-              <strong>Class Action Waiver:</strong> You and Brief Case, LLC agree that any dispute resolution proceedings will be conducted only on an individual basis and not in a class, consolidated, or representative action. If this class action waiver is found to be unenforceable, then the entirety of this arbitration provision shall be null and void.
+              <strong>Class Action Waiver:</strong> You and Rise-X, Inc. agree that any dispute resolution proceedings will be conducted only on an individual basis and not in a class, consolidated, or representative action. If this class action waiver is found to be unenforceable, then the entirety of this arbitration provision shall be null and void.
             </p>
             <p>
               <strong>Opt-Out:</strong> You may opt out of this arbitration provision by sending written notice to{" "}
               <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>{" "}
-              within 30 days of first accepting these Terms. If you opt out, you and Brief Case, LLC agree to submit to the exclusive jurisdiction of the state and federal courts located in Charleston County, South Carolina.
+              within 30 days of first accepting these Terms. If you opt out, you and Rise-X, Inc. agree to submit to the exclusive jurisdiction of the state and federal courts located in Charleston County, South Carolina.
             </p>
             <p>
               <strong>Small Claims Exception:</strong> Either party may bring an individual action in small claims court for disputes within the court&apos;s jurisdictional limits.
@@ -206,7 +206,7 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Business Transfers</h2>
             <p>
-              In the event that Brief Case, LLC is involved in a merger, acquisition, reorganization, asset sale, or similar business transaction, these Terms and your relationship with us (including any data collected through the app) may be transferred to the successor entity. The successor will be bound by these Terms with respect to your continued use of the app. We will make reasonable efforts to notify you of any such transfer.
+              In the event that Rise-X, Inc. is involved in a merger, acquisition, reorganization, asset sale, or similar business transaction, these Terms and your relationship with us (including any data collected through the app) may be transferred to the successor entity. The successor will be bound by these Terms with respect to your continued use of the app. We will make reasonable efforts to notify you of any such transfer.
             </p>
           </section>
 
@@ -253,7 +253,7 @@ export default function TermsPage() {
                 The arbitration provision in these Terms is enforceable under applicable Canadian federal and provincial arbitration legislation. However, nothing in these Terms limits your right to file a complaint with the Office of the Privacy Commissioner of Canada regarding the handling of your personal information.
               </li>
               <li>
-                References to Brief Case, LLC include its successors and assigns. Your relationship is with a United States entity, and your data is processed in the United States as described in our Privacy Policy.
+                References to Rise-X, Inc. include its successors and assigns. Your relationship is with a United States entity, and your data is processed in the United States as described in our Privacy Policy.
               </li>
             </ul>
 
@@ -285,7 +285,7 @@ export default function TermsPage() {
                 hello@nearesttask.com
               </a>
             </p>
-            <p>Brief Case, LLC</p>
+            <p>Rise-X, Inc.</p>
           </section>
         </article>
       </main>
