@@ -7,12 +7,12 @@ import { useEffect } from "react"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
 const platforms = [
-  { icon: "📱", name: "iPhone" },
-  { icon: "⌚", name: "Apple Watch" },
-  { icon: "🚗", name: "CarPlay" },
-  { icon: "🏝️", name: "Dynamic Island" },
-  { icon: "📱", name: "Widgets" },
-  { icon: "🗣️", name: "Siri" },
+  { icon: "📱", name: "iPhone", color: "#2F6DFF" },
+  { icon: "⌚", name: "Apple Watch", color: "#34C759" },
+  { icon: "🚗", name: "CarPlay", color: "#FF6B8A" },
+  { icon: "🏝️", name: "Dynamic Island", color: "#7B5CFF" },
+  { icon: "📱", name: "Widgets", color: "#FF9F0A" },
+  { icon: "🗣️", name: "Siri", color: "#C74BF6" },
 ]
 
 export default function FeaturesPage() {
@@ -44,7 +44,9 @@ export default function FeaturesPage() {
 
         {/* ─── Hero ─── */}
         <section className="ftHero">
-          <div className="ftHeroGlow" />
+          <div className="ftHeroOrb ftHeroOrb1" />
+          <div className="ftHeroOrb ftHeroOrb2" />
+          <div className="ftHeroOrb ftHeroOrb3" />
           <p className="ftHeroEyebrow">Features</p>
           <h1 className="ftHeroTitle">
             Stop forgetting.<br />Start <span className="ftGradient">living.</span>
@@ -53,13 +55,16 @@ export default function FeaturesPage() {
             Near keeps track of everything you need to do — and tells you at the moment
             and place it actually matters.
           </p>
+          <div className="ftHeroDivider" />
         </section>
 
 
         {/* ─── 1. Never forget at the store ─── */}
         <section className="reveal ftSection">
           <div className="ftBlock">
-            <span className="ftBlockEmoji">🛒</span>
+            <div className="ftIconGlow ftIconGlowBlue">
+              <span className="ftBlockEmoji">🛒</span>
+            </div>
             <h2 className="ftBlockTitle">Never forget at the store again</h2>
             <p className="ftBlockLead">
               You always remember what you need — just not when you&apos;re actually there.
@@ -68,21 +73,21 @@ export default function FeaturesPage() {
             </p>
             <div className="ftPoints">
               <div className="ftPoint">
-                <span className="ftPointIcon">📍</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #2F6DFF, #7B5CFF)'}} />
                 <div>
                   <strong>Arrive and see your list</strong>
                   <p>Tasks surface on your lock screen the moment you pull into the parking lot.</p>
                 </div>
               </div>
               <div className="ftPoint">
-                <span className="ftPointIcon">👋</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #7B5CFF, #C74BF6)'}} />
                 <div>
                   <strong>Leave without worry</strong>
                   <p>If you forgot something, Near alerts you before you drive away.</p>
                 </div>
               </div>
               <div className="ftPoint">
-                <span className="ftPointIcon">🔄</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #C74BF6, #FF6B8A)'}} />
                 <div>
                   <strong>It remembers what you forget</strong>
                   <p>Bought oat milk last time? Near suggests it when you&apos;re back at that store.</p>
@@ -92,11 +97,15 @@ export default function FeaturesPage() {
           </div>
         </section>
 
+        <div className="ftDivider" />
 
         {/* ─── 2. Household in sync ─── */}
-        <section className="reveal ftSection ftSectionAlt">
+        <section className="reveal ftSection ftSectionWarm">
+          <div className="ftSectionGlow ftSectionGlowWarm" />
           <div className="ftBlock">
-            <span className="ftBlockEmoji">👨‍👩‍👧‍👦</span>
+            <div className="ftIconGlow ftIconGlowPink">
+              <span className="ftBlockEmoji">👨‍👩‍👧‍👦</span>
+            </div>
             <h2 className="ftBlockTitle">Your household, finally in sync</h2>
             <p className="ftBlockLead">
               No more &ldquo;can you grab...&rdquo; texts that get buried. Near shares lists across your
@@ -105,21 +114,21 @@ export default function FeaturesPage() {
             </p>
             <div className="ftPoints">
               <div className="ftPoint">
-                <span className="ftPointIcon">📋</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #FF6B8A, #FF9F0A)'}} />
                 <div>
                   <strong>One shared list, multiple people</strong>
                   <p>Anyone can add items. Whoever&apos;s closest gets reminded.</p>
                 </div>
               </div>
               <div className="ftPoint">
-                <span className="ftPointIcon">📰</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #FF9F0A, #FFCC02)'}} />
                 <div>
                   <strong>Activity feed</strong>
                   <p>See who picked up what, and when. No duplicate trips.</p>
                 </div>
               </div>
               <div className="ftPoint">
-                <span className="ftPointIcon">💬</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #FFCC02, #34C759)'}} />
                 <div>
                   <strong>Join in seconds</strong>
                   <p>Send a text link. That&apos;s it — no accounts to create, no apps to explain.</p>
@@ -129,11 +138,14 @@ export default function FeaturesPage() {
           </div>
         </section>
 
+        <div className="ftDivider" />
 
         {/* ─── 3. Works everywhere ─── */}
         <section className="reveal ftSection">
           <div className="ftBlock ftBlockCenter">
-            <span className="ftBlockEmoji">🌐</span>
+            <div className="ftIconGlow ftIconGlowGreen" style={{margin: '0 auto 16px'}}>
+              <span className="ftBlockEmoji">🌐</span>
+            </div>
             <h2 className="ftBlockTitle">Works everywhere you do</h2>
             <p className="ftBlockLead">
               You shouldn&apos;t have to pull out your phone every time you need to check a list.
@@ -142,9 +154,10 @@ export default function FeaturesPage() {
             </p>
             <div className="ftPlatformStrip">
               {platforms.map((p, i) => (
-                <div key={i} className="ftPlatformChip">
+                <div key={i} className="ftPlatformChip" style={{borderColor: `${p.color}30`}}>
                   <span className="ftPlatformChipIcon">{p.icon}</span>
                   <span className="ftPlatformChipName">{p.name}</span>
+                  <div className="ftChipGlow" style={{background: p.color}} />
                 </div>
               ))}
             </div>
@@ -154,31 +167,36 @@ export default function FeaturesPage() {
 
         {/* ─── 4. Knows your routine ─── */}
         <section className="reveal ftSection ftSectionDark">
+          <div className="ftDarkOrb ftDarkOrb1" />
+          <div className="ftDarkOrb ftDarkOrb2" />
+          <div className="ftDarkOrb ftDarkOrb3" />
           <div className="ftBlock ftBlockDark">
-            <span className="ftBlockEmoji">🧠</span>
-            <h2 className="ftBlockTitle ftLight">It learns how you live</h2>
-            <p className="ftBlockLead ftDim">
+            <div className="ftIconGlow ftIconGlowPurple" style={{margin: '0 auto 16px'}}>
+              <span className="ftBlockEmoji">🧠</span>
+            </div>
+            <h2 className="ftBlockTitle ftLight" style={{textAlign: 'center'}}>It learns how you live</h2>
+            <p className="ftBlockLead ftDim" style={{textAlign: 'center'}}>
               You drove past the pharmacy three times this week. Near notices patterns
               like that — and gently suggests stops along routes you&apos;re already taking.
               No extra trips. No wasted time.
             </p>
             <div className="ftPoints">
               <div className="ftPoint ftPointDark">
-                <span className="ftPointIcon">🛣️</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #7B5CFF, #2F6DFF)'}} />
                 <div>
                   <strong className="ftLight">On your route</strong>
                   <p className="ftDim">Driving past a place with tasks? Near catches it and lets you know before you miss the turn.</p>
                 </div>
               </div>
               <div className="ftPoint ftPointDark">
-                <span className="ftPointIcon">📅</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #2F6DFF, #00D4AA)'}} />
                 <div>
                   <strong className="ftLight">Pattern suggestions</strong>
                   <p className="ftDim">&ldquo;You usually go to Costco on Saturdays&rdquo; — with a ready-made list.</p>
                 </div>
               </div>
               <div className="ftPoint ftPointDark">
-                <span className="ftPointIcon">🌧️</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #00D4AA, #4FC3F7)'}} />
                 <div>
                   <strong className="ftLight">Weather-aware</strong>
                   <p className="ftDim">Rain coming in 45 minutes? Near nudges you to run that errand now.</p>
@@ -191,8 +209,11 @@ export default function FeaturesPage() {
 
         {/* ─── 5. Add in seconds, plan the whole trip ─── */}
         <section className="reveal ftSection">
+          <div className="ftSectionGlow ftSectionGlowBlue" />
           <div className="ftBlock">
-            <span className="ftBlockEmoji">📸</span>
+            <div className="ftIconGlow ftIconGlowOrange">
+              <span className="ftBlockEmoji">📸</span>
+            </div>
             <h2 className="ftBlockTitle">Snap a photo. Plan the trip.</h2>
             <p className="ftBlockLead">
               See a list on the fridge? A recipe in a cookbook? Just take a picture —
@@ -202,21 +223,21 @@ export default function FeaturesPage() {
             </p>
             <div className="ftPoints">
               <div className="ftPoint">
-                <span className="ftPointIcon">📷</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #FF9F0A, #FF6B8A)'}} />
                 <div>
                   <strong>Photo to list</strong>
                   <p>Snap a handwritten note, a recipe, or a whiteboard. Near turns it into a task list in seconds.</p>
                 </div>
               </div>
               <div className="ftPoint">
-                <span className="ftPointIcon">🗺️</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #2F6DFF, #7B5CFF)'}} />
                 <div>
                   <strong>Errand game plan</strong>
                   <p>See all your stops on a map with the optimal route, drive times between each, and a total trip estimate.</p>
                 </div>
               </div>
               <div className="ftPoint">
-                <span className="ftPointIcon">🏬</span>
+                <div className="ftPointDot" style={{background: 'linear-gradient(135deg, #34C759, #00D4AA)'}} />
                 <div>
                   <strong>Sorted by department</strong>
                   <p>Grocery items auto-organize by department so you move through the store once, not back and forth.</p>
@@ -226,11 +247,14 @@ export default function FeaturesPage() {
           </div>
         </section>
 
+        <div className="ftDivider" />
 
         {/* ─── 6. Private by design ─── */}
-        <section className="reveal ftSection ftSectionAlt">
+        <section className="reveal ftSection ftSectionPrivacy">
           <div className="ftBlock ftBlockCenter">
-            <span className="ftBlockEmoji">🔒</span>
+            <div className="ftIconGlow ftIconGlowTeal" style={{margin: '0 auto 16px'}}>
+              <span className="ftBlockEmoji">🔒</span>
+            </div>
             <h2 className="ftBlockTitle">Private by design</h2>
             <p className="ftBlockLead">
               A location app that doesn&apos;t sell your location. Near processes everything
@@ -238,19 +262,19 @@ export default function FeaturesPage() {
               tasks, your life — kept between you and your phone.
             </p>
             <div className="ftPrivacyRow">
-              <div className="ftPrivacyBadge">
+              <div className="ftPrivacyBadge ftPB0">
                 <span>📡</span>
                 <span>Offline-first</span>
               </div>
-              <div className="ftPrivacyBadge">
+              <div className="ftPrivacyBadge ftPB1">
                 <span>🧠</span>
                 <span>On-device AI</span>
               </div>
-              <div className="ftPrivacyBadge">
+              <div className="ftPrivacyBadge ftPB2">
                 <span>🚫</span>
                 <span>No ads ever</span>
               </div>
-              <div className="ftPrivacyBadge">
+              <div className="ftPrivacyBadge ftPB3">
                 <span>🗑️</span>
                 <span>Delete anytime</span>
               </div>
@@ -263,6 +287,7 @@ export default function FeaturesPage() {
         <section className="reveal ftCta">
           <div className="ftCtaOrb ftCtaOrb1" />
           <div className="ftCtaOrb ftCtaOrb2" />
+          <div className="ftCtaOrb ftCtaOrb3" />
           <h2 className="ftCtaTitle">Ready to try <span className="ftGradient">Near</span>?</h2>
           <p className="ftCtaSub">Free on the App Store. No ads, no tracking.</p>
           <a href={APP_STORE_URL} className="ftCtaBtn">Download for iPhone</a>
@@ -302,31 +327,65 @@ export default function FeaturesPage() {
           font-size: 13px; font-weight: 600; color: #fff;
           background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 100%);
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(47,109,255,0.3); }
 
         /* ─── Hero ─── */
         .ftHero {
           position: relative; text-align: center;
-          padding: 120px 24px 80px; overflow: hidden;
+          padding: 120px 24px 60px; overflow: hidden;
         }
-        .ftHeroGlow {
-          position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
-          width: 700px; height: 500px; border-radius: 50%;
-          background: radial-gradient(ellipse, rgba(47,109,255,0.12) 0%, rgba(123,92,255,0.08) 40%, transparent 70%);
-          pointer-events: none;
+        .ftHeroOrb {
+          position: absolute; border-radius: 50%; pointer-events: none;
+          filter: blur(80px);
+        }
+        .ftHeroOrb1 {
+          width: 500px; height: 400px; top: -100px; left: 50%; margin-left: -250px;
+          background: radial-gradient(ellipse, rgba(47,109,255,0.15) 0%, transparent 70%);
+          animation: heroFloat1 12s ease-in-out infinite;
+        }
+        .ftHeroOrb2 {
+          width: 350px; height: 350px; top: -50px; right: -100px;
+          background: radial-gradient(circle, rgba(199,75,246,0.12) 0%, transparent 70%);
+          animation: heroFloat2 10s ease-in-out infinite;
+        }
+        .ftHeroOrb3 {
+          width: 300px; height: 300px; top: 0; left: -80px;
+          background: radial-gradient(circle, rgba(255,107,138,0.1) 0%, transparent 70%);
+          animation: heroFloat3 14s ease-in-out infinite;
+        }
+        @keyframes heroFloat1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(20px, 15px) scale(1.05); }
+        }
+        @keyframes heroFloat2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-30px, 20px); }
+        }
+        @keyframes heroFloat3 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(25px, -15px); }
         }
         .ftHeroEyebrow {
-          font-size: 15px; font-weight: 600; letter-spacing: 0.5px;
-          text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+          font-size: 14px; font-weight: 700; letter-spacing: 1.5px;
+          text-transform: uppercase; margin-bottom: 16px;
+          background: linear-gradient(135deg, #2F6DFF 0%, #C74BF6 100%);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
         .ftHeroTitle {
           font-family: var(--font-display); font-size: 64px; font-weight: 700;
           letter-spacing: -2px; line-height: 1.05; color: var(--foreground);
-          margin: 0 auto 24px; max-width: 700px;
+          margin: 0 auto 24px; max-width: 700px; position: relative; z-index: 1;
         }
         .ftHeroSub {
           font-size: 19px; line-height: 1.6; color: var(--text-secondary);
-          max-width: 520px; margin: 0 auto;
+          max-width: 520px; margin: 0 auto; position: relative; z-index: 1;
+        }
+        .ftHeroDivider {
+          width: 80px; height: 4px; border-radius: 2px; margin: 48px auto 0;
+          background: linear-gradient(90deg, #2F6DFF, #7B5CFF, #C74BF6, #FF6B8A);
         }
         .ftGradient {
           background: linear-gradient(135deg, #2F6DFF 0%, #7B5CFF 40%, #C74BF6 70%, #FF6B8A 100%);
@@ -334,18 +393,91 @@ export default function FeaturesPage() {
           background-clip: text;
         }
 
-        /* ─── Sections ─── */
-        .ftPage { max-width: 100%; overflow-x: hidden; }
-        .ftSection { padding: 80px 24px; }
-        .ftSectionAlt { background: var(--surface); }
-        .ftSectionDark {
-          background: linear-gradient(135deg, #0f0c29 0%, #1a1040 30%, #302b63 60%, #24243e 100%);
+        /* ─── Section dividers ─── */
+        .ftDivider {
+          width: 48px; height: 3px; border-radius: 2px; margin: 0 auto;
+          background: linear-gradient(90deg, var(--blue), #C74BF6);
+          opacity: 0.4;
         }
 
+        /* ─── Sections ─── */
+        .ftPage { max-width: 100%; overflow-x: hidden; }
+        .ftSection { padding: 80px 24px; position: relative; overflow: hidden; }
+        .ftSectionWarm {
+          background: linear-gradient(180deg, #FFF9F5 0%, #FFF5EE 50%, #FFFBF8 100%);
+        }
+        .ftSectionPrivacy {
+          background: linear-gradient(180deg, #F0F7FF 0%, #F5F0FF 50%, #FAFBFF 100%);
+        }
+        .ftSectionDark {
+          background: linear-gradient(135deg, #0f0c29 0%, #1a1040 25%, #302b63 50%, #1a1040 75%, #24243e 100%);
+          overflow: hidden; position: relative;
+        }
+
+        /* ─── Floating section glows ─── */
+        .ftSectionGlow {
+          position: absolute; width: 400px; height: 400px; border-radius: 50%;
+          filter: blur(100px); pointer-events: none; opacity: 0.15;
+        }
+        .ftSectionGlowWarm {
+          background: radial-gradient(circle, #FF6B8A 0%, transparent 70%);
+          top: -100px; right: -100px;
+        }
+        .ftSectionGlowBlue {
+          background: radial-gradient(circle, #2F6DFF 0%, transparent 70%);
+          bottom: -100px; left: -100px;
+        }
+
+        /* ─── Dark section orbs ─── */
+        .ftDarkOrb {
+          position: absolute; border-radius: 50%; pointer-events: none;
+          filter: blur(100px); opacity: 0.2;
+        }
+        .ftDarkOrb1 {
+          width: 400px; height: 400px; top: -80px; right: -80px;
+          background: radial-gradient(circle, #7B5CFF 0%, transparent 70%);
+          animation: darkOrb1 10s ease-in-out infinite;
+        }
+        .ftDarkOrb2 {
+          width: 300px; height: 300px; bottom: -60px; left: -60px;
+          background: radial-gradient(circle, #2F6DFF 0%, transparent 70%);
+          animation: darkOrb2 12s ease-in-out infinite;
+        }
+        .ftDarkOrb3 {
+          width: 250px; height: 250px; top: 40%; left: 60%;
+          background: radial-gradient(circle, #00D4AA 0%, transparent 70%);
+          animation: darkOrb3 8s ease-in-out infinite;
+        }
+        @keyframes darkOrb1 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-30px, 20px); }
+        }
+        @keyframes darkOrb2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(20px, -30px); }
+        }
+        @keyframes darkOrb3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-20px, 15px) scale(1.1); }
+        }
+
+        /* ─── Icon glow backgrounds ─── */
+        .ftIconGlow {
+          width: 80px; height: 80px; border-radius: 24px;
+          display: flex; align-items: center; justify-content: center;
+          margin-bottom: 16px; position: relative;
+        }
+        .ftIconGlowBlue { background: linear-gradient(135deg, rgba(47,109,255,0.12) 0%, rgba(123,92,255,0.12) 100%); }
+        .ftIconGlowPink { background: linear-gradient(135deg, rgba(255,107,138,0.12) 0%, rgba(255,159,10,0.12) 100%); }
+        .ftIconGlowGreen { background: linear-gradient(135deg, rgba(52,199,89,0.12) 0%, rgba(0,212,170,0.12) 100%); }
+        .ftIconGlowPurple { background: linear-gradient(135deg, rgba(123,92,255,0.15) 0%, rgba(199,75,246,0.15) 100%); }
+        .ftIconGlowOrange { background: linear-gradient(135deg, rgba(255,159,10,0.12) 0%, rgba(255,107,138,0.12) 100%); }
+        .ftIconGlowTeal { background: linear-gradient(135deg, rgba(47,109,255,0.12) 0%, rgba(0,212,170,0.12) 100%); }
+
         /* ─── Content blocks ─── */
-        .ftBlock { max-width: 680px; margin: 0 auto; }
+        .ftBlock { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
         .ftBlockCenter { text-align: center; }
-        .ftBlockEmoji { font-size: 48px; display: block; margin-bottom: 16px; }
+        .ftBlockEmoji { font-size: 40px; }
         .ftBlockTitle {
           font-family: var(--font-display); font-size: 36px; font-weight: 700;
           letter-spacing: -1.2px; line-height: 1.15; color: var(--foreground);
@@ -363,11 +495,12 @@ export default function FeaturesPage() {
         .ftPoint {
           display: flex; gap: 16px; align-items: flex-start;
         }
+        .ftPointDot {
+          width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+          margin-top: 7px; box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
         .ftPointDark strong { color: #fff; }
         .ftPointDark p { color: rgba(255,255,255,0.55); }
-        .ftPointIcon {
-          font-size: 24px; flex-shrink: 0; margin-top: 2px;
-        }
         .ftPoint strong {
           font-size: 16px; font-weight: 650; color: var(--foreground);
           display: block; margin-bottom: 4px;
@@ -383,12 +516,22 @@ export default function FeaturesPage() {
           margin-top: 8px;
         }
         .ftPlatformChip {
-          display: flex; align-items: center; gap: 8px;
-          background: #fff; border: 1px solid var(--line); border-radius: 980px;
+          display: flex; align-items: center; gap: 8px; position: relative;
+          background: #fff; border: 1.5px solid rgba(47,109,255,0.15); border-radius: 980px;
           padding: 10px 20px; font-size: 14px; font-weight: 600; color: var(--foreground);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          overflow: hidden;
         }
-        .ftPlatformChip:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .ftPlatformChip:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .ftChipGlow {
+          position: absolute; bottom: -2px; left: 50%; width: 40px; height: 3px;
+          transform: translateX(-50%); border-radius: 2px; opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .ftPlatformChip:hover .ftChipGlow { opacity: 0.6; }
         .ftPlatformChipIcon { font-size: 18px; }
 
         /* ─── Privacy badges ─── */
@@ -398,9 +541,19 @@ export default function FeaturesPage() {
         }
         .ftPrivacyBadge {
           display: flex; align-items: center; gap: 8px;
-          background: #fff; border: 1px solid var(--line); border-radius: 12px;
+          background: #fff; border-radius: 12px;
           padding: 12px 20px; font-size: 15px; font-weight: 600; color: var(--foreground);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .ftPrivacyBadge:hover { transform: translateY(-2px); }
+        .ftPB0 { border: 1.5px solid rgba(47,109,255,0.15); }
+        .ftPB0:hover { box-shadow: 0 4px 20px rgba(47,109,255,0.12); }
+        .ftPB1 { border: 1.5px solid rgba(123,92,255,0.15); }
+        .ftPB1:hover { box-shadow: 0 4px 20px rgba(123,92,255,0.12); }
+        .ftPB2 { border: 1.5px solid rgba(255,107,138,0.15); }
+        .ftPB2:hover { box-shadow: 0 4px 20px rgba(255,107,138,0.12); }
+        .ftPB3 { border: 1.5px solid rgba(52,199,89,0.15); }
+        .ftPB3:hover { box-shadow: 0 4px 20px rgba(52,199,89,0.12); }
 
         /* ─── CTA ─── */
         .ftCta {
@@ -422,6 +575,11 @@ export default function FeaturesPage() {
           background: radial-gradient(circle, rgba(199,75,246,0.5) 0%, transparent 70%);
           animation: orbFloat2 10s ease-in-out infinite;
         }
+        .ftCtaOrb3 {
+          width: 200px; height: 200px; top: 30%; left: 40%;
+          background: radial-gradient(circle, rgba(255,107,138,0.4) 0%, transparent 70%);
+          animation: orbFloat3 6s ease-in-out infinite;
+        }
         @keyframes orbFloat1 {
           0%, 100% { transform: translate(0, 0); }
           50% { transform: translate(-40px, 30px); }
@@ -429,6 +587,10 @@ export default function FeaturesPage() {
         @keyframes orbFloat2 {
           0%, 100% { transform: translate(0, 0); }
           50% { transform: translate(30px, -40px); }
+        }
+        @keyframes orbFloat3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-20px, 20px) scale(1.15); }
         }
         .ftCtaTitle {
           font-family: var(--font-display); font-size: 48px; font-weight: 700;
@@ -441,12 +603,17 @@ export default function FeaturesPage() {
         }
         .ftCtaBtn {
           display: inline-block; padding: 14px 36px; border-radius: 980px;
-          background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 100%);
+          background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 50%, #C74BF6 100%);
+          background-size: 200% 200%; animation: btnShimmer 4s ease-in-out infinite;
           color: #fff; font-size: 16px; font-weight: 600; text-decoration: none;
           position: relative; z-index: 1;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(47,109,255,0.4); }
+        @keyframes btnShimmer {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
 
         /* ─── Footer ─── */
         .ftFooter { border-top: 1px solid var(--line); padding: 2rem 1.5rem; }
