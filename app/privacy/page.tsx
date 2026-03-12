@@ -9,7 +9,7 @@ export default function PrivacyPage()
       <header className="legalHeader">
         <Link href="/" className="legalLogo">
           <Image
-            src="/near-icon-hero.png
+            src="/near-icon-hero.png"
             alt="Near"
             width={32}
             height={32}
