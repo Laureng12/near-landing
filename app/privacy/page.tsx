@@ -27,154 +27,207 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Introduction</h2>
             <p>
-              Near (&quot;we,&quot; &quot;our,&quot; or &quot;the app&quot;) is a location-based task
-              reminder app for iPhone. Near surfaces errands, groceries, and household tasks
-              automatically when you arrive at the places where they can be completed.
+              Near (&quot;we,&quot; &quot;our,&quot; or &quot;the app&quot;) is a
+              location-based task reminder app for iPhone. Near surfaces errands, groceries,
+              and household tasks automatically when you arrive at the places where they can
+              be completed.
             </p>
             <p>
-              We believe your data belongs to you. This Privacy Policy explains what information Near
-              collects, how it is used, and the choices you have. We designed Near with privacy as a
-              core principle — your location data stays on your device and is never used for
-              advertising or tracking.
+              This Privacy Policy explains what information Near collects, how it is used, and
+              the choices you have. We designed Near with privacy in mind and collect only
+              what is necessary to deliver a great experience.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Information We Collect</h2>
+
+            <h3>Account Information</h3>
+            <p>
+              When you create an account, we collect the information needed to authenticate
+              you:
+            </p>
+            <ul>
+              <li>
+                <strong>Phone sign-in:</strong> your phone number and a one-time verification
+                code
+              </li>
+              <li>
+                <strong>Sign in with Apple:</strong> your Apple identity token and, optionally,
+                your name
+              </li>
+              <li>
+                <strong>Sign in with Google:</strong> your Google identity token
+              </li>
+            </ul>
+            <p>
+              You may also set a display name and avatar emoji, which are visible to your
+              household members.
+            </p>
+
             <h3>Location Data</h3>
             <p>
-              Near uses your device&apos;s location services to detect when you arrive at or pass by
-              places associated with your tasks. This location data is processed entirely on your
-              device. We do not transmit, store, or have access to your location history on any
-              server.
+              Near uses your device&apos;s location services to detect when you arrive at or
+              depart from saved places. This powers the core reminder experience. We collect:
             </p>
-            <h3>Task Content</h3>
+            <ul>
+              <li>
+                <strong>Arrival and departure events</strong> — when you enter or leave a
+                geofenced place, we record the event (place ID, timestamp, and coordinates) on
+                our server to trigger reminders, track visit history, and enable household
+                arrival notifications.
+              </li>
+              <li>
+                <strong>Current location</strong> — used on-device for distance-based sorting
+                and route awareness. Your real-time location is not continuously transmitted to
+                our server.
+              </li>
+            </ul>
             <p>
-              The tasks, lists, and places you create in Near are stored on your device and
-              optionally synced via Apple iCloud to your other devices. We do not have access to your
-              task content.
+              Near requests &quot;Always&quot; location permission so it can monitor
+              geofences in the background. You can change this to &quot;When In Use&quot; or
+              disable it entirely in iPhone Settings. The app will still function as a manual
+              task list without location features.
             </p>
-            <h3>Household Information</h3>
+
+            <h3>Tasks, Places &amp; Household Data</h3>
             <p>
-              If you join or create a household, Near stores household membership information to
-              enable shared lists between members. Household data is synced via Apple CloudKit and is
-              not accessible to us.
+              The tasks, places, and household information you create are stored on our
+              servers to enable syncing, household sharing, and features like recurring item
+              suggestions. This includes task titles, notes, due dates, subtask details, place
+              names, addresses, coordinates, and household membership.
             </p>
+
+            <h3>Usage Analytics</h3>
+            <p>
+              We collect anonymous usage events to understand how the app is used and to
+              improve the experience. These include:
+            </p>
+            <ul>
+              <li>Permission grant/deny events (location, notifications)</li>
+              <li>Arrival notification sent, opened, and dismissed counts</li>
+              <li>Task creation and completion counts</li>
+              <li>Feature usage signals (e.g., errand bundling, route suggestions)</li>
+            </ul>
+            <p>
+              Analytics are tied to your account for product improvement purposes. We do not
+              sell or share analytics data with third parties for advertising.
+            </p>
+
             <h3>Device Information</h3>
             <p>
-              Near may collect basic, non-identifying device information (such as device model and
-              iOS version) solely for the purpose of ensuring compatibility and diagnosing crashes.
-              This information is never linked to your identity.
+              We collect basic device information (push notification tokens and platform
+              identifier) solely to deliver push notifications.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>How We Use Your Information</h2>
-            <p>Near uses the information described above exclusively to:</p>
-            <ul>
-              <li>Deliver location-triggered task reminders when you arrive at relevant places</li>
-              <li>Sync your tasks and lists across your devices via iCloud</li>
-              <li>Enable household members to share lists and see relevant tasks</li>
-              <li>Improve app stability and fix bugs</li>
-            </ul>
-            <p>
-              We do not use your information for advertising, marketing, analytics profiling, or any
-              purpose beyond delivering the core Near experience.
-            </p>
-          </section>
-
-          <section className="legalSection">
-            <h2>Location Data</h2>
-            <p>
-              Location is central to how Near works, so we want to be especially clear about how it
-              is handled:
-            </p>
+            <p>Near uses the information described above to:</p>
             <ul>
               <li>
-                <strong>On-device only.</strong> Your location is processed on your iPhone. It is
-                never sent to our servers or any third party.
+                Deliver location-triggered task reminders when you arrive at saved places
               </li>
-              <li>
-                <strong>No tracking.</strong> We do not build location profiles, track your
-                movements, or record your location history.
-              </li>
-              <li>
-                <strong>No advertising.</strong> Your location is never used for targeted advertising
-                or sold to data brokers.
-              </li>
-              <li>
-                <strong>You are in control.</strong> You can revoke location permissions at any time
-                in your iPhone Settings. Near will continue to work as a manual task list without
-                location features.
-              </li>
+              <li>Sync your tasks and places across sessions</li>
+              <li>Enable household members to share places, tasks, and arrival activity</li>
+              <li>Send push notifications for arrivals, departures, and task reminders</li>
+              <li>Provide smart features like recurring item suggestions, proactive trip
+                nudges, and weather-aware errand timing</li>
+              <li>Improve app quality and fix bugs using aggregated analytics</li>
             </ul>
+            <p>
+              We do not use your information for advertising, marketing profiling, or any
+              purpose beyond delivering and improving the Near experience.
+            </p>
           </section>
 
           <section className="legalSection">
             <h2>Household Sharing</h2>
             <p>
-              When you create or join a household in Near, the following information is shared with
+              When you create or join a household, the following information is shared with
               other household members:
             </p>
             <ul>
-              <li>Your display name</li>
-              <li>Shared task lists and their contents</li>
+              <li>Your display name and avatar emoji</li>
+              <li>Shared places and task lists</li>
               <li>Task completion status</li>
+              <li>Arrival notifications at shared places (if enabled)</li>
             </ul>
             <p>
-              Your location is never shared with household members. Only the tasks themselves are
-              shared — not when or where you completed them.
+              Your real-time location is never shared with household members. Only arrival and
+              departure events at shared places are visible.
             </p>
             <p>
-              You can leave a household at any time from the app settings, which immediately removes
-              your access to shared lists and removes other members&apos; access to any lists you
-              owned.
+              You can leave a household at any time, which immediately removes your access to
+              shared content and removes other members&apos; access to your data.
+            </p>
+          </section>
+
+          <section className="legalSection">
+            <h2>Third-Party Services</h2>
+            <p>Near integrates with the following services:</p>
+            <ul>
+              <li>
+                <strong>Apple Push Notification service (APNs)</strong> — for delivering task
+                reminders and arrival notifications
+              </li>
+              <li>
+                <strong>Apple WeatherKit</strong> — your coordinates are sent to Apple&apos;s
+                weather service to power weather-aware errand suggestions
+              </li>
+              <li>
+                <strong>Apple MapKit</strong> — for place search and map display
+              </li>
+              <li>
+                <strong>Kroger (optional)</strong> — if you choose to connect your Kroger
+                account, we use OAuth to link your account so you can send grocery items to
+                your Kroger cart and receive aisle and pricing data. We do not access your
+                Kroger purchase history. You can disconnect at any time from your profile
+                settings.
+              </li>
+            </ul>
+            <p>
+              Near does not include any third-party advertising frameworks or tracking pixels.
+              We do not share your data with Facebook, Google Analytics, or data brokers.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Data Storage &amp; Security</h2>
             <p>
-              Your data is stored on your device and, if you use iCloud, synced via Apple&apos;s
-              CloudKit infrastructure. Apple encrypts CloudKit data both in transit and at rest. We
-              do not operate our own servers for storing user data.
+              Your data is stored on our servers (hosted on Vercel) and transmitted over
+              encrypted HTTPS connections. Authentication tokens are stored securely in your
+              device&apos;s Keychain.
             </p>
             <p>
-              Because your data lives on your device and in your personal iCloud account, deleting
-              the app or signing out of iCloud removes your Near data.
+              Task and place data is also cached locally on your device for offline access and
+              shared with app extensions (widget, watch app, share extension) via a secure App
+              Group container.
             </p>
           </section>
 
           <section className="legalSection">
-            <h2>Third-Party Services</h2>
-            <p>Near integrates only with Apple platform services:</p>
-            <ul>
-              <li>
-                <strong>Apple iCloud (CloudKit)</strong> — for syncing tasks across your devices and
-                enabling household sharing
-              </li>
-              <li>
-                <strong>Apple Push Notification service (APNs)</strong> — for delivering task
-                reminders
-              </li>
-              <li>
-                <strong>Apple MapKit</strong> — for place search and location display within the app
-              </li>
-            </ul>
+            <h2>Data Retention &amp; Deletion</h2>
             <p>
-              Near does not include any third-party analytics SDKs, advertising frameworks, or
-              tracking pixels. We do not share data with Facebook, Google, or any other third-party
-              service.
+              We retain your data for as long as your account is active. You can delete your
+              account at any time from your profile settings in the app. Account deletion
+              permanently removes:
             </p>
+            <ul>
+              <li>Your user profile and authentication credentials</li>
+              <li>All tasks, places, and household memberships</li>
+              <li>All analytics data associated with your account</li>
+              <li>All locally cached data and Keychain tokens</li>
+            </ul>
           </section>
 
           <section className="legalSection">
             <h2>Children&apos;s Privacy</h2>
             <p>
-              Near is not directed at children under the age of 13. We do not knowingly collect
-              personal information from children under 13. If you believe a child under 13 has
-              provided personal information through Near, please contact us so we can take
-              appropriate action.
+              Near is not directed at children under the age of 13. We do not knowingly
+              collect personal information from children under 13. If you believe a child
+              under 13 has provided personal information through Near, please contact us so we
+              can take appropriate action.
             </p>
           </section>
 
@@ -183,19 +236,24 @@ export default function PrivacyPage() {
             <p>You have the right to:</p>
             <ul>
               <li>
-                <strong>Access your data</strong> — all your tasks and lists are visible directly in
-                the app
+                <strong>Access your data</strong> — all your tasks, places, and profile
+                information are visible directly in the app
               </li>
               <li>
-                <strong>Delete your data</strong> — delete the app to remove all local data, or sign
-                out of iCloud to remove synced data
+                <strong>Delete your account</strong> — permanently remove all your data from
+                our servers via profile settings
               </li>
               <li>
-                <strong>Opt out of location</strong> — revoke location permissions in iPhone
-                Settings at any time
+                <strong>Control location access</strong> — change or revoke location
+                permissions at any time in iPhone Settings
               </li>
               <li>
-                <strong>Leave a household</strong> — remove yourself from shared lists at any time
+                <strong>Disconnect integrations</strong> — unlink your Kroger account at any
+                time from profile settings
+              </li>
+              <li>
+                <strong>Leave a household</strong> — remove yourself from shared lists at any
+                time
               </li>
             </ul>
           </section>
@@ -203,18 +261,18 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Changes to This Policy</h2>
             <p>
-              We may update this Privacy Policy from time to time. If we make material changes, we
-              will notify you through the app or by updating the &quot;Last updated&quot; date at
-              the top of this page. Your continued use of Near after changes are posted constitutes
-              acceptance of the updated policy.
+              We may update this Privacy Policy from time to time. If we make material
+              changes, we will notify you through the app or by updating the &quot;Last
+              updated&quot; date at the top of this page. Your continued use of Near after
+              changes are posted constitutes acceptance of the updated policy.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Contact</h2>
             <p>
-              If you have questions about this Privacy Policy or how Near handles your data, please
-              contact us at:
+              If you have questions about this Privacy Policy or how Near handles your data,
+              please contact us at:
             </p>
             <p>
               <a href="mailto:hello@nearesttask.com" className="legalLink">

@@ -49,7 +49,8 @@ export default function TermsPage() {
               <li>Location-triggered task reminders based on proximity to saved places</li>
               <li>Task lists organized by place (stores, home, and custom locations)</li>
               <li>Household sharing that lets family members collaborate on shared lists</li>
-              <li>Automatic syncing across your devices via iCloud</li>
+              <li>Optional Kroger grocery integration for cart and aisle data</li>
+              <li>Automatic syncing via Near&apos;s servers with offline support</li>
             </ul>
             <p>Near is provided free of charge with no in-app purchases or subscriptions.</p>
           </section>
@@ -67,8 +68,9 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Accounts &amp; Households</h2>
             <p>
-              Near uses your Apple ID and iCloud account for data syncing. You are responsible for
-              maintaining the security of your Apple ID.
+              Near requires an account to use. You can sign in with your phone number,
+              Apple ID, or Google account. You are responsible for maintaining the security
+              of your sign-in credentials.
             </p>
             <h3>Household Feature</h3>
             <p>
@@ -179,9 +181,9 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Termination</h2>
             <p>
-              You may stop using Near at any time by deleting the app from your device. Deleting the
-              app removes all local data. Data synced to iCloud can be managed through your iCloud
-              settings.
+              You may stop using Near at any time by deleting the app from your device. To
+              permanently delete your account and all server-side data, use the &quot;Delete
+              Account&quot; option in your profile settings before uninstalling.
             </p>
             <p>
               We reserve the right to suspend or terminate access to the app for users who violate
