@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 
-export default function PrivacyPage() 
+export default function PrivacyPage() {
   return (
     <>
       <header className="legalHeader">
