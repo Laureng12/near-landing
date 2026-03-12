@@ -10,8 +10,6 @@ const platforms = [
   { icon: "📱", name: "iPhone", color: "#2F6DFF" },
   { icon: "⌚", name: "Apple Watch", color: "#34C759" },
   { icon: "🚗", name: "CarPlay", color: "#FF6B8A" },
-  { icon: "🏝️", name: "Dynamic Island", color: "#7B5CFF" },
-  { icon: "📱", name: "Widgets", color: "#FF9F0A" },
   { icon: "🗣️", name: "Siri", color: "#C74BF6" },
 ]
 
@@ -148,7 +146,7 @@ export default function FeaturesPage() {
             <h2 className="ftBlockTitle">Works everywhere you do</h2>
             <p className="ftBlockLead">
               You shouldn&apos;t have to pull out your phone every time you need to check a list.
-              Near lives on your wrist, in your car, on your home screen, and in the Dynamic Island —
+              Near lives on your wrist, in your car, and anywhere Siri can hear you —
               so the right information is always in reach.
             </p>
             <div className="ftPlatformStrip">
