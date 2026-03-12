@@ -49,11 +49,10 @@ export default function FeaturesPage() {
           <div className="ftHeroOrb ftHeroOrb3" />
           <p className="ftHeroEyebrow">Features</p>
           <h1 className="ftHeroTitle">
-            Stop forgetting.<br />Start <span className="ftGradient">living.</span>
+            You have a full life.<br />Save your brain space for <span className="ftGradient">what matters.</span>
           </h1>
           <p className="ftHeroSub">
-            Near keeps track of everything you need to do — and tells you at the moment
-            and place it actually matters.
+            Near handles the rest.
           </p>
           <div className="ftHeroDivider" />
         </section>
@@ -143,7 +142,7 @@ export default function FeaturesPage() {
         {/* ─── 3. Works everywhere ─── */}
         <section className="reveal ftSection">
           <div className="ftBlock ftBlockCenter">
-            <div className="ftIconGlow ftIconGlowGreen" style={{margin: '0 auto 16px'}}>
+            <div className="ftIconGlow ftIconGlowGreen">
               <span className="ftBlockEmoji">🌐</span>
             </div>
             <h2 className="ftBlockTitle">Works everywhere you do</h2>
@@ -171,11 +170,11 @@ export default function FeaturesPage() {
           <div className="ftDarkOrb ftDarkOrb2" />
           <div className="ftDarkOrb ftDarkOrb3" />
           <div className="ftBlock ftBlockDark">
-            <div className="ftIconGlow ftIconGlowPurple" style={{margin: '0 auto 16px'}}>
+            <div className="ftIconGlow ftIconGlowPurple">
               <span className="ftBlockEmoji">🧠</span>
             </div>
-            <h2 className="ftBlockTitle ftLight" style={{textAlign: 'center'}}>It learns how you live</h2>
-            <p className="ftBlockLead ftDim" style={{textAlign: 'center'}}>
+            <h2 className="ftBlockTitle ftLight">It learns how you live</h2>
+            <p className="ftBlockLead ftDim">
               You drove past the pharmacy three times this week. Near notices patterns
               like that — and gently suggests stops along routes you&apos;re already taking.
               No extra trips. No wasted time.
@@ -252,7 +251,7 @@ export default function FeaturesPage() {
         {/* ─── 6. Private by design ─── */}
         <section className="reveal ftSection ftSectionPrivacy">
           <div className="ftBlock ftBlockCenter">
-            <div className="ftIconGlow ftIconGlowTeal" style={{margin: '0 auto 16px'}}>
+            <div className="ftIconGlow ftIconGlowTeal">
               <span className="ftBlockEmoji">🔒</span>
             </div>
             <h2 className="ftBlockTitle">Private by design</h2>
@@ -465,7 +464,7 @@ export default function FeaturesPage() {
         .ftIconGlow {
           width: 80px; height: 80px; border-radius: 24px;
           display: flex; align-items: center; justify-content: center;
-          margin-bottom: 16px; position: relative;
+          margin: 0 auto 16px; position: relative;
         }
         .ftIconGlowBlue { background: linear-gradient(135deg, rgba(47,109,255,0.12) 0%, rgba(123,92,255,0.12) 100%); }
         .ftIconGlowPink { background: linear-gradient(135deg, rgba(255,107,138,0.12) 0%, rgba(255,159,10,0.12) 100%); }
@@ -481,11 +480,11 @@ export default function FeaturesPage() {
         .ftBlockTitle {
           font-family: var(--font-display); font-size: 36px; font-weight: 700;
           letter-spacing: -1.2px; line-height: 1.15; color: var(--foreground);
-          margin: 0 0 16px;
+          margin: 0 0 16px; text-align: center;
         }
         .ftBlockLead {
           font-size: 18px; line-height: 1.7; color: var(--text-secondary);
-          margin: 0 0 36px;
+          margin: 0 0 36px; text-align: center;
         }
         .ftLight { color: #fff !important; }
         .ftDim { color: rgba(255,255,255,0.6) !important; }
