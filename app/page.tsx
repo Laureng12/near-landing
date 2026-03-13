@@ -134,7 +134,7 @@ function TopNav() {
 
 /* âââ Hero (auto-cycling phases) âââ */
 
-const PHASE_NAMES = ["home", "places", "costco", "arrive-home"] as const
+const PHASE_NAMES = ["home", "costco", "places", "arrive-home"] as const
 const PHASE_DURATION = 3500 // ms per phase
 
 const phaseTexts = [
@@ -199,18 +199,18 @@ function Hero() {
 /* âââ Phone Mockup (auto-cycling phases) âââ */
 
 /* Which tab is active per phase: 0=idleâPlaces, 1=groceryâPlaces, 2=targetâPlaces, 3=homeâHousehold */
-const PHASE_ACTIVE_TAB = [0, 1, -1, -1] // 0=Home, 1=Places, -1=none (app closed)
+const PHASE_ACTIVE_TAB = [0, -1, 1, -1] // 0=Home, -1=lock, 1=Places, -1=lock
 
 const notifData = [
   null, // home screen â no notification
   null, // places screen â no notification
-  { title: "Arriving at Costco", body: "You have 3 items on your list" },
+  { title: "Arriving at Costco", body: "You have 5 items on your list" },
   { title: "Welcome home", body: "You have 2 tasks here" },
 ]
 
 function PhoneMockup({ phase }: { phase: number }) {
   const activeTab = PHASE_ACTIVE_TAB[phase]
-  const isLocked = phase >= 2
+  const isLocked = phase === 1 || phase === 3
 
   return (
     <div className="phoneMockup">
@@ -276,7 +276,7 @@ function PhoneMockup({ phase }: { phase: number }) {
               <div className="phoneGroupHeader">
                 <span className="phoneGroupEmoji">{"\uD83D\uDED2"}</span>
                 <span className="phoneGroupName">Costco</span>
-                <span className="phoneBadge">3</span>
+                <span className="phoneBadge">5</span>
                 <span className="phoneChevron">{"\u203A"}</span>
               </div>
               <div className="phoneGroupTask">Paper towels</div>
@@ -303,12 +303,12 @@ function PhoneMockup({ phase }: { phase: number }) {
         </div>
 
         {/* Phase 1: Store detail screen */}
-        <div className={`phoneContent ${phase === 1 ? "phoneContentVisible" : ""}`}>
+        <div className={`phoneContent ${phase === 2 ? "phoneContentVisible" : ""}`}>
           <div className="phoneStoreHeader">
             <span className="phoneStoreBack">{"‹"}</span>
             <span className="phoneStoreEmoji">{"🛒"}</span>
             <div className="phoneStoreInfo">
-              <div className="phoneStoreName">Costco</div>
+              <div className="phoneStoreName"><span style={{color: "#2997ff"}}>Costco</span></div>
               <div className="phoneStoreDist">0.3 mi away</div>
             </div>
           </div>
@@ -319,12 +319,20 @@ function PhoneMockup({ phase }: { phase: number }) {
               <span className="phoneTaskText phoneTaskDone">Trash bags</span>
             </div>
             <div className="phoneTaskRow">
+              <span className="phoneCheck phoneChecked">{"✓"}</span>
+              <span className="phoneTaskText phoneTaskDone">Olive oil</span>
+            </div>
+            <div className="phoneTaskRow">
               <span className="phoneCheck">{" "}</span>
               <span className="phoneTaskText">Paper towels</span>
             </div>
             <div className="phoneTaskRow">
               <span className="phoneCheck">{" "}</span>
               <span className="phoneTaskText">Dog food</span>
+            </div>
+            <div className="phoneTaskRow">
+              <span className="phoneCheck">{" "}</span>
+              <span className="phoneTaskText">Laundry detergent</span>
             </div>
           </div>
         </div>
@@ -561,7 +569,7 @@ function SimplerInterface() {
     <section className="section sectionSurface">
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">Just places.</h2>
+          <h2 className="sectionTitle left">Just <span className="gradientText">places.</span></h2>
           <p className="bodyText">
             Near organizes tasks around places instead of lists.<br />
             Because errands belong somewhere.
@@ -591,7 +599,7 @@ function NaturalInput() {
     <section className="section">
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">Add tasks the way you think.</h2>
+          <h2 className="sectionTitle left">Add tasks the way <span className="gradientText">you think.</span></h2>
           <p className="bodyText">
             Type what you need and Near suggests where it belongs.<br />
             Or just ask Siri.
@@ -677,7 +685,7 @@ function MapsSection() {
     <section className="section">
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">Built around the places you go.</h2>
+          <h2 className="sectionTitle left">Built around the <span className="gradientText">places you go.</span></h2>
           <p className="bodyText">
             Search for a place in Maps and Near shows the tasks waiting there.
           </p>
@@ -702,7 +710,7 @@ function CalmTechnology() {
   return (
     <section className="section sectionSurface">
       <div className="reveal sectionShell narrow center">
-        <h2 className="sectionTitle">Technology that stays out of the way.</h2>
+        <h2 className="sectionTitle"><span className="gradientText">Technology</span> that stays out of the way.</h2>
         <p className="bodyText center">
           Near is designed to be quiet. Only high-value moments.
         </p>
@@ -1528,10 +1536,11 @@ function SiteStyles() {
       /* ââ Places Card ââ */
 
       .placesCard {
+        position: relative;
         padding: 1.5rem;
         border-radius: 1.5rem;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
+        border: 2px solid transparent;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: grid;
@@ -1567,8 +1576,8 @@ function SiteStyles() {
       .inputCard {
         padding: 2rem;
         border-radius: 1.5rem;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #34D399, #2F6DFF) border-box;
+        border: 2px solid transparent;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
@@ -1817,8 +1826,8 @@ function SiteStyles() {
         gap: 1.2rem;
         padding: 1.5rem 2rem;
         border-radius: 1.5rem;
-        background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #FF6B8A, #C74BF6) border-box;
+        border: 2px solid transparent;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
@@ -2016,8 +2025,9 @@ function SiteStyles() {
 
       .pill:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(47, 109, 255, 0.1);
-        border-color: rgba(47, 109, 255, 0.25);
+        box-shadow: 0 6px 20px rgba(47, 109, 255, 0.15);
+        border-color: rgba(47, 109, 255, 0.4);
+        background: linear-gradient(135deg, rgba(47, 109, 255, 0.04), rgba(168, 85, 247, 0.04));
       }
 
       .sectionSurface .pill {
