@@ -60,7 +60,7 @@ const faqItems = [
   },
 ]
 
-/* ─── Page ─── */
+/* âââ Page âââ */
 
 export default function Page() {
   useEffect(() => {
@@ -104,7 +104,7 @@ export default function Page() {
   )
 }
 
-/* ─── Nav ─── */
+/* âââ Nav âââ */
 
 function TopNav() {
   return (
@@ -132,14 +132,14 @@ function TopNav() {
   )
 }
 
-/* ─── Hero (auto-cycling phases) ─── */
+/* âââ Hero (auto-cycling phases) âââ */
 
 const PHASE_NAMES = ["home", "places", "costco", "arrive-home"] as const
 const PHASE_DURATION = 3500 // ms per phase
 
 const phaseTexts = [
   "Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.",
-  "All your places, all your tasks. Everything is where it belongs.",
+  "Tap into a place and see exactly what you need. One store, one list.",
   "Arrive at the store. Your list is already there.",
   "Even home has a list. Near remembers so you don\u2019t have to.",
 ]
@@ -196,14 +196,14 @@ function Hero() {
   )
 }
 
-/* ─── Phone Mockup (auto-cycling phases) ─── */
+/* âââ Phone Mockup (auto-cycling phases) âââ */
 
-/* Which tab is active per phase: 0=idle→Places, 1=grocery→Places, 2=target→Places, 3=home→Household */
+/* Which tab is active per phase: 0=idleâPlaces, 1=groceryâPlaces, 2=targetâPlaces, 3=homeâHousehold */
 const PHASE_ACTIVE_TAB = [0, 1, -1, -1] // 0=Home, 1=Places, -1=none (app closed)
 
 const notifData = [
-  null, // home screen — no notification
-  null, // places screen — no notification
+  null, // home screen â no notification
+  null, // places screen â no notification
   { title: "Arriving at Costco", body: "You have 3 items on your list" },
   { title: "Welcome home", body: "You have 2 tasks here" },
 ]
@@ -237,7 +237,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         </div>
 
-        {/* Near app icon — top left corner */}
+        {/* Near app icon â top left corner */}
         <div className={`phoneNearIcon ${isLocked ? "phoneNearIconHidden" : ""}`}>
           <Image
             src="/near-icon-hero.png"
@@ -248,7 +248,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           />
         </div>
 
-        {/* iOS-style notification banners — slide down from top */}
+        {/* iOS-style notification banners â slide down from top */}
         {notifData.map((n, i) => n && (
           <div key={i} className={`phoneNotif ${phase === i ? "phoneNotifVisible" : ""}`}>
             <Image
@@ -302,50 +302,40 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         </div>
 
-        {/* Phase 1: Places screen */}
+        {/* Phase 1: Store detail screen */}
         <div className={`phoneContent ${phase === 1 ? "phoneContentVisible" : ""}`}>
-          <div className="phoneAppHeader">
-            <div className="phoneAppTitle">Your stomping grounds.</div>
-            <div className="phoneAppCount">8 to-dos across 5 places</div>
+          <div className="phoneStoreHeader">
+            <span className="phoneStoreBack">{"‹"}</span>
+            <span className="phoneStoreEmoji">{"🛒"}</span>
+            <div className="phoneStoreInfo">
+              <div className="phoneStoreName">Costco</div>
+              <div className="phoneStoreDist">0.3 mi away</div>
+            </div>
           </div>
-          <div className="phoneFilterChips">
-            <span className="phoneChip phoneChipActive">All</span>
-            <span className="phoneChip">Grocery</span>
-            <span className="phoneChip">Home</span>
-            <span className="phoneChip">Errands</span>
-          </div>
-          <div className="phoneSectionLabel">MY PLACES</div>
+          <div className="phoneSectionLabel">YOUR LIST</div>
           <div className="phoneTaskList">
             <div className="phoneTaskRow">
-              <span className="placeIcon">{"\uD83D\uDED2"}</span>
-              <span className="phoneTaskText">Costco</span>
-              <span className="phoneBadge">3</span>
+              <span className="phoneCheck phoneChecked">{"✓"}</span>
+              <span className="phoneTaskText phoneTaskDone">Trash bags</span>
             </div>
             <div className="phoneTaskRow">
-              <span className="placeIcon">{"\uD83C\uDFAF"}</span>
-              <span className="phoneTaskText">Target</span>
-              <span className="phoneBadge">2</span>
+              <span className="phoneCheck">{" "}</span>
+              <span className="phoneTaskText">Paper towels</span>
             </div>
             <div className="phoneTaskRow">
-              <span className="placeIcon">{"\uD83C\uDFE0"}</span>
-              <span className="phoneTaskText">Home</span>
-              <span className="phoneBadge">2</span>
-            </div>
-            <div className="phoneTaskRow">
-              <span className="placeIcon">{"\uD83D\uDC8A"}</span>
-              <span className="phoneTaskText">CVS</span>
-              <span className="phoneBadge">1</span>
+              <span className="phoneCheck">{" "}</span>
+              <span className="phoneTaskText">Dog food</span>
             </div>
           </div>
         </div>
 
-        {/* Lock screen overlay — phases 2 & 3 (app closed) */}
+        {/* Lock screen overlay â phases 2 & 3 (app closed) */}
         <div className={`phoneLockOverlay ${isLocked ? "phoneLockVisible" : ""}`}>
           <div className="lockTimeDisplay">9:41</div>
           <div className="lockDateDisplay">Wednesday, March 11</div>
         </div>
 
-        {/* Tab bar — hidden on lock screen */}
+        {/* Tab bar â hidden on lock screen */}
         <div className={`phoneTabBar ${isLocked ? "phoneTabBarHidden" : ""}`}>
           {/* Home */}
           <div className={`phoneTab ${activeTab === 0 ? "phoneTabActive" : ""}`}>
@@ -422,7 +412,7 @@ function PhoneMockup({ phase }: { phase: number }) {
   )
 }
 
-/* ─── AI Definition ─── */
+/* âââ AI Definition âââ */
 
 function AIDefinition() {
   return (
@@ -444,7 +434,7 @@ function AIDefinition() {
   )
 }
 
-/* ─── Arrive ─── */
+/* âââ Arrive âââ */
 
 function ArriveSection() {
   return (
@@ -479,7 +469,7 @@ function ArriveSection() {
   )
 }
 
-/* ─── TaskRow (reused) ─── */
+/* âââ TaskRow (reused) âââ */
 
 function TaskRow({
   text,
@@ -496,7 +486,7 @@ function TaskRow({
   )
 }
 
-/* ─── Passing By ─── */
+/* âââ Passing By âââ */
 
 function PassingBySection() {
   return (
@@ -541,7 +531,7 @@ function PassingBySection() {
   )
 }
 
-/* ─── Ecosystem ─── */
+/* âââ Ecosystem âââ */
 
 function EcosystemSection() {
   return (
@@ -564,7 +554,7 @@ function EcosystemSection() {
   )
 }
 
-/* ─── Simpler Interface ─── */
+/* âââ Simpler Interface âââ */
 
 function SimplerInterface() {
   return (
@@ -594,7 +584,7 @@ function SimplerInterface() {
   )
 }
 
-/* ─── Natural Input ─── */
+/* âââ Natural Input âââ */
 
 function NaturalInput() {
   return (
@@ -627,7 +617,7 @@ function NaturalInput() {
   )
 }
 
-/* ─── Household ─── */
+/* âââ Household âââ */
 
 function HouseholdSection() {
   return (
@@ -646,10 +636,10 @@ function HouseholdSection() {
             <div className="householdGlow2" />
             <div className="householdOrbit">
               <div className="householdAvatar householdAvatar1">
-                <span>👩</span>
+                <span>ð©</span>
               </div>
               <div className="householdAvatar householdAvatar2">
-                <span>👨</span>
+                <span>ð¨</span>
               </div>
               <div className="householdRing" />
               <div className="householdRing householdRing2" />
@@ -680,7 +670,7 @@ function HouseholdSection() {
   )
 }
 
-/* ─── Maps ─── */
+/* âââ Maps âââ */
 
 function MapsSection() {
   return (
@@ -706,7 +696,7 @@ function MapsSection() {
   )
 }
 
-/* ─── Calm Technology ─── */
+/* âââ Calm Technology âââ */
 
 function CalmTechnology() {
   return (
@@ -727,7 +717,7 @@ function CalmTechnology() {
   )
 }
 
-/* ─── Privacy ─── */
+/* âââ Privacy âââ */
 
 function PrivacySection() {
   return (
@@ -765,7 +755,7 @@ function PrivacySection() {
   )
 }
 
-/* ─── Philosophy ─── */
+/* âââ Philosophy âââ */
 
 function PhilosophySection() {
   return (
@@ -810,7 +800,7 @@ function PhilosophySection() {
   )
 }
 
-/* ─── FAQ ─── */
+/* âââ FAQ âââ */
 
 function FAQSection() {
   return (
@@ -830,7 +820,7 @@ function FAQSection() {
   )
 }
 
-/* ─── Final CTA ─── */
+/* âââ Final CTA âââ */
 
 function FinalCTA() {
   return (
@@ -850,13 +840,13 @@ function FinalCTA() {
   )
 }
 
-/* ─── Styles ─── */
+/* âââ Styles âââ */
 
 function SiteStyles() {
   return (
     <style jsx global>{`
 
-      /* ── Reset ── */
+      /* ââ Reset ââ */
 
       * { box-sizing: border-box; }
       a { color: inherit; text-decoration: none; }
@@ -867,7 +857,7 @@ function SiteStyles() {
         color: #1D1D1F;
       }
 
-      /* ── Scroll reveal ── */
+      /* ââ Scroll reveal ââ */
 
       .reveal {
         opacity: 0;
@@ -880,7 +870,7 @@ function SiteStyles() {
         transform: translateY(0);
       }
 
-      /* ── Gradient text ── */
+      /* ââ Gradient text ââ */
 
       .gradientText {
         background: linear-gradient(135deg, #2F6DFF 0%, #7B5CFF 40%, #C74BF6 70%, #FF6B8A 100%);
@@ -889,7 +879,7 @@ function SiteStyles() {
         background-clip: text;
       }
 
-      /* ── Nav ── */
+      /* ââ Nav ââ */
 
       .nav {
         position: sticky;
@@ -944,7 +934,7 @@ function SiteStyles() {
 
       .navCta:hover { background: var(--blue-hover); }
 
-      /* ── Hero ── */
+      /* ââ Hero ââ */
 
       .hero {
         position: relative;
@@ -1118,7 +1108,7 @@ function SiteStyles() {
 
       .secondaryBtn:hover { background: rgba(47, 109, 255, 0.06); }
 
-      /* ── Sections ── */
+      /* ââ Sections ââ */
 
       .section {
         padding: 8rem 1.5rem;
@@ -1180,7 +1170,7 @@ function SiteStyles() {
         letter-spacing: 0.01em;
       }
 
-      /* ── Split Grid ── */
+      /* ââ Split Grid ââ */
 
       .splitGrid {
         display: grid;
@@ -1192,7 +1182,7 @@ function SiteStyles() {
       .splitGrid.reverse .splitCopy { order: 2; }
       .splitGrid.reverse .splitVisual { order: 1; }
 
-      /* ── Arrive Card ── */
+      /* ââ Arrive Card ââ */
 
       .arriveCard {
         padding: 2rem;
@@ -1259,7 +1249,7 @@ function SiteStyles() {
         gap: 0.6rem;
       }
 
-      /* ── TaskRow ── */
+      /* ââ TaskRow ââ */
 
       .taskRow {
         display: flex;
@@ -1358,7 +1348,7 @@ function SiteStyles() {
         }
       }
 
-      /* ── Passing-By Ambient Notification ── */
+      /* ââ Passing-By Ambient Notification ââ */
 
       .passingByVisual {
         position: relative;
@@ -1471,7 +1461,7 @@ function SiteStyles() {
         margin-top: 2px;
       }
 
-      /* ── Ecosystem Grid ── */
+      /* ââ Ecosystem Grid ââ */
 
       .ecoGrid {
         display: grid;
@@ -1535,7 +1525,7 @@ function SiteStyles() {
         line-height: 1.4;
       }
 
-      /* ── Places Card ── */
+      /* ââ Places Card ââ */
 
       .placesCard {
         padding: 1.5rem;
@@ -1572,7 +1562,7 @@ function SiteStyles() {
         color: #6E6E73;
       }
 
-      /* ── Input Card ── */
+      /* ââ Input Card ââ */
 
       .inputCard {
         padding: 2rem;
@@ -1646,7 +1636,7 @@ function SiteStyles() {
         color: #6E6E73;
       }
 
-      /* ── Household Visual ── */
+      /* ââ Household Visual ââ */
 
       .householdVisual {
         position: relative;
@@ -1819,7 +1809,7 @@ function SiteStyles() {
         margin-top: 1px;
       }
 
-      /* ── Maps Card ── */
+      /* ââ Maps Card ââ */
 
       .mapsCard {
         display: flex;
@@ -1852,7 +1842,7 @@ function SiteStyles() {
         margin-top: 0.15rem;
       }
 
-      /* ── Privacy Visual ── */
+      /* ââ Privacy Visual ââ */
 
       .privacyVisual {
         position: relative;
@@ -1911,7 +1901,7 @@ function SiteStyles() {
         animation: hhRingSpin 25s linear infinite;
       }
 
-      /* ── Philosophy Visual ── */
+      /* ââ Philosophy Visual ââ */
 
       .philVisual {
         position: relative;
@@ -2003,7 +1993,7 @@ function SiteStyles() {
         50% { opacity: 1; transform: scale(1.2); }
       }
 
-      /* ── Pills ── */
+      /* ââ Pills ââ */
 
       .pillGrid {
         display: flex;
@@ -2034,7 +2024,7 @@ function SiteStyles() {
         background: #FFFFFF;
       }
 
-      /* ── Example List ── */
+      /* ââ Example List ââ */
 
       .exampleList {
         margin: 1.5rem 0 0;
@@ -2051,7 +2041,7 @@ function SiteStyles() {
       }
 
       .exampleList li::before {
-        content: '•';
+        content: 'â¢';
         position: absolute;
         left: 0;
         color: var(--blue);
@@ -2060,7 +2050,7 @@ function SiteStyles() {
 
       .center { text-align: center; }
 
-      /* ── FAQ ── */
+      /* ââ FAQ ââ */
 
       .faqList {
         margin-top: 2.5rem;
@@ -2097,7 +2087,7 @@ function SiteStyles() {
       }
 
       .faqItem[open] .faqQ::after {
-        content: '−';
+        content: 'â';
       }
 
       .faqA {
@@ -2107,7 +2097,7 @@ function SiteStyles() {
         color: #6E6E73;
       }
 
-      /* ── Final CTA ── */
+      /* ââ Final CTA ââ */
 
       .finalCta {
         padding: 4rem 1.5rem 6rem;
@@ -2183,7 +2173,7 @@ function SiteStyles() {
         position: relative;
       }
 
-      /* ── Footer ── */
+      /* ââ Footer ââ */
 
       .siteFooter {
         border-top: 1px solid rgba(0, 0, 0, 0.08);
@@ -2217,7 +2207,7 @@ function SiteStyles() {
 
       .footerLink:hover { color: #1D1D1F; }
 
-      /* ── Phone Mockup (scroll-driven) ── */
+      /* ââ Phone Mockup (scroll-driven) ââ */
 
       .phoneMockup {
         width: 280px;
@@ -2551,6 +2541,7 @@ function SiteStyles() {
         right: 0;
         bottom: 56px;
         padding: 0 16px 16px;
+        overflow: hidden;
         opacity: 0;
         transform: translateY(6px);
         transition: opacity 0.2s ease, transform 0.2s ease;
@@ -2562,6 +2553,59 @@ function SiteStyles() {
         transform: translateY(0);
         transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s;
         pointer-events: auto;
+      }
+
+
+      /* Store detail header (Phase 1) */
+      .phoneStoreHeader {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        padding: 0 2px;
+      }
+
+      .phoneStoreBack {
+        font-size: 22px;
+        font-weight: 300;
+        color: rgba(41, 151, 255, 0.9);
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      .phoneStoreEmoji {
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .phoneStoreInfo {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .phoneStoreName {
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+        letter-spacing: -0.02em;
+      }
+
+      .phoneStoreDist {
+        font-size: 12px;
+        color: rgba(255,255,255,0.45);
+        font-weight: 500;
+      }
+
+      .phoneTaskDone {
+        text-decoration: line-through;
+        opacity: 0.4;
+      }
+
+      .phoneChecked {
+        background: rgba(41, 151, 255, 0.25) !important;
+        border-color: rgba(41, 151, 255, 0.5) !important;
+        color: #2997ff !important;
       }
 
       /* App header (inside phone) */
@@ -2656,7 +2700,7 @@ function SiteStyles() {
         background: rgba(255, 255, 255, 0.7);
       }
 
-      /* CarPlay card (inside phone — Target phase) */
+      /* CarPlay card (inside phone â Target phase) */
       .phoneCarplay {
         background: rgba(28, 28, 30, 0.92);
         backdrop-filter: blur(16px);
@@ -2791,7 +2835,7 @@ function SiteStyles() {
         background: rgba(0, 0, 0, 0.18);
       }
 
-      /* ── Responsive ── */
+      /* ââ Responsive ââ */
 
       @media (max-width: 1024px) {
         .heroSplit { gap: 2.5rem; }
@@ -2941,12 +2985,22 @@ function SiteStyles() {
         .phoneAppTitle { font-size: 20px; }
         .phoneAppCount { font-size: 12px; }
         .phoneAppHeader { margin-bottom: 10px; }
+        .phoneStoreHeader { gap: 6px; margin-bottom: 8px; }
+        .phoneStoreBack { font-size: 18px; }
+        .phoneStoreEmoji { font-size: 16px; }
+        .phoneStoreName { font-size: 14px; }
+        .phoneStoreDist { font-size: 9px; }
+
 
         .phoneTaskRow { padding: 9px 10px; gap: 8px; }
         .phoneTaskText { font-size: 13px; }
         .phoneCheck { width: 18px; height: 18px; font-size: 10px; }
         .placeIcon { font-size: 0.9rem; }
         .phoneBadge { width: 18px; height: 18px; font-size: 10px; }
+        .phoneGroupItem:nth-child(3) { display: none; }
+        .phoneGroupList { gap: 3px; }
+        .phoneHomeTitle { font-size: 16px; }
+
 
         .phoneNotif {
           top: 8px;
