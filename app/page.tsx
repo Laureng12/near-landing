@@ -139,9 +139,9 @@ const PHASE_DURATION = 3500 // ms per phase
 
 const phaseTexts = [
   "Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.",
-  "Tap into a place and see exactly what you need. One store, one list.",
   "Arrive at the store. Your list is already there.",
-  "Even home has a list. Near remembers so you don\u2019t have to.",
+  "Tap into a place and see exactly what you need. One store, one list.",
+  "Even home has a list. Near remembers so you don’t have to.",
 ]
 
 function Hero() {
@@ -202,9 +202,9 @@ function Hero() {
 const PHASE_ACTIVE_TAB = [0, -1, 1, -1] // 0=Home, -1=lock, 1=Places, -1=lock
 
 const notifData = [
-  null, // home screen â no notification
-  null, // places screen â no notification
-  { title: "Arriving at Costco", body: "You have 5 items on your list" },
+  null, // home screen — no notification
+  { title: "Arriving at Costco", body: "You have 5 items on your list" }, // costco lock screen
+  null, // places screen — no notification
   { title: "Welcome home", body: "You have 2 tasks here" },
 ]
 
