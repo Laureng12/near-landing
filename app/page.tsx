@@ -6,8 +6,7 @@ import { useEffect, useState } from "react"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
 const KEY_SENTENCE =
-  "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location."
-
+  "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location."
 const ecosystemItems = [
   {
     icon: "\uD83D\uDCF1",
@@ -170,7 +169,7 @@ function Hero() {
             quality={100}
             unoptimized
           />
-          <span className="eyebrow">Ambient life logistics</span>
+          <span className="eyebrow">Ambient task intelligence</span>
           <h1 className="heroTitle">
             Never Forget<br /><span className="gradientText">Anything Again.</span>
           </h1>
@@ -751,7 +750,7 @@ function PrivacySection() {
           </div>
           <div className="privacyRing" />
         </div>
-        <h2 className="sectionTitle">Your life logistics. <span className="gradientText">Kept private.</span></h2>
+        <h2 className="sectionTitle">Your task intelligence. <span className="gradientText">Kept private.</span></h2>
         <p className="bodyText center">
           Near uses location only to show tasks when they matter.<br />
           Your data stays on your device.
