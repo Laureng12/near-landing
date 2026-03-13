@@ -4,9 +4,9 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Near | The right task. At the right place.",
   description:
-    "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
+    "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
   keywords: [
-    "ambient life logistics",
+    "ambient task intelligence",
     "location reminders",
     "location based tasks",
     "grocery list app",
@@ -19,21 +19,51 @@ export const metadata: Metadata = {
     "remember when you arrive",
     "automatic reminders",
     "location-based task manager",
+    "AI task manager",
+    "intelligent reminders",
+    "ambient computing",
+    "AI-powered errands",
+    "smart task app",
+    "context-aware reminders",
+    "proactive task management",
+    "AI location reminders",
+    "smart errand assistant",
+    "automatic task surfacing",
+    "intelligent task scheduling",
+    "AI grocery list",
+    "smart household tasks",
+    "location-aware AI",
+    "ambient intelligence app",
   ],
   metadataBase: new URL("https://nearesttask.com"),
+  alternates: {
+    canonical: "https://nearesttask.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Near | Ambient Life Logistics",
+    title: "Near | Ambient Task Intelligence",
     description:
-      "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
+      "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
     url: "https://nearesttask.com",
     siteName: "Near",
     type: "website",
+    locale: "en_US",
     images: [
       {
         url: "/near-og.png",
         width: 1200,
         height: 630,
-        alt: "Near - Ambient life logistics for iPhone",
+        alt: "Near - Ambient task intelligence for iPhone",
       },
     ],
   },
@@ -41,9 +71,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Near | The right task. At the right place.",
     description:
-      "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
+      "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
     images: ["/near-og.png"],
   },
+  category: "Productivity",
   appleWebApp: {
     title: "Near",
     capable: true,
@@ -62,6 +93,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://nearesttask.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -77,7 +109,10 @@ export default function RootLayout({
                 priceCurrency: "USD",
               },
               description:
-                "Near is an ambient life logistics system that surfaces errands, reminders, and household tasks automatically based on location.",
+                "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
+              url: "https://nearesttask.com",
+              downloadUrl: "https://apps.apple.com/app/id6744145553",
+              featureList: "Location-based reminders, Shared grocery lists, Ambient task surfacing, Household task management, AI-powered errand detection",
             }),
           }}
         />
@@ -120,7 +155,61 @@ export default function RootLayout({
                     text: "No. Near uses location only to show tasks when they matter. Data stays on your device and is never used for advertising.",
                   },
                 },
+                {
+                  "@type": "Question",
+                  name: "What is ambient task intelligence?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Ambient task intelligence means your tasks surface automatically based on where you are, without manual checking. Near uses AI-powered location awareness to deliver the right task at the right place and time.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Is Near an AI task manager?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Near is an ambient task intelligence system that uses AI and location awareness to surface tasks when they are most actionable. It goes beyond traditional task managers by proactively delivering reminders based on context.",
+                  },
+                },
               ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "Near",
+              url: "https://nearesttask.com",
+              applicationCategory: "ProductivityApplication",
+              operatingSystem: "iOS",
+              browserRequirements: "Requires iOS 17.0 or later",
+              description:
+                "Near is an ambient task intelligence system. The right task, at the right place.",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Near",
+              url: "https://nearesttask.com",
+              description: "Ambient task intelligence for iPhone. The right task, at the right place.",
+              brand: {
+                "@type": "Brand",
+                name: "Near",
+                slogan: "The right task. At the right place.",
+              },
             }),
           }}
         />
