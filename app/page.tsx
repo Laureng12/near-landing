@@ -450,7 +450,7 @@ function ArriveSection() {
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
           <h2 className="sectionTitle left">
-            Arrive somewhere.<br />Your list is already there.
+            Arrive somewhere.<br />Your list is <span className="gradientText">already there.</span>
           </h2>
           <p className="bodyText">
             Near understands that most tasks belong to places. When you arrive somewhere, the tasks that belong there appear automatically.
@@ -502,7 +502,7 @@ function PassingBySection() {
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
           <h2 className="sectionTitle left">
-            Passing a place you need to stop.<br />Near notices before you miss the turn.
+            Passing a place you need to stop.<br />Near notices before you <span className="gradientText">miss the turn.</span>
           </h2>
           <p className="bodyText">
             Near can surface errands when you pass a place where they can be completed.
@@ -632,7 +632,7 @@ function HouseholdSection() {
     <section className="section sectionSurface" id="household">
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">One household.<br />One shared memory.</h2>
+          <h2 className="sectionTitle left">One household.<br />One <span className="gradientText">shared memory.</span></h2>
           <p className="bodyText">
             Anyone can add items.<br />
             When someone is near the store, Near shows the list.
@@ -814,7 +814,7 @@ function FAQSection() {
   return (
     <section className="section" id="faq">
       <div className="reveal sectionShell narrow">
-        <h2 className="sectionTitle center">Frequently asked questions</h2>
+        <h2 className="sectionTitle center">Frequently asked <span className="gradientText">questions</span></h2>
         <div className="faqList">
           {faqItems.map((item) => (
             <details className="faqItem" key={item.q}>
@@ -1480,9 +1480,10 @@ function SiteStyles() {
       .ecoCard {
         padding: 2rem 1.5rem;
         border-radius: 1.25rem;
-        background: #F5F5F7;
+        background: linear-gradient(#F5F5F7, #F5F5F7) padding-box, linear-gradient(135deg, rgba(47, 109, 255, 0.15), rgba(168, 85, 247, 0.15)) border-box;
+        border: 2px solid transparent;
         text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         position: relative;
         overflow: hidden;
       }
@@ -1501,7 +1502,8 @@ function SiteStyles() {
 
       .ecoCard:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 12px 32px rgba(47, 109, 255, 0.12);
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
       }
 
       .ecoCard:hover::before {
@@ -2016,7 +2018,8 @@ function SiteStyles() {
         padding: 0.65rem 1.25rem;
         border-radius: 999px;
         background: #FFFFFF;
-        border: 1px solid rgba(47, 109, 255, 0.12);
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(47, 109, 255, 0.25), rgba(168, 85, 247, 0.25)) border-box;
+        border: 1.5px solid transparent;
         font-size: 0.95rem;
         font-weight: 500;
         color: #1D1D1F;
@@ -2070,6 +2073,14 @@ function SiteStyles() {
 
       .faqItem {
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-left: 3px solid transparent;
+        padding-left: 0.75rem;
+        transition: border-color 0.3s ease, background 0.3s ease;
+      }
+
+      .faqItem:hover {
+        border-left-color: #2F6DFF;
+        background: linear-gradient(90deg, rgba(47, 109, 255, 0.03), transparent);
       }
 
       .faqItem:first-child {
