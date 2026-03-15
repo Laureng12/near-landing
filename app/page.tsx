@@ -69,7 +69,7 @@ const ecosystemItems = [
     icon: "\uD83D\uDE97",
     title: "CarPlay",
     description:
-      "Errands surface while you\u2019re already on the road.",
+      "Errands surface while you’re already on the road.",
   },
   {
     icon: "\uD83C\uDF10",
@@ -80,7 +80,7 @@ const ecosystemItems = [
 ]
 
 const placesUI = [
-  { name: "Trader Joe\u2019s", count: 4, emoji: "\uD83C\uDF4E" },
+  { name: "Trader Joe’s", count: 4, emoji: "\uD83C\uDF4E" },
   { name: "Target", count: 2, emoji: "\uD83C\uDFAF" },
   { name: "Home", count: 3, emoji: "\uD83C\uDFE0" },
   { name: "Walgreens", count: 1, emoji: "\uD83D\uDC8A" },
@@ -250,9 +250,9 @@ const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
 
 const notifData = [
   null, // home screen
-  { title: "Near", body: "You\u2019re near Target \u2014 1 item on your list" },
+  { title: "Near", body: "You’re near Target — 1 item on your list" },
   null, // places screen
-  { title: "Near", body: "Don\u2019t forget: Stroller at Target, 1.2 mi away" },
+  { title: "Near", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
   null, // household screen
 ]
 
@@ -307,7 +307,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           <div className="phoneHomeHeader">
             <div className="phoneHomeHeaderLeft">
               <div className="phoneGreeting">Good morning, Reese</div>
-              <div className="phoneHomeTitle">Let\u2019s get things done.</div>
+              <div className="phoneHomeTitle">Let’s get things done.</div>
               <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
             </div>
             <div className="phoneHomeHeaderRight">
@@ -503,19 +503,19 @@ function PhoneMockup({ phase }: { phase: number }) {
           <div className="phoneHomeTitle">Household</div>
           <div className="hhProfile">
             <div className="hhAvatar">
-              <span style={{fontSize: "22px"}}>{String.fromCodePoint(0x1F469)}</span>
+              <span style={{fontSize: "22px"}}>{String.fromCodePoint(0x1F469, 0x1F3FB)}</span>
             </div>
             <div className="hhProfileName">Reese</div>
             <div className="hhProfileSub">4 shared things waiting &middot; Closest helper: Reese</div>
           </div>
-          <div className="phoneSectionLabel">WHO\u2019S NEAR SOMETHING</div>
+          <div className="phoneSectionLabel">WHO’S NEAR SOMETHING</div>
           <div className="phoneGroupItem phoneGroupItemGlass hhNearCard">
             <div className="hhNearHeader">
               <div className="hhNearAvatar">
-                <span style={{fontSize: "16px"}}>{String.fromCodePoint(0x1F469)}</span>
+                <span style={{fontSize: "16px"}}>{String.fromCodePoint(0x1F469, 0x1F3FB)}</span>
               </div>
               <div className="hhNearInfo">
-                <div className="hhNearTitle">You\u2019re near Home</div>
+                <div className="hhNearTitle">You’re near Home</div>
                 <div className="hhNearSub">2 things waiting &middot; 50 ft</div>
               </div>
             </div>
@@ -565,7 +565,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
           <div className="phoneSectionLabel">ACTIVITY</div>
           <div className="phoneGroupItem phoneGroupItemGlass hhActivityRow">
-            <span style={{fontSize: "14px"}}>{String.fromCodePoint(0x1F60A)}</span>
+            <span style={{fontSize: "14px"}}>{String.fromCodePoint(0x1F9D1, 0x1F3FB)}</span>
             <div className="hhActivityText"><strong>Someone</strong> <span style={{color: "rgba(30,50,80,0.45)"}}>added</span> <strong>Gift for mom</strong></div>
           </div>
         </div>
@@ -2780,6 +2780,8 @@ function SiteStyles() {
         overflow: hidden;
         position: relative;
         transform: translateZ(6px);
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
 
       .phoneScreen::after {
@@ -4078,17 +4080,17 @@ function SiteStyles() {
       /* Tab bar */
       .phoneTabBar {
         position: absolute;
-        bottom: 12px;
+        bottom: 14px;
         left: 0;
         right: 0;
         display: flex;
         justify-content: space-around;
         align-items: flex-start;
         padding: 5px 4px 2px;
-        background: rgba(180, 210, 200, 0.6);
+        background: rgba(160, 200, 192, 0.75);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
-        border-top: 0.5px solid rgba(255, 255, 255, 0.3);
+        border-top: 0.5px solid rgba(255, 255, 255, 0.25);
         z-index: 15;
       }
 
@@ -4148,14 +4150,14 @@ function SiteStyles() {
         justify-content: center;
         align-items: center;
         z-index: 20;
-        background: rgba(242, 242, 247, 0.92);
+        background: transparent;
       }
 
       .phoneHomeBar {
         width: 36%;
         height: 4px;
         border-radius: 100px;
-        background: rgba(0, 0, 0, 0.18);
+        background: rgba(0, 0, 0, 0.22);
       }
 
       /* ââ Responsive ââ */
