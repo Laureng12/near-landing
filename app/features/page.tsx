@@ -13,7 +13,24 @@ export default function FeaturesPage() {
       { threshold: 0.15 }
     )
     els.forEach(el => io.observe(el))
-    return () => io.disconnect()
+
+    const tiltEls = document.querySelectorAll('[data-tilt-ft]')
+    const handleMove = (e: MouseEvent) => {
+      tiltEls.forEach(el => {
+        const rect = (el as HTMLElement).getBoundingClientRect()
+        const cx = rect.left + rect.width / 2
+        const cy = rect.top + rect.height / 2
+        const dx = (e.clientX - cx) / (rect.width / 2)
+        const dy = (e.clientY - cy) / (rect.height / 2)
+        ;(el as HTMLElement).style.setProperty('--rx', `${-dy * 6}deg`)
+        ;(el as HTMLElement).style.setProperty('--ry', `${dx * 6}deg`)
+      })
+    }
+    window.addEventListener('mousemove', handleMove)
+    return () => {
+      io.disconnect()
+      window.removeEventListener('mousemove', handleMove)
+    }
   }, [])
 
   return (
@@ -59,22 +76,25 @@ export default function FeaturesPage() {
             <div className="ftFeatureEyebrow">LOCATION-AWARE</div>
             <div className="ftFeatureLayout ftFeatureLayout1">
               <div className="ftFeatureVisual">
-                <div className="ftMiniDevice">
-                  <div className="ftMiniStatusBar">
-                    <span className="ftMiniTime">9:41</span>
-                    <div className="ftMiniBattery" />
-                  </div>
-                  <div className="ftMiniNotif">
-                    <div className="ftMiniNotifDot" />
-                    <div className="ftMiniNotifBody">
-                      <span className="ftMiniNotifLabel">Near</span>
-                      <span className="ftMiniNotifTitle">Arriving at Trader Joe&apos;s</span>
-                      <span className="ftMiniNotifSub">3 items on your list</span>
+                <div className="ft3DStage">
+                  <div className="ft3DGlow ft3DGlow1" />
+                  <div className="ftMiniDevice" data-tilt-ft>
+                    <div className="ftMiniStatusBar">
+                      <span className="ftMiniTime">9:41</span>
+                      <div className="ftMiniBattery" />
                     </div>
+                    <div className="ftMiniNotif">
+                      <div className="ftMiniNotifDot" />
+                      <div className="ftMiniNotifBody">
+                        <span className="ftMiniNotifLabel">Near</span>
+                        <span className="ftMiniNotifTitle">Arriving at Trader Joe&apos;s</span>
+                        <span className="ftMiniNotifSub">3 items on your list</span>
+                      </div>
+                    </div>
+                    <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Oat milk</span></div>
+                    <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Lemons</span></div>
+                    <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Sparkling water</span></div>
                   </div>
-                  <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Oat milk</span></div>
-                  <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Lemons</span></div>
-                  <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Sparkling water</span></div>
                 </div>
               </div>
               <div className="ftFeatureText">
@@ -97,31 +117,36 @@ export default function FeaturesPage() {
                 <p className="ftFeatureDesc">Whoever&apos;s closest gets the reminder, so things get done without the back-and-forth.</p>
               </div>
               <div className="ftFeatureVisual">
-                <div className="ftHouseholdVisual">
-                  <div className="ftHHRoute">
-                    <div className="ftHHPin ftHHPinStore">
-                      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                        <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#ftPinGrad1)" />
-                        <circle cx="10" cy="9" r="2.5" fill="white" />
-                        <defs><linearGradient id="ftPinGrad1" x1="3" y1="2" x2="17" y2="18"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
-                      </svg>
-                      <span>Target</span>
-                    </div>
-                    <div className="ftHHDottedLine" />
-                    <div className="ftHHAvatarGroup">
-                      <div className="ftHHAvatar ftHHAvatarClose">
-                        <span>L</span>
-                        <div className="ftHHProximity">0.3 mi</div>
+                <div className="ft3DStage">
+                  <div className="ft3DGlow ft3DGlow2" />
+                  <div className="ftHouseholdCard" data-tilt-ft>
+                    <div className="ftHouseholdVisual">
+                      <div className="ftHHRoute">
+                        <div className="ftHHPin ftHHPinStore">
+                          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                            <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#ftPinGrad1)" />
+                            <circle cx="10" cy="9" r="2.5" fill="white" />
+                            <defs><linearGradient id="ftPinGrad1" x1="3" y1="2" x2="17" y2="18"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
+                          </svg>
+                          <span>Target</span>
+                        </div>
+                        <div className="ftHHDottedLine" />
+                        <div className="ftHHAvatarGroup">
+                          <div className="ftHHAvatar ftHHAvatarClose">
+                            <span>L</span>
+                            <div className="ftHHProximity">0.3 mi</div>
+                          </div>
+                          <div className="ftHHAvatar ftHHAvatarFar">
+                            <span>B</span>
+                            <div className="ftHHProximity">4.2 mi</div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="ftHHAvatar ftHHAvatarFar">
-                        <span>B</span>
-                        <div className="ftHHProximity">4.2 mi</div>
+                      <div className="ftHHNudge">
+                        <div className="ftHHNudgeDot" />
+                        <span>Lauren is closer — sending the list</span>
                       </div>
                     </div>
-                  </div>
-                  <div className="ftHHNudge">
-                    <div className="ftHHNudgeDot" />
-                    <span>Lauren is closer — sending the list</span>
                   </div>
                 </div>
               </div>
@@ -136,12 +161,15 @@ export default function FeaturesPage() {
           <div className="ftFeatureSectionContent">
             <div className="ftFeatureEyebrow">PROXIMITY</div>
             <div className="ftFeatureLargeIcon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
-                <circle cx="12" cy="9" r="2" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
-                <path d="M2 12h3M19 12h3" stroke="url(#scGrad1)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-                <defs><linearGradient id="scGrad1" x1="2" y1="2" x2="22" y2="22"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
-              </svg>
+              <div className="ftIconOrb ftIconOrb1" data-tilt-ft>
+                <div className="ftIconOrbGlow" />
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
+                  <circle cx="12" cy="9" r="2" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
+                  <path d="M2 12h3M19 12h3" stroke="url(#scGrad1)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+                  <defs><linearGradient id="scGrad1" x1="2" y1="2" x2="22" y2="22"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
+                </svg>
+              </div>
             </div>
             <h2 className="ftFeatureTitle ftFeatureTitleCenter">Catches you on the way</h2>
             <p className="ftFeatureDesc ftFeatureDescCenter">Passing a store with unfinished tasks? Near gives you the nudge while it still matters.</p>
@@ -155,12 +183,15 @@ export default function FeaturesPage() {
           <div className="ftFeatureSectionContent">
             <div className="ftFeatureEyebrow">SMART SORTING</div>
             <div className="ftFeatureLargeIcon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="6" width="18" height="13" rx="3" stroke="url(#scGrad2)" strokeWidth="1.5" fill="none" />
-                <path d="M8 12h8M8 15h5" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M12 6V3" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
-                <defs><linearGradient id="scGrad2" x1="3" y1="3" x2="21" y2="19"><stop stopColor="#7B5CFF" /><stop offset="1" stopColor="#C74BF6" /></linearGradient></defs>
-              </svg>
+              <div className="ftIconOrb ftIconOrb2" data-tilt-ft>
+                <div className="ftIconOrbGlow" />
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="6" width="18" height="13" rx="3" stroke="url(#scGrad2)" strokeWidth="1.5" fill="none" />
+                  <path d="M8 12h8M8 15h5" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M12 6V3" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
+                  <defs><linearGradient id="scGrad2" x1="3" y1="3" x2="21" y2="19"><stop stopColor="#7B5CFF" /><stop offset="1" stopColor="#C74BF6" /></linearGradient></defs>
+                </svg>
+              </div>
             </div>
             <h2 className="ftFeatureTitle ftFeatureTitleCenter">Knows what belongs where</h2>
             <p className="ftFeatureDesc ftFeatureDescCenter">Type &ldquo;milk&rdquo; or &ldquo;return package&rdquo; and Near connects it to the place it belongs.</p>
@@ -174,11 +205,14 @@ export default function FeaturesPage() {
           <div className="ftFeatureSectionContent">
             <div className="ftFeatureEyebrow">TIMING</div>
             <div className="ftFeatureLargeIcon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="url(#scGrad3)" strokeWidth="1.5" fill="none" />
-                <path d="M12 7v5l3 3" stroke="url(#scGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <defs><linearGradient id="scGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#FF6B8A" /><stop offset="1" stopColor="#FF9F0A" /></linearGradient></defs>
-              </svg>
+              <div className="ftIconOrb ftIconOrb3" data-tilt-ft>
+                <div className="ftIconOrbGlow" />
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="9" stroke="url(#scGrad3)" strokeWidth="1.5" fill="none" />
+                  <path d="M12 7v5l3 3" stroke="url(#scGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <defs><linearGradient id="scGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#FF6B8A" /><stop offset="1" stopColor="#FF9F0A" /></linearGradient></defs>
+                </svg>
+              </div>
             </div>
             <h2 className="ftFeatureTitle ftFeatureTitleCenter">Warns you before the window closes</h2>
             <p className="ftFeatureDesc ftFeatureDescCenter">Get a heads-up before a store closes, not after you&apos;ve missed it.</p>
@@ -192,12 +226,15 @@ export default function FeaturesPage() {
           <div className="ftFeatureSectionContent">
             <div className="ftFeatureEyebrow">INTELLIGENCE</div>
             <div className="ftFeatureLargeIcon">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <path d="M4 12a8 8 0 0116 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                <path d="M7 12a5 5 0 0110 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6" />
-                <circle cx="12" cy="17" r="2" stroke="url(#scGrad4)" strokeWidth="1.5" fill="none" />
-                <defs><linearGradient id="scGrad4" x1="4" y1="4" x2="20" y2="20"><stop stopColor="#34C759" /><stop offset="1" stopColor="#00D4AA" /></linearGradient></defs>
-              </svg>
+              <div className="ftIconOrb ftIconOrb4" data-tilt-ft>
+                <div className="ftIconOrbGlow" />
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 12a8 8 0 0116 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                  <path d="M7 12a5 5 0 0110 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6" />
+                  <circle cx="12" cy="17" r="2" stroke="url(#scGrad4)" strokeWidth="1.5" fill="none" />
+                  <defs><linearGradient id="scGrad4" x1="4" y1="4" x2="20" y2="20"><stop stopColor="#34C759" /><stop offset="1" stopColor="#00D4AA" /></linearGradient></defs>
+                </svg>
+              </div>
             </div>
             <h2 className="ftFeatureTitle ftFeatureTitleCenter">Learns your routines</h2>
             <p className="ftFeatureDesc ftFeatureDescCenter">Near notices recurring needs and helps surface them before you run out.</p>
@@ -497,17 +534,91 @@ export default function FeaturesPage() {
           display: flex;
           justify-content: center;
           margin: 0 auto 48px;
+          perspective: 800px;
+        }
+
+        /* ─── 3D Stage for hero visuals ─── */
+        .ft3DStage {
+          position: relative;
+          perspective: 1200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .ft3DGlow {
+          position: absolute;
+          width: 280px;
+          height: 280px;
+          border-radius: 50%;
+          filter: blur(60px);
+          pointer-events: none;
+          z-index: 0;
+          animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        .ft3DGlow1 {
+          background: radial-gradient(circle, rgba(47,109,255,0.25) 0%, rgba(123,92,255,0.1) 50%, transparent 70%);
+        }
+
+        .ft3DGlow2 {
+          background: radial-gradient(circle, rgba(255,107,138,0.2) 0%, rgba(199,75,246,0.1) 50%, transparent 70%);
+        }
+
+        @keyframes glowPulse {
+          0%, 100% { transform: scale(1); opacity: 0.7; }
+          50% { transform: scale(1.15); opacity: 1; }
         }
 
         /* ─── Mini Device Visual (Hero Card 1) ─── */
         .ftMiniDevice {
-          width: 240px;
-          background: rgba(255, 255, 255, 0.9);
+          width: 260px;
+          background: linear-gradient(160deg, #FFFFFF 0%, #F8F9FF 50%, #F0F2FF 100%);
           backdrop-filter: blur(20px);
-          border-radius: 20px;
-          padding: 16px;
-          border: 1px solid rgba(0, 0, 0, 0.06);
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+          border-radius: 28px;
+          padding: 20px;
+          border: 1px solid rgba(255,255,255,0.8);
+          box-shadow:
+            0 0 0 1px rgba(0,0,0,0.04),
+            0 4px 8px rgba(0,0,0,0.04),
+            0 12px 24px rgba(0,0,0,0.06),
+            0 24px 48px rgba(47,109,255,0.08),
+            0 48px 80px rgba(0,0,0,0.06);
+          transform-style: preserve-3d;
+          transform: rotateY(var(--ry, -6deg)) rotateX(var(--rx, 4deg)) translateZ(20px);
+          transition: transform 0.15s ease-out;
+          position: relative;
+          z-index: 1;
+          animation: deviceFloat 8s ease-in-out infinite;
+        }
+
+        .ftMiniDevice::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 50%;
+          border-radius: 28px 28px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 100%);
+          pointer-events: none;
+          z-index: 10;
+        }
+
+        .ftMiniDevice::after {
+          content: '';
+          position: absolute;
+          bottom: -20px;
+          left: 10%;
+          width: 80%;
+          height: 20px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse, rgba(47,109,255,0.15) 0%, transparent 70%);
+          filter: blur(8px);
+          z-index: -1;
+        }
+
+        @keyframes deviceFloat {
+          0%, 100% { transform: rotateY(var(--ry, -6deg)) rotateX(var(--rx, 4deg)) translateZ(20px) translateY(0); }
+          50% { transform: rotateY(var(--ry, -6deg)) rotateX(var(--rx, 4deg)) translateZ(20px) translateY(-8px); }
         }
 
         .ftMiniStatusBar {
@@ -711,6 +822,137 @@ export default function FeaturesPage() {
           box-shadow: 0 0 6px rgba(52, 199, 89, 0.4);
         }
 
+        /* ─── Household Card 3D Wrapper ─── */
+        .ftHouseholdCard {
+          background: linear-gradient(160deg, #FFFFFF 0%, #FFF5F8 50%, #F8F0FF 100%);
+          border-radius: 28px;
+          padding: 32px 28px;
+          border: 1px solid rgba(255,255,255,0.8);
+          box-shadow:
+            0 0 0 1px rgba(0,0,0,0.04),
+            0 4px 8px rgba(0,0,0,0.04),
+            0 12px 24px rgba(0,0,0,0.06),
+            0 24px 48px rgba(199,75,246,0.08),
+            0 48px 80px rgba(0,0,0,0.06);
+          transform-style: preserve-3d;
+          transform: rotateY(var(--ry, 6deg)) rotateX(var(--rx, 4deg)) translateZ(20px);
+          transition: transform 0.15s ease-out;
+          position: relative;
+          z-index: 1;
+          animation: cardFloat 10s ease-in-out infinite;
+        }
+
+        .ftHouseholdCard::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 50%;
+          border-radius: 28px 28px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .ftHouseholdCard::after {
+          content: '';
+          position: absolute;
+          bottom: -20px;
+          left: 10%;
+          width: 80%;
+          height: 20px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse, rgba(199,75,246,0.12) 0%, transparent 70%);
+          filter: blur(8px);
+          z-index: -1;
+        }
+
+        @keyframes cardFloat {
+          0%, 100% { transform: rotateY(var(--ry, 6deg)) rotateX(var(--rx, 4deg)) translateZ(20px) translateY(0); }
+          50% { transform: rotateY(var(--ry, 6deg)) rotateX(var(--rx, 4deg)) translateZ(20px) translateY(-10px); }
+        }
+
+
+        /* ─── 3D Icon Orb ─── */
+        .ftIconOrb {
+          width: 120px;
+          height: 120px;
+          border-radius: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          transform-style: preserve-3d;
+          transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) translateZ(10px);
+          transition: transform 0.15s ease-out;
+          animation: orbFloat 7s ease-in-out infinite;
+          border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .ftIconOrb::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 50%;
+          border-radius: 32px 32px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .ftIconOrb::after {
+          content: '';
+          position: absolute;
+          bottom: -16px;
+          left: 15%;
+          width: 70%;
+          height: 16px;
+          border-radius: 50%;
+          filter: blur(8px);
+          z-index: -1;
+        }
+
+        .ftIconOrbGlow {
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          border-radius: 50%;
+          filter: blur(40px);
+          pointer-events: none;
+          z-index: -1;
+          animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        .ftIconOrb1 {
+          background: linear-gradient(145deg, rgba(47,109,255,0.08) 0%, rgba(123,92,255,0.12) 100%);
+          box-shadow: 0 8px 32px rgba(47,109,255,0.12), 0 24px 48px rgba(0,0,0,0.04);
+        }
+        .ftIconOrb1::after { background: radial-gradient(ellipse, rgba(47,109,255,0.15) 0%, transparent 70%); }
+        .ftIconOrb1 .ftIconOrbGlow { background: radial-gradient(circle, rgba(47,109,255,0.15) 0%, transparent 70%); }
+
+        .ftIconOrb2 {
+          background: linear-gradient(145deg, rgba(123,92,255,0.08) 0%, rgba(199,75,246,0.12) 100%);
+          box-shadow: 0 8px 32px rgba(123,92,255,0.12), 0 24px 48px rgba(0,0,0,0.04);
+        }
+        .ftIconOrb2::after { background: radial-gradient(ellipse, rgba(123,92,255,0.15) 0%, transparent 70%); }
+        .ftIconOrb2 .ftIconOrbGlow { background: radial-gradient(circle, rgba(123,92,255,0.15) 0%, transparent 70%); }
+
+        .ftIconOrb3 {
+          background: linear-gradient(145deg, rgba(255,107,138,0.08) 0%, rgba(255,159,10,0.12) 100%);
+          box-shadow: 0 8px 32px rgba(255,107,138,0.12), 0 24px 48px rgba(0,0,0,0.04);
+        }
+        .ftIconOrb3::after { background: radial-gradient(ellipse, rgba(255,107,138,0.15) 0%, transparent 70%); }
+        .ftIconOrb3 .ftIconOrbGlow { background: radial-gradient(circle, rgba(255,107,138,0.15) 0%, transparent 70%); }
+
+        .ftIconOrb4 {
+          background: linear-gradient(145deg, rgba(52,199,89,0.08) 0%, rgba(0,212,170,0.12) 100%);
+          box-shadow: 0 8px 32px rgba(52,199,89,0.12), 0 24px 48px rgba(0,0,0,0.04);
+        }
+        .ftIconOrb4::after { background: radial-gradient(ellipse, rgba(52,199,89,0.15) 0%, transparent 70%); }
+        .ftIconOrb4 .ftIconOrbGlow { background: radial-gradient(circle, rgba(52,199,89,0.15) 0%, transparent 70%); }
+
+        @keyframes orbFloat {
+          0%, 100% { transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) translateZ(10px) translateY(0); }
+          50% { transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) translateZ(10px) translateY(-6px); }
+        }
 
         /* ─── Sections ─── */
         .ftPage { max-width: 100%; overflow-x: hidden; }
@@ -864,6 +1106,17 @@ export default function FeaturesPage() {
         }
         .reveal.revealed { opacity: 1; transform: translateY(0) scale(1); }
 
+        /* ─── Reduced motion support ─── */
+        @media (prefers-reduced-motion: reduce) {
+          .ftMiniDevice, .ftHouseholdCard, .ftIconOrb {
+            animation: none !important;
+            transform: none !important;
+          }
+          .ft3DGlow, .ftIconOrbGlow {
+            animation: none !important;
+          }
+        }
+
         /* ─── Responsive ─── */
         @media (max-width: 900px) {
           .ftFeatureLayout {
@@ -918,6 +1171,7 @@ export default function FeaturesPage() {
           .ftPlatformChip { padding: 8px 16px; font-size: 13px; }
           .ftPrivacyRow { gap: 10px; }
           .ftPrivacyBadge { padding: 10px 14px; font-size: 13px; }
+          .ftIconOrb { width: 100px; height: 100px; border-radius: 24px; }
           .ftFooterInner { flex-direction: column; gap: 0.75rem; text-align: center; }
         }
       `}</style>
