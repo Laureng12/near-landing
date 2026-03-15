@@ -301,8 +301,26 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         ))}
 
-        {/* Phase 0: Home screen — matches real Near app */}
+        {/* Phase 0: Home screen */}
         <div className={`phoneContent ${phase === 0 ? "phoneContentVisible" : ""}`}>
+          {/* Live Activity island */}
+          <div className="phoneLiveActivity">
+            <div className="liveActivityPulse" />
+            <Image
+              src="/near-icon-hero.png"
+              alt=""
+              width={18}
+              height={18}
+              className="liveActivityIcon"
+            />
+            <span className="liveActivityText">3 places nearby</span>
+            <div className="liveActivityDots">
+              <span className="liveActivityDot laDot1" />
+              <span className="liveActivityDot laDot2" />
+              <span className="liveActivityDot laDot3" />
+            </div>
+          </div>
+
           <div className="phoneGreeting">Good morning, Lauren.</div>
           <div className="phoneHomeTitle">Seize the day.</div>
           <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
@@ -316,12 +334,13 @@ function PhoneMockup({ phase }: { phase: number }) {
             </svg>
           </div>
 
-          <div className="phoneRadarCard">
+          <div className="phoneRadarCard phoneRadarCardShimmer">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="3" stroke="#8E8E93" strokeWidth="1.5"/>
-              <path d="M7.5 7.5A6.5 6.5 0 0112 5.5a6.5 6.5 0 014.5 2M4.5 4.5A11 11 0 0112 2a11 11 0 017.5 2.5" stroke="#8E8E93" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="12" cy="12" r="3" stroke="var(--blue)" strokeWidth="1.5"/>
+              <path d="M7.5 7.5A6.5 6.5 0 0112 5.5a6.5 6.5 0 014.5 2M4.5 4.5A11 11 0 0112 2a11 11 0 017.5 2.5" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
             </svg>
             <span className="phoneRadarText">Places within 2 miles: 3</span>
+            <div className="radarShimmer" />
           </div>
 
           <div className="phoneSectionLabel">
@@ -476,23 +495,46 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         </div>
 
-        {/* Lock screen overlay */}
+        {/* Lock screen overlay — mountain lake wallpaper */}
         <div className={`phoneLockOverlay ${isLocked ? "phoneLockVisible" : ""}`}>
-          <div className="lockAuroraLayer lockAurora1" />
-          <div className="lockAuroraLayer lockAurora2" />
-          <div className="lockAuroraLayer lockAurora3" />
-          <div className="lockStarField">
-            <div className="lockStar lockStar1" />
-            <div className="lockStar lockStar2" />
-            <div className="lockStar lockStar3" />
-            <div className="lockStar lockStar4" />
-            <div className="lockStar lockStar5" />
-            <div className="lockStar lockStar6" />
-            <div className="lockStar lockStar7" />
+          {/* Wallpaper scene layers */}
+          <div className="lockWallpaper">
+            <div className="lockSky" />
+            <div className="lockMountainBack" />
+            <div className="lockMountainFront" />
+            <div className="lockWater" />
+            <div className="lockWaterShimmer" />
+            <div className="lockCloudDrift lockCloud1" />
+            <div className="lockCloudDrift lockCloud2" />
           </div>
           <div className="lockTimeDisplay">1:03</div>
           <div className="lockDateDisplay">Saturday, March 15</div>
-          <div className="lockMottoDisplay">Seize the day.</div>
+          {/* Near notification on lock screen */}
+          <div className="lockNearNotif">
+            <Image
+              src="/near-icon-hero.png"
+              alt=""
+              width={28}
+              height={28}
+              className="lockNotifIcon"
+            />
+            <div className="lockNotifContent">
+              <div className="lockNotifTitle">Near</div>
+              <div className="lockNotifBody">Target is 1.2 mi away &mdash; Stroller</div>
+            </div>
+          </div>
+          <div className="lockFlashlightBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18h6M10 22h4M12 2v1M4.22 4.22l.71.71M1 12h1M4.22 19.78l.71-.71M20.07 4.93l-.71.71M23 12h-1M19.78 19.78l-.71-.71" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </div>
+          <div className="lockCameraBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="12" cy="13" r="4" stroke="white" strokeWidth="1.5"/>
+            </svg>
+          </div>
+          <div className="lockHomeBar" />
         </div>
 
         {/* Tab bar */}
@@ -2802,8 +2844,6 @@ function SiteStyles() {
         left: 0;
         right: 0;
         bottom: 0;
-        background:
-          linear-gradient(170deg, #0a0618 0%, #110b2e 20%, #1a1050 40%, #0d1a3a 60%, #0a1628 80%, #060d1e 100%);
         z-index: 11;
         opacity: 0;
         visibility: hidden;
@@ -2811,8 +2851,8 @@ function SiteStyles() {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding-bottom: 60px;
+        justify-content: flex-start;
+        padding-top: 70px;
         pointer-events: none;
         overflow: hidden;
         border-radius: 38px;
@@ -2824,122 +2864,301 @@ function SiteStyles() {
         transition: opacity 0.3s ease 0.15s, visibility 0s 0s;
       }
 
-      /* Aurora layers */
-      .lockAuroraLayer {
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        border-radius: 50%;
-        filter: blur(40px);
-        opacity: 0.6;
-        mix-blend-mode: screen;
-      }
-
-      .lockAurora1 {
-        top: -60%;
-        left: -50%;
-        background: radial-gradient(ellipse at center, rgba(100, 60, 255, 0.5) 0%, rgba(60, 20, 180, 0.3) 30%, transparent 60%);
-        animation: auroraShift1 8s ease-in-out infinite;
-      }
-
-      .lockAurora2 {
-        bottom: -40%;
-        right: -60%;
-        background: radial-gradient(ellipse at center, rgba(255, 100, 150, 0.45) 0%, rgba(200, 60, 120, 0.25) 30%, transparent 60%);
-        animation: auroraShift2 10s ease-in-out infinite;
-      }
-
-      .lockAurora3 {
-        top: 10%;
-        left: -30%;
-        background: radial-gradient(ellipse at center, rgba(60, 180, 255, 0.35) 0%, rgba(40, 120, 200, 0.2) 30%, transparent 60%);
-        animation: auroraShift3 12s ease-in-out infinite;
-      }
-
-      @keyframes auroraShift1 {
-        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-        33% { transform: translate(15%, 10%) scale(1.1); opacity: 0.75; }
-        66% { transform: translate(-10%, 5%) scale(0.95); opacity: 0.5; }
-      }
-
-      @keyframes auroraShift2 {
-        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-        50% { transform: translate(-20%, -15%) scale(1.15); opacity: 0.7; }
-      }
-
-      @keyframes auroraShift3 {
-        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
-        40% { transform: translate(20%, 10%) scale(1.1); opacity: 0.55; }
-        70% { transform: translate(5%, -10%) scale(1.05); opacity: 0.4; }
-      }
-
-      /* Star field */
-      .lockStarField {
+      /* Mountain lake wallpaper */
+      .lockWallpaper {
         position: absolute;
         inset: 0;
-        z-index: 1;
+        z-index: 0;
       }
 
-      .lockStar {
+      .lockSky {
         position: absolute;
-        width: 2px;
-        height: 2px;
-        border-radius: 50%;
-        background: white;
-        animation: starTwinkle 3s ease-in-out infinite;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50%;
+        background: linear-gradient(180deg, #7ecbcc 0%, #9dd8d2 25%, #b5e2d8 40%, #cceee5 55%, #e6f5f0 70%, #f0f8f4 100%);
       }
 
-      .lockStar1 { top: 15%; left: 20%; animation-delay: 0s; }
-      .lockStar2 { top: 25%; right: 15%; animation-delay: 0.8s; }
-      .lockStar3 { top: 40%; left: 10%; animation-delay: 1.6s; width: 1.5px; height: 1.5px; }
-      .lockStar4 { top: 55%; right: 25%; animation-delay: 0.4s; }
-      .lockStar5 { top: 70%; left: 30%; animation-delay: 2s; width: 1.5px; height: 1.5px; }
-      .lockStar6 { top: 18%; left: 60%; animation-delay: 1.2s; width: 1px; height: 1px; }
-      .lockStar7 { top: 65%; right: 12%; animation-delay: 2.4s; width: 1px; height: 1px; }
+      .lockMountainBack {
+        position: absolute;
+        top: 18%;
+        left: 0;
+        right: 0;
+        height: 35%;
+        background:
+          linear-gradient(110deg, transparent 0%, transparent 5%,
+            #8a9eb0 5%, #92a5b5 12%, #a0b0bc 18%, #7a8f9e 25%,
+            #6d8494 30%, #8fa3b2 38%, #a5b7c4 42%, #92a5b5 48%,
+            #7a8f9e 55%, #889cac 60%, #95aab8 68%,
+            #a0b0bc 75%, #8a9eb0 82%, #7a8f9e 90%, transparent 95%);
+        clip-path: polygon(0% 70%, 5% 45%, 12% 55%, 20% 25%, 28% 40%, 35% 15%, 42% 30%, 50% 10%, 58% 28%, 65% 18%, 72% 35%, 78% 20%, 85% 38%, 92% 22%, 100% 50%, 100% 100%, 0% 100%);
+      }
 
-      @keyframes starTwinkle {
-        0%, 100% { opacity: 0.3; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.5); }
+      .lockMountainFront {
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+        height: 25%;
+        background:
+          linear-gradient(120deg, #3d6b4e 0%, #4a7a58 15%, #2d5a3e 30%, #4a7a58 45%, #3d6b4e 60%, #2d5a3e 75%, #4a7a58 90%, #3d6b4e 100%);
+        clip-path: polygon(0% 60%, 8% 40%, 15% 55%, 22% 30%, 30% 50%, 38% 25%, 45% 45%, 55% 20%, 62% 40%, 70% 30%, 78% 50%, 85% 35%, 92% 55%, 100% 40%, 100% 100%, 0% 100%);
+        position: absolute;
+      }
+
+      .lockWater {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 52%;
+        background: linear-gradient(180deg, #56b8c8 0%, #4ab0c2 15%, #3da8bc 30%, #35a0b5 50%, #2d98ae 70%, #2590a7 85%, #1d88a0 100%);
+      }
+
+      .lockWaterShimmer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 52%;
+        background:
+          repeating-linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 2%, transparent 4%),
+          repeating-linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 8px, transparent 16px);
+        animation: waterShimmer 4s ease-in-out infinite;
+      }
+
+      @keyframes waterShimmer {
+        0%, 100% { opacity: 0.6; transform: translateX(0); }
+        50% { opacity: 1; transform: translateX(3px); }
+      }
+
+      .lockCloudDrift {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        filter: blur(8px);
+      }
+
+      .lockCloud1 {
+        width: 60px;
+        height: 16px;
+        top: 12%;
+        left: 15%;
+        animation: cloudDrift 20s linear infinite;
+      }
+
+      .lockCloud2 {
+        width: 40px;
+        height: 12px;
+        top: 18%;
+        left: 55%;
+        animation: cloudDrift 25s linear infinite;
+        animation-delay: -8s;
+        opacity: 0.4;
+      }
+
+      @keyframes cloudDrift {
+        0% { transform: translateX(-20px); }
+        100% { transform: translateX(40px); }
       }
 
       .lockTimeDisplay {
-        font-size: 60px;
+        font-size: 56px;
         font-weight: 700;
         letter-spacing: -0.02em;
         color: #FFFFFF;
         line-height: 1;
         font-variant-numeric: tabular-nums;
-        text-shadow: 0 2px 20px rgba(100, 60, 255, 0.4), 0 1px 8px rgba(0,0,0,0.3);
+        text-shadow: 0 1px 12px rgba(0,0,0,0.15);
         position: relative;
         z-index: 2;
       }
 
       .lockDateDisplay {
-        font-size: 14px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.75);
-        margin-top: 6px;
-        text-shadow: 0 1px 6px rgba(0,0,0,0.3);
-        position: relative;
-        z-index: 2;
-      }
-
-      .lockMottoDisplay {
         font-size: 13px;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.6);
-        margin-top: 16px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        text-shadow: 0 1px 8px rgba(100, 60, 255, 0.3);
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+        margin-top: 4px;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.15);
         position: relative;
         z-index: 2;
-        animation: mottoGlow 4s ease-in-out infinite;
       }
 
-      @keyframes mottoGlow {
-        0%, 100% { color: rgba(255, 255, 255, 0.5); text-shadow: 0 1px 8px rgba(100, 60, 255, 0.2); }
-        50% { color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 16px rgba(100, 60, 255, 0.5), 0 0 30px rgba(150, 100, 255, 0.15); }
+      /* Near notification on lock screen */
+      .lockNearNotif {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+        padding: 10px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        width: 85%;
+        animation: lockNotifSlide 0.5s ease-out 0.5s both;
+      }
+
+      @keyframes lockNotifSlide {
+        0% { opacity: 0; transform: translateY(-10px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      .lockNotifIcon {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        flex-shrink: 0;
+      }
+
+      .lockNotifContent {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .lockNotifTitle {
+        font-size: 11px;
+        font-weight: 600;
+        color: white;
+        line-height: 1.2;
+      }
+
+      .lockNotifBody {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.75);
+        margin-top: 1px;
+      }
+
+      /* Lock screen bottom buttons */
+      .lockFlashlightBtn, .lockCameraBtn {
+        position: absolute;
+        bottom: 24px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+      }
+
+      .lockFlashlightBtn {
+        left: 20px;
+      }
+
+      .lockCameraBtn {
+        right: 20px;
+      }
+
+      .lockHomeBar {
+        position: absolute;
+        bottom: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.4);
+        z-index: 3;
+      }
+
+      /* Live Activity bar */
+      .phoneLiveActivity {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background: rgba(20, 20, 30, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        margin-bottom: 6px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .liveActivityPulse {
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        background: linear-gradient(90deg, transparent 0%, rgba(47, 109, 255, 0.15) 50%, transparent 100%);
+        animation: laPulse 3s ease-in-out infinite;
+      }
+
+      @keyframes laPulse {
+        0%, 100% { opacity: 0; transform: translateX(-100%); }
+        50% { opacity: 1; transform: translateX(100%); }
+      }
+
+      .liveActivityIcon {
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .liveActivityText {
+        font-size: 10px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+
+      .liveActivityDots {
+        display: flex;
+        gap: 3px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .liveActivityDot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--blue);
+        animation: laDotBounce 1.4s ease-in-out infinite;
+      }
+
+      .laDot1 { animation-delay: 0s; }
+      .laDot2 { animation-delay: 0.15s; }
+      .laDot3 { animation-delay: 0.3s; }
+
+      @keyframes laDotBounce {
+        0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+        40% { opacity: 1; transform: scale(1.3); }
+      }
+
+      /* Radar shimmer effect */
+      .phoneRadarCardShimmer {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .radarShimmer {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+        animation: radarShimmerAnim 3s ease-in-out infinite;
+        border-radius: 10px;
+      }
+
+      @keyframes radarShimmerAnim {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: 100%; }
       }
 
       .phoneTabBarHidden {
@@ -3740,9 +3959,12 @@ function SiteStyles() {
         .philPulseRing { animation: none !important; }
         .finalParticle { animation: none !important; opacity: 0.5 !important; }
         .finalOrb3 { animation: none !important; }
-        .lockAuroraLayer { animation: none !important; }
-        .lockStar { animation: none !important; opacity: 0.5 !important; }
-        .lockMottoDisplay { animation: none !important; }
+        .lockWaterShimmer { animation: none !important; }
+        .lockCloudDrift { animation: none !important; }
+        .lockNearNotif { animation: none !important; opacity: 1 !important; }
+        .liveActivityPulse { animation: none !important; }
+        .liveActivityDot { animation: none !important; opacity: 0.6 !important; }
+        .radarShimmer { animation: none !important; }
         .miniMapPinRing { animation: none !important; }
         .miniMapYouPulse { animation: none !important; }
       }
@@ -3841,10 +4063,11 @@ function SiteStyles() {
         .phoneNearIconImg { width: 22px; height: 22px; border-radius: 5px; }
         .phoneContent { top: 66px; bottom: 42px; padding: 0 10px 10px; }
         .lockTimeDisplay { font-size: 40px; }
-        .lockDateDisplay { font-size: 12px; }
-        .lockMottoDisplay { font-size: 10px; margin-top: 10px; }
-        .phoneLockOverlay { padding-bottom: 50px; }
-        .lockAuroraLayer { filter: blur(30px); }
+        .lockDateDisplay { font-size: 11px; }
+        .phoneLockOverlay { padding-top: 55px; }
+        .lockNearNotif { padding: 8px 10px; margin-top: 14px; }
+        .lockNotifIcon { width: 22px; height: 22px; }
+        .phoneLiveActivity { padding: 4px 8px; }
         .phoneGreeting { font-size: 11px; }
         .phoneHomeTitle { font-size: 18px; }
         .phoneHomeSub { font-size: 11px; }
