@@ -87,7 +87,7 @@ export default function SupportPage() {
 
       <footer className="legalFooter">
         <div className="legalFooterInner">
-          <span className="legalFooterCopy">&copy; {new Date().getFullYear()} Near</span>
+          <span className="legalFooterCopy">Near &copy; 2026 Rise-X, Inc. All rights reserved.</span>
           <nav className="legalFooterLinks">
             <Link href="/terms" className="legalFooterLink">
               Terms &amp; Conditions

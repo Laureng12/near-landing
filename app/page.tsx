@@ -150,7 +150,7 @@ export default function Page() {
       <FinalCTA />
       <footer className="siteFooter">
         <div className="footerInner">
-          <span className="footerCopy">&copy; {new Date().getFullYear()} Near</span>
+          <span className="footerCopy">Near &copy; 2026 Rise-X, Inc. All rights reserved.</span>
           <nav className="footerLinks">
             <a href="/terms" className="footerLink">Terms &amp; Conditions</a>
             <a href="/privacy" className="footerLink">Privacy Policy</a>
