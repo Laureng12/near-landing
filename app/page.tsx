@@ -4678,12 +4678,12 @@ function SiteStyles() {
         .heroSplit {
           flex-direction: column;
           text-align: center;
-          gap: 1rem;
+          gap: 2rem;
         }
 
-        .heroPhone { order: -1; }
+        .heroPhone { order: 2; }
 
-        .heroCopy { text-align: center; }
+        .heroCopy { text-align: center; order: 1; }
 
         .heroIcon { margin-left: auto; margin-right: auto; }
 
@@ -4729,10 +4729,10 @@ function SiteStyles() {
         }
 
         .phoneMockup {
-          width: 160px;
-          height: 327px;
-          border-radius: 30px;
-          padding: 4px;
+          width: 220px;
+          height: 450px;
+          border-radius: 36px;
+          padding: 5px;
           transform: rotateY(-4deg) rotateX(2deg) translateZ(10px);
         }
 
@@ -4741,105 +4741,101 @@ function SiteStyles() {
           50% { transform: rotateY(-3deg) rotateX(2deg) translateZ(12px) translateY(-5px); }
         }
 
-        .phoneScreen { border-radius: 26px; }
+        .phoneScreen { border-radius: 31px; }
 
         .phoneDynamic {
-          width: 80px;
-          height: 24px;
-          border-radius: 12px;
-          top: 8px;
+          width: 90px;
+          height: 26px;
+          border-radius: 13px;
+          top: 9px;
         }
 
         .phoneStatusBar {
           padding: 12px 16px 0;
-          height: 38px;
+          height: 40px;
         }
 
-        .phoneTime { font-size: 12px; }
+        .phoneTime { font-size: 13px; }
 
-        .phoneNearIcon { top: 40px; left: 10px; width: 22px; height: 22px; }
-        .phoneNearIconImg { width: 22px; height: 22px; border-radius: 5px; }
-        .phoneContent { top: 66px; bottom: 0; padding: 0 10px 48px; }
-        .lockTimeDisplay { font-size: 40px; }
-        .lockDateDisplay { font-size: 11px; }
-        .phoneLockOverlay { padding-top: 55px; }
-        .lockProximityCard { padding: 10px 12px; margin-top: 12px; }
-        .lockNotifIcon { width: 22px; height: 22px; }
-        .phoneGreeting { font-size: 11px; }
-        .phoneHomeTitle { font-size: 18px; }
-        .phoneHomeSub { font-size: 11px; }
-        .phoneSectionLabel { font-size: 9px; margin: 8px 0 4px; }
-        .phoneGroupItem { padding: 7px 8px; border-radius: 8px; }
-        .phoneGroupEmoji { font-size: 12px; }
-        .phoneGroupName { font-size: 12px; }
-        .phoneGroupTask { font-size: 11px; padding-left: 20px; margin-top: 2px; }
-        .phoneChevron { font-size: 14px; }
-        .phoneFilterChips { gap: 4px; margin: 4px 0 2px; }
-        .phoneChip { font-size: 9px; padding: 3px 7px; }
+        .phoneNearIcon { top: 42px; left: 11px; width: 24px; height: 24px; }
+        .phoneNearIconImg { width: 24px; height: 24px; border-radius: 5px; }
+        .phoneContent { top: 68px; bottom: 0; padding: 0 11px 52px; }
+        .lockTimeDisplay { font-size: 46px; }
+        .lockDateDisplay { font-size: 12px; }
+        .phoneLockOverlay { padding-top: 58px; }
+        .lockProximityCard { padding: 11px 13px; margin-top: 14px; }
+        .lockNotifIcon { width: 24px; height: 24px; }
+        .phoneGreeting { font-size: 12px; }
+        .phoneHomeTitle { font-size: 20px; }
+        .phoneHomeSub { font-size: 12px; }
+        .phoneSectionLabel { font-size: 10px; margin: 10px 0 5px; }
+        .phoneGroupItem { padding: 8px 9px; border-radius: 9px; }
+        .phoneGroupEmoji { font-size: 14px; }
+        .phoneGroupName { font-size: 13px; }
+        .phoneGroupTask { font-size: 12px; padding-left: 22px; margin-top: 2px; }
+        .phoneChevron { font-size: 15px; }
+        .phoneFilterChips { gap: 5px; margin: 5px 0 3px; }
+        .phoneChip { font-size: 10px; padding: 3px 8px; }
 
-        .phoneAppTitle { font-size: 20px; }
-        .phoneAppCount { font-size: 12px; }
+        .phoneAppTitle { font-size: 22px; }
+        .phoneAppCount { font-size: 13px; }
         .phoneAppHeader { margin-bottom: 10px; }
-        .phoneStoreHeader { gap: 6px; margin-bottom: 8px; }
-        .phoneStoreBack { font-size: 18px; }
-        .phoneStoreEmoji { font-size: 16px; }
-        .phoneStoreName { font-size: 14px; }
-        .phoneStoreDist { font-size: 9px; }
+        .phoneStoreHeader { gap: 7px; margin-bottom: 9px; }
+        .phoneStoreBack { font-size: 20px; }
+        .phoneStoreEmoji { font-size: 18px; }
+        .phoneStoreName { font-size: 15px; }
+        .phoneStoreDist { font-size: 10px; }
 
-
-        .phoneTaskRow { padding: 9px 10px; gap: 8px; }
+        .phoneTaskRow { padding: 10px 11px; gap: 9px; }
         .phoneTaskText { font-size: 13px; }
-        .phoneCheck { width: 18px; height: 18px; font-size: 10px; }
-        .placeIcon { font-size: 0.9rem; }
-        .phoneBadge { width: 18px; height: 18px; font-size: 10px; }
-        .phoneGroupItem:nth-child(3) { display: none; }
-        .phoneGroupList { gap: 3px; }
-        .phoneHomeTitle { font-size: 16px; }
-
+        .phoneCheck { width: 19px; height: 19px; font-size: 11px; }
+        .placeIcon { font-size: 1rem; }
+        .phoneBadge { width: 19px; height: 19px; font-size: 11px; }
+        .phoneGroupList { gap: 4px; }
 
         .phoneNotif {
-          top: 8px;
-          left: 5px;
-          right: 5px;
-          padding: 8px;
-          border-radius: 14px;
-          gap: 6px;
+          top: 9px;
+          left: 6px;
+          right: 6px;
+          padding: 9px;
+          border-radius: 15px;
+          gap: 7px;
         }
 
         .phoneNotifAppIcon {
-          width: 24px;
-          height: 24px;
+          width: 26px;
+          height: 26px;
           border-radius: 6px;
         }
 
-        .phoneNotifTitle { font-size: 11px; }
-        .phoneNotifBody { font-size: 10px; }
+        .phoneNotifTitle { font-size: 12px; }
+        .phoneNotifBody { font-size: 11px; }
 
         .phoneCarplay {
           margin-top: 10px;
-          padding: 10px;
-          border-radius: 12px;
+          padding: 11px;
+          border-radius: 13px;
         }
 
-        .phoneCarplayLabel { font-size: 9px; }
-        .phoneCarplayStore { font-size: 16px; }
-        .phoneCarplayTasks { gap: 4px; margin-top: 6px; }
-        .phoneCarplayTasks span { padding: 6px 8px; font-size: 11px; border-radius: 6px; }
+        .phoneCarplayLabel { font-size: 10px; }
+        .phoneCarplayStore { font-size: 17px; }
+        .phoneCarplayTasks { gap: 5px; margin-top: 7px; }
+        .phoneCarplayTasks span { padding: 7px 9px; font-size: 12px; border-radius: 7px; }
 
-        .phoneContent { bottom: 0; padding-bottom: 48px; }
+        .phoneContent { bottom: 0; padding-bottom: 52px; }
 
-        .phoneTabBar { padding: 4px 2px 1px; }
-        .phoneTab { font-size: 7px; gap: 1px; }
-        .phoneTab svg { width: 14px; height: 14px; }
-        .phoneAddBtn { width: 24px; height: 24px; }
-        .phoneAddBtn svg { width: 12px; height: 12px; }
+        .phoneTabBar { padding: 5px 3px 2px; }
+        .phoneTab { font-size: 8px; gap: 2px; }
+        .phoneTab svg { width: 16px; height: 16px; }
+        .phoneAddBtn { width: 26px; height: 26px; }
+        .phoneAddBtn svg { width: 13px; height: 13px; }
         .phoneTabAdd { margin-top: -4px; }
 
         .phoneHomeBar { height: 3px; }
-        .phoneHomeIndicator { padding-bottom: 4px; }
+        .phoneHomeIndicator { padding-bottom: 5px; }
 
-        .phoneSignal { width: 13px; height: 9px; }
-        .phoneWifi { width: 12px; height: 10px; }
+        .phoneSignal { width: 14px; height: 10px; }
+        .phoneWifi { width: 13px; height: 11px; }
 
         .heroGlow {
           width: 400px;
