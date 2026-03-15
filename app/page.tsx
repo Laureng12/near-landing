@@ -10,7 +10,9 @@ const KEY_SENTENCE =
 
 function use3DEffects() {
   useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 720px)').matches
     const handleScroll = () => {
+      if (isMobile) return
       document.querySelectorAll('[data-parallax]').forEach((el) => {
         const rect = el.getBoundingClientRect()
         const center = rect.top + rect.height / 2
