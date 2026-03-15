@@ -778,8 +778,17 @@ function PrivacySection() {
   return (
     <section className="section">
       <div className="reveal sectionShell narrow center">
-        <div className="privacyVisual">
+        <div className="privacyVisual" data-tilt>
           <div className="privacyGlow" />
+          <div className="privacyOrbitRing privacyOrbit1">
+            <div className="privacyOrbitParticle privacyParticle1" />
+          </div>
+          <div className="privacyOrbitRing privacyOrbit2">
+            <div className="privacyOrbitParticle privacyParticle2" />
+          </div>
+          <div className="privacyOrbitRing privacyOrbit3">
+            <div className="privacyOrbitParticle privacyParticle3" />
+          </div>
           <div className="privacyIcon">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
               <rect x="12" y="22" width="24" height="18" rx="4" fill="url(#lockGrad)" />
@@ -801,9 +810,9 @@ function PrivacySection() {
           Your data stays on your device.
         </p>
         <div className="pillGrid">
-          <span className="pill">No ads</span>
-          <span className="pill">No tracking</span>
-          <span className="pill">No profiling</span>
+          <span className="pill" data-tilt>No ads</span>
+          <span className="pill" data-tilt>No tracking</span>
+          <span className="pill" data-tilt>No profiling</span>
         </div>
       </div>
     </section>
@@ -816,9 +825,10 @@ function PhilosophySection() {
   return (
     <section className="section sectionSurface">
       <div className="reveal sectionShell narrow center">
-        <div className="philVisual">
+        <div className="philVisual" data-tilt>
           <div className="philGlow" />
           <div className="philGlow2" />
+          <div className="philPulseRing" />
           <div className="philIcon">
             <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
               <path d="M26 6C18.27 6 12 12.27 12 20c0 4.5 2.12 8.5 5.43 11.07C18.56 32.01 19 33.2 19 34.5V38a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-3.5c0-1.3.44-2.49 1.57-3.43C37.88 28.5 40 24.5 40 20c0-7.73-6.27-14-14-14z" fill="url(#bulbGrad)" />
@@ -842,6 +852,8 @@ function PhilosophySection() {
           <div className="philSparkle philSparkle1" />
           <div className="philSparkle philSparkle2" />
           <div className="philSparkle philSparkle3" />
+          <div className="philSparkle philSparkle4" />
+          <div className="philSparkle philSparkle5" />
         </div>
         <h2 className="sectionTitle" data-parallax>Your brain is for <span className="gradientText">ideas.</span></h2>
         <p className="bodyText center">
@@ -883,6 +895,12 @@ function FinalCTA() {
       <div className="reveal finalShell">
         <div className="finalOrb finalOrb1" />
         <div className="finalOrb finalOrb2" />
+        <div className="finalOrb finalOrb3" />
+        <div className="finalParticle finalP1" />
+        <div className="finalParticle finalP2" />
+        <div className="finalParticle finalP3" />
+        <div className="finalParticle finalP4" />
+        <div className="finalParticle finalP5" />
         <h2 className="finalTitle">
           The smartest reminder is the one that waits for the right place.
         </h2>
@@ -916,8 +934,9 @@ function SiteStyles() {
 
       .reveal {
         opacity: 0;
-        transform: translateY(32px) scale(0.97) rotateX(4deg);
-        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(48px) scale(0.94) rotateX(8deg);
+        transform-origin: center bottom;
+        transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .reveal.revealed {
@@ -1059,6 +1078,8 @@ function SiteStyles() {
 
       .heroPhone {
         flex-shrink: 0;
+        perspective: 1200px;
+        transform-style: preserve-3d;
       }
 
       .heroIcon {
@@ -1177,6 +1198,7 @@ function SiteStyles() {
       .section {
         padding: 8rem 1.5rem;
         position: relative;
+        perspective: 1200px;
       }
 
       .section::before {
@@ -1987,6 +2009,79 @@ function SiteStyles() {
         animation: hhRingSpin 25s linear infinite;
       }
 
+            .privacyOrbitRing {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(47, 109, 255, 0.08);
+      }
+
+      .privacyOrbit1 {
+        width: 100px;
+        height: 100px;
+        animation: privOrbit1 10s linear infinite;
+      }
+
+      .privacyOrbit2 {
+        width: 130px;
+        height: 130px;
+        animation: privOrbit2 15s linear infinite;
+      }
+
+      .privacyOrbit3 {
+        width: 160px;
+        height: 160px;
+        border: 1px dashed rgba(123, 92, 255, 0.08);
+        animation: privOrbit3 20s linear infinite;
+      }
+
+      .privacyOrbitParticle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .privacyParticle1 {
+        top: -3px;
+        left: 50%;
+        margin-left: -3px;
+        background: #2F6DFF;
+        box-shadow: 0 0 8px rgba(47, 109, 255, 0.6);
+      }
+
+      .privacyParticle2 {
+        bottom: -3px;
+        left: 50%;
+        margin-left: -3px;
+        background: #7B5CFF;
+        box-shadow: 0 0 8px rgba(123, 92, 255, 0.6);
+      }
+
+      .privacyParticle3 {
+        top: 50%;
+        right: -3px;
+        margin-top: -3px;
+        background: #C74BF6;
+        box-shadow: 0 0 8px rgba(199, 75, 246, 0.6);
+        width: 4px;
+        height: 4px;
+      }
+
+      @keyframes privOrbit1 {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes privOrbit2 {
+        from { transform: rotate(120deg); }
+        to { transform: rotate(480deg); }
+      }
+
+      @keyframes privOrbit3 {
+        from { transform: rotate(240deg); }
+        to { transform: rotate(600deg); }
+      }
+
       /* ââ Philosophy Visual ââ */
 
       .philVisual {
@@ -2078,6 +2173,38 @@ function SiteStyles() {
         0%, 100% { opacity: 0; transform: scale(0.5); }
         50% { opacity: 1; transform: scale(1.2); }
       }
+      .philSparkle4 {
+        top: 40px;
+        left: 15px;
+        width: 3px;
+        height: 3px;
+        background: rgba(255, 179, 71, 0.6);
+        animation: sparkle 3s ease-in-out infinite 0.5s;
+      }
+
+      .philSparkle5 {
+        bottom: 40px;
+        left: 20px;
+        width: 5px;
+        height: 5px;
+        background: rgba(123, 92, 255, 0.7);
+        animation: sparkle 3s ease-in-out infinite 1.5s;
+      }
+
+      .philPulseRing {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 179, 71, 0.15);
+        animation: philPulse 3s ease-in-out infinite;
+      }
+
+      @keyframes philPulse {
+        0%, 100% { transform: scale(1); opacity: 0.4; }
+        50% { transform: scale(1.3); opacity: 0; }
+      }
+
 
       /* ââ Pills ââ */
 
@@ -2102,10 +2229,10 @@ function SiteStyles() {
       }
 
       .pill:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(47, 109, 255, 0.15);
-        border-color: rgba(47, 109, 255, 0.4);
-        background: linear-gradient(135deg, rgba(47, 109, 255, 0.04), rgba(168, 85, 247, 0.04));
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 24px rgba(47, 109, 255, 0.18);
+        border-color: rgba(47, 109, 255, 0.5);
+        background: linear-gradient(135deg, rgba(47, 109, 255, 0.06), rgba(168, 85, 247, 0.06));
       }
 
       .sectionSurface .pill {
@@ -2209,6 +2336,8 @@ function SiteStyles() {
         color: white;
         overflow: hidden;
         position: relative;
+        border: 1px solid rgba(123, 92, 255, 0.15);
+        box-shadow: 0 0 0 1px rgba(123, 92, 255, 0.05), 0 24px 80px rgba(0, 0, 0, 0.3), 0 0 60px rgba(123, 92, 255, 0.08);
       }
 
       .finalOrb {
@@ -2244,6 +2373,70 @@ function SiteStyles() {
       @keyframes orbFloat2 {
         0%, 100% { transform: translate(0, 0) scale(1); }
         50% { transform: translate(20px, -30px) scale(1.15); }
+      }
+
+      .finalOrb3 {
+        width: 250px;
+        height: 250px;
+        top: 50%;
+        left: 50%;
+        margin-top: -125px;
+        margin-left: -125px;
+        background: radial-gradient(circle, rgba(199, 75, 246, 0.25) 0%, transparent 70%);
+        animation: orbFloat3 12s ease-in-out infinite;
+      }
+
+      @keyframes orbFloat3 {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(40px, -30px) scale(1.1); }
+        66% { transform: translate(-30px, 40px) scale(0.95); }
+      }
+
+      .finalParticle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .finalP1 {
+        width: 4px; height: 4px;
+        background: rgba(123, 92, 255, 0.6);
+        top: 20%; left: 15%;
+        animation: finalFloat 6s ease-in-out infinite;
+      }
+
+      .finalP2 {
+        width: 3px; height: 3px;
+        background: rgba(47, 109, 255, 0.5);
+        top: 30%; right: 20%;
+        animation: finalFloat 8s ease-in-out infinite 1s;
+      }
+
+      .finalP3 {
+        width: 5px; height: 5px;
+        background: rgba(199, 75, 246, 0.4);
+        bottom: 25%; left: 25%;
+        animation: finalFloat 7s ease-in-out infinite 2s;
+      }
+
+      .finalP4 {
+        width: 3px; height: 3px;
+        background: rgba(255, 107, 138, 0.5);
+        bottom: 35%; right: 15%;
+        animation: finalFloat 9s ease-in-out infinite 0.5s;
+      }
+
+      .finalP5 {
+        width: 4px; height: 4px;
+        background: rgba(255, 179, 71, 0.4);
+        top: 60%; left: 10%;
+        animation: finalFloat 5s ease-in-out infinite 3s;
+      }
+
+      @keyframes finalFloat {
+        0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+        50% { transform: translateY(-20px) scale(1.5); opacity: 0.8; }
       }
 
       .finalTitle {
@@ -2309,20 +2502,47 @@ function SiteStyles() {
         width: 280px;
         height: 572px;
         border-radius: 44px;
-        background: #000;
+        background: linear-gradient(160deg, #2A2A2E 0%, #1A1A1E 20%, #000 50%, #1A1A1E 100%);
         padding: 6px;
         position: relative;
+        transform-style: preserve-3d;
+        transform: rotateY(-8deg) rotateX(4deg) translateZ(20px);
         box-shadow:
+          0 0 0 1px rgba(255,255,255,0.08),
           0 0 0 2px #1A1A1E,
           0 0 0 4px #2A2A2E,
-          0 20px 60px rgba(0, 0, 0, 0.25),
-          0 8px 24px rgba(0, 0, 0, 0.15);
+          0 40px 80px rgba(0, 0, 0, 0.35),
+          0 16px 32px rgba(0, 0, 0, 0.2),
+          -12px 24px 48px rgba(47, 109, 255, 0.08);
         animation: phoneFloat 6s ease-in-out infinite;
       }
 
+      .phoneMockup::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 44px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.04) 100%);
+        pointer-events: none;
+        z-index: 20;
+      }
+
+      .phoneMockup::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 10%;
+        right: 10%;
+        height: 40px;
+        background: radial-gradient(ellipse, rgba(0,0,0,0.2) 0%, transparent 70%);
+        filter: blur(12px);
+        transform: translateZ(-40px);
+        pointer-events: none;
+      }
+
       @keyframes phoneFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
+        0%, 100% { transform: rotateY(-8deg) rotateX(4deg) translateZ(20px) translateY(0); }
+        50% { transform: rotateY(-6deg) rotateX(3deg) translateZ(24px) translateY(-8px); }
       }
 
       .phoneDynamic {
@@ -2344,6 +2564,17 @@ function SiteStyles() {
         background: #F2F2F7;
         overflow: hidden;
         position: relative;
+        transform: translateZ(6px);
+      }
+
+      .phoneScreen::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 38px;
+        background: linear-gradient(170deg, rgba(255,255,255,0.2) 0%, transparent 30%);
+        pointer-events: none;
+        z-index: 15;
       }
 
       /* Status bar */
@@ -2981,6 +3212,10 @@ function SiteStyles() {
         [data-tilt] { transform: none !important; transition: none !important; }
         .sectionTitle { transform: none !important; }
         .gradientText { animation: none !important; }
+        .privacyOrbitRing { animation: none !important; }
+        .philPulseRing { animation: none !important; }
+        .finalParticle { animation: none !important; opacity: 0.5 !important; }
+        .finalOrb3 { animation: none !important; }
       }
 
       @media (max-width: 720px) {
@@ -3049,6 +3284,12 @@ function SiteStyles() {
           height: 327px;
           border-radius: 30px;
           padding: 4px;
+          transform: rotateY(-4deg) rotateX(2deg) translateZ(10px);
+        }
+
+        @keyframes phoneFloat {
+          0%, 100% { transform: rotateY(-4deg) rotateX(2deg) translateZ(10px) translateY(0); }
+          50% { transform: rotateY(-3deg) rotateX(2deg) translateZ(12px) translateY(-5px); }
         }
 
         .phoneScreen { border-radius: 26px; }
