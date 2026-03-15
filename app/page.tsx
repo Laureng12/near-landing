@@ -691,8 +691,12 @@ function PhoneMockup({ phase }: { phase: number }) {
 
 function AIDefinition() {
   return (
-    <section className="section sectionSurface" id="what-is-near">
-      <div className="reveal sectionShell narrow">
+    <section className="section sectionSurface sectionMagic" id="what-is-near">
+      <div className="magicOrb magicOrb1" />
+      <div className="magicOrb magicOrb2" />
+      <div className="magicOrb magicOrb3" />
+      <div className="magicAurora" />
+      <div className="reveal sectionShell narrow" style={{position: 'relative', zIndex: 2}}>
         <h2 className="sectionTitle" data-parallax>What is <span className="gradientText">Near</span>?</h2>
         <p className="bodyText">{KEY_SENTENCE}</p>
         <p className="bodyText">
@@ -1358,11 +1362,10 @@ function SiteStyles() {
       .heroTitle {
         margin: 0;
         font-size: clamp(3rem, 8vw, 72px);
-        font-weight: 600;
+        font-weight: 500;
         line-height: 1.05;
         letter-spacing: -0.02em;
         color: #1D1D1F;
-        font-family: var(--font-display);
       }
 
       .heroSub {
@@ -1371,7 +1374,6 @@ function SiteStyles() {
         font-weight: 400;
         line-height: 1.2;
         color: #1D1D1F;
-        font-family: var(--font-display);
       }
 
       /* Phase-rotating subtext */
@@ -1465,6 +1467,76 @@ function SiteStyles() {
         background: linear-gradient(180deg, #F5F5F7 0%, #EEEEF3 100%);
       }
 
+      .sectionMagic {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .magicOrb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.4;
+        animation: orbFloat 8s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .magicOrb1 {
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(47, 109, 255, 0.35) 0%, rgba(47, 109, 255, 0) 70%);
+        top: -50px;
+        right: -80px;
+        animation-delay: 0s;
+      }
+
+      .magicOrb2 {
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0) 70%);
+        bottom: -30px;
+        left: -60px;
+        animation-delay: -3s;
+        animation-duration: 10s;
+      }
+
+      .magicOrb3 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(255, 107, 138, 0.25) 0%, rgba(255, 107, 138, 0) 70%);
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+        animation-delay: -5s;
+        animation-duration: 12s;
+      }
+
+      @keyframes orbFloat {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        25% { transform: translate(20px, -30px) scale(1.1); }
+        50% { transform: translate(-10px, 20px) scale(0.95); }
+        75% { transform: translate(15px, 10px) scale(1.05); }
+      }
+
+      .magicAurora {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          linear-gradient(135deg,
+            rgba(47, 109, 255, 0.03) 0%,
+            transparent 30%,
+            rgba(168, 85, 247, 0.03) 50%,
+            transparent 70%,
+            rgba(255, 179, 71, 0.02) 100%
+          );
+        pointer-events: none;
+        z-index: 1;
+      }
+
       .sectionShell {
         max-width: 980px;
         margin: 0 auto;
@@ -1482,11 +1554,10 @@ function SiteStyles() {
       .sectionTitle {
         margin: 0;
         font-size: clamp(2rem, 5vw, 48px);
-        font-weight: 600;
+        font-weight: 500;
         line-height: 1.1;
         letter-spacing: -0.01em;
         color: #1D1D1F;
-        font-family: var(--font-display);
         text-wrap: balance;
         transform: translateY(var(--parallax-offset, 0px));
         transition: transform 0.1s linear;
@@ -1514,9 +1585,8 @@ function SiteStyles() {
       .bodyAccent {
         margin: 2rem 0 0;
         font-size: 20px;
-        font-weight: 700;
+        font-weight: 500;
         color: var(--blue);
-        font-family: var(--font-display);
         letter-spacing: -0.01em;
       }
 
@@ -2542,10 +2612,11 @@ function SiteStyles() {
       }
 
       .aiFeatureIcon {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        background: linear-gradient(135deg, rgba(47, 109, 255, 0.08), rgba(199, 75, 246, 0.08));
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(47, 109, 255, 0.1), rgba(199, 75, 246, 0.1));
+        box-shadow: 0 4px 12px rgba(47, 109, 255, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2554,7 +2625,7 @@ function SiteStyles() {
 
       .aiFeatureLabel {
         font-size: 16px;
-        font-weight: 700;
+        font-weight: 500;
         color: #1D1D1F;
         margin-bottom: 6px;
         letter-spacing: -0.01em;
@@ -4370,6 +4441,7 @@ function SiteStyles() {
         .lockWaterShimmer { animation: none !important; }
         .lockCloudDrift { animation: none !important; }
         .lockProximityCard { animation: none !important; opacity: 1 !important; }
+        .magicOrb { animation: none !important; }
         .lockProximityGlow { animation: none !important; }
         .lockTaskItem { animation: none !important; }
         .lockProximityShimmer { animation: none !important; }
