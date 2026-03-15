@@ -7,6 +7,51 @@ const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
 const KEY_SENTENCE =
   "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location."
+
+function use3DEffects() {
+  useEffect(() => {
+    const handleScroll = () => {
+      document.querySelectorAll('[data-parallax]').forEach((el) => {
+        const rect = el.getBoundingClientRect()
+        const center = rect.top + rect.height / 2
+        const viewCenter = window.innerHeight / 2
+        const offset = (center - viewCenter) * 0.04
+        ;(el as HTMLElement).style.setProperty('--parallax-offset', `${offset}px`)
+      })
+    }
+
+    const tiltCards = (e: MouseEvent) => {
+      document.querySelectorAll('[data-tilt]').forEach((card) => {
+        const rect = card.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const rotateX = ((y - rect.height / 2) / rect.height) * 8
+        const rotateY = ((x - rect.width / 2) / rect.width) * -8
+        ;(card as HTMLElement).style.setProperty('--mx', `${rotateY}deg`)
+        ;(card as HTMLElement).style.setProperty('--my', `${rotateX}deg`)
+      })
+    }
+
+    const resetTilt = () => {
+      document.querySelectorAll('[data-tilt]').forEach((card) => {
+        ;(card as HTMLElement).style.setProperty('--mx', '0deg')
+        ;(card as HTMLElement).style.setProperty('--my', '0deg')
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('mousemove', tiltCards)
+    window.addEventListener('mouseleave', resetTilt)
+    handleScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('mousemove', tiltCards)
+      window.removeEventListener('mouseleave', resetTilt)
+    }
+  }, [])
+}
+
 const ecosystemItems = [
   {
     icon: "\uD83D\uDCF1",
@@ -72,6 +117,8 @@ export default function Page() {
     els.forEach(el => io.observe(el))
     return () => io.disconnect()
   }, [])
+
+  use3DEffects()
 
   return (
     <main className="page">
@@ -426,7 +473,7 @@ function AIDefinition() {
   return (
     <section className="section sectionSurface" id="what-is-near">
       <div className="reveal sectionShell narrow">
-        <h2 className="sectionTitle">What is <span className="gradientText">Near</span>?</h2>
+        <h2 className="sectionTitle" data-parallax>What is <span className="gradientText">Near</span>?</h2>
         <p className="bodyText">{KEY_SENTENCE}</p>
         <p className="bodyText">
           Instead of checking lists or setting timers, tasks appear when you arrive at the places where they can actually be completed.
@@ -449,7 +496,7 @@ function ArriveSection() {
     <section className="section" id="how-it-works">
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">
+          <h2 className="sectionTitle left" data-parallax>
             Arrive somewhere.<br />Your list is <span className="gradientText">already there.</span>
           </h2>
           <p className="bodyText">
@@ -458,7 +505,7 @@ function ArriveSection() {
           <p className="caption">No app opening required.</p>
         </div>
         <div className="splitVisual">
-          <div className="arriveCard">
+          <div className="arriveCard" data-tilt>
             <div className="arriveHeader">
               <span className="arriveLabel">Now arriving</span>
               <span className="arriveDot" />
@@ -501,7 +548,7 @@ function PassingBySection() {
     <section className="section sectionSurface">
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">
+          <h2 className="sectionTitle left" data-parallax>
             Passing a place you need to stop.<br />Near notices before you <span className="gradientText">miss the turn.</span>
           </h2>
           <p className="bodyText">
@@ -513,7 +560,7 @@ function PassingBySection() {
           <div className="passingByVisual">
             <div className="passingByGlow" />
             <div className="passingByGlow2" />
-            <div className="passingByNotif">
+            <div className="passingByNotif" data-tilt>
               <div className="passingByIcon">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#pinGrad)" />
@@ -546,11 +593,11 @@ function EcosystemSection() {
     <section className="section">
       <div className="reveal sectionShell">
         <div className="sectionHeading">
-          <h2 className="sectionTitle">Designed for the <span className="gradientText">Apple ecosystem.</span></h2>
+          <h2 className="sectionTitle" data-parallax>Designed for the <span className="gradientText">Apple ecosystem.</span></h2>
         </div>
         <div className="ecoGrid">
           {ecosystemItems.map((item, i) => (
-            <article className={`ecoCard ecoCard${i}`} key={item.title}>
+            <article className={`ecoCard ecoCard${i}`} key={item.title} data-tilt>
               <span className="ecoIcon">{item.icon}</span>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
@@ -569,7 +616,7 @@ function SimplerInterface() {
     <section className="section sectionSurface">
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">Just <span className="gradientText">places.</span></h2>
+          <h2 className="sectionTitle left" data-parallax>Just <span className="gradientText">places.</span></h2>
           <p className="bodyText">
             Near organizes tasks around places instead of lists.<br />
             Because errands belong somewhere.
@@ -577,7 +624,7 @@ function SimplerInterface() {
           <p className="caption">No folders. No tags. No projects.</p>
         </div>
         <div className="splitVisual">
-          <div className="placesCard">
+          <div className="placesCard" data-tilt>
             {placesUI.map((p) => (
               <div className="placeRow" key={p.name}>
                 <span className="placeEmoji">{p.emoji}</span>
@@ -599,14 +646,14 @@ function NaturalInput() {
     <section className="section">
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">Add tasks the way <span className="gradientText">you think.</span></h2>
+          <h2 className="sectionTitle left" data-parallax>Add tasks the way <span className="gradientText">you think.</span></h2>
           <p className="bodyText">
             Type what you need and Near suggests where it belongs.<br />
             Or just ask Siri.
           </p>
         </div>
         <div className="splitVisual">
-          <div className="inputCard">
+          <div className="inputCard" data-tilt>
             <div className="inputField">Buy batteries</div>
             <div className="inputSuggestions">
               <span className="inputLabel">Attach to:</span>
@@ -632,7 +679,7 @@ function HouseholdSection() {
     <section className="section sectionSurface" id="household">
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">One household.<br />One <span className="gradientText">shared memory.</span></h2>
+          <h2 className="sectionTitle left" data-parallax>One household.<br />One <span className="gradientText">shared memory.</span></h2>
           <p className="bodyText">
             Anyone can add items.<br />
             When someone is near the store, Near shows the list.
@@ -652,7 +699,7 @@ function HouseholdSection() {
               <div className="householdRing" />
               <div className="householdRing householdRing2" />
             </div>
-            <div className="householdNotif">
+            <div className="householdNotif" data-tilt>
               <div className="householdNotifIcon">
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
                   <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#hhPinGrad)" />
@@ -685,13 +732,13 @@ function MapsSection() {
     <section className="section">
       <div className="reveal sectionShell splitGrid reverse">
         <div className="splitCopy">
-          <h2 className="sectionTitle left">Built around the <span className="gradientText">places you go.</span></h2>
+          <h2 className="sectionTitle left" data-parallax>Built around the <span className="gradientText">places you go.</span></h2>
           <p className="bodyText">
             Search for a place in Maps and Near shows the tasks waiting there.
           </p>
         </div>
         <div className="splitVisual">
-          <div className="mapsCard">
+          <div className="mapsCard" data-tilt>
             <div className="mapsPin">{"\uD83D\uDCCD"}</div>
             <div className="mapsInfo">
               <div className="mapsName">Walgreens</div>
@@ -710,7 +757,7 @@ function CalmTechnology() {
   return (
     <section className="section sectionSurface">
       <div className="reveal sectionShell narrow center">
-        <h2 className="sectionTitle"><span className="gradientText">Technology</span> that stays out of the way.</h2>
+        <h2 className="sectionTitle" data-parallax><span className="gradientText">Technology</span> that stays out of the way.</h2>
         <p className="bodyText center">
           Near is designed to be quiet. Only high-value moments.
         </p>
@@ -748,7 +795,7 @@ function PrivacySection() {
           </div>
           <div className="privacyRing" />
         </div>
-        <h2 className="sectionTitle">Your task intelligence. <span className="gradientText">Kept private.</span></h2>
+        <h2 className="sectionTitle" data-parallax>Your task intelligence. <span className="gradientText">Kept private.</span></h2>
         <p className="bodyText center">
           Near uses location only to show tasks when they matter.<br />
           Your data stays on your device.
@@ -796,7 +843,7 @@ function PhilosophySection() {
           <div className="philSparkle philSparkle2" />
           <div className="philSparkle philSparkle3" />
         </div>
-        <h2 className="sectionTitle">Your brain is for <span className="gradientText">ideas.</span></h2>
+        <h2 className="sectionTitle" data-parallax>Your brain is for <span className="gradientText">ideas.</span></h2>
         <p className="bodyText center">
           Not batteries. Not milk. Not remembering to return the package.
         </p>
@@ -814,7 +861,7 @@ function FAQSection() {
   return (
     <section className="section" id="faq">
       <div className="reveal sectionShell narrow">
-        <h2 className="sectionTitle center">Frequently asked <span className="gradientText">questions</span></h2>
+        <h2 className="sectionTitle center" data-parallax>Frequently asked <span className="gradientText">questions</span></h2>
         <div className="faqList">
           {faqItems.map((item) => (
             <details className="faqItem" key={item.q}>
@@ -869,22 +916,29 @@ function SiteStyles() {
 
       .reveal {
         opacity: 0;
-        transform: translateY(32px);
-        transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(32px) scale(0.97) rotateX(4deg);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .reveal.revealed {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1) rotateX(0deg);
       }
 
       /* ââ Gradient text ââ */
 
       .gradientText {
-        background: linear-gradient(135deg, #2F6DFF 0%, #7B5CFF 40%, #C74BF6 70%, #FF6B8A 100%);
+        background: linear-gradient(135deg, #2F6DFF 0%, #5B8DEF 20%, #7B5CFF 40%, #C74BF6 60%, #FF6B8A 80%, #FFB347 100%);
+        background-size: 200% 200%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        animation: gradientShift 6s ease-in-out infinite;
+      }
+
+      @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
       }
 
       /* ââ Nav ââ */
@@ -950,6 +1004,8 @@ function SiteStyles() {
         display: flex;
         align-items: center;
         overflow: hidden;
+        perspective: 1200px;
+        transform-style: preserve-3d;
       }
 
       .hero::after {
@@ -980,9 +1036,9 @@ function SiteStyles() {
       }
 
       @keyframes glowBreathe {
-        0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-        33% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) rotate(2deg); }
-        66% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.02) rotate(-1deg); }
+        0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        33% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) rotate(2deg); }
+        66% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.04) rotate(-1deg); }
       }
 
       .heroSplit {
@@ -1120,6 +1176,17 @@ function SiteStyles() {
 
       .section {
         padding: 8rem 1.5rem;
+        position: relative;
+      }
+
+      .section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(47, 109, 255, 0.2) 20%, rgba(199, 75, 246, 0.2) 50%, rgba(255, 107, 138, 0.2) 80%, transparent);
       }
 
       .sectionSurface {
@@ -1148,10 +1215,18 @@ function SiteStyles() {
         letter-spacing: -0.01em;
         color: #1D1D1F;
         text-wrap: balance;
+        transform: translateY(var(--parallax-offset, 0px));
+        transition: transform 0.1s linear;
       }
 
       .sectionTitle.center { text-align: center; }
       .sectionTitle.left { text-align: left; }
+
+      [data-tilt] {
+        transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg));
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform;
+      }
 
       .bodyText {
         margin: 1.2rem 0 0;
@@ -2054,7 +2129,7 @@ function SiteStyles() {
       }
 
       .exampleList li::before {
-        content: 'â¢';
+        content: '•';
         position: absolute;
         left: 0;
         color: var(--blue);
@@ -2899,6 +2974,13 @@ function SiteStyles() {
         .sectionTitle.left { text-align: center; }
         .splitCopy { text-align: center; }
         .caption { text-align: center; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { transition-duration: 0.01ms !important; }
+        [data-tilt] { transform: none !important; transition: none !important; }
+        .sectionTitle { transform: none !important; }
+        .gradientText { animation: none !important; }
       }
 
       @media (max-width: 720px) {
