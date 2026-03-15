@@ -318,10 +318,7 @@ function PhoneMockup({ phase }: { phase: number }) {
                 </svg>
               </div>
               <div className="phoneHeaderBtn phoneAvatarBtn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="8" r="4.5" fill="white"/>
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="white"/>
-                </svg>
+                <span className="avatarEmoji">{String.fromCodePoint(0x1F469, 0x1F3FB)}</span>
               </div>
             </div>
           </div>
@@ -3701,8 +3698,17 @@ function SiteStyles() {
 
 
       .phoneAvatarBtn {
-        background: linear-gradient(135deg, #8B7EC8, #6B5CA5) !important;
-        border: none !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.65) !important;
+        overflow: hidden;
+      }
+      .avatarEmoji {
+        font-size: 18px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2px;
       }
 
       /* Game plan card */
