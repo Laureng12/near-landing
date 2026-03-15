@@ -243,24 +243,77 @@ export default function FeaturesPage() {
 
 
         {/* ─── Works everywhere ─── */}
-        <section className="reveal ftSection">
-          <div className="ftBlock ftBlockCenter">
+        <section className="reveal ftSection ftSectionEverywhere">
+          <div className="ftDividerTop" />
+          <div className="ftEverywhereContent">
+            <div className="ftFeatureEyebrow" style={{textAlign:'center'}}>MULTI-PLATFORM</div>
             <h2 className="ftBlockTitle">Works everywhere you do</h2>
             <p className="ftBlockLead">
               Near lives on your wrist, in your car, and anywhere Siri can hear you.
             </p>
-            <div className="ftPlatformStrip">
-              {[
-                { name: "iPhone", color: "#2F6DFF" },
-                { name: "Apple Watch", color: "#34C759" },
-                { name: "CarPlay", color: "#FF6B8A" },
-                { name: "Siri", color: "#C74BF6" },
-              ].map((p, i) => (
-                <div key={i} className="ftPlatformChip" style={{borderColor: `${p.color}30`}}>
-                  <span className="ftPlatformChipName">{p.name}</span>
-                  <div className="ftChipGlow" style={{background: p.color}} />
+
+            {/* Device showcase */}
+            <div className="ftDeviceShowcase">
+              {/* iPhone */}
+              <div className="ftShowcaseDevice ftShowcasePhone" data-tilt-ft>
+                <div className="ftShowcaseDeviceGlow ftShowcaseGlowPhone" />
+                <div className="ftShowcasePhoneBody">
+                  <div className="ftShowcaseNotch" />
+                  <div className="ftShowcaseScreen">
+                    <div className="ftShowcaseScreenLine ftShowcaseScreenLine1" />
+                    <div className="ftShowcaseScreenLine ftShowcaseScreenLine2" />
+                    <div className="ftShowcaseScreenLine ftShowcaseScreenLine3" />
+                    <div className="ftShowcaseScreenDot" />
+                  </div>
                 </div>
-              ))}
+                <span className="ftShowcaseLabel">iPhone</span>
+              </div>
+
+              {/* Apple Watch */}
+              <div className="ftShowcaseDevice ftShowcaseWatch" data-tilt-ft>
+                <div className="ftShowcaseDeviceGlow ftShowcaseGlowWatch" />
+                <div className="ftShowcaseWatchBody">
+                  <div className="ftShowcaseWatchCrown" />
+                  <div className="ftShowcaseWatchScreen">
+                    <div className="ftShowcaseScreenDot ftShowcaseWatchDot" />
+                    <div className="ftShowcaseScreenLine ftShowcaseWatchLine" />
+                  </div>
+                </div>
+                <span className="ftShowcaseLabel">Apple Watch</span>
+              </div>
+
+              {/* CarPlay */}
+              <div className="ftShowcaseDevice ftShowcaseCar" data-tilt-ft>
+                <div className="ftShowcaseDeviceGlow ftShowcaseGlowCar" />
+                <div className="ftShowcaseCarBody">
+                  <div className="ftShowcaseCarScreen">
+                    <div className="ftShowcaseCarMap" />
+                    <div className="ftShowcaseCarNotif">
+                      <div className="ftShowcaseCarNotifDot" />
+                      <div className="ftShowcaseCarNotifLines">
+                        <div className="ftShowcaseScreenLine ftShowcaseCarLine1" />
+                        <div className="ftShowcaseScreenLine ftShowcaseCarLine2" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <span className="ftShowcaseLabel">CarPlay</span>
+              </div>
+
+              {/* Siri */}
+              <div className="ftShowcaseDevice ftShowcaseSiri" data-tilt-ft>
+                <div className="ftShowcaseDeviceGlow ftShowcaseGlowSiri" />
+                <div className="ftShowcaseSiriBody">
+                  <div className="ftShowcaseSiriWave">
+                    <div className="ftSiriBar ftSiriBar1" />
+                    <div className="ftSiriBar ftSiriBar2" />
+                    <div className="ftSiriBar ftSiriBar3" />
+                    <div className="ftSiriBar ftSiriBar4" />
+                    <div className="ftSiriBar ftSiriBar5" />
+                  </div>
+                </div>
+                <span className="ftShowcaseLabel">Siri</span>
+              </div>
             </div>
           </div>
         </section>
@@ -954,6 +1007,329 @@ export default function FeaturesPage() {
           50% { transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg)) translateZ(10px) translateY(-6px); }
         }
 
+        /* ─── Works Everywhere Device Showcase ─── */
+        .ftSectionEverywhere {
+          padding: 140px 24px;
+          background: linear-gradient(180deg, #F8FAFF 0%, #FFFFFF 50%, #F5F0FF 100%);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ftEverywhereContent {
+          max-width: 960px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+
+        .ftDeviceShowcase {
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          gap: 48px;
+          margin-top: 56px;
+          perspective: 1200px;
+        }
+
+        .ftShowcaseDevice {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          position: relative;
+          transform-style: preserve-3d;
+          transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+          transition: transform 0.15s ease-out;
+        }
+
+        .ftShowcaseDeviceGlow {
+          position: absolute;
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          filter: blur(40px);
+          pointer-events: none;
+          z-index: -1;
+          animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        .ftShowcaseGlowPhone { background: radial-gradient(circle, rgba(47,109,255,0.2) 0%, transparent 70%); top: 20%; }
+        .ftShowcaseGlowWatch { background: radial-gradient(circle, rgba(52,199,89,0.2) 0%, transparent 70%); top: 20%; }
+        .ftShowcaseGlowCar { background: radial-gradient(circle, rgba(255,107,138,0.2) 0%, transparent 70%); top: 20%; }
+        .ftShowcaseGlowSiri { background: radial-gradient(circle, rgba(199,75,246,0.25) 0%, transparent 70%); top: 10%; }
+
+        .ftShowcaseLabel {
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--text-secondary);
+          letter-spacing: 0.02em;
+        }
+
+        /* iPhone */
+        .ftShowcasePhoneBody {
+          width: 100px;
+          height: 180px;
+          border-radius: 20px;
+          background: linear-gradient(160deg, #2A2A2E 0%, #1A1A1E 40%, #000 100%);
+          border: 2px solid rgba(255,255,255,0.1);
+          padding: 8px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-shadow:
+            0 0 0 1px rgba(255,255,255,0.05),
+            0 8px 24px rgba(0,0,0,0.15),
+            0 24px 48px rgba(47,109,255,0.1);
+          animation: deviceFloat 8s ease-in-out infinite;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ftShowcasePhoneBody::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 40%;
+          border-radius: 18px 18px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .ftShowcaseNotch {
+          width: 36px;
+          height: 5px;
+          border-radius: 3px;
+          background: rgba(255,255,255,0.08);
+          margin-bottom: 8px;
+          flex-shrink: 0;
+        }
+
+        .ftShowcaseScreen {
+          flex: 1;
+          width: 100%;
+          border-radius: 10px;
+          background: linear-gradient(180deg, rgba(47,109,255,0.15) 0%, rgba(123,92,255,0.08) 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          padding: 12px 8px;
+        }
+
+        .ftShowcaseScreenLine {
+          height: 3px;
+          border-radius: 2px;
+          background: rgba(255,255,255,0.15);
+        }
+
+        .ftShowcaseScreenLine1 { width: 70%; }
+        .ftShowcaseScreenLine2 { width: 50%; }
+        .ftShowcaseScreenLine3 { width: 60%; }
+
+        .ftShowcaseScreenDot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #2F6DFF, #7B5CFF);
+          margin-top: 4px;
+          box-shadow: 0 0 8px rgba(47,109,255,0.5);
+        }
+
+        /* Apple Watch */
+        .ftShowcaseWatchBody {
+          width: 76px;
+          height: 92px;
+          border-radius: 20px;
+          background: linear-gradient(160deg, #2A2A2E 0%, #1A1A1E 40%, #000 100%);
+          border: 2px solid rgba(255,255,255,0.1);
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          box-shadow:
+            0 0 0 1px rgba(255,255,255,0.05),
+            0 8px 24px rgba(0,0,0,0.15),
+            0 24px 48px rgba(52,199,89,0.1);
+          animation: deviceFloat 9s ease-in-out infinite;
+          overflow: hidden;
+        }
+
+        .ftShowcaseWatchBody::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 40%;
+          border-radius: 18px 18px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .ftShowcaseWatchCrown {
+          position: absolute;
+          right: -5px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 4px;
+          height: 16px;
+          border-radius: 2px;
+          background: rgba(255,255,255,0.12);
+        }
+
+        .ftShowcaseWatchScreen {
+          width: 100%;
+          height: 100%;
+          border-radius: 14px;
+          background: linear-gradient(180deg, rgba(52,199,89,0.15) 0%, rgba(0,212,170,0.08) 100%);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          padding: 8px;
+        }
+
+        .ftShowcaseWatchDot {
+          width: 10px;
+          height: 10px;
+          background: linear-gradient(135deg, #34C759, #00D4AA);
+          box-shadow: 0 0 10px rgba(52,199,89,0.5);
+        }
+
+        .ftShowcaseWatchLine {
+          width: 60%;
+          height: 3px;
+        }
+
+        /* CarPlay */
+        .ftShowcaseCarBody {
+          width: 160px;
+          height: 100px;
+          border-radius: 14px;
+          background: linear-gradient(160deg, #2A2A2E 0%, #1A1A1E 40%, #000 100%);
+          border: 2px solid rgba(255,255,255,0.1);
+          padding: 6px;
+          box-shadow:
+            0 0 0 1px rgba(255,255,255,0.05),
+            0 8px 24px rgba(0,0,0,0.15),
+            0 24px 48px rgba(255,107,138,0.1);
+          animation: deviceFloat 10s ease-in-out infinite;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ftShowcaseCarBody::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 40%;
+          border-radius: 12px 12px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .ftShowcaseCarScreen {
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+          background: linear-gradient(135deg, rgba(255,107,138,0.1) 0%, rgba(47,109,255,0.08) 100%);
+          display: flex;
+          overflow: hidden;
+        }
+
+        .ftShowcaseCarMap {
+          flex: 1;
+          background:
+            linear-gradient(0deg, transparent 49%, rgba(255,255,255,0.06) 49%, rgba(255,255,255,0.06) 51%, transparent 51%),
+            linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.06) 49%, rgba(255,255,255,0.06) 51%, transparent 51%);
+          background-size: 20px 20px;
+        }
+
+        .ftShowcaseCarNotif {
+          width: 56px;
+          background: rgba(47,109,255,0.12);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          padding: 8px 4px;
+          border-left: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ftShowcaseCarNotifDot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #FF6B8A, #FF9F0A);
+          box-shadow: 0 0 8px rgba(255,107,138,0.5);
+        }
+
+        .ftShowcaseCarNotifLines {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          width: 100%;
+          align-items: center;
+        }
+
+        .ftShowcaseCarLine1 { width: 65%; }
+        .ftShowcaseCarLine2 { width: 45%; }
+
+        /* Siri */
+        .ftShowcaseSiriBody {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          background: linear-gradient(160deg, rgba(199,75,246,0.1) 0%, rgba(47,109,255,0.08) 100%);
+          border: 2px solid rgba(199,75,246,0.15);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow:
+            0 0 0 1px rgba(199,75,246,0.05),
+            0 8px 24px rgba(199,75,246,0.1),
+            0 24px 48px rgba(0,0,0,0.06);
+          animation: deviceFloat 7s ease-in-out infinite;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ftShowcaseSiriBody::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 45%;
+          border-radius: 50%;
+          background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .ftShowcaseSiriWave {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          height: 32px;
+        }
+
+        .ftSiriBar {
+          width: 4px;
+          border-radius: 2px;
+          background: linear-gradient(180deg, #C74BF6, #7B5CFF);
+        }
+
+        .ftSiriBar1 { height: 12px; animation: siriPulse 1.5s ease-in-out infinite 0s; }
+        .ftSiriBar2 { height: 20px; animation: siriPulse 1.5s ease-in-out infinite 0.15s; }
+        .ftSiriBar3 { height: 28px; animation: siriPulse 1.5s ease-in-out infinite 0.3s; }
+        .ftSiriBar4 { height: 20px; animation: siriPulse 1.5s ease-in-out infinite 0.45s; }
+        .ftSiriBar5 { height: 12px; animation: siriPulse 1.5s ease-in-out infinite 0.6s; }
+
+        @keyframes siriPulse {
+          0%, 100% { transform: scaleY(1); opacity: 0.7; }
+          50% { transform: scaleY(1.4); opacity: 1; }
+        }
+
         /* ─── Sections ─── */
         .ftPage { max-width: 100%; overflow-x: hidden; }
         .ftSection { padding: 80px 24px; position: relative; overflow: hidden; }
@@ -1108,11 +1484,14 @@ export default function FeaturesPage() {
 
         /* ─── Reduced motion support ─── */
         @media (prefers-reduced-motion: reduce) {
-          .ftMiniDevice, .ftHouseholdCard, .ftIconOrb {
+          .ftMiniDevice, .ftHouseholdCard, .ftIconOrb, .ftShowcasePhoneBody, .ftShowcaseWatchBody, .ftShowcaseCarBody, .ftShowcaseSiriBody {
             animation: none !important;
             transform: none !important;
           }
-          .ft3DGlow, .ftIconOrbGlow {
+          .ft3DGlow, .ftIconOrbGlow, .ftShowcaseDeviceGlow {
+            animation: none !important;
+          }
+          .ftSiriBar {
             animation: none !important;
           }
         }
@@ -1137,7 +1516,19 @@ export default function FeaturesPage() {
           }
         }
 
+        @media (max-width: 900px) {
+          .ftDeviceShowcase { gap: 32px; flex-wrap: wrap; }
+          .ftShowcaseCarBody { width: 140px; height: 88px; }
+        }
+
         @media (max-width: 600px) {
+          .ftDeviceShowcase { gap: 24px; }
+          .ftShowcasePhoneBody { width: 80px; height: 144px; border-radius: 16px; }
+          .ftShowcaseWatchBody { width: 60px; height: 72px; border-radius: 16px; }
+          .ftShowcaseCarBody { width: 120px; height: 76px; border-radius: 10px; }
+          .ftShowcaseSiriBody { width: 70px; height: 70px; }
+          .ftShowcaseLabel { font-size: 11px; }
+          .ftSectionEverywhere { padding: 80px 16px; }
           .ftNav { padding: 0 16px; height: 52px; }
           :global(.ftNavLinkHideMobile) { display: none; }
           .ftNavLogoImg { height: 30px; }
