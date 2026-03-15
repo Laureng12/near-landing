@@ -52,138 +52,155 @@ export default function FeaturesPage() {
         </section>
 
 
-        {/* ─── Feature Cards ─── */}
-        <section className="reveal ftFeatures" id="features">
-          <div className="ftFeaturesShell">
-
-            {/* Hero row — 2 large editorial cards */}
-            <div className="ftHeroRow">
-
-              {/* Hero Card 1: Shows up when it matters */}
-              <div className="ftHeroCard">
-                <div className="ftHeroCardGlow ftHeroCardGlow1" />
-                <div className="ftHeroCardContent">
-                  <div className="ftHeroCardVisual">
-                    <div className="ftMiniDevice">
-                      <div className="ftMiniStatusBar">
-                        <span className="ftMiniTime">9:41</span>
-                        <div className="ftMiniBattery" />
-                      </div>
-                      <div className="ftMiniNotif">
-                        <div className="ftMiniNotifDot" />
-                        <div className="ftMiniNotifBody">
-                          <span className="ftMiniNotifLabel">Near</span>
-                          <span className="ftMiniNotifTitle">Arriving at Trader Joe&apos;s</span>
-                          <span className="ftMiniNotifSub">3 items on your list</span>
-                        </div>
-                      </div>
-                      <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Oat milk</span></div>
-                      <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Lemons</span></div>
-                      <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Sparkling water</span></div>
+        {/* ─── Feature 1: Shows up when it matters ─── */}
+        <section className="reveal ftFeatureSection ftFeatureSection1">
+          <div className="ftDividerTop" />
+          <div className="ftFeatureSectionContent">
+            <div className="ftFeatureEyebrow">LOCATION-AWARE</div>
+            <div className="ftFeatureLayout ftFeatureLayout1">
+              <div className="ftFeatureVisual">
+                <div className="ftMiniDevice">
+                  <div className="ftMiniStatusBar">
+                    <span className="ftMiniTime">9:41</span>
+                    <div className="ftMiniBattery" />
+                  </div>
+                  <div className="ftMiniNotif">
+                    <div className="ftMiniNotifDot" />
+                    <div className="ftMiniNotifBody">
+                      <span className="ftMiniNotifLabel">Near</span>
+                      <span className="ftMiniNotifTitle">Arriving at Trader Joe&apos;s</span>
+                      <span className="ftMiniNotifSub">3 items on your list</span>
                     </div>
                   </div>
-                  <div className="ftHeroCardText">
-                    <h3 className="ftHeroCardTitle">Shows up when it matters</h3>
-                    <p className="ftHeroCardDesc">Your list appears when you arrive, so you don&apos;t have to remember it first.</p>
-                  </div>
+                  <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Oat milk</span></div>
+                  <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Lemons</span></div>
+                  <div className="ftMiniListItem"><span className="ftMiniCheck" /><span>Sparkling water</span></div>
                 </div>
               </div>
+              <div className="ftFeatureText">
+                <h2 className="ftFeatureTitle">Shows up when it matters</h2>
+                <p className="ftFeatureDesc">Your list appears when you arrive, so you don&apos;t have to remember it first.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Hero Card 2: Keeps the household aligned */}
-              <div className="ftHeroCard">
-                <div className="ftHeroCardGlow ftHeroCardGlow2" />
-                <div className="ftHeroCardContent">
-                  <div className="ftHeroCardVisual">
-                    <div className="ftHouseholdVisual">
-                      <div className="ftHHRoute">
-                        <div className="ftHHPin ftHHPinStore">
-                          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                            <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#ftPinGrad1)" />
-                            <circle cx="10" cy="9" r="2.5" fill="white" />
-                            <defs><linearGradient id="ftPinGrad1" x1="3" y1="2" x2="17" y2="18"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
-                          </svg>
-                          <span>Target</span>
-                        </div>
-                        <div className="ftHHDottedLine" />
-                        <div className="ftHHAvatarGroup">
-                          <div className="ftHHAvatar ftHHAvatarClose">
-                            <span>L</span>
-                            <div className="ftHHProximity">0.3 mi</div>
-                          </div>
-                          <div className="ftHHAvatar ftHHAvatarFar">
-                            <span>B</span>
-                            <div className="ftHHProximity">4.2 mi</div>
-                          </div>
-                        </div>
+
+        {/* ─── Feature 2: Keeps the household aligned ─── */}
+        <section className="reveal ftFeatureSection ftFeatureSection2">
+          <div className="ftDividerTop" />
+          <div className="ftFeatureSectionContent">
+            <div className="ftFeatureEyebrow">HOUSEHOLD SHARING</div>
+            <div className="ftFeatureLayout ftFeatureLayout2">
+              <div className="ftFeatureText">
+                <h2 className="ftFeatureTitle">Keeps the household aligned</h2>
+                <p className="ftFeatureDesc">Whoever&apos;s closest gets the reminder, so things get done without the back-and-forth.</p>
+              </div>
+              <div className="ftFeatureVisual">
+                <div className="ftHouseholdVisual">
+                  <div className="ftHHRoute">
+                    <div className="ftHHPin ftHHPinStore">
+                      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#ftPinGrad1)" />
+                        <circle cx="10" cy="9" r="2.5" fill="white" />
+                        <defs><linearGradient id="ftPinGrad1" x1="3" y1="2" x2="17" y2="18"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
+                      </svg>
+                      <span>Target</span>
+                    </div>
+                    <div className="ftHHDottedLine" />
+                    <div className="ftHHAvatarGroup">
+                      <div className="ftHHAvatar ftHHAvatarClose">
+                        <span>L</span>
+                        <div className="ftHHProximity">0.3 mi</div>
                       </div>
-                      <div className="ftHHNudge">
-                        <div className="ftHHNudgeDot" />
-                        <span>Lauren is closer — sending the list</span>
+                      <div className="ftHHAvatar ftHHAvatarFar">
+                        <span>B</span>
+                        <div className="ftHHProximity">4.2 mi</div>
                       </div>
                     </div>
                   </div>
-                  <div className="ftHeroCardText">
-                    <h3 className="ftHeroCardTitle">Keeps the household aligned</h3>
-                    <p className="ftHeroCardDesc">Whoever&apos;s closest gets the reminder, so things get done without the back-and-forth.</p>
+                  <div className="ftHHNudge">
+                    <div className="ftHHNudgeDot" />
+                    <span>Lauren is closer — sending the list</span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Support row — 4 smaller cards */}
-            <div className="ftSupportRow">
-              <div className="ftSupportCard">
-                <div className="ftSupportIcon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
-                    <circle cx="12" cy="9" r="2" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
-                    <path d="M2 12h3M19 12h3" stroke="url(#scGrad1)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-                    <defs><linearGradient id="scGrad1" x1="2" y1="2" x2="22" y2="22"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
-                  </svg>
-                </div>
-                <h4 className="ftSupportTitle">Catches you on the way</h4>
-                <p className="ftSupportDesc">Passing a store with unfinished tasks? Near gives you the nudge while it still matters.</p>
-              </div>
 
-              <div className="ftSupportCard">
-                <div className="ftSupportIcon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="6" width="18" height="13" rx="3" stroke="url(#scGrad2)" strokeWidth="1.5" fill="none" />
-                    <path d="M8 12h8M8 15h5" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M12 6V3" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
-                    <defs><linearGradient id="scGrad2" x1="3" y1="3" x2="21" y2="19"><stop stopColor="#7B5CFF" /><stop offset="1" stopColor="#C74BF6" /></linearGradient></defs>
-                  </svg>
-                </div>
-                <h4 className="ftSupportTitle">Knows what belongs where</h4>
-                <p className="ftSupportDesc">Type &ldquo;milk&rdquo; or &ldquo;return package&rdquo; and Near connects it to the place it belongs.</p>
-              </div>
-
-              <div className="ftSupportCard">
-                <div className="ftSupportIcon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="9" stroke="url(#scGrad3)" strokeWidth="1.5" fill="none" />
-                    <path d="M12 7v5l3 3" stroke="url(#scGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <defs><linearGradient id="scGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#FF6B8A" /><stop offset="1" stopColor="#FF9F0A" /></linearGradient></defs>
-                  </svg>
-                </div>
-                <h4 className="ftSupportTitle">Warns you before the window closes</h4>
-                <p className="ftSupportDesc">Get a heads-up before a store closes, not after you&apos;ve missed it.</p>
-              </div>
-
-              <div className="ftSupportCard">
-                <div className="ftSupportIcon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 12a8 8 0 0116 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    <path d="M7 12a5 5 0 0110 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6" />
-                    <circle cx="12" cy="17" r="2" stroke="url(#scGrad4)" strokeWidth="1.5" fill="none" />
-                    <defs><linearGradient id="scGrad4" x1="4" y1="4" x2="20" y2="20"><stop stopColor="#34C759" /><stop offset="1" stopColor="#00D4AA" /></linearGradient></defs>
-                  </svg>
-                </div>
-                <h4 className="ftSupportTitle">Learns your routines</h4>
-                <p className="ftSupportDesc">Near notices recurring needs and helps surface them before you run out.</p>
-              </div>
+        {/* ─── Feature 3: Catches you on the way ─── */}
+        <section className="reveal ftFeatureSection ftFeatureSection3">
+          <div className="ftDividerTop" />
+          <div className="ftFeatureSectionContent">
+            <div className="ftFeatureEyebrow">PROXIMITY</div>
+            <div className="ftFeatureLargeIcon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
+                <circle cx="12" cy="9" r="2" stroke="url(#scGrad1)" strokeWidth="1.5" fill="none" />
+                <path d="M2 12h3M19 12h3" stroke="url(#scGrad1)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+                <defs><linearGradient id="scGrad1" x1="2" y1="2" x2="22" y2="22"><stop stopColor="#2F6DFF" /><stop offset="1" stopColor="#7B5CFF" /></linearGradient></defs>
+              </svg>
             </div>
+            <h2 className="ftFeatureTitle ftFeatureTitleCenter">Catches you on the way</h2>
+            <p className="ftFeatureDesc ftFeatureDescCenter">Passing a store with unfinished tasks? Near gives you the nudge while it still matters.</p>
+          </div>
+        </section>
 
+
+        {/* ─── Feature 4: Knows what belongs where ─── */}
+        <section className="reveal ftFeatureSection ftFeatureSection4">
+          <div className="ftDividerTop" />
+          <div className="ftFeatureSectionContent">
+            <div className="ftFeatureEyebrow">SMART SORTING</div>
+            <div className="ftFeatureLargeIcon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="6" width="18" height="13" rx="3" stroke="url(#scGrad2)" strokeWidth="1.5" fill="none" />
+                <path d="M8 12h8M8 15h5" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M12 6V3" stroke="url(#scGrad2)" strokeWidth="1.5" strokeLinecap="round" />
+                <defs><linearGradient id="scGrad2" x1="3" y1="3" x2="21" y2="19"><stop stopColor="#7B5CFF" /><stop offset="1" stopColor="#C74BF6" /></linearGradient></defs>
+              </svg>
+            </div>
+            <h2 className="ftFeatureTitle ftFeatureTitleCenter">Knows what belongs where</h2>
+            <p className="ftFeatureDesc ftFeatureDescCenter">Type &ldquo;milk&rdquo; or &ldquo;return package&rdquo; and Near connects it to the place it belongs.</p>
+          </div>
+        </section>
+
+
+        {/* ─── Feature 5: Warns you before the window closes ─── */}
+        <section className="reveal ftFeatureSection ftFeatureSection5">
+          <div className="ftDividerTop" />
+          <div className="ftFeatureSectionContent">
+            <div className="ftFeatureEyebrow">TIMING</div>
+            <div className="ftFeatureLargeIcon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="url(#scGrad3)" strokeWidth="1.5" fill="none" />
+                <path d="M12 7v5l3 3" stroke="url(#scGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <defs><linearGradient id="scGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#FF6B8A" /><stop offset="1" stopColor="#FF9F0A" /></linearGradient></defs>
+              </svg>
+            </div>
+            <h2 className="ftFeatureTitle ftFeatureTitleCenter">Warns you before the window closes</h2>
+            <p className="ftFeatureDesc ftFeatureDescCenter">Get a heads-up before a store closes, not after you&apos;ve missed it.</p>
+          </div>
+        </section>
+
+
+        {/* ─── Feature 6: Learns your routines ─── */}
+        <section className="reveal ftFeatureSection ftFeatureSection6">
+          <div className="ftDividerTop" />
+          <div className="ftFeatureSectionContent">
+            <div className="ftFeatureEyebrow">INTELLIGENCE</div>
+            <div className="ftFeatureLargeIcon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12a8 8 0 0116 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                <path d="M7 12a5 5 0 0110 0" stroke="url(#scGrad4)" strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.6" />
+                <circle cx="12" cy="17" r="2" stroke="url(#scGrad4)" strokeWidth="1.5" fill="none" />
+                <defs><linearGradient id="scGrad4" x1="4" y1="4" x2="20" y2="20"><stop stopColor="#34C759" /><stop offset="1" stopColor="#00D4AA" /></linearGradient></defs>
+              </svg>
+            </div>
+            <h2 className="ftFeatureTitle ftFeatureTitleCenter">Learns your routines</h2>
+            <p className="ftFeatureDesc ftFeatureDescCenter">Near notices recurring needs and helps surface them before you run out.</p>
           </div>
         </section>
 
@@ -352,91 +369,125 @@ export default function FeaturesPage() {
           background-clip: text;
         }
 
-        /* ─── Features Section ─── */
-        .ftFeatures {
-          padding: 80px 24px 100px;
+        /* ─── Individual Feature Sections ─── */
+        .ftFeatureSection {
+          padding: 100px 24px;
+          position: relative;
+          overflow: hidden;
         }
-        .ftFeaturesShell {
+
+        .ftFeatureSection1 {
+          background: #FAFBFF;
+        }
+
+        .ftFeatureSection2 {
+          background: linear-gradient(180deg, rgba(47,109,255,0.02) 0%, rgba(123,92,255,0.02) 100%);
+        }
+
+        .ftFeatureSection3 {
+          background: #FFFFFF;
+        }
+
+        .ftFeatureSection4 {
+          background: linear-gradient(180deg, rgba(199,75,246,0.02) 0%, rgba(255,107,138,0.02) 100%);
+        }
+
+        .ftFeatureSection5 {
+          background: #FFFFFF;
+        }
+
+        .ftFeatureSection6 {
+          background: linear-gradient(180deg, rgba(52,199,89,0.02) 0%, rgba(0,212,170,0.02) 100%);
+        }
+
+        .ftDividerTop {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 80px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #2F6DFF, #7B5CFF, #C74BF6, #FF6B8A, transparent);
+        }
+
+        .ftFeatureSectionContent {
           max-width: 1080px;
           margin: 0 auto;
-        }
-
-        /* ─── Hero Row (2 large cards) ─── */
-        .ftHeroRow {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 28px;
-          margin-bottom: 28px;
-        }
-
-        .ftHeroCard {
-          position: relative;
-          border-radius: 24px;
-          background: linear-gradient(160deg, #FAFBFF 0%, #F5F5F7 100%);
-          border: 1px solid rgba(0, 0, 0, 0.06);
-          overflow: hidden;
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-        }
-
-        .ftHeroCard:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 24px 64px rgba(47, 109, 255, 0.1), 0 8px 24px rgba(0, 0, 0, 0.04);
-        }
-
-        .ftHeroCardGlow {
-          position: absolute;
-          width: 300px;
-          height: 300px;
-          border-radius: 50%;
-          filter: blur(80px);
-          pointer-events: none;
-          opacity: 0.4;
-        }
-        .ftHeroCardGlow1 {
-          top: -80px; right: -60px;
-          background: radial-gradient(circle, rgba(47, 109, 255, 0.3) 0%, transparent 70%);
-        }
-        .ftHeroCardGlow2 {
-          top: -80px; right: -60px;
-          background: radial-gradient(circle, rgba(255, 107, 138, 0.25) 0%, transparent 70%);
-        }
-
-        .ftHeroCardContent {
           position: relative;
           z-index: 1;
-          padding: 40px 36px;
-          display: flex;
-          flex-direction: column;
-          gap: 32px;
-          min-height: 420px;
         }
 
-        .ftHeroCardVisual {
-          flex: 1;
+        .ftFeatureEyebrow {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          margin-bottom: 24px;
+          background: linear-gradient(135deg, #2F6DFF 0%, #C74BF6 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        /* Side-by-side layouts for sections 1 & 2 */
+        .ftFeatureLayout {
+          display: flex;
+          align-items: center;
+          gap: 64px;
+        }
+
+        .ftFeatureLayout1 {
+          flex-direction: row;
+        }
+
+        .ftFeatureLayout2 {
+          flex-direction: row-reverse;
+        }
+
+        .ftFeatureVisual {
+          flex: 0 0 45%;
           display: flex;
           align-items: center;
           justify-content: center;
         }
 
-        .ftHeroCardText {
-          flex-shrink: 0;
+        .ftFeatureText {
+          flex: 0 0 55%;
         }
 
-        .ftHeroCardTitle {
+        .ftFeatureTitle {
           font-family: var(--font-display);
-          font-size: 28px;
+          font-size: 32px;
           font-weight: 700;
           letter-spacing: -0.8px;
           line-height: 1.15;
           color: var(--foreground);
-          margin: 0 0 10px;
+          margin: 0 0 16px;
         }
 
-        .ftHeroCardDesc {
-          font-size: 17px;
-          line-height: 1.55;
+        .ftFeatureTitleCenter {
+          text-align: center;
+          margin-top: 32px;
+        }
+
+        .ftFeatureDesc {
+          font-size: 18px;
+          line-height: 1.6;
           color: var(--text-secondary);
           margin: 0;
+        }
+
+        .ftFeatureDescCenter {
+          text-align: center;
+          max-width: 640px;
+          margin: 0 auto;
+        }
+
+        /* Large icon for sections 3-6 */
+        .ftFeatureLargeIcon {
+          display: flex;
+          justify-content: center;
+          margin: 0 auto 40px;
         }
 
         /* ─── Mini Device Visual (Hero Card 1) ─── */
@@ -651,55 +702,6 @@ export default function FeaturesPage() {
           box-shadow: 0 0 6px rgba(52, 199, 89, 0.4);
         }
 
-        /* ─── Support Row (4 smaller cards) ─── */
-        .ftSupportRow {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 20px;
-        }
-
-        .ftSupportCard {
-          padding: 32px 24px;
-          border-radius: 20px;
-          background: linear-gradient(160deg, #FAFBFF 0%, #F5F5F7 100%);
-          border: 1px solid rgba(0, 0, 0, 0.05);
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-        }
-
-        .ftSupportCard:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.06);
-        }
-
-        .ftSupportIcon {
-          width: 48px;
-          height: 48px;
-          border-radius: 14px;
-          background: rgba(255, 255, 255, 0.8);
-          border: 1px solid rgba(0, 0, 0, 0.04);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 20px;
-          backdrop-filter: blur(8px);
-        }
-
-        .ftSupportTitle {
-          font-family: var(--font-display);
-          font-size: 18px;
-          font-weight: 700;
-          letter-spacing: -0.3px;
-          line-height: 1.2;
-          color: var(--foreground);
-          margin: 0 0 8px;
-        }
-
-        .ftSupportDesc {
-          font-size: 14px;
-          line-height: 1.55;
-          color: var(--text-secondary);
-          margin: 0;
-        }
 
         /* ─── Sections ─── */
         .ftPage { max-width: 100%; overflow-x: hidden; }
@@ -855,15 +857,21 @@ export default function FeaturesPage() {
 
         /* ─── Responsive ─── */
         @media (max-width: 900px) {
-          .ftHeroRow {
-            grid-template-columns: 1fr;
+          .ftFeatureLayout {
+            flex-direction: column !important;
+            gap: 48px;
           }
-          .ftSupportRow {
-            grid-template-columns: 1fr 1fr;
+
+          .ftFeatureLayout2 {
+            flex-direction: column !important;
           }
-          .ftHeroCardContent {
-            min-height: auto;
-            padding: 32px 28px;
+
+          .ftFeatureVisual {
+            flex: 1 1 auto;
+          }
+
+          .ftFeatureText {
+            flex: 1 1 auto;
           }
         }
 
@@ -876,25 +884,23 @@ export default function FeaturesPage() {
           .ftHero { padding: 80px 16px 60px; }
           .ftHeroTitle { font-size: 36px; letter-spacing: -1px; }
           .ftHeroSub { font-size: 16px; }
-          .ftFeatures { padding: 48px 16px 64px; }
-          .ftHeroRow {
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+          .ftFeatureSection { padding: 64px 16px; }
+          .ftFeatureLayout {
+            flex-direction: column !important;
+            gap: 40px;
           }
-          .ftSupportRow {
-            grid-template-columns: 1fr;
-            gap: 16px;
+          .ftFeatureLayout2 {
+            flex-direction: column !important;
           }
-          .ftHeroCardContent {
-            padding: 28px 20px;
-            gap: 24px;
-            min-height: auto;
+          .ftFeatureVisual {
+            flex: 1 1 auto;
           }
-          .ftHeroCardTitle { font-size: 24px; }
-          .ftHeroCardDesc { font-size: 15px; }
-          .ftSupportCard { padding: 24px 20px; }
-          .ftSupportTitle { font-size: 16px; }
+          .ftFeatureText {
+            flex: 1 1 auto;
+          }
+          .ftFeatureTitle { font-size: 24px; }
+          .ftFeatureDesc { font-size: 16px; }
+          .ftFeatureEyebrow { margin-bottom: 16px; }
           .ftSection { padding: 60px 16px; }
           .ftBlockTitle { font-size: 28px; }
           .ftBlockLead { font-size: 16px; }
