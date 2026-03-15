@@ -388,30 +388,45 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         </div>
 
-        {/* Phase 2: Places screen — matches real Near app */}
-        <div className={`phoneContent ${phase === 2 ? "phoneContentVisible" : ""}`}>
-          <div className="phoneHomeTitle phonePlacesTitle">Your spots.</div>
-          <div className="phoneHomeSub">4 tasks across 3 places</div>
+        {/* Phase 2: Places screen with mini map */}
+        <div className={`phoneContent phoneContentPlaces ${phase === 2 ? "phoneContentVisible" : ""}`}>
+          {/* Mini map */}
+          <div className="phoneMiniMap">
+            <div className="miniMapGrid">
+              <div className="miniMapRoad miniMapRoadH miniMapRoad1" />
+              <div className="miniMapRoad miniMapRoadH miniMapRoad2" />
+              <div className="miniMapRoad miniMapRoadV miniMapRoad3" />
+              <div className="miniMapRoad miniMapRoadV miniMapRoad4" />
+              <div className="miniMapRoad miniMapRoadH miniMapRoad5" />
+            </div>
+            {/* Location pins */}
+            <div className="miniMapPin miniMapPinHome">
+              <div className="miniMapPinDot" />
+              <div className="miniMapPinRing" />
+              <span className="miniMapPinLabel">Home</span>
+            </div>
+            <div className="miniMapPin miniMapPinTarget">
+              <div className="miniMapPinDot miniMapPinDotRed" />
+              <span className="miniMapPinLabel">Target</span>
+            </div>
+            <div className="miniMapPin miniMapPinHT">
+              <div className="miniMapPinDot miniMapPinDotGreen" />
+              <span className="miniMapPinLabel">Harris Teeter</span>
+            </div>
+            {/* You-are-here pulse */}
+            <div className="miniMapYou">
+              <div className="miniMapYouDot" />
+              <div className="miniMapYouPulse" />
+            </div>
+          </div>
+
           <div className="phoneFilterChips">
             <span className="phoneChip phoneChipActive">All</span>
             <span className="phoneChip">Grocery</span>
             <span className="phoneChip">Home</span>
             <span className="phoneChip">Other</span>
           </div>
-          <div className="phoneGamePlan">
-            <div className="phoneGamePlanIcon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <div className="phoneGamePlanInfo">
-              <span className="phoneGamePlanTitle">Game plan</span>
-              <span className="phoneGamePlanSub">Optimal route for 3 stops</span>
-            </div>
-            <span className="phoneGamePlanArrow">{String.fromCodePoint(0x2192)}</span>
-          </div>
-          <div className="phoneSectionLabel">MY PLACES</div>
-          <div className="phoneGroupList">
+          <div className="phoneGroupList phoneGroupListTight">
             <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
               <div className="phoneGroupHeader">
                 <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
@@ -2653,8 +2668,8 @@ function SiteStyles() {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 14px 18px 0;
-        height: 44px;
+        padding: 10px 14px 0;
+        height: 36px;
         position: relative;
         z-index: 12;
         transition: filter 0.4s ease;
@@ -2665,7 +2680,7 @@ function SiteStyles() {
       }
 
       .phoneTime {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         color: #1D1D1F;
         letter-spacing: 0.01em;
@@ -2935,14 +2950,14 @@ function SiteStyles() {
 
       /* Home screen (phase 0) */
       .phoneGreeting {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
-        color: rgba(30, 50, 80, 0.6);
-        margin-bottom: 2px;
+        color: rgba(30, 50, 80, 0.55);
+        margin-bottom: 1px;
       }
 
       .phoneHomeTitle {
-        font-size: 26px;
+        font-size: 22px;
         font-weight: 700;
         color: #1a2a4a;
         letter-spacing: -0.02em;
@@ -2954,19 +2969,19 @@ function SiteStyles() {
       }
 
       .phoneHomeSub {
-        font-size: 12px;
-        color: rgba(30, 50, 80, 0.5);
-        margin-top: 2px;
+        font-size: 11px;
+        color: rgba(30, 50, 80, 0.45);
+        margin-top: 1px;
         font-weight: 500;
       }
 
       .phoneQuickAdd {
         display: flex;
         align-items: center;
-        gap: 6px;
-        margin-top: 10px;
-        padding: 8px 12px;
-        border-radius: 20px;
+        gap: 5px;
+        margin-top: 6px;
+        padding: 6px 10px;
+        border-radius: 16px;
         background: rgba(255, 255, 255, 0.45);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -2975,21 +2990,21 @@ function SiteStyles() {
       }
 
       .phoneQuickAddPlus {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
         background: var(--blue);
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
         line-height: 1;
       }
 
       .phoneQuickAddText {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         color: #1a2a4a;
       }
@@ -3002,37 +3017,37 @@ function SiteStyles() {
         clear: both;
         display: flex;
         align-items: center;
-        gap: 8px;
-        margin-top: 8px;
-        padding: 10px 14px;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.35);
+        gap: 6px;
+        margin-top: 6px;
+        padding: 7px 10px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.35);
       }
 
       .phoneRadarText {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
-        color: rgba(30, 50, 80, 0.7);
+        color: rgba(30, 50, 80, 0.6);
       }
 
       .phoneSectionLabel {
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 700;
-        color: rgba(30, 50, 80, 0.45);
+        color: rgba(30, 50, 80, 0.4);
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        margin: 12px 0 6px;
+        margin: 8px 0 5px;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
       }
 
       .phoneSectionDot {
-        width: 5px;
-        height: 5px;
+        width: 4px;
+        height: 4px;
         border-radius: 50%;
         background: var(--blue);
       }
@@ -3040,36 +3055,36 @@ function SiteStyles() {
       .phoneGroupList {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
       }
 
       .phoneGroupItem {
         background: white;
-        border-radius: 14px;
-        padding: 10px 12px;
+        border-radius: 12px;
+        padding: 8px 10px;
         border: 1px solid rgba(0, 0, 0, 0.06);
       }
 
       .phoneGroupItemGlass {
-        background: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.45);
       }
 
       .phoneGroupHeader {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
       }
 
       .phoneGroupEmoji {
-        font-size: 16px;
+        font-size: 14px;
         flex-shrink: 0;
-        width: 30px;
-        height: 30px;
-        background: rgba(255,255,255,0.4);
-        border-radius: 8px;
+        width: 26px;
+        height: 26px;
+        background: rgba(255,255,255,0.35);
+        border-radius: 7px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -3084,48 +3099,49 @@ function SiteStyles() {
       }
 
       .phoneGroupName {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         color: #1a2a4a;
+        line-height: 1.2;
       }
 
       .phoneGroupDist {
-        font-size: 10px;
-        color: rgba(30, 50, 80, 0.45);
+        font-size: 9px;
+        color: rgba(30, 50, 80, 0.4);
         font-weight: 500;
       }
 
       .phoneGroupTasks {
-        margin-top: 6px;
+        margin-top: 4px;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 3px;
       }
 
       .phoneGroupTaskRow {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding-left: 38px;
+        gap: 6px;
+        padding-left: 32px;
       }
 
       .phoneTaskCheck {
-        width: 16px;
-        height: 16px;
-        border-radius: 4px;
-        border: 1.5px solid rgba(30, 50, 80, 0.2);
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        border: 1.5px solid rgba(30, 50, 80, 0.15);
         flex-shrink: 0;
       }
 
       .phoneGroupTaskText {
-        font-size: 12px;
+        font-size: 11px;
         color: #1a2a4a;
         flex: 1;
       }
 
       .phoneTaskDot {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
         flex-shrink: 0;
       }
@@ -3154,20 +3170,20 @@ function SiteStyles() {
       /* Filter chips (places screen) */
       .phoneFilterChips {
         display: flex;
-        gap: 6px;
-        margin: 8px 0 8px;
+        gap: 4px;
+        margin: 4px 0 6px;
       }
 
       .phoneChip {
-        padding: 5px 12px;
+        padding: 4px 10px;
         border-radius: 999px;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 600;
-        background: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.3);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        color: rgba(30, 50, 80, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: rgba(30, 50, 80, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.35);
       }
 
       .phoneChipActive {
@@ -3176,110 +3192,56 @@ function SiteStyles() {
         border-color: var(--blue);
       }
 
-      /* Game plan card */
-      .phoneGamePlan {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.35);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        margin-bottom: 10px;
-      }
-
-      .phoneGamePlanIcon {
-        width: 32px;
-        height: 32px;
-        border-radius: 10px;
-        background: rgba(47, 109, 255, 0.12);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-      }
-
-      .phoneGamePlanInfo {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .phoneGamePlanTitle {
-        font-size: 13px;
-        font-weight: 600;
-        color: #1a2a4a;
-      }
-
-      .phoneGamePlanSub {
-        font-size: 10px;
-        color: rgba(30, 50, 80, 0.45);
-      }
-
-      .phoneGamePlanArrow {
-        font-size: 16px;
-        color: rgba(30, 50, 80, 0.3);
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
       /* Place cards */
       .phonePlaceCard {
-        padding: 10px 12px 8px;
+        padding: 7px 10px 6px;
       }
 
       .phonePlaceNameRow {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
       }
 
       .phonePlaceTag {
-        font-size: 8px;
+        font-size: 7px;
         font-weight: 700;
         color: var(--blue);
         background: rgba(47, 109, 255, 0.12);
-        padding: 2px 6px;
-        border-radius: 4px;
+        padding: 1px 5px;
+        border-radius: 3px;
         letter-spacing: 0.04em;
       }
 
       .phonePlaceAddr {
-        font-size: 9px;
-        color: rgba(30, 50, 80, 0.4);
+        font-size: 8px;
+        color: rgba(30, 50, 80, 0.35);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
       .phonePlaceDist {
-        font-size: 11px;
-        color: rgba(30, 50, 80, 0.45);
+        font-size: 10px;
+        color: rgba(30, 50, 80, 0.4);
         font-weight: 500;
         flex-shrink: 0;
       }
 
       .phonePlaceTags {
         display: flex;
-        gap: 5px;
-        margin-top: 6px;
-        padding-left: 38px;
+        gap: 4px;
+        margin-top: 4px;
+        padding-left: 32px;
         flex-wrap: wrap;
       }
 
       .phonePlaceTaskTag {
-        font-size: 10px;
-        padding: 3px 8px;
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.45);
-        color: rgba(30, 50, 80, 0.7);
+        font-size: 9px;
+        padding: 2px 7px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.4);
+        color: rgba(30, 50, 80, 0.65);
         font-weight: 500;
       }
 
@@ -3288,14 +3250,148 @@ function SiteStyles() {
         color: var(--blue) !important;
       }
 
+      /* Mini map */
+      .phoneMiniMap {
+        position: relative;
+        width: 100%;
+        height: 100px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #e8ece8 0%, #dde5dc 30%, #e2e8de 60%, #d8e0d4 100%);
+        overflow: hidden;
+        margin-bottom: 8px;
+        border: 1px solid rgba(255,255,255,0.5);
+      }
+
+      .miniMapGrid {
+        position: absolute;
+        inset: 0;
+      }
+
+      .miniMapRoad {
+        position: absolute;
+        background: rgba(255,255,255,0.7);
+      }
+
+      .miniMapRoadH {
+        height: 2px;
+        left: 0;
+        right: 0;
+      }
+
+      .miniMapRoadV {
+        width: 2px;
+        top: 0;
+        bottom: 0;
+      }
+
+      .miniMapRoad1 { top: 30%; }
+      .miniMapRoad2 { top: 65%; }
+      .miniMapRoad3 { left: 25%; }
+      .miniMapRoad4 { left: 60%; }
+      .miniMapRoad5 { top: 48%; left: 20%; right: 30%; height: 1.5px; opacity: 0.5; }
+
+      .miniMapPin {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .miniMapPinDot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--blue);
+        border: 2px solid white;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      }
+
+      .miniMapPinDotRed {
+        background: #e74c3c;
+      }
+
+      .miniMapPinDotGreen {
+        background: #27ae60;
+      }
+
+      .miniMapPinRing {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(47, 109, 255, 0.3);
+        animation: pinPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pinPulse {
+        0%, 100% { transform: scale(1); opacity: 0.6; }
+        50% { transform: scale(1.5); opacity: 0; }
+      }
+
+      .miniMapPinLabel {
+        font-size: 7px;
+        font-weight: 600;
+        color: rgba(30, 50, 80, 0.7);
+        white-space: nowrap;
+        text-shadow: 0 0 3px rgba(255,255,255,0.8);
+      }
+
+      .miniMapPinHome { top: 25%; left: 22%; }
+      .miniMapPinTarget { top: 55%; left: 55%; }
+      .miniMapPinHT { top: 20%; right: 18%; }
+
+      .miniMapYou {
+        position: absolute;
+        top: 32%;
+        left: 28%;
+      }
+
+      .miniMapYouDot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #007AFF;
+        border: 2px solid white;
+        box-shadow: 0 0 6px rgba(0, 122, 255, 0.5);
+        position: relative;
+        z-index: 2;
+      }
+
+      .miniMapYouPulse {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(0, 122, 255, 0.15);
+        animation: youPulse 2s ease-out infinite;
+      }
+
+      @keyframes youPulse {
+        0% { transform: scale(1); opacity: 0.4; }
+        100% { transform: scale(3); opacity: 0; }
+      }
+
+      .phoneContentPlaces {
+        padding: 0 10px 10px;
+      }
+
+      .phoneGroupListTight {
+        gap: 4px;
+      }
+
       /* Phase content layers */
       .phoneContent {
         position: absolute;
-        top: 78px;
+        top: 54px;
         left: 0;
         right: 0;
-        bottom: 56px;
-        padding: 0 16px 16px;
+        bottom: 50px;
+        padding: 0 12px 8px;
         overflow: hidden;
         opacity: 0;
         transform: translateY(6px);
@@ -3429,12 +3525,12 @@ function SiteStyles() {
       }
 
       .phoneBadge {
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 600;
-        color: rgba(30, 50, 80, 0.6);
-        background: rgba(255, 255, 255, 0.5);
-        width: 22px;
-        height: 22px;
+        color: rgba(30, 50, 80, 0.55);
+        background: rgba(255, 255, 255, 0.45);
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -3510,14 +3606,14 @@ function SiteStyles() {
       /* Tab bar */
       .phoneTabBar {
         position: absolute;
-        bottom: 14px;
+        bottom: 12px;
         left: 0;
         right: 0;
         display: flex;
         justify-content: space-around;
         align-items: flex-start;
-        padding: 6px 4px 4px;
-        background: rgba(180, 210, 200, 0.65);
+        padding: 5px 4px 2px;
+        background: rgba(180, 210, 200, 0.6);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         border-top: 0.5px solid rgba(255, 255, 255, 0.3);
@@ -3529,10 +3625,10 @@ function SiteStyles() {
         flex-direction: column;
         align-items: center;
         gap: 1px;
-        font-size: 9px;
+        font-size: 8px;
         font-weight: 500;
-        color: rgba(30, 50, 80, 0.45);
-        padding: 2px 0;
+        color: rgba(30, 50, 80, 0.4);
+        padding: 1px 0;
         transition: color 0.4s ease;
       }
 
@@ -3550,23 +3646,23 @@ function SiteStyles() {
       }
 
       .phoneTabAdd {
-        margin-top: -8px;
+        margin-top: -6px;
       }
 
       .phoneAddBtn {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
         background: var(--blue);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 8px rgba(47, 109, 255, 0.3);
+        box-shadow: 0 2px 6px rgba(47, 109, 255, 0.3);
       }
 
       .phoneAddBtn svg {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
       }
 
       /* Home indicator */
@@ -3647,6 +3743,8 @@ function SiteStyles() {
         .lockAuroraLayer { animation: none !important; }
         .lockStar { animation: none !important; opacity: 0.5 !important; }
         .lockMottoDisplay { animation: none !important; }
+        .miniMapPinRing { animation: none !important; }
+        .miniMapYouPulse { animation: none !important; }
       }
 
       @media (max-width: 720px) {
