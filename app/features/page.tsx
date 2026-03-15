@@ -371,7 +371,7 @@ export default function FeaturesPage() {
 
         /* ─── Individual Feature Sections ─── */
         .ftFeatureSection {
-          padding: 100px 24px;
+          padding: 140px 24px;
           position: relative;
           overflow: hidden;
         }
@@ -405,9 +405,10 @@ export default function FeaturesPage() {
           top: 0;
           left: 50%;
           transform: translateX(-50%);
-          width: 80px;
+          width: 160px;
           height: 1px;
           background: linear-gradient(90deg, transparent, #2F6DFF, #7B5CFF, #C74BF6, #FF6B8A, transparent);
+          opacity: 0.6;
         }
 
         .ftFeatureSectionContent {
@@ -417,12 +418,20 @@ export default function FeaturesPage() {
           z-index: 1;
         }
 
+        .ftFeatureSection3 .ftFeatureSectionContent,
+        .ftFeatureSection4 .ftFeatureSectionContent,
+        .ftFeatureSection5 .ftFeatureSectionContent,
+        .ftFeatureSection6 .ftFeatureSectionContent {
+          text-align: center;
+          max-width: 720px;
+        }
+
         .ftFeatureEyebrow {
           font-size: 12px;
           font-weight: 700;
-          letter-spacing: 1.5px;
+          letter-spacing: 2px;
           text-transform: uppercase;
-          margin-bottom: 24px;
+          margin-bottom: 40px;
           background: linear-gradient(135deg, #2F6DFF 0%, #C74BF6 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -487,7 +496,7 @@ export default function FeaturesPage() {
         .ftFeatureLargeIcon {
           display: flex;
           justify-content: center;
-          margin: 0 auto 40px;
+          margin: 0 auto 48px;
         }
 
         /* ─── Mini Device Visual (Hero Card 1) ─── */
@@ -884,7 +893,7 @@ export default function FeaturesPage() {
           .ftHero { padding: 80px 16px 60px; }
           .ftHeroTitle { font-size: 36px; letter-spacing: -1px; }
           .ftHeroSub { font-size: 16px; }
-          .ftFeatureSection { padding: 64px 16px; }
+          .ftFeatureSection { padding: 80px 16px; }
           .ftFeatureLayout {
             flex-direction: column !important;
             gap: 40px;
