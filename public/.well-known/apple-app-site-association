@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["3VXKUD7X42.com.nearapp.ios"],
+        "paths": ["/join/*", "/invite/*"]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["3VXKUD7X42.com.nearapp.ios"]
+  },
+  "activitycontinuation": {
+    "apps": ["3VXKUD7X42.com.nearapp.ios"]
+  }
+}
