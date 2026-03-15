@@ -321,28 +321,57 @@ export default function FeaturesPage() {
 
         {/* ─── Private by design ─── */}
         <section className="reveal ftSection ftSectionPrivacy">
-          <div className="ftBlock ftBlockCenter">
-            <div className="ftPrivacyIcon">
-              <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-                <rect x="12" y="22" width="24" height="18" rx="4" fill="url(#ftLockGrad)" />
-                <path d="M18 22V16a6 6 0 0 1 12 0v6" stroke="url(#ftLockGrad)" strokeWidth="3" strokeLinecap="round" fill="none" />
-                <circle cx="24" cy="32" r="2.5" fill="white" />
-                <defs>
-                  <linearGradient id="ftLockGrad" x1="12" y1="16" x2="36" y2="40">
-                    <stop stopColor="#2F6DFF" />
-                    <stop offset="1" stopColor="#7B5CFF" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
+          <div className="ftDividerTop" />
+          <div className="ftPrivacyContent">
+            <div className="ftFeatureEyebrow" style={{textAlign:'center'}}>YOUR DATA, YOUR DEVICE</div>
             <h2 className="ftBlockTitle">Private by design</h2>
             <p className="ftBlockLead">
               Near processes everything on your device. No ads, no tracking, no data harvesting.
             </p>
-            <div className="ftPrivacyRow">
-              {["Offline-first", "On-device AI", "No ads ever", "Delete anytime"].map((label, i) => (
-                <div key={i} className={`ftPrivacyBadge ftPB${i}`}>
-                  <span>{label}</span>
+
+            {/* Shield visual */}
+            <div className="ftShieldStage" data-tilt-ft>
+              <div className="ftShieldGlow" />
+              <div className="ftShieldOrbitRing ftShieldOrbit1">
+                <div className="ftShieldOrbitDot ftShieldOrbitDot1" />
+              </div>
+              <div className="ftShieldOrbitRing ftShieldOrbit2">
+                <div className="ftShieldOrbitDot ftShieldOrbitDot2" />
+              </div>
+              <div className="ftShieldBody">
+                <svg width="56" height="64" viewBox="0 0 56 64" fill="none" className="ftShieldSvg">
+                  <path d="M28 2L4 14v18c0 16.5 10.2 27.3 24 30 13.8-2.7 24-13.5 24-30V14L28 2z" fill="url(#shieldFill)" stroke="url(#shieldStroke)" strokeWidth="2" />
+                  <path d="M20 32l6 6 10-12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                  <defs>
+                    <linearGradient id="shieldFill" x1="4" y1="2" x2="52" y2="62">
+                      <stop stopColor="rgba(47,109,255,0.15)" />
+                      <stop offset="1" stopColor="rgba(123,92,255,0.15)" />
+                    </linearGradient>
+                    <linearGradient id="shieldStroke" x1="4" y1="2" x2="52" y2="62">
+                      <stop stopColor="#2F6DFF" />
+                      <stop offset="1" stopColor="#7B5CFF" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+
+            {/* Privacy pillars */}
+            <div className="ftPrivacyPillars">
+              {[
+                { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", label: "Offline-first", desc: "Works without internet", color: "#2F6DFF" },
+                { icon: "M12 2a2 2 0 012 2v2a6 6 0 11-4 0V4a2 2 0 012-2zM4 18v-1a8 8 0 0116 0v1", label: "On-device AI", desc: "Processing stays local", color: "#7B5CFF" },
+                { icon: "M18.36 6.64A9 9 0 115.64 18.36M12 2v4M2 12h4", label: "No ads ever", desc: "Zero third-party tracking", color: "#FF6B8A" },
+                { icon: "M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14", label: "Delete anytime", desc: "Your data, your choice", color: "#34C759" },
+              ].map((item, i) => (
+                <div key={i} className="ftPrivacyPillar" data-tilt-ft>
+                  <div className="ftPillarIconWrap" style={{background: `linear-gradient(135deg, ${item.color}12, ${item.color}08)`}}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d={item.icon} stroke={item.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    </svg>
+                  </div>
+                  <span className="ftPillarLabel">{item.label}</span>
+                  <span className="ftPillarDesc">{item.desc}</span>
                 </div>
               ))}
             </div>
@@ -1374,35 +1403,188 @@ export default function FeaturesPage() {
         .ftPlatformChip:hover .ftChipGlow { opacity: 0.6; }
 
         /* ─── Privacy section ─── */
-        .ftPrivacyIcon {
-          width: 64px;
-          height: 64px;
-          border-radius: 18px;
-          background: linear-gradient(135deg, rgba(47,109,255,0.08) 0%, rgba(123,92,255,0.08) 100%);
+        .ftSectionPrivacy {
+          padding: 140px 24px;
+          background: linear-gradient(180deg, #F0F7FF 0%, #F5F0FF 50%, #FAFBFF 100%);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .ftPrivacyContent {
+          max-width: 800px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Shield 3D visual */
+        .ftShieldStage {
+          width: 180px;
+          height: 180px;
+          margin: 48px auto;
+          position: relative;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 0 auto 20px;
+          perspective: 600px;
+          transform-style: preserve-3d;
+          transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+          transition: transform 0.15s ease-out;
         }
-        .ftPrivacyRow {
-          display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
-          margin-top: 8px;
+
+        .ftShieldGlow {
+          position: absolute;
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(47,109,255,0.2) 0%, rgba(123,92,255,0.1) 40%, transparent 70%);
+          filter: blur(30px);
+          animation: glowPulse 6s ease-in-out infinite;
+          pointer-events: none;
         }
-        .ftPrivacyBadge {
-          display: flex; align-items: center; gap: 8px;
-          background: #fff; border-radius: 12px;
-          padding: 12px 20px; font-size: 14px; font-weight: 600; color: var(--foreground);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .ftShieldBody {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100px;
+          height: 100px;
+          border-radius: 28px;
+          background: linear-gradient(160deg, #FFFFFF 0%, #F8F9FF 50%, #F0F2FF 100%);
+          border: 1px solid rgba(255,255,255,0.8);
+          box-shadow:
+            0 0 0 1px rgba(47,109,255,0.08),
+            0 8px 24px rgba(47,109,255,0.1),
+            0 24px 48px rgba(0,0,0,0.06);
+          animation: shieldFloat 6s ease-in-out infinite;
         }
-        .ftPrivacyBadge:hover { transform: translateY(-2px); }
-        .ftPB0 { border: 1.5px solid rgba(47,109,255,0.15); }
-        .ftPB0:hover { box-shadow: 0 4px 20px rgba(47,109,255,0.12); }
-        .ftPB1 { border: 1.5px solid rgba(123,92,255,0.15); }
-        .ftPB1:hover { box-shadow: 0 4px 20px rgba(123,92,255,0.12); }
-        .ftPB2 { border: 1.5px solid rgba(255,107,138,0.15); }
-        .ftPB2:hover { box-shadow: 0 4px 20px rgba(255,107,138,0.12); }
-        .ftPB3 { border: 1.5px solid rgba(52,199,89,0.15); }
-        .ftPB3:hover { box-shadow: 0 4px 20px rgba(52,199,89,0.12); }
+
+        .ftShieldBody::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 50%;
+          border-radius: 28px 28px 0 0;
+          background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, transparent 100%);
+          pointer-events: none;
+        }
+
+        .ftShieldSvg {
+          position: relative;
+          z-index: 1;
+          filter: drop-shadow(0 2px 8px rgba(47,109,255,0.2));
+        }
+
+        @keyframes shieldFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+
+        /* Orbiting rings */
+        .ftShieldOrbitRing {
+          position: absolute;
+          border-radius: 50%;
+          border: 1px solid rgba(47,109,255,0.1);
+        }
+
+        .ftShieldOrbit1 {
+          width: 140px;
+          height: 140px;
+          animation: orbitSpin1 12s linear infinite;
+        }
+
+        .ftShieldOrbit2 {
+          width: 180px;
+          height: 180px;
+          animation: orbitSpin2 18s linear infinite;
+        }
+
+        .ftShieldOrbitDot {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+
+        .ftShieldOrbitDot1 {
+          top: -4px;
+          left: 50%;
+          margin-left: -4px;
+          background: linear-gradient(135deg, #2F6DFF, #7B5CFF);
+          box-shadow: 0 0 12px rgba(47,109,255,0.5);
+        }
+
+        .ftShieldOrbitDot2 {
+          bottom: -4px;
+          left: 50%;
+          margin-left: -4px;
+          background: linear-gradient(135deg, #7B5CFF, #C74BF6);
+          box-shadow: 0 0 12px rgba(123,92,255,0.5);
+        }
+
+        @keyframes orbitSpin1 {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitSpin2 {
+          0% { transform: rotate(180deg); }
+          100% { transform: rotate(540deg); }
+        }
+
+        /* Privacy pillars */
+        .ftPrivacyPillars {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+          margin-top: 16px;
+        }
+
+        .ftPrivacyPillar {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 10px;
+          padding: 28px 16px;
+          border-radius: 20px;
+          background: rgba(255,255,255,0.7);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(0,0,0,0.04);
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+          transform-style: preserve-3d;
+          transform: rotateY(var(--ry, 0deg)) rotateX(var(--rx, 0deg));
+        }
+
+        .ftPrivacyPillar:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 48px rgba(47,109,255,0.08);
+        }
+
+        .ftPillarIconWrap {
+          width: 52px;
+          height: 52px;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .ftPillarLabel {
+          font-size: 15px;
+          font-weight: 700;
+          color: var(--foreground);
+          letter-spacing: -0.2px;
+        }
+
+        .ftPillarDesc {
+          font-size: 13px;
+          line-height: 1.4;
+          color: var(--text-secondary);
+        }
 
         /* ─── CTA ─── */
         .ftCta {
@@ -1484,14 +1666,14 @@ export default function FeaturesPage() {
 
         /* ─── Reduced motion support ─── */
         @media (prefers-reduced-motion: reduce) {
-          .ftMiniDevice, .ftHouseholdCard, .ftIconOrb, .ftShowcasePhoneBody, .ftShowcaseWatchBody, .ftShowcaseCarBody, .ftShowcaseSiriBody {
+          .ftMiniDevice, .ftHouseholdCard, .ftIconOrb, .ftShowcasePhoneBody, .ftShowcaseWatchBody, .ftShowcaseCarBody, .ftShowcaseSiriBody, .ftShieldBody {
             animation: none !important;
             transform: none !important;
           }
-          .ft3DGlow, .ftIconOrbGlow, .ftShowcaseDeviceGlow {
+          .ft3DGlow, .ftIconOrbGlow, .ftShowcaseDeviceGlow, .ftShieldGlow {
             animation: none !important;
           }
-          .ftSiriBar {
+          .ftSiriBar, .ftShieldOrbitRing {
             animation: none !important;
           }
         }
@@ -1560,8 +1742,14 @@ export default function FeaturesPage() {
           .ftCtaTitle { font-size: 36px; }
           .ftPlatformStrip { gap: 8px; }
           .ftPlatformChip { padding: 8px 16px; font-size: 13px; }
-          .ftPrivacyRow { gap: 10px; }
-          .ftPrivacyBadge { padding: 10px 14px; font-size: 13px; }
+          .ftPrivacyPillars { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+          .ftPillarLabel { font-size: 13px; }
+          .ftPillarDesc { font-size: 12px; }
+          .ftShieldStage { width: 140px; height: 140px; margin: 36px auto; }
+          .ftShieldBody { width: 80px; height: 80px; }
+          .ftShieldOrbit1 { width: 110px; height: 110px; }
+          .ftShieldOrbit2 { width: 140px; height: 140px; }
+          .ftShieldSvg { width: 40px; height: 46px; }
           .ftIconOrb { width: 100px; height: 100px; border-radius: 24px; }
           .ftFooterInner { flex-direction: column; gap: 0.75rem; text-align: center; }
         }
