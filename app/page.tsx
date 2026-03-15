@@ -1334,6 +1334,7 @@ function SiteStyles() {
         line-height: 1.05;
         letter-spacing: -0.02em;
         color: #1D1D1F;
+        font-family: var(--font-display);
       }
 
       .heroSub {
@@ -1342,6 +1343,7 @@ function SiteStyles() {
         font-weight: 400;
         line-height: 1.2;
         color: #1D1D1F;
+        font-family: var(--font-display);
       }
 
       /* Phase-rotating subtext */
@@ -1456,6 +1458,7 @@ function SiteStyles() {
         line-height: 1.1;
         letter-spacing: -0.01em;
         color: #1D1D1F;
+        font-family: var(--font-display);
         text-wrap: balance;
         transform: translateY(var(--parallax-offset, 0px));
         transition: transform 0.1s linear;
@@ -2786,7 +2789,7 @@ function SiteStyles() {
         overflow: hidden;
         position: relative;
         transform: translateZ(6px);
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+        font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
         -webkit-font-smoothing: antialiased;
       }
 
