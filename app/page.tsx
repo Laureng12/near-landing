@@ -20,34 +20,30 @@ function use3DEffects() {
       })
     }
 
-    const tiltCards = (e: MouseEvent) => {
-      document.querySelectorAll('[data-tilt]').forEach((card) => {
-        const rect = card.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        const y = e.clientY - rect.top
-        const rotateX = ((y - rect.height / 2) / rect.height) * 8
-        const rotateY = ((x - rect.width / 2) / rect.width) * -8
-        ;(card as HTMLElement).style.setProperty('--mx', `${rotateY}deg`)
-        ;(card as HTMLElement).style.setProperty('--my', `${rotateX}deg`)
+    // Per-card tilt: only tilts the card you're hovering over
+    document.querySelectorAll('[data-tilt]').forEach((card) => {
+      const el = card as HTMLElement
+      el.addEventListener('mousemove', (e: Event) => {
+        const me = e as MouseEvent
+        const rect = el.getBoundingClientRect()
+        const x = me.clientX - rect.left
+        const y = me.clientY - rect.top
+        const rotateX = ((y - rect.height / 2) / rect.height) * 6
+        const rotateY = ((x - rect.width / 2) / rect.width) * -6
+        el.style.setProperty('--mx', `${rotateY}deg`)
+        el.style.setProperty('--my', `${rotateX}deg`)
       })
-    }
-
-    const resetTilt = () => {
-      document.querySelectorAll('[data-tilt]').forEach((card) => {
-        ;(card as HTMLElement).style.setProperty('--mx', '0deg')
-        ;(card as HTMLElement).style.setProperty('--my', '0deg')
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--mx', '0deg')
+        el.style.setProperty('--my', '0deg')
       })
-    }
+    })
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('mousemove', tiltCards)
-    window.addEventListener('mouseleave', resetTilt)
     handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('mousemove', tiltCards)
-      window.removeEventListener('mouseleave', resetTilt)
     }
   }, [])
 }
@@ -111,8 +107,19 @@ export default function Page() {
   useEffect(() => {
     const els = document.querySelectorAll('.reveal')
     const io = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("revealed"); io.unobserve(e.target) } }),
-      { threshold: 0.15 }
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("revealed")
+          // Stagger children with data-stagger attribute
+          const children = e.target.querySelectorAll('[data-stagger]')
+          children.forEach((child, i) => {
+            ;(child as HTMLElement).style.transitionDelay = `${i * 120}ms`
+            child.classList.add('staggered')
+          })
+          io.unobserve(e.target)
+        }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
     els.forEach(el => io.observe(el))
     return () => io.disconnect()
@@ -703,7 +710,7 @@ function AIDefinition() {
           Instead of checking lists or setting timers, tasks appear when you arrive at the places where they can actually be completed.
         </p>
         <div className="aiFeatureCards">
-          <div className="aiFeatureCard" data-tilt>
+          <div className="aiFeatureCard" data-tilt data-stagger>
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="url(#aiGrad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -713,7 +720,7 @@ function AIDefinition() {
             <div className="aiFeatureLabel">At the store</div>
             <div className="aiFeatureDesc">Groceries appear when you arrive at the grocery store</div>
           </div>
-          <div className="aiFeatureCard" data-tilt>
+          <div className="aiFeatureCard" data-tilt data-stagger>
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
@@ -724,7 +731,7 @@ function AIDefinition() {
             <div className="aiFeatureLabel">Passing by</div>
             <div className="aiFeatureDesc">Errand reminders surface when you pass a store</div>
           </div>
-          <div className="aiFeatureCard" data-tilt>
+          <div className="aiFeatureCard" data-tilt data-stagger>
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="url(#aiGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1014,10 +1021,10 @@ function CalmTechnology() {
           Near is designed to be quiet. Only high-value moments.
         </p>
         <div className="pillGrid">
-          <span className="pill">No feeds</span>
-          <span className="pill">No streaks</span>
-          <span className="pill">No productivity pressure</span>
-          <span className="pill">No noise</span>
+          <span className="pill" data-stagger>No feeds</span>
+          <span className="pill" data-stagger>No streaks</span>
+          <span className="pill" data-stagger>No productivity pressure</span>
+          <span className="pill" data-stagger>No noise</span>
         </div>
       </div>
     </section>
@@ -1062,9 +1069,9 @@ function PrivacySection() {
           Your data stays on your device.
         </p>
         <div className="pillGrid">
-          <span className="pill" data-tilt>No ads</span>
-          <span className="pill" data-tilt>No tracking</span>
-          <span className="pill" data-tilt>No profiling</span>
+          <span className="pill" data-stagger data-tilt>No ads</span>
+          <span className="pill" data-stagger data-tilt>No tracking</span>
+          <span className="pill" data-stagger data-tilt>No profiling</span>
         </div>
       </div>
     </section>
@@ -1220,6 +1227,18 @@ function SiteStyles() {
       .reveal.revealed {
         opacity: 1;
         transform: translateY(0) scale(1) rotateX(0deg);
+      }
+
+      /* Staggered children animation */
+      [data-stagger] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      [data-stagger].staggered {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       /* ââ Gradient text ââ */
@@ -1594,7 +1613,7 @@ function SiteStyles() {
 
       [data-tilt] {
         transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg));
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
         will-change: transform;
       }
 
