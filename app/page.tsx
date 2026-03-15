@@ -181,8 +181,8 @@ function TopNav() {
 
 /* âââ Hero (auto-cycling phases) âââ */
 
-const PHASE_NAMES = ["home", "costco", "places", "arrive-home"] as const
-const PHASE_DURATION = 3500 // ms per phase
+const PHASE_NAMES = ["home", "lock-notif", "places", "household"] as const
+const PHASE_DURATION = 3200 // ms per phase
 
 const phaseTexts = [
   "Near surfaces errands, groceries, and tasks when you arrive where they matter. Seize the day.",
@@ -246,18 +246,19 @@ function Hero() {
 /* --- Phone Mockup (auto-cycling phases) --- */
 
 /* Which tab is active per phase: 0=Home, 1=lock+notif, 2=Places, 3=lock+notif */
-const PHASE_ACTIVE_TAB = [0, -1, 1, -1] // 0=Home, -1=lock, 1=Places, -1=lock
+const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
 
 const notifData = [
-  null, // home screen — no notification
+  null, // home screen
   { title: "Near", body: "You\u2019re near Target \u2014 1 item on your list" },
-  null, // places screen — no notification
+  null, // places screen
   { title: "Near", body: "Don\u2019t forget: Stroller at Target, 1.2 mi away" },
+  null, // household screen
 ]
 
 function PhoneMockup({ phase }: { phase: number }) {
   const activeTab = PHASE_ACTIVE_TAB[phase]
-  const isLocked = phase === 1 || phase === 3
+  const isLocked = phase === 1
 
   return (
     <div className="phoneMockup">
@@ -303,41 +304,38 @@ function PhoneMockup({ phase }: { phase: number }) {
 
         {/* Phase 0: Home screen */}
         <div className={`phoneContent ${phase === 0 ? "phoneContentVisible" : ""}`}>
-          {/* Live Activity island */}
-          <div className="phoneLiveActivity">
-            <div className="liveActivityPulse" />
-            <Image
-              src="/near-icon-hero.png"
-              alt=""
-              width={18}
-              height={18}
-              className="liveActivityIcon"
-            />
-            <span className="liveActivityText">3 places nearby</span>
-            <div className="liveActivityDots">
-              <span className="liveActivityDot laDot1" />
-              <span className="liveActivityDot laDot2" />
-              <span className="liveActivityDot laDot3" />
+          <div className="phoneHomeHeader">
+            <div className="phoneHomeHeaderLeft">
+              <div className="phoneGreeting">Good morning, Reese</div>
+              <div className="phoneHomeTitle">Let\u2019s get things done.</div>
+              <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
+            </div>
+            <div className="phoneHomeHeaderRight">
+              <div className="phoneHeaderBtn phoneSearchBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <circle cx="11" cy="11" r="8" stroke="rgba(30,50,80,0.4)" strokeWidth="1.5"/>
+                  <path d="M21 21l-4.35-4.35" stroke="rgba(30,50,80,0.4)" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <div className="phoneHeaderBtn phoneAvatarBtn">
+                <span style={{fontSize: "14px"}}>\uD83D\uDC69</span>
+              </div>
             </div>
           </div>
-
-          <div className="phoneGreeting">Good morning, Lauren.</div>
-          <div className="phoneHomeTitle">Seize the day.</div>
-          <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
 
           <div className="phoneQuickAdd">
             <span className="phoneQuickAddPlus">+</span>
             <span className="phoneQuickAddText">Quick add</span>
-            <svg className="phoneQuickAddMic" width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <svg className="phoneQuickAddMic" width="12" height="12" viewBox="0 0 24 24" fill="none">
               <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" fill="#8E8E93"/>
               <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8" stroke="#8E8E93" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
 
           <div className="phoneRadarCard phoneRadarCardShimmer">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="3" stroke="var(--blue)" strokeWidth="1.5"/>
-              <path d="M7.5 7.5A6.5 6.5 0 0112 5.5a6.5 6.5 0 014.5 2M4.5 4.5A11 11 0 0112 2a11 11 0 017.5 2.5" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="3" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5"/>
+              <path d="M7.5 7.5A6.5 6.5 0 0112 5.5a6.5 6.5 0 014.5 2M4.5 4.5A11 11 0 0112 2a11 11 0 017.5 2.5" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
             </svg>
             <span className="phoneRadarText">Places within 2 miles: 3</span>
             <div className="radarShimmer" />
@@ -365,7 +363,7 @@ function PhoneMockup({ phase }: { phase: number }) {
                 </div>
                 <div className="phoneGroupTaskRow">
                   <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Va attorney</span>
+                  <span className="phoneGroupTaskText">Pick up dry cleaning</span>
                   <span className="phoneTaskDot phoneTaskDotRed" />
                 </div>
               </div>
@@ -407,45 +405,46 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         </div>
 
-        {/* Phase 2: Places screen with mini map */}
-        <div className={`phoneContent phoneContentPlaces ${phase === 2 ? "phoneContentVisible" : ""}`}>
-          {/* Mini map */}
-          <div className="phoneMiniMap">
-            <div className="miniMapGrid">
-              <div className="miniMapRoad miniMapRoadH miniMapRoad1" />
-              <div className="miniMapRoad miniMapRoadH miniMapRoad2" />
-              <div className="miniMapRoad miniMapRoadV miniMapRoad3" />
-              <div className="miniMapRoad miniMapRoadV miniMapRoad4" />
-              <div className="miniMapRoad miniMapRoadH miniMapRoad5" />
+        {/* Phase 2: Places screen */}
+        <div className={`phoneContent ${phase === 2 ? "phoneContentVisible" : ""}`}>
+          <div className="phoneHomeHeader">
+            <div className="phoneHomeHeaderLeft">
+              <div className="phoneHomeTitle phonePlacesTitle">Your spots.</div>
+              <div className="phoneHomeSub">4 tasks across 3 places</div>
             </div>
-            {/* Location pins */}
-            <div className="miniMapPin miniMapPinHome">
-              <div className="miniMapPinDot" />
-              <div className="miniMapPinRing" />
-              <span className="miniMapPinLabel">Home</span>
-            </div>
-            <div className="miniMapPin miniMapPinTarget">
-              <div className="miniMapPinDot miniMapPinDotRed" />
-              <span className="miniMapPinLabel">Target</span>
-            </div>
-            <div className="miniMapPin miniMapPinHT">
-              <div className="miniMapPinDot miniMapPinDotGreen" />
-              <span className="miniMapPinLabel">Harris Teeter</span>
-            </div>
-            {/* You-are-here pulse */}
-            <div className="miniMapYou">
-              <div className="miniMapYouDot" />
-              <div className="miniMapYouPulse" />
+            <div className="phoneHomeHeaderRight">
+              <div className="phoneHeaderBtn phoneMapBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M8 2v16M16 6v16" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
             </div>
           </div>
-
           <div className="phoneFilterChips">
             <span className="phoneChip phoneChipActive">All</span>
             <span className="phoneChip">Grocery</span>
             <span className="phoneChip">Home</span>
             <span className="phoneChip">Other</span>
           </div>
-          <div className="phoneGroupList phoneGroupListTight">
+          <div className="phoneGamePlan">
+            <div className="phoneGamePlanIcon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <div className="phoneGamePlanInfo">
+              <span className="phoneGamePlanTitle">Game plan</span>
+              <span className="phoneGamePlanSub">Optimal route for 3 stops</span>
+            </div>
+            <div className="phoneGamePlanArrow">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div className="phoneSectionLabel">MY PLACES</div>
+          <div className="phoneGroupList">
             <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
               <div className="phoneGroupHeader">
                 <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
@@ -461,7 +460,7 @@ function PhoneMockup({ phase }: { phase: number }) {
               </div>
               <div className="phonePlaceTags">
                 <span className="phonePlaceTaskTag">Gift for mom</span>
-                <span className="phonePlaceTaskTag">Va attorney</span>
+                <span className="phonePlaceTaskTag">Pick up dry cleaning</span>
               </div>
             </div>
             <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
@@ -493,6 +492,82 @@ function PhoneMockup({ phase }: { phase: number }) {
               </div>
             </div>
           </div>
+          <div className="phoneAddPlace">
+            <span className="phoneAddPlaceIcon">+</span>
+            <span className="phoneAddPlaceText">Add a place</span>
+          </div>
+        </div>
+
+        {/* Phase 3: Household screen */}
+        <div className={`phoneContent ${phase === 3 ? "phoneContentVisible" : ""}`}>
+          <div className="phoneHomeTitle">Household</div>
+          <div className="hhProfile">
+            <div className="hhAvatar">
+              <span style={{fontSize: "22px"}}>{String.fromCodePoint(0x1F469)}</span>
+            </div>
+            <div className="hhProfileName">Reese</div>
+            <div className="hhProfileSub">4 shared things waiting &middot; Closest helper: Reese</div>
+          </div>
+          <div className="phoneSectionLabel">WHO\u2019S NEAR SOMETHING</div>
+          <div className="phoneGroupItem phoneGroupItemGlass hhNearCard">
+            <div className="hhNearHeader">
+              <div className="hhNearAvatar">
+                <span style={{fontSize: "16px"}}>{String.fromCodePoint(0x1F469)}</span>
+              </div>
+              <div className="hhNearInfo">
+                <div className="hhNearTitle">You\u2019re near Home</div>
+                <div className="hhNearSub">2 things waiting &middot; 50 ft</div>
+              </div>
+            </div>
+            <div className="hhNearTasks">
+              <div className="phoneGroupTaskRow">
+                <span className="phoneTaskCheck" />
+                <span className="phoneGroupTaskText">Gift for mom</span>
+              </div>
+              <div className="phoneGroupTaskRow">
+                <span className="phoneTaskCheck" />
+                <span className="phoneGroupTaskText">Pick up dry cleaning</span>
+              </div>
+            </div>
+            <div className="hhViewTasks">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <span>View tasks</span>
+            </div>
+          </div>
+          <div className="phoneSectionLabel">PLACES WITH TASKS</div>
+          <div className="phoneGroupList">
+            <div className="phoneGroupItem phoneGroupItemGlass hhPlaceRow">
+              <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
+              <div className="hhPlaceInfo">
+                <span className="phoneGroupName">Home</span>
+                <span className="hhPlaceTasksText">Gift for mom &middot; Pick up dry cleaning</span>
+              </div>
+              <span className="phoneBadge">2</span>
+            </div>
+            <div className="phoneGroupItem phoneGroupItemGlass hhPlaceRow">
+              <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3AF)}</span>
+              <div className="hhPlaceInfo">
+                <span className="phoneGroupName">Target</span>
+                <span className="hhPlaceTasksText">Stroller</span>
+              </div>
+              <span className="phoneBadge">1</span>
+            </div>
+            <div className="phoneGroupItem phoneGroupItemGlass hhPlaceRow">
+              <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F6D2)}</span>
+              <div className="hhPlaceInfo">
+                <span className="phoneGroupName">Harris Teeter</span>
+                <span className="hhPlaceTasksText">Grocery</span>
+              </div>
+              <span className="phoneBadge">1</span>
+            </div>
+          </div>
+          <div className="phoneSectionLabel">ACTIVITY</div>
+          <div className="phoneGroupItem phoneGroupItemGlass hhActivityRow">
+            <span style={{fontSize: "14px"}}>{String.fromCodePoint(0x1F60A)}</span>
+            <div className="hhActivityText"><strong>Someone</strong> <span style={{color: "rgba(30,50,80,0.45)"}}>added</span> <strong>Gift for mom</strong></div>
+          </div>
         </div>
 
         {/* Lock screen overlay — mountain lake wallpaper */}
@@ -509,19 +584,31 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
           <div className="lockTimeDisplay">1:03</div>
           <div className="lockDateDisplay">Saturday, March 15</div>
-          {/* Near notification on lock screen */}
-          <div className="lockNearNotif">
-            <Image
-              src="/near-icon-hero.png"
-              alt=""
-              width={28}
-              height={28}
-              className="lockNotifIcon"
-            />
-            <div className="lockNotifContent">
-              <div className="lockNotifTitle">Near</div>
-              <div className="lockNotifBody">Target is 1.2 mi away &mdash; Stroller</div>
+          {/* Glowing proximity card on lock screen */}
+          <div className="lockProximityCard">
+            <div className="lockProximityGlow" />
+            <div className="lockProximityHeader">
+              <Image
+                src="/near-icon-hero.png"
+                alt=""
+                width={28}
+                height={28}
+                className="lockNotifIcon"
+              />
+              <div className="lockProximityTitleArea">
+                <div className="lockProximityLabel">NEAR</div>
+                <div className="lockProximityTitle">You’re near Target</div>
+                <div className="lockProximitySub">1.2 mi · 1 item on your list</div>
+              </div>
             </div>
+            <div className="lockTaskList">
+              <div className="lockTaskItem">
+                <div className="lockTaskCheck" />
+                <span className="lockTaskText">Stroller</span>
+                <span className="lockTaskPriority lockTaskPriorityOrange" />
+              </div>
+            </div>
+            <div className="lockProximityShimmer" />
           </div>
           <div className="lockFlashlightBtn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
@@ -2985,27 +3072,53 @@ function SiteStyles() {
         z-index: 2;
       }
 
-      /* Near notification on lock screen */
-      .lockNearNotif {
+      /* Glowing proximity card on lock screen */
+      .lockProximityCard {
         position: relative;
         z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 20px;
-        padding: 10px 14px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        width: 85%;
-        animation: lockNotifSlide 0.5s ease-out 0.5s both;
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 88%;
+        animation: lockNotifSlide 0.6s ease-out 0.4s both;
+        overflow: hidden;
+      }
+
+      .lockProximityGlow {
+        position: absolute;
+        inset: -2px;
+        border-radius: 20px;
+        background: conic-gradient(
+          from 0deg,
+          rgba(0, 200, 255, 0.4),
+          rgba(100, 220, 255, 0.15),
+          rgba(0, 180, 255, 0.35),
+          rgba(60, 200, 240, 0.1),
+          rgba(0, 200, 255, 0.4)
+        );
+        animation: glowSpin 4s linear infinite;
+        filter: blur(6px);
+        z-index: -1;
+      }
+
+      @keyframes glowSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
 
       @keyframes lockNotifSlide {
         0% { opacity: 0; transform: translateY(-10px); }
         100% { opacity: 1; transform: translateY(0); }
+      }
+
+      .lockProximityHeader {
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
 
       .lockNotifIcon {
@@ -3015,22 +3128,100 @@ function SiteStyles() {
         flex-shrink: 0;
       }
 
-      .lockNotifContent {
+      .lockProximityTitleArea {
         flex: 1;
         min-width: 0;
       }
 
-      .lockNotifTitle {
-        font-size: 11px;
-        font-weight: 600;
-        color: white;
-        line-height: 1.2;
+      .lockProximityLabel {
+        font-size: 8px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
-      .lockNotifBody {
+      .lockProximityTitle {
+        font-size: 13px;
+        font-weight: 700;
+        color: white;
+        line-height: 1.25;
+        text-shadow: 0 0 12px rgba(0, 200, 255, 0.5);
+      }
+
+      .lockProximitySub {
         font-size: 10px;
-        color: rgba(255, 255, 255, 0.75);
+        color: rgba(255, 255, 255, 0.6);
         margin-top: 1px;
+      }
+
+      .lockTaskList {
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .lockTaskItem {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
+        animation: lockTaskGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes lockTaskGlow {
+        0% { background: rgba(255, 255, 255, 0.06); box-shadow: 0 0 0 rgba(0, 200, 255, 0); }
+        100% { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 12px rgba(0, 200, 255, 0.15); }
+      }
+
+      .lockTaskCheck {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        flex-shrink: 0;
+      }
+
+      .lockTaskText {
+        flex: 1;
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .lockTaskPriority {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .lockTaskPriorityOrange {
+        background: #FF9500;
+        box-shadow: 0 0 6px rgba(255, 149, 0, 0.6);
+      }
+
+      .lockProximityShimmer {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+        animation: proximityShimmer 3s ease-in-out infinite;
+        border-radius: 18px;
+        pointer-events: none;
+      }
+
+      @keyframes proximityShimmer {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: 100%; }
       }
 
       /* Lock screen bottom buttons */
@@ -3067,75 +3258,6 @@ function SiteStyles() {
         border-radius: 2px;
         background: rgba(255, 255, 255, 0.4);
         z-index: 3;
-      }
-
-      /* Live Activity bar */
-      .phoneLiveActivity {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 10px;
-        border-radius: 20px;
-        background: rgba(20, 20, 30, 0.85);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        margin-bottom: 6px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .liveActivityPulse {
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        background: linear-gradient(90deg, transparent 0%, rgba(47, 109, 255, 0.15) 50%, transparent 100%);
-        animation: laPulse 3s ease-in-out infinite;
-      }
-
-      @keyframes laPulse {
-        0%, 100% { opacity: 0; transform: translateX(-100%); }
-        50% { opacity: 1; transform: translateX(100%); }
-      }
-
-      .liveActivityIcon {
-        width: 18px;
-        height: 18px;
-        border-radius: 5px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .liveActivityText {
-        font-size: 10px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.8);
-        flex: 1;
-        position: relative;
-        z-index: 1;
-      }
-
-      .liveActivityDots {
-        display: flex;
-        gap: 3px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .liveActivityDot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: var(--blue);
-        animation: laDotBounce 1.4s ease-in-out infinite;
-      }
-
-      .laDot1 { animation-delay: 0s; }
-      .laDot2 { animation-delay: 0.15s; }
-      .laDot3 { animation-delay: 0.3s; }
-
-      @keyframes laDotBounce {
-        0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-        40% { opacity: 1; transform: scale(1.3); }
       }
 
       /* Radar shimmer effect */
@@ -3469,132 +3591,6 @@ function SiteStyles() {
         color: var(--blue) !important;
       }
 
-      /* Mini map */
-      .phoneMiniMap {
-        position: relative;
-        width: 100%;
-        height: 100px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #e8ece8 0%, #dde5dc 30%, #e2e8de 60%, #d8e0d4 100%);
-        overflow: hidden;
-        margin-bottom: 8px;
-        border: 1px solid rgba(255,255,255,0.5);
-      }
-
-      .miniMapGrid {
-        position: absolute;
-        inset: 0;
-      }
-
-      .miniMapRoad {
-        position: absolute;
-        background: rgba(255,255,255,0.7);
-      }
-
-      .miniMapRoadH {
-        height: 2px;
-        left: 0;
-        right: 0;
-      }
-
-      .miniMapRoadV {
-        width: 2px;
-        top: 0;
-        bottom: 0;
-      }
-
-      .miniMapRoad1 { top: 30%; }
-      .miniMapRoad2 { top: 65%; }
-      .miniMapRoad3 { left: 25%; }
-      .miniMapRoad4 { left: 60%; }
-      .miniMapRoad5 { top: 48%; left: 20%; right: 30%; height: 1.5px; opacity: 0.5; }
-
-      .miniMapPin {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-      }
-
-      .miniMapPinDot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--blue);
-        border: 2px solid white;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-      }
-
-      .miniMapPinDotRed {
-        background: #e74c3c;
-      }
-
-      .miniMapPinDotGreen {
-        background: #27ae60;
-      }
-
-      .miniMapPinRing {
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        border: 1.5px solid rgba(47, 109, 255, 0.3);
-        animation: pinPulse 2s ease-in-out infinite;
-      }
-
-      @keyframes pinPulse {
-        0%, 100% { transform: scale(1); opacity: 0.6; }
-        50% { transform: scale(1.5); opacity: 0; }
-      }
-
-      .miniMapPinLabel {
-        font-size: 7px;
-        font-weight: 600;
-        color: rgba(30, 50, 80, 0.7);
-        white-space: nowrap;
-        text-shadow: 0 0 3px rgba(255,255,255,0.8);
-      }
-
-      .miniMapPinHome { top: 25%; left: 22%; }
-      .miniMapPinTarget { top: 55%; left: 55%; }
-      .miniMapPinHT { top: 20%; right: 18%; }
-
-      .miniMapYou {
-        position: absolute;
-        top: 32%;
-        left: 28%;
-      }
-
-      .miniMapYouDot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #007AFF;
-        border: 2px solid white;
-        box-shadow: 0 0 6px rgba(0, 122, 255, 0.5);
-        position: relative;
-        z-index: 2;
-      }
-
-      .miniMapYouPulse {
-        position: absolute;
-        top: -6px;
-        left: -6px;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: rgba(0, 122, 255, 0.15);
-        animation: youPulse 2s ease-out infinite;
-      }
-
-      @keyframes youPulse {
-        0% { transform: scale(1); opacity: 0.4; }
-        100% { transform: scale(3); opacity: 0; }
-      }
-
       .phoneContentPlaces {
         padding: 0 10px 10px;
       }
@@ -3603,15 +3599,272 @@ function SiteStyles() {
         gap: 4px;
       }
 
+      /* Home header with greeting + buttons */
+      .phoneHomeHeader {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .phoneHomeHeaderLeft {
+        flex: 1;
+        min-width: 0;
+      }
+      .phoneGreeting {
+        font-size: 11px;
+        color: rgba(30, 50, 80, 0.45);
+        font-weight: 500;
+        margin-bottom: 1px;
+      }
+      .phoneHomeTitle {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a2a4a;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+      .phoneHomeSub {
+        font-size: 10px;
+        color: rgba(30, 50, 80, 0.4);
+        font-weight: 500;
+        margin-top: 2px;
+      }
+      .phoneHomeHeaderRight {
+        display: flex;
+        gap: 6px;
+        margin-top: 2px;
+      }
+      .phoneHeaderBtn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: rgba(30, 50, 80, 0.55);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      }
+
+      /* Game plan card */
+      .phoneGamePlan {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 12px;
+        padding: 10px 10px;
+        margin-bottom: 8px;
+      }
+      .phoneGamePlanIcon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #5B86E5, #36D1DC);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
+        color: white;
+        box-shadow: 0 2px 6px rgba(91,134,229,0.3);
+      }
+      .phoneGamePlanInfo {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        min-width: 0;
+      }
+      .phoneGamePlanTitle {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a2a4a;
+      }
+      .phoneGamePlanSub {
+        font-size: 10px;
+        color: rgba(30, 50, 80, 0.4);
+        font-weight: 500;
+      }
+      .phoneGamePlanArrow {
+        font-size: 14px;
+        color: rgba(30, 50, 80, 0.25);
+        flex-shrink: 0;
+      }
+
+      /* Add a place button */
+      .phoneAddPlace {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 8px 0;
+        margin-top: 6px;
+        border-radius: 10px;
+        border: 1.5px dashed rgba(30, 50, 80, 0.15);
+        background: rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+      }
+      .phoneAddPlaceIcon {
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(30, 50, 80, 0.35);
+      }
+      .phoneAddPlaceText {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(30, 50, 80, 0.35);
+      }
+
+      /* Household screen */
+      .hhProfile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .hhAvatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.35);
+        flex-shrink: 0;
+      }
+      .hhProfileName {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1a2a4a;
+        line-height: 1.15;
+      }
+      .hhProfileSub {
+        font-size: 9px;
+        color: rgba(30, 50, 80, 0.4);
+        font-weight: 500;
+        margin-top: 1px;
+      }
+
+      .hhNearCard {
+        margin-bottom: 6px;
+      }
+      .hhNearHeader {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+      }
+      .hhNearAvatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: white;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .hhNearInfo {
+        flex: 1;
+        min-width: 0;
+      }
+      .hhNearTitle {
+        font-size: 12px;
+        font-weight: 600;
+        color: #1a2a4a;
+        line-height: 1.2;
+      }
+      .hhNearSub {
+        font-size: 9px;
+        color: rgba(30, 50, 80, 0.4);
+        font-weight: 500;
+      }
+      .hhNearTasks {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        padding-left: 36px;
+      }
+      .hhNearTasks .phoneTaskRow {
+        font-size: 11px;
+      }
+      .hhViewTasks {
+        font-size: 10px;
+        font-weight: 600;
+        color: #5B86E5;
+        padding-left: 36px;
+        margin-top: 4px;
+        cursor: pointer;
+      }
+
+      .hhPlaceRow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px !important;
+      }
+      .hhPlaceInfo {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        min-width: 0;
+      }
+      .hhPlaceInfo strong {
+        font-size: 12px;
+        font-weight: 600;
+        color: #1a2a4a;
+      }
+      .hhPlaceTasksText {
+        font-size: 9px;
+        color: rgba(30, 50, 80, 0.4);
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .hhActivityRow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px !important;
+      }
+      .hhActivityText {
+        font-size: 11px;
+        color: rgba(30, 50, 80, 0.7);
+        line-height: 1.3;
+      }
+      .hhActivityText strong {
+        color: #1a2a4a;
+        font-weight: 600;
+      }
+
       /* Phase content layers */
       .phoneContent {
         position: absolute;
         top: 54px;
         left: 0;
         right: 0;
-        bottom: 50px;
-        padding: 0 12px 8px;
-        overflow: hidden;
+        bottom: 0;
+        padding: 0 12px 56px;
+        overflow-y: auto;
+        overflow-x: hidden;
         opacity: 0;
         transform: translateY(6px);
         transition: opacity 0.2s ease, transform 0.2s ease;
@@ -3961,12 +4214,11 @@ function SiteStyles() {
         .finalOrb3 { animation: none !important; }
         .lockWaterShimmer { animation: none !important; }
         .lockCloudDrift { animation: none !important; }
-        .lockNearNotif { animation: none !important; opacity: 1 !important; }
-        .liveActivityPulse { animation: none !important; }
-        .liveActivityDot { animation: none !important; opacity: 0.6 !important; }
+        .lockProximityCard { animation: none !important; opacity: 1 !important; }
+        .lockProximityGlow { animation: none !important; }
+        .lockTaskItem { animation: none !important; }
+        .lockProximityShimmer { animation: none !important; }
         .radarShimmer { animation: none !important; }
-        .miniMapPinRing { animation: none !important; }
-        .miniMapYouPulse { animation: none !important; }
       }
 
       @media (max-width: 720px) {
@@ -4061,13 +4313,12 @@ function SiteStyles() {
 
         .phoneNearIcon { top: 40px; left: 10px; width: 22px; height: 22px; }
         .phoneNearIconImg { width: 22px; height: 22px; border-radius: 5px; }
-        .phoneContent { top: 66px; bottom: 42px; padding: 0 10px 10px; }
+        .phoneContent { top: 66px; bottom: 0; padding: 0 10px 48px; }
         .lockTimeDisplay { font-size: 40px; }
         .lockDateDisplay { font-size: 11px; }
         .phoneLockOverlay { padding-top: 55px; }
-        .lockNearNotif { padding: 8px 10px; margin-top: 14px; }
+        .lockProximityCard { padding: 10px 12px; margin-top: 12px; }
         .lockNotifIcon { width: 22px; height: 22px; }
-        .phoneLiveActivity { padding: 4px 8px; }
         .phoneGreeting { font-size: 11px; }
         .phoneHomeTitle { font-size: 18px; }
         .phoneHomeSub { font-size: 11px; }
@@ -4129,7 +4380,7 @@ function SiteStyles() {
         .phoneCarplayTasks { gap: 4px; margin-top: 6px; }
         .phoneCarplayTasks span { padding: 6px 8px; font-size: 11px; border-radius: 6px; }
 
-        .phoneContent { bottom: 42px; }
+        .phoneContent { bottom: 0; padding-bottom: 48px; }
 
         .phoneTabBar { padding: 4px 2px 1px; }
         .phoneTab { font-size: 7px; gap: 1px; }
