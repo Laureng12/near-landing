@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Near — Apple-Style 3D Effects Preview</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --blue: #2F6DFF;
+    --mx: 0deg;
+    --my: 0deg;
+    --parallax-offset: 0px;
+  }
+
+  body {
+    font-family: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #fff;
+    color: #1D1D1F;
+    transform: translate3d(0, 0, 0);
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Label Banner ── */
+  .preview-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid rgba(47, 109, 255, 0.5);
+  }
+
+  .preview-banner span { color: #2997ff; }
+
+  /* ── EFFECT 1: Enhanced Gradient Text ── */
+  .gradientText {
+    background: linear-gradient(135deg, #2997ff 0%, #5B8DEF 20%, #7B5CFF 40%, #C74BF6 65%, #FF6B8A 85%, #FF8FA3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ── EFFECT 2: 3D Scroll Reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95) rotateX(5deg);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+  }
+
+  /* ── EFFECT 3: 3D Card Tilt ── */
+  [data-tilt] {
+    transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg)) translateZ(10px);
+    transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  /* ── EFFECT 4: Gradient Section Dividers ── */
+  .section {
+    position: relative;
+    padding: 100px 24px;
+  }
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(47, 109, 255, 0.2) 20%, rgba(199, 75, 246, 0.2) 50%, rgba(255, 107, 138, 0.2) 80%, transparent);
+  }
+
+  /* ── Nav ── */
+  .nav {
+    position: sticky;
+    top: 32px;
+    z-index: 50;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(255,255,255,0.8);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .navInner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
+  .navLinks { display: flex; align-items: center; gap: 20px; }
+  .navLink { font-size: 0.95rem; color: rgba(29,29,31,0.6); transition: color 0.2s; }
+  .navLink:hover { color: #1D1D1F; }
+  .navCta {
+    padding: 0.5rem 1.1rem;
+    color: white;
+    background: var(--blue);
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 999px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    padding-top: 32px;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(47,109,255,0.3) 20%, rgba(199,75,246,0.3) 50%, rgba(255,107,138,0.3) 80%, transparent);
+  }
+  .heroGlow {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 1000px;
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 40%, rgba(47,109,255,0.20) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 70% 60%, rgba(199,75,246,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255,107,138,0.12) 0%, transparent 50%);
+    pointer-events: none;
+    animation: glowBreathe 7s ease-in-out infinite;
+    filter: blur(80px);
+  }
+  @keyframes glowBreathe {
+    0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1) rotate(0deg) translateZ(0); }
+    33% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) rotate(3deg) translateZ(0); }
+    66% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.03) rotate(-2deg) translateZ(0); }
+  }
+  .heroSplit {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+    width: 100%;
+  }
+  .heroCopy { flex: 1; }
+  .eyebrow {
+    display: block;
+    color: var(--blue);
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+  .heroTitle {
+    font-size: clamp(3rem, 8vw, 72px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .heroSub {
+    margin: 1.5rem 0 0;
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .heroDesc {
+    margin: 1rem 0 0;
+    font-size: 19px;
+    line-height: 1.5;
+    color: #6E6E73;
+  }
+  .heroCtas {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 2.5rem;
+  }
+  .primaryBtn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 999px;
+    color: white;
+    background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 100%);
+    border: none;
+    box-shadow: 0 10px 30px rgba(47,109,255,0.25);
+    background-size: 200% 200%;
+    transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
+  }
+  .primaryBtn:hover {
+    background-position: 100% 50%;
+    box-shadow: 0 14px 36px rgba(123,92,255,0.3);
+  }
+  .secondaryBtn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 999px;
+    color: var(--blue);
+    background: transparent;
+    border: 1px solid rgba(47,109,255,0.3);
+  }
+
+  /* ── EFFECT 5: 3D Phone Mockup ── */
+  .heroPhone {
+    flex-shrink: 0;
+    perspective: 1200px;
+  }
+  .phoneMockup {
+    width: 280px;
+    height: 560px;
+    border-radius: 44px;
+    background: #000;
+    padding: 8px;
+    position: relative;
+    box-shadow:
+      0 0 0 2px #1A1A1E,
+      0 0 0 4px #2A2A2E,
+      0 30px 80px rgba(0,0,0,0.3),
+      0 0 120px rgba(47,109,255,0.12);
+    transform: perspective(1200px) rotateX(8deg) rotateY(-12deg) translateZ(20px);
+    transition: transform 0.5s ease;
+    animation: phoneFloat3D 6s ease-in-out infinite;
+  }
+  .phoneMockup:hover {
+    transform: perspective(1200px) rotateX(2deg) rotateY(-4deg) translateZ(40px);
+    box-shadow:
+      0 0 0 2px #1A1A1E,
+      0 0 0 4px #2A2A2E,
+      0 40px 100px rgba(0,0,0,0.35),
+      0 0 160px rgba(47,109,255,0.18);
+  }
+  @keyframes phoneFloat3D {
+    0%, 100% { transform: perspective(1200px) rotateX(8deg) rotateY(-12deg) translateZ(20px) translateY(0); }
+    50% { transform: perspective(1200px) rotateX(6deg) rotateY(-10deg) translateZ(30px) translateY(-10px); }
+  }
+  .phoneScreen {
+    width: 100%;
+    height: 100%;
+    border-radius: 36px;
+    background: linear-gradient(180deg, #F2F2F7 0%, #E8E8ED 100%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 16px 20px;
+  }
+  .phoneGreeting {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+  }
+  .phoneTitle {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .phoneSub { font-size: 13px; color: var(--blue); margin-top: 2px; font-weight: 500; }
+  .phoneLabel { font-size: 11px; font-weight: 600; color: #8E8E93; text-transform: uppercase; letter-spacing: 0.06em; margin: 14px 0 8px; }
+  .phoneItem {
+    background: white;
+    border-radius: 12px;
+    padding: 10px 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .phoneEmoji { font-size: 16px; }
+  .phoneName { font-size: 15px; font-weight: 600; flex: 1; }
+  .phoneBadge {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--blue);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Sections ── */
+  .sectionShell {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .narrow { max-width: 640px; }
+  .sectionSurface { background: #F5F5F7; }
+
+  .sectionTitle {
+    font-size: clamp(2rem, 5vw, 48px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    transform: translateY(var(--parallax-offset, 0px));
+    will-change: transform;
+  }
+  .sectionTitle.center { text-align: center; }
+  .bodyText { margin: 1.2rem 0 0; font-size: 19px; line-height: 1.5; color: #6E6E73; }
+  .bodyText.center { text-align: center; }
+
+  /* ── Split Grid ── */
+  .splitGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .splitGrid.reverse .splitCopy { order: 2; }
+  .splitGrid.reverse .splitVisual { order: 1; }
+
+  /* ── EFFECT 6: 3D Tilt Cards ── */
+  .arriveCard {
+    padding: 2rem;
+    border-radius: 1.5rem;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .arriveCard:hover {
+    box-shadow: 0 24px 64px rgba(47,109,255,0.12);
+  }
+  .arriveHeader { display: flex; align-items: center; justify-content: space-between; }
+  .arriveLabel { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(29,29,31,0.4); }
+  .arriveDot {
+    width: 8px; height: 8px; border-radius: 50%; background: #34D399;
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+  }
+  .arrivePlace { margin-top: 0.8rem; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; }
+  .arriveSubline { margin: 0.3rem 0 1rem; font-size: 15px; color: #6E6E73; }
+  .taskRow {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.8rem 1rem; border-radius: 0.8rem;
+    background: #F5F5F7; border: 1px solid rgba(0,0,0,0.06);
+    margin-bottom: 0.6rem;
+  }
+  .taskCheck {
+    width: 1.3rem; height: 1.3rem; border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: transparent;
+  }
+  .taskText { font-size: 0.95rem; font-weight: 500; }
+
+  /* ── EFFECT 7: Ecosystem Cards with 3D ── */
+  .ecoGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .ecoCard {
+    padding: 2rem 1.5rem;
+    border-radius: 1.25rem;
+    background: linear-gradient(#F5F5F7, #F5F5F7) padding-box, linear-gradient(135deg, rgba(47,109,255,0.15), rgba(168,85,247,0.15)) border-box;
+    border: 2px solid transparent;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .ecoCard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 1.25rem 1.25rem 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .ecoCard:hover {
+    box-shadow: 0 12px 32px rgba(47,109,255,0.12);
+    background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
+  }
+  .ecoCard:hover::before { opacity: 1; }
+  .ecoCard:nth-child(1)::before { background: linear-gradient(90deg, #2F6DFF, #7B5CFF); }
+  .ecoCard:nth-child(2)::before { background: linear-gradient(90deg, #FF6B8A, #FF9B6B); }
+  .ecoCard:nth-child(3)::before { background: linear-gradient(90deg, #34D399, #2F6DFF); }
+  .ecoCard:nth-child(4)::before { background: linear-gradient(90deg, #C74BF6, #FF6B8A); }
+  .ecoIcon { font-size: 2rem; display: block; margin-bottom: 1rem; }
+  .ecoCard h3 { font-size: 1.15rem; font-weight: 600; }
+  .ecoCard p { margin: 0.5rem 0 0; font-size: 15px; color: #6E6E73; line-height: 1.4; }
+
+  /* ── Notification Card (PassingBy) ── */
+  .passingByVisual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 220px; padding: 2rem;
+  }
+  .passingByGlow {
+    position: absolute; width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,141,239,0.35) 0%, rgba(123,92,255,0.15) 40%, transparent 70%);
+    filter: blur(40px);
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  .passingByGlow2 {
+    position: absolute; width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(199,75,246,0.25) 0%, rgba(255,107,138,0.1) 40%, transparent 70%);
+    filter: blur(30px);
+    animation: glowPulse2 5s ease-in-out infinite 1s;
+    transform: translate(30px, -20px);
+  }
+  @keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+  @keyframes glowPulse2 {
+    0%, 100% { transform: translate(30px, -20px) scale(1); opacity: 0.6; }
+    50% { transform: translate(30px, -20px) scale(1.2); opacity: 0.9; }
+  }
+  .passingByNotif {
+    position: relative; z-index: 2;
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px; border-radius: 20px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: 0 2px 12px rgba(91,141,239,0.15), 0 8px 32px rgba(123,92,255,0.1), 0 0 0 0.5px rgba(255,255,255,0.6) inset;
+    max-width: 340px; width: 100%;
+    animation: notifFloat 6s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes notifFloat {
+    0%, 100% { transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg)) translateY(0); }
+    50% { transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg)) translateY(-6px); }
+  }
+  .passingByIcon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #e8efff 0%, #f0eaff 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .passingByLabel { font-size: 12px; font-weight: 500; color: #6E6E73; }
+  .passingByTitle { font-size: 15px; font-weight: 600; margin-top: 1px; }
+  .passingByItems { font-size: 13px; color: #6E6E73; margin-top: 2px; }
+
+  /* ── Pills ── */
+  .pillGrid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; justify-content: center; }
+  .pill {
+    padding: 0.65rem 1.25rem;
+    border-radius: 999px;
+    background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(47,109,255,0.25), rgba(168,85,247,0.25)) border-box;
+    border: 1.5px solid transparent;
+    font-size: 0.95rem; font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47,109,255,0.15);
+  }
+
+  /* ── EFFECT 8: Final CTA Dark Section ── */
+  .finalCta { padding: 4rem 24px 6rem; }
+  .finalShell {
+    max-width: 980px; margin: 0 auto;
+    padding: 5rem 2rem; border-radius: 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, #0f0c29 0%, #1a1040 30%, #302b63 60%, #24243e 100%);
+    color: white; overflow: hidden; position: relative;
+  }
+  .finalOrb {
+    position: absolute; border-radius: 50%; pointer-events: none; filter: blur(60px);
+  }
+  .finalOrb1 {
+    width: 400px; height: 400px; top: -100px; right: -80px;
+    background: radial-gradient(circle, rgba(123,92,255,0.4) 0%, transparent 70%);
+    animation: orbFloat1 8s ease-in-out infinite;
+  }
+  .finalOrb2 {
+    width: 350px; height: 350px; bottom: -80px; left: -60px;
+    background: radial-gradient(circle, rgba(47,109,255,0.35) 0%, transparent 70%);
+    animation: orbFloat2 10s ease-in-out infinite;
+  }
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-30px,20px) scale(1.1); }
+  }
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(20px,-30px) scale(1.15); }
+  }
+  .finalTitle {
+    font-size: clamp(2rem, 5vw, 48px); font-weight: 600;
+    line-height: 1.1; max-width: 14ch; margin: 0 auto; position: relative;
+  }
+  .finalSub {
+    margin: 1rem auto 0; font-size: 19px;
+    color: rgba(255,255,255,0.6); position: relative;
+  }
+  .finalBtn { margin-top: 2rem; position: relative; }
+
+  /* ── Footer ── */
+  .siteFooter {
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding: 2rem 24px; text-align: center;
+    font-size: 0.85rem; color: #6E6E73;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .heroSplit { flex-direction: column; text-align: center; gap: 2rem; }
+    .heroCtas { justify-content: center; }
+    .splitGrid { grid-template-columns: 1fr; gap: 2rem; }
+    .splitGrid.reverse .splitCopy { order: 1; }
+    .splitGrid.reverse .splitVisual { order: 2; }
+    .ecoGrid { grid-template-columns: 1fr 1fr; }
+    .phoneMockup { transform: perspective(1200px) rotateX(4deg) rotateY(-6deg) translateZ(10px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Preview Banner -->
+<div class="preview-banner">
+  PREVIEW MODE — <span>Apple-style 3D effects</span> applied to nearesttask.com — hover cards, scroll to see reveals
+</div>
+
+<!-- Nav -->
+<header class="nav">
+  <div class="navInner">
+    <a class="brand" href="#">Near</a>
+    <nav class="navLinks">
+      <a class="navLink" href="#arrive">How it works</a>
+      <a class="navLink" href="#household">Household</a>
+      <a class="navCta" href="#">Download</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="heroGlow"></div>
+  <div class="heroSplit">
+    <div class="heroCopy">
+      <span class="eyebrow">Ambient task intelligence</span>
+      <h1 class="heroTitle">Never Forget<br><span class="gradientText">Anything Again.</span></h1>
+      <p class="heroSub">The right task. At the right place.</p>
+      <p class="heroDesc">Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.</p>
+      <div class="heroCtas">
+        <a class="primaryBtn" href="#">Download on the App Store</a>
+        <a class="secondaryBtn" href="#arrive">See how it works</a>
+      </div>
+    </div>
+    <div class="heroPhone">
+      <div class="phoneMockup">
+        <div class="phoneScreen">
+          <div class="phoneGreeting">Good morning.</div>
+          <div class="phoneTitle">A fresh start.</div>
+          <div class="phoneSub">8 to-dos at 5 places</div>
+          <div class="phoneLabel">CLOSEST TO YOU</div>
+          <div class="phoneItem">
+            <span class="phoneEmoji">🛒</span>
+            <span class="phoneName">Costco</span>
+            <span class="phoneBadge">5</span>
+          </div>
+          <div class="phoneItem">
+            <span class="phoneEmoji">🏠</span>
+            <span class="phoneName">Home</span>
+            <span class="phoneBadge">2</span>
+          </div>
+          <div class="phoneItem">
+            <span class="phoneEmoji">💊</span>
+            <span class="phoneName">CVS</span>
+            <span class="phoneBadge">1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Arrive Section -->
+<section class="section" id="arrive">
+  <div class="reveal sectionShell splitGrid">
+    <div class="splitCopy">
+      <h2 class="sectionTitle" data-parallax>Arrive somewhere.<br>Your list is <span class="gradientText">already there.</span></h2>
+      <p class="bodyText">Near understands that most tasks belong to places. When you arrive somewhere, the tasks that belong there appear automatically.</p>
+    </div>
+    <div class="splitVisual">
+      <div class="arriveCard" data-tilt>
+        <div class="arriveHeader">
+          <span class="arriveLabel">Now arriving</span>
+          <span class="arriveDot"></span>
+        </div>
+        <div class="arrivePlace">Trader Joe's</div>
+        <p class="arriveSubline">Your grocery list is ready</p>
+        <div class="taskRow"><span class="taskCheck">✓</span><span class="taskText">Milk</span></div>
+        <div class="taskRow"><span class="taskCheck">✓</span><span class="taskText">Lemons</span></div>
+        <div class="taskRow"><span class="taskCheck">✓</span><span class="taskText">Sparkling water</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Passing By Section -->
+<section class="section sectionSurface">
+  <div class="reveal sectionShell splitGrid reverse">
+    <div class="splitCopy">
+      <h2 class="sectionTitle" data-parallax>Passing a place you need to stop.<br>Near notices before you <span class="gradientText">miss the turn.</span></h2>
+      <p class="bodyText">Near can surface errands when you pass a place where they can be completed.</p>
+    </div>
+    <div class="splitVisual">
+      <div class="passingByVisual">
+        <div class="passingByGlow"></div>
+        <div class="passingByGlow2"></div>
+        <div class="passingByNotif" data-tilt>
+          <div class="passingByIcon">📍</div>
+          <div>
+            <div class="passingByLabel">Near · Nearby errand</div>
+            <div class="passingByTitle">Target is on your route</div>
+            <div class="passingByItems">Return package · Buy batteries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ecosystem Section -->
+<section class="section">
+  <div class="reveal sectionShell">
+    <h2 class="sectionTitle center" data-parallax>Designed for the <span class="gradientText">Apple ecosystem.</span></h2>
+    <div class="ecoGrid">
+      <article class="ecoCard" data-tilt>
+        <span class="ecoIcon">📱</span>
+        <h3>iPhone</h3>
+        <p>Tasks appear on your lock screen when you arrive.</p>
+      </article>
+      <article class="ecoCard" data-tilt>
+        <span class="ecoIcon">⌚</span>
+        <h3>Apple Watch</h3>
+        <p>A gentle tap when something nearby matters.</p>
+      </article>
+      <article class="ecoCard" data-tilt>
+        <span class="ecoIcon">🚗</span>
+        <h3>CarPlay</h3>
+        <p>Errands surface while you're already on the road.</p>
+      </article>
+      <article class="ecoCard" data-tilt>
+        <span class="ecoIcon">🌐</span>
+        <h3>Siri & Maps</h3>
+        <p>Ask naturally. See tasks where places already live.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Calm Technology -->
+<section class="section sectionSurface">
+  <div class="reveal sectionShell narrow" style="text-align:center">
+    <h2 class="sectionTitle center" data-parallax><span class="gradientText">Technology</span> that stays out of the way.</h2>
+    <p class="bodyText center">Near is designed to be quiet. Only high-value moments.</p>
+    <div class="pillGrid">
+      <span class="pill">No feeds</span>
+      <span class="pill">No streaks</span>
+      <span class="pill">No productivity pressure</span>
+      <span class="pill">No noise</span>
+    </div>
+  </div>
+</section>
+
+<!-- Household -->
+<section class="section" id="household">
+  <div class="reveal sectionShell narrow" style="text-align:center">
+    <h2 class="sectionTitle center" data-parallax>One household.<br>One <span class="gradientText">shared memory.</span></h2>
+    <p class="bodyText center">Anyone can add items. When someone is near the store, Near shows the list.</p>
+    <div class="pillGrid">
+      <span class="pill">No ads</span>
+      <span class="pill">No tracking</span>
+      <span class="pill">No profiling</span>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="finalCta">
+  <div class="reveal finalShell">
+    <div class="finalOrb finalOrb1"></div>
+    <div class="finalOrb finalOrb2"></div>
+    <h2 class="finalTitle">The smartest reminder is the one that waits for the right place.</h2>
+    <p class="finalSub">Download Near and let errands find you.</p>
+    <a class="primaryBtn finalBtn" href="#">Download on the App Store</a>
+  </div>
+</section>
+
+<footer class="siteFooter">© 2026 Near · Terms & Conditions · Privacy Policy</footer>
+
+<!-- ── 3D Effects JavaScript ── -->
+<script>
+// Scroll reveal with 3D
+const revealObserver = new IntersectionObserver(
+  (entries) => entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObserver.unobserve(e.target);
+    }
+  }),
+  { threshold: 0.15 }
+);
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Scroll-driven parallax on section titles
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  document.querySelectorAll('[data-parallax]').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const center = rect.top + rect.height / 2;
+    const viewCenter = window.innerHeight / 2;
+    const offset = (center - viewCenter) * 0.04;
+    el.style.setProperty('--parallax-offset', offset + 'px');
+  });
+}, { passive: true });
+
+// Mouse-tracking 3D tilt on cards
+document.addEventListener('mousemove', (e) => {
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    const rect = card.getBoundingClientRect();
+    // Only apply if mouse is reasonably near the card
+    const buffer = 100;
+    if (e.clientX < rect.left - buffer || e.clientX > rect.right + buffer ||
+        e.clientY < rect.top - buffer || e.clientY > rect.bottom + buffer) {
+      card.style.setProperty('--mx', '0deg');
+      card.style.setProperty('--my', '0deg');
+      return;
+    }
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateY = ((x - rect.width / 2) / rect.width) * -8;
+    const rotateX = ((y - rect.height / 2) / rect.height) * 8;
+    card.style.setProperty('--mx', rotateY + 'deg');
+    card.style.setProperty('--my', rotateX + 'deg');
+  });
+}, { passive: true });
+
+document.addEventListener('mouseleave', () => {
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.style.setProperty('--mx', '0deg');
+    card.style.setProperty('--my', '0deg');
+  });
+});
+</script>
+</body>
+</html>
