@@ -1153,10 +1153,36 @@ function FinalCTA() {
         <div className="finalParticle finalP3" />
         <div className="finalParticle finalP4" />
         <div className="finalParticle finalP5" />
+        <div className="finalStars">
+          <div className="finalStar finalStar1" />
+          <div className="finalStar finalStar2" />
+          <div className="finalStar finalStar3" />
+          <div className="finalStar finalStar4" />
+          <div className="finalStar finalStar5" />
+          <div className="finalStar finalStar6" />
+        </div>
+
+        {/* Floating notification card */}
+        <div className="finalNotifCard">
+          <div className="finalNotifGlow" />
+          <Image
+            src="/near-icon-hero.png"
+            alt=""
+            width={40}
+            height={40}
+            className="finalNotifIcon"
+          />
+          <div className="finalNotifContent">
+            <div className="finalNotifTitle">Near</div>
+            <div className="finalNotifBody">You{'\u2019'}re near Target {'\u2014'} Stroller is on your list</div>
+          </div>
+          <div className="finalNotifTime">now</div>
+        </div>
+
         <h2 className="finalTitle">
-          The smartest reminder is the one that waits for the right place.
+          The right task.<br />At the right place.
         </h2>
-        <p className="finalSub">Download Near and let errands find you.</p>
+        <p className="finalSub">Near remembers so you don{'\u2019'}t have to. Download and let your errands find you.</p>
         <a className="primaryBtn finalBtn" href={APP_STORE_URL}>
           Download on the App Store
         </a>
@@ -2714,15 +2740,21 @@ function SiteStyles() {
       .finalShell {
         max-width: 980px;
         margin: 0 auto;
-        padding: 5rem 2rem;
-        border-radius: 2rem;
+        padding: 5rem 2rem 4rem;
+        border-radius: 2.5rem;
         text-align: center;
-        background: linear-gradient(135deg, #0f0c29 0%, #1a1040 30%, #302b63 60%, #24243e 100%);
+        background: linear-gradient(145deg, #0a0820 0%, #12103a 20%, #1e1650 40%, #2a1f6e 60%, #1a1445 80%, #0e0b28 100%);
         color: white;
         overflow: hidden;
         position: relative;
-        border: 1px solid rgba(123, 92, 255, 0.15);
-        box-shadow: 0 0 0 1px rgba(123, 92, 255, 0.05), 0 24px 80px rgba(0, 0, 0, 0.3), 0 0 60px rgba(123, 92, 255, 0.08);
+        border: 1px solid rgba(123, 92, 255, 0.2);
+        box-shadow:
+          0 0 0 1px rgba(123, 92, 255, 0.08),
+          0 32px 100px rgba(0, 0, 0, 0.4),
+          0 0 80px rgba(123, 92, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transform: perspective(1200px) rotateX(1deg);
+        transform-style: preserve-3d;
       }
 
       .finalOrb {
@@ -2733,20 +2765,20 @@ function SiteStyles() {
       }
 
       .finalOrb1 {
-        width: 400px;
-        height: 400px;
-        top: -100px;
-        right: -80px;
-        background: radial-gradient(circle, rgba(123, 92, 255, 0.4) 0%, transparent 70%);
+        width: 500px;
+        height: 500px;
+        top: -120px;
+        right: -100px;
+        background: radial-gradient(circle, rgba(123, 92, 255, 0.5) 0%, transparent 70%);
         animation: orbFloat1 8s ease-in-out infinite;
       }
 
       .finalOrb2 {
-        width: 350px;
-        height: 350px;
-        bottom: -80px;
-        left: -60px;
-        background: radial-gradient(circle, rgba(47, 109, 255, 0.35) 0%, transparent 70%);
+        width: 450px;
+        height: 450px;
+        bottom: -100px;
+        left: -80px;
+        background: radial-gradient(circle, rgba(47, 109, 255, 0.45) 0%, transparent 70%);
         animation: orbFloat2 10s ease-in-out infinite;
       }
 
@@ -2761,8 +2793,8 @@ function SiteStyles() {
       }
 
       .finalOrb3 {
-        width: 250px;
-        height: 250px;
+        width: 350px;
+        height: 350px;
         top: 50%;
         left: 50%;
         margin-top: -125px;
@@ -2826,25 +2858,146 @@ function SiteStyles() {
 
       .finalTitle {
         margin: 0 auto;
-        font-size: clamp(2rem, 5vw, 48px);
-        font-weight: 600;
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        max-width: 14ch;
+        font-size: clamp(2.2rem, 5.5vw, 52px);
+        font-weight: 500;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        max-width: 16ch;
         position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 20px rgba(123, 92, 255, 0.3);
       }
 
       .finalSub {
-        margin: 1rem auto 0;
-        font-size: 19px;
-        color: rgba(255, 255, 255, 0.6);
-        max-width: 640px;
+        margin: 1.2rem auto 0;
+        font-size: 18px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.55);
+        max-width: 480px;
         position: relative;
+        z-index: 2;
+        line-height: 1.5;
       }
 
       .finalBtn {
         margin-top: 2rem;
         position: relative;
+        z-index: 2;
+        box-shadow: 0 4px 20px rgba(47, 109, 255, 0.4), 0 0 40px rgba(47, 109, 255, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .finalBtn:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 6px 30px rgba(47, 109, 255, 0.5), 0 0 60px rgba(47, 109, 255, 0.2);
+      }
+      /* Floating notification card */
+      .finalNotifCard {
+        position: relative;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        margin-bottom: 2.5rem;
+        animation: notifBounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.3),
+          0 0 40px rgba(47, 109, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        text-align: left;
+        transform: translateZ(30px);
+      }
+
+      @keyframes notifBounceIn {
+        0% { opacity: 0; transform: translateY(-30px) translateZ(30px) scale(0.8); }
+        60% { transform: translateY(4px) translateZ(30px) scale(1.02); }
+        100% { opacity: 1; transform: translateY(0) translateZ(30px) scale(1); }
+      }
+
+      .finalNotifGlow {
+        position: absolute;
+        inset: -2px;
+        border-radius: 22px;
+        background: conic-gradient(
+          from 180deg,
+          rgba(47, 109, 255, 0.5),
+          rgba(123, 92, 255, 0.2),
+          rgba(199, 75, 246, 0.4),
+          rgba(123, 92, 255, 0.15),
+          rgba(47, 109, 255, 0.5)
+        );
+        animation: glowSpin 4s linear infinite;
+        filter: blur(8px);
+        z-index: -1;
+        opacity: 0.7;
+      }
+
+      .finalNotifIcon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .finalNotifContent {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .finalNotifTitle {
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        line-height: 1.2;
+      }
+
+      .finalNotifBody {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+
+      .finalNotifTime {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.35);
+        flex-shrink: 0;
+        align-self: flex-start;
+      }
+
+      /* Star field */
+      .finalStars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .finalStar {
+        position: absolute;
+        border-radius: 50%;
+        background: white;
+        animation: starTwinkle 3s ease-in-out infinite;
+      }
+
+      .finalStar1 { width: 2px; height: 2px; top: 12%; left: 8%; animation-delay: 0s; }
+      .finalStar2 { width: 1.5px; height: 1.5px; top: 25%; right: 12%; animation-delay: 0.8s; }
+      .finalStar3 { width: 2px; height: 2px; top: 18%; left: 35%; animation-delay: 1.5s; }
+      .finalStar4 { width: 1px; height: 1px; top: 8%; right: 30%; animation-delay: 2.2s; }
+      .finalStar5 { width: 1.5px; height: 1.5px; bottom: 20%; left: 15%; animation-delay: 0.5s; }
+      .finalStar6 { width: 2px; height: 2px; bottom: 30%; right: 20%; animation-delay: 1.8s; }
+
+      @keyframes starTwinkle {
+        0%, 100% { opacity: 0.15; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.5); }
       }
 
       /* ââ Footer ââ */
