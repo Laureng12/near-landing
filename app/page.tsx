@@ -698,11 +698,39 @@ function AIDefinition() {
         <p className="bodyText">
           Instead of checking lists or setting timers, tasks appear when you arrive at the places where they can actually be completed.
         </p>
-        <ul className="exampleList">
-          <li>Groceries appearing at the grocery store</li>
-          <li>Errand reminders appearing when you pass a store</li>
-          <li>Home tasks appearing when you arrive home</li>
-        </ul>
+        <div className="aiFeatureCards">
+          <div className="aiFeatureCard" data-tilt>
+            <div className="aiFeatureIcon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="url(#aiGrad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#2F6DFF"/><stop offset="1" stopColor="#C74BF6"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div className="aiFeatureLabel">At the store</div>
+            <div className="aiFeatureDesc">Groceries appear when you arrive at the grocery store</div>
+          </div>
+          <div className="aiFeatureCard" data-tilt>
+            <div className="aiFeatureIcon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
+                <circle cx="12" cy="9" r="2.5" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
+                <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#5B8DEF"/><stop offset="1" stopColor="#FF6B8A"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div className="aiFeatureLabel">Passing by</div>
+            <div className="aiFeatureDesc">Errand reminders surface when you pass a store</div>
+          </div>
+          <div className="aiFeatureCard" data-tilt>
+            <div className="aiFeatureIcon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="url(#aiGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#7B5CFF"/><stop offset="1" stopColor="#FFB347"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div className="aiFeatureLabel">Arriving home</div>
+            <div className="aiFeatureDesc">Home tasks appear the moment you walk through the door</div>
+          </div>
+        </div>
         <p className="bodyAccent">Near turns everyday places into reminders.</p>
       </div>
     </section>
@@ -1434,7 +1462,7 @@ function SiteStyles() {
       }
 
       .sectionSurface {
-        background: #F5F5F7;
+        background: linear-gradient(180deg, #F5F5F7 0%, #EEEEF3 100%);
       }
 
       .sectionShell {
@@ -1443,7 +1471,7 @@ function SiteStyles() {
       }
 
       .sectionShell.narrow {
-        max-width: 640px;
+        max-width: 780px;
       }
 
       .sectionHeading {
@@ -1484,10 +1512,12 @@ function SiteStyles() {
       .bodyText.center { text-align: center; }
 
       .bodyAccent {
-        margin: 1.5rem 0 0;
-        font-size: 19px;
-        font-weight: 600;
+        margin: 2rem 0 0;
+        font-size: 20px;
+        font-weight: 700;
         color: var(--blue);
+        font-family: var(--font-display);
+        letter-spacing: -0.01em;
       }
 
       .caption {
@@ -2464,26 +2494,87 @@ function SiteStyles() {
 
       /* ââ Example List ââ */
 
-      .exampleList {
-        margin: 1.5rem 0 0;
-        padding: 0;
-        list-style: none;
+      /* AI Feature Cards */
+
+      .aiFeatureCards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 2rem 0 0;
       }
 
-      .exampleList li {
+      .aiFeatureCard {
+        background: white;
+        border-radius: 20px;
+        padding: 24px 20px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow:
+          0 1px 2px rgba(0, 0, 0, 0.04),
+          0 8px 24px rgba(47, 109, 255, 0.06),
+          0 16px 48px rgba(0, 0, 0, 0.03);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
         position: relative;
-        padding: 0.5rem 0 0.5rem 1.5rem;
-        font-size: 19px;
-        color: #6E6E73;
-        line-height: 1.5;
+        overflow: hidden;
       }
 
-      .exampleList li::before {
-        content: '•';
+      .aiFeatureCard::before {
+        content: '';
         position: absolute;
+        top: 0;
         left: 0;
-        color: var(--blue);
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #2F6DFF, #7B5CFF, #C74BF6);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .aiFeatureCard:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.04),
+          0 16px 40px rgba(47, 109, 255, 0.12),
+          0 24px 64px rgba(0, 0, 0, 0.06);
+      }
+
+      .aiFeatureCard:hover::before {
+        opacity: 1;
+      }
+
+      .aiFeatureIcon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(47, 109, 255, 0.08), rgba(199, 75, 246, 0.08));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+
+      .aiFeatureLabel {
+        font-size: 16px;
         font-weight: 700;
+        color: #1D1D1F;
+        margin-bottom: 6px;
+        letter-spacing: -0.01em;
+      }
+
+      .aiFeatureDesc {
+        font-size: 14px;
+        font-weight: 400;
+        color: #6E6E73;
+        line-height: 1.45;
+      }
+
+      @media (max-width: 768px) {
+        .aiFeatureCards {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .aiFeatureCard {
+          padding: 20px 18px;
+        }
       }
 
       .center { text-align: center; }
