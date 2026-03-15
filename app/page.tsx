@@ -20,30 +20,34 @@ function use3DEffects() {
       })
     }
 
-    // Per-card tilt: only tilts the card you're hovering over
-    document.querySelectorAll('[data-tilt]').forEach((card) => {
-      const el = card as HTMLElement
-      el.addEventListener('mousemove', (e: Event) => {
-        const me = e as MouseEvent
-        const rect = el.getBoundingClientRect()
-        const x = me.clientX - rect.left
-        const y = me.clientY - rect.top
-        const rotateX = ((y - rect.height / 2) / rect.height) * 6
-        const rotateY = ((x - rect.width / 2) / rect.width) * -6
-        el.style.setProperty('--mx', `${rotateY}deg`)
-        el.style.setProperty('--my', `${rotateX}deg`)
+    const tiltCards = (e: MouseEvent) => {
+      document.querySelectorAll('[data-tilt]').forEach((card) => {
+        const rect = card.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+        const rotateX = ((y - rect.height / 2) / rect.height) * 8
+        const rotateY = ((x - rect.width / 2) / rect.width) * -8
+        ;(card as HTMLElement).style.setProperty('--mx', `${rotateY}deg`)
+        ;(card as HTMLElement).style.setProperty('--my', `${rotateX}deg`)
       })
-      el.addEventListener('mouseleave', () => {
-        el.style.setProperty('--mx', '0deg')
-        el.style.setProperty('--my', '0deg')
+    }
+
+    const resetTilt = () => {
+      document.querySelectorAll('[data-tilt]').forEach((card) => {
+        ;(card as HTMLElement).style.setProperty('--mx', '0deg')
+        ;(card as HTMLElement).style.setProperty('--my', '0deg')
       })
-    })
+    }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('mousemove', tiltCards)
+    window.addEventListener('mouseleave', resetTilt)
     handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('mousemove', tiltCards)
+      window.removeEventListener('mouseleave', resetTilt)
     }
   }, [])
 }
@@ -1613,7 +1617,7 @@ function SiteStyles() {
 
       [data-tilt] {
         transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg));
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         will-change: transform;
       }
 
