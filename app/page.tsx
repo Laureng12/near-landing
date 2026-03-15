@@ -318,7 +318,10 @@ function PhoneMockup({ phase }: { phase: number }) {
                 </svg>
               </div>
               <div className="phoneHeaderBtn phoneAvatarBtn">
-                <span className="avatarInitial">R</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="8" r="4.5" fill="white"/>
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="white"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -598,14 +601,19 @@ function PhoneMockup({ phase }: { phase: number }) {
               <div className="lockProximityTitleArea">
                 <div className="lockProximityLabel">NEAR</div>
                 <div className="lockProximityTitle">You’re near Target</div>
-                <div className="lockProximitySub">1.2 mi · 1 item on your list</div>
+                <div className="lockProximitySub">1.2 mi · 2 items on your list</div>
               </div>
             </div>
             <div className="lockTaskList">
-              <div className="lockTaskItem">
+              <div className="lockTaskItem lockTaskItem1">
                 <div className="lockTaskCheck" />
                 <span className="lockTaskText">Stroller</span>
                 <span className="lockTaskPriority lockTaskPriorityOrange" />
+              </div>
+              <div className="lockTaskItem lockTaskItem2">
+                <div className="lockTaskCheck" />
+                <span className="lockTaskText">Diapers</span>
+                <span className="lockTaskPriority lockTaskPriorityRed" />
               </div>
             </div>
             <div className="lockProximityShimmer" />
@@ -2729,7 +2737,7 @@ function SiteStyles() {
           0 50px 100px rgba(0, 0, 0, 0.4),
           0 20px 40px rgba(0, 0, 0, 0.25),
           -16px 32px 64px rgba(47, 109, 255, 0.12),
-          0 0 80px rgba(100, 200, 220, 0.15);
+          0 0 100px rgba(100, 210, 230, 0.2), 0 0 200px rgba(80, 180, 220, 0.08);
         animation: phoneFloat 6s ease-in-out infinite;
       }
 
@@ -2758,7 +2766,7 @@ function SiteStyles() {
 
       @keyframes phoneFloat {
         0%, 100% { transform: rotateY(-8deg) rotateX(4deg) translateZ(20px) translateY(0); }
-        50% { transform: rotateY(-6deg) rotateX(3deg) translateZ(24px) translateY(-8px); }
+        50% { transform: rotateY(-5deg) rotateX(2deg) translateZ(30px) translateY(-12px); }
       }
 
       .phoneDynamic {
@@ -2777,7 +2785,7 @@ function SiteStyles() {
         width: 100%;
         height: 100%;
         border-radius: 38px;
-        background: linear-gradient(175deg, #b8e4f0 0%, #c8eef4 12%, #d8f4f0 25%, #e2f6ee 40%, #d8f0e6 55%, #c8eade 70%, #b0dcd6 85%, #98d0cc 100%);
+        background: linear-gradient(175deg, #c4ecf6 0%, #d4f4fa 12%, #e4faf6 25%, #eefcf4 40%, #e4f6ee 55%, #d4f0e4 70%, #c0e6de 85%, #a8dad4 100%);
         overflow: hidden;
         position: relative;
         transform: translateZ(6px);
@@ -2790,7 +2798,7 @@ function SiteStyles() {
         position: absolute;
         inset: 0;
         border-radius: 38px;
-        background: linear-gradient(170deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 25%, transparent 50%);
+        background: linear-gradient(170deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 20%, rgba(255,255,255,0.02) 40%, transparent 60%);
         pointer-events: none;
         z-index: 15;
       }
@@ -3080,31 +3088,35 @@ function SiteStyles() {
         position: relative;
         z-index: 2;
         margin-top: 16px;
-        padding: 12px 14px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        width: 88%;
+        padding: 14px 16px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        width: 90%;
         animation: lockNotifSlide 0.6s ease-out 0.4s both;
         overflow: hidden;
+        box-shadow:
+          0 8px 32px rgba(0, 150, 255, 0.15),
+          0 2px 8px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
       }
 
       .lockProximityGlow {
         position: absolute;
-        inset: -2px;
-        border-radius: 20px;
+        inset: -3px;
+        border-radius: 24px;
         background: conic-gradient(
           from 0deg,
-          rgba(0, 200, 255, 0.4),
-          rgba(100, 220, 255, 0.15),
-          rgba(0, 180, 255, 0.35),
-          rgba(60, 200, 240, 0.1),
-          rgba(0, 200, 255, 0.4)
+          rgba(0, 210, 255, 0.6),
+          rgba(120, 230, 255, 0.2),
+          rgba(0, 190, 255, 0.5),
+          rgba(80, 210, 240, 0.15),
+          rgba(0, 210, 255, 0.6)
         );
-        animation: glowSpin 4s linear infinite;
-        filter: blur(6px);
+        animation: glowSpin 3s linear infinite;
+        filter: blur(8px);
         z-index: -1;
       }
 
@@ -3145,11 +3157,11 @@ function SiteStyles() {
       }
 
       .lockProximityTitle {
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 700;
         color: white;
         line-height: 1.25;
-        text-shadow: 0 0 12px rgba(0, 200, 255, 0.5);
+        text-shadow: 0 0 16px rgba(0, 200, 255, 0.6), 0 1px 3px rgba(0, 0, 0, 0.2);
       }
 
       .lockProximitySub {
@@ -3160,53 +3172,86 @@ function SiteStyles() {
 
       .lockTaskList {
         margin-top: 10px;
-        padding-top: 8px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
         display: flex;
         flex-direction: column;
         gap: 6px;
+        perspective: 400px;
       }
 
       .lockTaskItem {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 6px 8px;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.08);
-        animation: lockTaskGlow 2s ease-in-out infinite alternate;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow:
+          0 4px 16px rgba(0, 180, 255, 0.15),
+          0 1px 3px rgba(0, 0, 0, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        animation: lockTaskGlow 2.5s ease-in-out infinite alternate;
+        transform: translateZ(0);
+        transition: transform 0.3s ease;
+      }
+
+      .lockTaskItem1 {
+        animation-delay: 0s;
+      }
+      .lockTaskItem2 {
+        animation-delay: 0.5s;
       }
 
       @keyframes lockTaskGlow {
-        0% { background: rgba(255, 255, 255, 0.06); box-shadow: 0 0 0 rgba(0, 200, 255, 0); }
-        100% { background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 12px rgba(0, 200, 255, 0.15); }
+        0% {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+          box-shadow: 0 4px 16px rgba(0, 180, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.15);
+        }
+        100% {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.12) 100%);
+          box-shadow: 0 6px 24px rgba(0, 200, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+          border-color: rgba(255, 255, 255, 0.3);
+        }
       }
 
       .lockTaskCheck {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
-        border: 1.5px solid rgba(255, 255, 255, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.5);
         flex-shrink: 0;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
       }
 
       .lockTaskText {
         flex: 1;
-        font-size: 12px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        font-weight: 600;
+        color: white;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: -0.01em;
       }
 
       .lockTaskPriority {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         flex-shrink: 0;
       }
 
       .lockTaskPriorityOrange {
-        background: #FF9500;
-        box-shadow: 0 0 6px rgba(255, 149, 0, 0.6);
+        background: #FF9F0A;
+        box-shadow: 0 0 10px rgba(255, 159, 10, 0.7), 0 0 20px rgba(255, 159, 10, 0.3);
+      }
+
+      .lockTaskPriorityRed {
+        background: #FF453A;
+        box-shadow: 0 0 10px rgba(255, 69, 58, 0.7), 0 0 20px rgba(255, 69, 58, 0.3);
       }
 
       .lockProximityShimmer {
@@ -3655,17 +3700,6 @@ function SiteStyles() {
       }
 
 
-      /* Avatar initial circle */
-      .avatarInitial {
-        font-size: 11px;
-        font-weight: 700;
-        color: white;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
       .phoneAvatarBtn {
         background: linear-gradient(135deg, #8B7EC8, #6B5CA5) !important;
         border: none !important;
