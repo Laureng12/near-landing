@@ -470,7 +470,7 @@ export default function FeaturesPage() {
           background-clip: text;
         }
         .ftHeroTitle {
-          font-family: var(--font-display); font-size: 64px; font-weight: 700;
+          font-family: var(--font-sans); font-size: 64px; font-weight: 700;
           letter-spacing: -2px; line-height: 1.08; color: var(--foreground);
           margin: 0 auto 28px; max-width: 760px; position: relative; z-index: 1;
         }
@@ -584,7 +584,7 @@ export default function FeaturesPage() {
         }
 
         .ftFeatureTitle {
-          font-family: var(--font-display);
+          font-family: var(--font-sans);
           font-size: 32px;
           font-weight: 700;
           letter-spacing: -0.8px;
@@ -1370,7 +1370,7 @@ export default function FeaturesPage() {
         .ftBlock { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
         .ftBlockCenter { text-align: center; }
         .ftBlockTitle {
-          font-family: var(--font-display); font-size: 36px; font-weight: 700;
+          font-family: var(--font-sans); font-size: 36px; font-weight: 700;
           letter-spacing: -1.2px; line-height: 1.15; color: var(--foreground);
           margin: 0 0 16px; text-align: center;
         }
@@ -1624,7 +1624,7 @@ export default function FeaturesPage() {
           50% { transform: translate(-20px, 20px) scale(1.15); }
         }
         .ftCtaTitle {
-          font-family: var(--font-display); font-size: 48px; font-weight: 700;
+          font-family: var(--font-sans); font-size: 48px; font-weight: 700;
           letter-spacing: -1.5px; color: #fff; margin: 0 0 12px;
           position: relative; z-index: 1;
         }

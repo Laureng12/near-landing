@@ -15,7 +15,7 @@ html {
   --line-strong: rgba(0, 0, 0, 0.12);
   --glow: rgba(47, 109, 255, 0.25);
   --font-sans: "DM Sans", -apple-system, "SF Pro Display", "SF Pro Text", system-ui, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-display: "DM Sans", -apple-system, system-ui, sans-serif;
   --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
   --mx: 0deg;
   --my: 0deg;
