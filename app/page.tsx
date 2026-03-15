@@ -185,7 +185,7 @@ const PHASE_NAMES = ["home", "costco", "places", "arrive-home"] as const
 const PHASE_DURATION = 3500 // ms per phase
 
 const phaseTexts = [
-  "Near quietly surfaces errands, groceries, and household tasks when you arrive where they matter.",
+  "Near surfaces errands, groceries, and tasks when you arrive where they matter. Seize the day.",
   "Arrive at the store. Your list is already there.",
   "Tap into a place and see exactly what you need. One store, one list.",
   "Even home has a list. Near remembers so you don’t have to.",
@@ -250,9 +250,9 @@ const PHASE_ACTIVE_TAB = [0, -1, 1, -1] // 0=Home, -1=lock, 1=Places, -1=lock
 
 const notifData = [
   null, // home screen — no notification
-  { title: "Arriving at Costco", body: "You have 5 items on your list" }, // costco lock screen
+  { title: "Near", body: "You're near buybuy BABY — 3 items on your list" },
   null, // places screen — no notification
-  { title: "Welcome home", body: "You have 2 tasks here" },
+  { title: "Near", body: "Joolz Aer stroller is on sale nearby ✨" },
 ]
 
 function PhoneMockup({ phase }: { phase: number }) {
@@ -315,18 +315,18 @@ function PhoneMockup({ phase }: { phase: number }) {
         {/* Phase 0: Home screen */}
         <div className={`phoneContent ${phase === 0 ? "phoneContentVisible" : ""}`}>
           <div className="phoneGreeting">Good morning.</div>
-          <div className="phoneHomeTitle">A fresh start.</div>
-          <div className="phoneHomeSub">8 to-dos at 5 places</div>
+          <div className="phoneHomeTitle">Seize the day.</div>
+          <div className="phoneHomeSub">6 to-dos at 4 places</div>
           <div className="phoneSectionLabel">CLOSEST TO YOU</div>
           <div className="phoneGroupList">
             <div className="phoneGroupItem">
               <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{"\uD83D\uDED2"}</span>
-                <span className="phoneGroupName">Costco</span>
-                <span className="phoneBadge">5</span>
+                <span className="phoneGroupEmoji">{"\uD83D\uDC76"}</span>
+                <span className="phoneGroupName">buybuy BABY</span>
+                <span className="phoneBadge">3</span>
                 <span className="phoneChevron">{"\u203A"}</span>
               </div>
-              <div className="phoneGroupTask">Paper towels</div>
+              <div className="phoneGroupTask">Joolz Aer stroller</div>
             </div>
             <div className="phoneGroupItem">
               <div className="phoneGroupHeader">
@@ -335,16 +335,16 @@ function PhoneMockup({ phase }: { phase: number }) {
                 <span className="phoneBadge">2</span>
                 <span className="phoneChevron">{"\u203A"}</span>
               </div>
-              <div className="phoneGroupTask">Water plants</div>
+              <div className="phoneGroupTask">Set up nursery</div>
             </div>
             <div className="phoneGroupItem">
               <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{"\uD83D\uDC8A"}</span>
-                <span className="phoneGroupName">CVS</span>
+                <span className="phoneGroupEmoji">{"\uD83C\uDF3F"}</span>
+                <span className="phoneGroupName">Target</span>
                 <span className="phoneBadge">1</span>
                 <span className="phoneChevron">{"\u203A"}</span>
               </div>
-              <div className="phoneGroupTask">Pick up prescription</div>
+              <div className="phoneGroupTask">Baby monitor</div>
             </div>
           </div>
         </div>
@@ -353,41 +353,46 @@ function PhoneMockup({ phase }: { phase: number }) {
         <div className={`phoneContent ${phase === 2 ? "phoneContentVisible" : ""}`}>
           <div className="phoneStoreHeader">
             <span className="phoneStoreBack">{"‹"}</span>
-            <span className="phoneStoreEmoji">{"🛒"}</span>
+            <span className="phoneStoreEmoji">{"\uD83D\uDC76"}</span>
             <div className="phoneStoreInfo">
-              <div className="phoneStoreName"><span style={{color: "#2997ff"}}>Costco</span></div>
-              <div className="phoneStoreDist">0.3 mi away</div>
+              <div className="phoneStoreName"><span style={{color: "#2997ff"}}>buybuy BABY</span></div>
+              <div className="phoneStoreDist">0.2 mi away</div>
             </div>
           </div>
           <div className="phoneSectionLabel">YOUR LIST</div>
           <div className="phoneTaskList">
             <div className="phoneTaskRow">
-              <span className="phoneCheck phoneChecked">{"✓"}</span>
-              <span className="phoneTaskText phoneTaskDone">Trash bags</span>
-            </div>
-            <div className="phoneTaskRow">
-              <span className="phoneCheck phoneChecked">{"✓"}</span>
-              <span className="phoneTaskText phoneTaskDone">Olive oil</span>
+              <span className="phoneCheck phoneChecked">{"\u2713"}</span>
+              <span className="phoneTaskText phoneTaskDone">Car seat adapter</span>
             </div>
             <div className="phoneTaskRow">
               <span className="phoneCheck">{" "}</span>
-              <span className="phoneTaskText">Paper towels</span>
+              <span className="phoneTaskText">Joolz Aer stroller</span>
             </div>
             <div className="phoneTaskRow">
               <span className="phoneCheck">{" "}</span>
-              <span className="phoneTaskText">Dog food</span>
-            </div>
-            <div className="phoneTaskRow">
-              <span className="phoneCheck">{" "}</span>
-              <span className="phoneTaskText">Laundry detergent</span>
+              <span className="phoneTaskText">Rain cover accessory</span>
             </div>
           </div>
         </div>
 
         {/* Lock screen overlay â phases 2 & 3 (app closed) */}
         <div className={`phoneLockOverlay ${isLocked ? "phoneLockVisible" : ""}`}>
+          <div className="lockAuroraLayer lockAurora1" />
+          <div className="lockAuroraLayer lockAurora2" />
+          <div className="lockAuroraLayer lockAurora3" />
+          <div className="lockStarField">
+            <div className="lockStar lockStar1" />
+            <div className="lockStar lockStar2" />
+            <div className="lockStar lockStar3" />
+            <div className="lockStar lockStar4" />
+            <div className="lockStar lockStar5" />
+            <div className="lockStar lockStar6" />
+            <div className="lockStar lockStar7" />
+          </div>
           <div className="lockTimeDisplay">9:41</div>
           <div className="lockDateDisplay">Wednesday, March 11</div>
+          <div className="lockMottoDisplay">Seize the day.</div>
         </div>
 
         {/* Tab bar â hidden on lock screen */}
@@ -2717,10 +2722,7 @@ function SiteStyles() {
         right: 0;
         bottom: 0;
         background:
-          radial-gradient(ellipse 120% 80% at 20% 80%, rgba(232,140,50,0.7) 0%, transparent 50%),
-          radial-gradient(ellipse 100% 70% at 80% 70%, rgba(200,60,120,0.6) 0%, transparent 50%),
-          radial-gradient(ellipse 80% 60% at 50% 30%, rgba(80,60,180,0.5) 0%, transparent 50%),
-          linear-gradient(170deg, #1a1040 0%, #2d1b69 25%, #4a2080 45%, #8b3a8f 65%, #d46a4e 85%, #e8a04e 100%);
+          linear-gradient(170deg, #0a0618 0%, #110b2e 20%, #1a1050 40%, #0d1a3a 60%, #0a1628 80%, #060d1e 100%);
         z-index: 11;
         opacity: 0;
         visibility: hidden;
@@ -2729,14 +2731,94 @@ function SiteStyles() {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-bottom: 80px;
+        padding-bottom: 60px;
         pointer-events: none;
+        overflow: hidden;
+        border-radius: 38px;
       }
 
       .phoneLockOverlay.phoneLockVisible {
         opacity: 1;
         visibility: visible;
         transition: opacity 0.3s ease 0.15s, visibility 0s 0s;
+      }
+
+      /* Aurora layers */
+      .lockAuroraLayer {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        border-radius: 50%;
+        filter: blur(40px);
+        opacity: 0.6;
+        mix-blend-mode: screen;
+      }
+
+      .lockAurora1 {
+        top: -60%;
+        left: -50%;
+        background: radial-gradient(ellipse at center, rgba(100, 60, 255, 0.5) 0%, rgba(60, 20, 180, 0.3) 30%, transparent 60%);
+        animation: auroraShift1 8s ease-in-out infinite;
+      }
+
+      .lockAurora2 {
+        bottom: -40%;
+        right: -60%;
+        background: radial-gradient(ellipse at center, rgba(255, 100, 150, 0.45) 0%, rgba(200, 60, 120, 0.25) 30%, transparent 60%);
+        animation: auroraShift2 10s ease-in-out infinite;
+      }
+
+      .lockAurora3 {
+        top: 10%;
+        left: -30%;
+        background: radial-gradient(ellipse at center, rgba(60, 180, 255, 0.35) 0%, rgba(40, 120, 200, 0.2) 30%, transparent 60%);
+        animation: auroraShift3 12s ease-in-out infinite;
+      }
+
+      @keyframes auroraShift1 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+        33% { transform: translate(15%, 10%) scale(1.1); opacity: 0.75; }
+        66% { transform: translate(-10%, 5%) scale(0.95); opacity: 0.5; }
+      }
+
+      @keyframes auroraShift2 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+        50% { transform: translate(-20%, -15%) scale(1.15); opacity: 0.7; }
+      }
+
+      @keyframes auroraShift3 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+        40% { transform: translate(20%, 10%) scale(1.1); opacity: 0.55; }
+        70% { transform: translate(5%, -10%) scale(1.05); opacity: 0.4; }
+      }
+
+      /* Star field */
+      .lockStarField {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+      }
+
+      .lockStar {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: white;
+        animation: starTwinkle 3s ease-in-out infinite;
+      }
+
+      .lockStar1 { top: 15%; left: 20%; animation-delay: 0s; }
+      .lockStar2 { top: 25%; right: 15%; animation-delay: 0.8s; }
+      .lockStar3 { top: 40%; left: 10%; animation-delay: 1.6s; width: 1.5px; height: 1.5px; }
+      .lockStar4 { top: 55%; right: 25%; animation-delay: 0.4s; }
+      .lockStar5 { top: 70%; left: 30%; animation-delay: 2s; width: 1.5px; height: 1.5px; }
+      .lockStar6 { top: 18%; left: 60%; animation-delay: 1.2s; width: 1px; height: 1px; }
+      .lockStar7 { top: 65%; right: 12%; animation-delay: 2.4s; width: 1px; height: 1px; }
+
+      @keyframes starTwinkle {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.5); }
       }
 
       .lockTimeDisplay {
@@ -2746,15 +2828,37 @@ function SiteStyles() {
         color: #FFFFFF;
         line-height: 1;
         font-variant-numeric: tabular-nums;
-        text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+        text-shadow: 0 2px 20px rgba(100, 60, 255, 0.4), 0 1px 8px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 2;
       }
 
       .lockDateDisplay {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 500;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.75);
         margin-top: 6px;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 2;
+      }
+
+      .lockMottoDisplay {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 16px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-shadow: 0 1px 8px rgba(100, 60, 255, 0.3);
+        position: relative;
+        z-index: 2;
+        animation: mottoGlow 4s ease-in-out infinite;
+      }
+
+      @keyframes mottoGlow {
+        0%, 100% { color: rgba(255, 255, 255, 0.5); text-shadow: 0 1px 8px rgba(100, 60, 255, 0.2); }
+        50% { color: rgba(255, 255, 255, 0.85); text-shadow: 0 1px 16px rgba(100, 60, 255, 0.5), 0 0 30px rgba(150, 100, 255, 0.15); }
       }
 
       .phoneTabBarHidden {
@@ -3216,6 +3320,9 @@ function SiteStyles() {
         .philPulseRing { animation: none !important; }
         .finalParticle { animation: none !important; opacity: 0.5 !important; }
         .finalOrb3 { animation: none !important; }
+        .lockAuroraLayer { animation: none !important; }
+        .lockStar { animation: none !important; opacity: 0.5 !important; }
+        .lockMottoDisplay { animation: none !important; }
       }
 
       @media (max-width: 720px) {
@@ -3313,7 +3420,9 @@ function SiteStyles() {
         .phoneContent { top: 66px; bottom: 42px; padding: 0 10px 10px; }
         .lockTimeDisplay { font-size: 40px; }
         .lockDateDisplay { font-size: 12px; }
+        .lockMottoDisplay { font-size: 10px; margin-top: 10px; }
         .phoneLockOverlay { padding-bottom: 50px; }
+        .lockAuroraLayer { filter: blur(30px); }
         .phoneGreeting { font-size: 11px; }
         .phoneHomeTitle { font-size: 18px; }
         .phoneHomeSub { font-size: 11px; }
