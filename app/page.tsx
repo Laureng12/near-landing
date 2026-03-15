@@ -916,8 +916,9 @@ function SiteStyles() {
 
       .reveal {
         opacity: 0;
-        transform: translateY(32px) scale(0.97) rotateX(4deg);
-        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translateY(48px) scale(0.94) rotateX(8deg);
+        transform-origin: center bottom;
+        transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .reveal.revealed {
@@ -1059,6 +1060,8 @@ function SiteStyles() {
 
       .heroPhone {
         flex-shrink: 0;
+        perspective: 1200px;
+        transform-style: preserve-3d;
       }
 
       .heroIcon {
@@ -1177,6 +1180,7 @@ function SiteStyles() {
       .section {
         padding: 8rem 1.5rem;
         position: relative;
+        perspective: 1200px;
       }
 
       .section::before {
@@ -2309,20 +2313,47 @@ function SiteStyles() {
         width: 280px;
         height: 572px;
         border-radius: 44px;
-        background: #000;
+        background: linear-gradient(160deg, #2A2A2E 0%, #1A1A1E 20%, #000 50%, #1A1A1E 100%);
         padding: 6px;
         position: relative;
+        transform-style: preserve-3d;
+        transform: rotateY(-8deg) rotateX(4deg) translateZ(20px);
         box-shadow:
+          0 0 0 1px rgba(255,255,255,0.08),
           0 0 0 2px #1A1A1E,
           0 0 0 4px #2A2A2E,
-          0 20px 60px rgba(0, 0, 0, 0.25),
-          0 8px 24px rgba(0, 0, 0, 0.15);
+          0 40px 80px rgba(0, 0, 0, 0.35),
+          0 16px 32px rgba(0, 0, 0, 0.2),
+          -12px 24px 48px rgba(47, 109, 255, 0.08);
         animation: phoneFloat 6s ease-in-out infinite;
       }
 
+      .phoneMockup::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 44px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.04) 100%);
+        pointer-events: none;
+        z-index: 20;
+      }
+
+      .phoneMockup::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 10%;
+        right: 10%;
+        height: 40px;
+        background: radial-gradient(ellipse, rgba(0,0,0,0.2) 0%, transparent 70%);
+        filter: blur(12px);
+        transform: translateZ(-40px);
+        pointer-events: none;
+      }
+
       @keyframes phoneFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
+        0%, 100% { transform: rotateY(-8deg) rotateX(4deg) translateZ(20px) translateY(0); }
+        50% { transform: rotateY(-6deg) rotateX(3deg) translateZ(24px) translateY(-8px); }
       }
 
       .phoneDynamic {
@@ -2344,6 +2375,17 @@ function SiteStyles() {
         background: #F2F2F7;
         overflow: hidden;
         position: relative;
+        transform: translateZ(6px);
+      }
+
+      .phoneScreen::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 38px;
+        background: linear-gradient(170deg, rgba(255,255,255,0.2) 0%, transparent 30%);
+        pointer-events: none;
+        z-index: 15;
       }
 
       /* Status bar */
@@ -3049,6 +3091,12 @@ function SiteStyles() {
           height: 327px;
           border-radius: 30px;
           padding: 4px;
+          transform: rotateY(-4deg) rotateX(2deg) translateZ(10px);
+        }
+
+        @keyframes phoneFloat {
+          0%, 100% { transform: rotateY(-4deg) rotateX(2deg) translateZ(10px) translateY(0); }
+          50% { transform: rotateY(-3deg) rotateX(2deg) translateZ(12px) translateY(-5px); }
         }
 
         .phoneScreen { border-radius: 26px; }
