@@ -2623,17 +2623,28 @@ function SiteStyles() {
       }
 
       .aiFeatureCard {
-        background: white;
-        border-radius: 20px;
-        padding: 24px 20px;
-        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 22px;
+        padding: 28px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
         box-shadow:
-          0 1px 2px rgba(0, 0, 0, 0.04),
-          0 8px 24px rgba(47, 109, 255, 0.06),
-          0 16px 48px rgba(0, 0, 0, 0.03);
+          0 2px 4px rgba(0, 0, 0, 0.04),
+          0 12px 32px rgba(47, 109, 255, 0.1),
+          0 24px 64px rgba(0, 0, 0, 0.05),
+          inset 0 1px 0 rgba(255, 255, 255, 0.8);
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
         position: relative;
         overflow: hidden;
+        transform-style: preserve-3d;
+      }
+
+      .aiFeatureCard:nth-child(1) {
+        background: linear-gradient(145deg, #f0f4ff 0%, #e8eeff 30%, #dde6ff 60%, #f5f7ff 100%);
+      }
+      .aiFeatureCard:nth-child(2) {
+        background: linear-gradient(145deg, #f3effb 0%, #eae4f8 30%, #e0d8f4 60%, #f6f3fc 100%);
+      }
+      .aiFeatureCard:nth-child(3) {
+        background: linear-gradient(145deg, #fff0f3 0%, #ffe8ed 30%, #ffdde5 60%, #fff5f7 100%);
       }
 
       .aiFeatureCard::before {
@@ -2642,18 +2653,37 @@ function SiteStyles() {
         top: 0;
         left: 0;
         right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #2F6DFF, #7B5CFF, #C74BF6);
+        height: 4px;
+        border-radius: 22px 22px 0 0;
         opacity: 0;
         transition: opacity 0.3s ease;
       }
+      .aiFeatureCard:nth-child(1)::before {
+        background: linear-gradient(90deg, #2F6DFF, #5B8DEF);
+      }
+      .aiFeatureCard:nth-child(2)::before {
+        background: linear-gradient(90deg, #7B5CFF, #A855F7);
+      }
+      .aiFeatureCard:nth-child(3)::before {
+        background: linear-gradient(90deg, #FF6B8A, #FFB347);
+      }
 
       .aiFeatureCard:hover {
-        transform: translateY(-6px) scale(1.02);
+        transform: translateY(-8px) scale(1.03) translateZ(10px);
         box-shadow:
-          0 2px 4px rgba(0, 0, 0, 0.04),
-          0 16px 40px rgba(47, 109, 255, 0.12),
-          0 24px 64px rgba(0, 0, 0, 0.06);
+          0 4px 8px rgba(0, 0, 0, 0.06),
+          0 20px 48px rgba(47, 109, 255, 0.18),
+          0 32px 80px rgba(0, 0, 0, 0.08);
+      }
+
+      .aiFeatureCard:nth-child(1):hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 48px rgba(47, 109, 255, 0.22), 0 32px 80px rgba(0, 0, 0, 0.08);
+      }
+      .aiFeatureCard:nth-child(2):hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 48px rgba(123, 92, 255, 0.2), 0 32px 80px rgba(0, 0, 0, 0.08);
+      }
+      .aiFeatureCard:nth-child(3):hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 48px rgba(255, 107, 138, 0.2), 0 32px 80px rgba(0, 0, 0, 0.08);
       }
 
       .aiFeatureCard:hover::before {
@@ -2670,6 +2700,19 @@ function SiteStyles() {
         align-items: center;
         justify-content: center;
         margin-bottom: 16px;
+      }
+
+      .aiFeatureCard:nth-child(1) .aiFeatureIcon {
+        background: linear-gradient(135deg, rgba(47, 109, 255, 0.15), rgba(91, 141, 239, 0.1));
+        box-shadow: 0 4px 14px rgba(47, 109, 255, 0.12);
+      }
+      .aiFeatureCard:nth-child(2) .aiFeatureIcon {
+        background: linear-gradient(135deg, rgba(123, 92, 255, 0.15), rgba(168, 85, 247, 0.1));
+        box-shadow: 0 4px 14px rgba(123, 92, 255, 0.12);
+      }
+      .aiFeatureCard:nth-child(3) .aiFeatureIcon {
+        background: linear-gradient(135deg, rgba(255, 107, 138, 0.15), rgba(255, 179, 71, 0.1));
+        box-shadow: 0 4px 14px rgba(255, 107, 138, 0.12);
       }
 
       .aiFeatureLabel {
