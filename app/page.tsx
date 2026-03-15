@@ -318,7 +318,7 @@ function PhoneMockup({ phase }: { phase: number }) {
                 </svg>
               </div>
               <div className="phoneHeaderBtn phoneAvatarBtn">
-                <span style={{fontSize: "14px"}}>\uD83D\uDC69</span>
+                <span className="avatarInitial">R</span>
               </div>
             </div>
           </div>
@@ -2723,12 +2723,13 @@ function SiteStyles() {
         transform-style: preserve-3d;
         transform: rotateY(-8deg) rotateX(4deg) translateZ(20px);
         box-shadow:
-          0 0 0 1px rgba(255,255,255,0.08),
+          0 0 0 1px rgba(255,255,255,0.1),
           0 0 0 2px #1A1A1E,
           0 0 0 4px #2A2A2E,
-          0 40px 80px rgba(0, 0, 0, 0.35),
-          0 16px 32px rgba(0, 0, 0, 0.2),
-          -12px 24px 48px rgba(47, 109, 255, 0.08);
+          0 50px 100px rgba(0, 0, 0, 0.4),
+          0 20px 40px rgba(0, 0, 0, 0.25),
+          -16px 32px 64px rgba(47, 109, 255, 0.12),
+          0 0 80px rgba(100, 200, 220, 0.15);
         animation: phoneFloat 6s ease-in-out infinite;
       }
 
@@ -2776,7 +2777,7 @@ function SiteStyles() {
         width: 100%;
         height: 100%;
         border-radius: 38px;
-        background: linear-gradient(175deg, #8cbcd4 0%, #a8d4dc 15%, #bde0e0 30%, #c8e4d8 50%, #b8d8cc 70%, #9cc8c0 85%, #7eb8b4 100%);
+        background: linear-gradient(175deg, #b8e4f0 0%, #c8eef4 12%, #d8f4f0 25%, #e2f6ee 40%, #d8f0e6 55%, #c8eade 70%, #b0dcd6 85%, #98d0cc 100%);
         overflow: hidden;
         position: relative;
         transform: translateZ(6px);
@@ -2789,7 +2790,7 @@ function SiteStyles() {
         position: absolute;
         inset: 0;
         border-radius: 38px;
-        background: linear-gradient(170deg, rgba(255,255,255,0.2) 0%, transparent 30%);
+        background: linear-gradient(170deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.05) 25%, transparent 50%);
         pointer-events: none;
         z-index: 15;
       }
@@ -3300,15 +3301,15 @@ function SiteStyles() {
       }
 
       .phoneHomeTitle {
-        font-size: 22px;
-        font-weight: 700;
-        color: #1a2a4a;
-        letter-spacing: -0.02em;
-        line-height: 1.15;
+        font-size: 24px;
+        font-weight: 800;
+        color: #0a1a35;
+        letter-spacing: -0.03em;
+        line-height: 1.12;
       }
 
       .phonePlacesTitle {
-        font-style: italic;
+        font-style: normal;
       }
 
       .phoneHomeSub {
@@ -3409,10 +3410,11 @@ function SiteStyles() {
       }
 
       .phoneGroupItemGlass {
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       }
 
       .phoneGroupHeader {
@@ -3442,9 +3444,9 @@ function SiteStyles() {
       }
 
       .phoneGroupName {
-        font-size: 13px;
-        font-weight: 600;
-        color: #1a2a4a;
+        font-size: 14px;
+        font-weight: 700;
+        color: #0d1f3c;
         line-height: 1.2;
       }
 
@@ -3614,8 +3616,8 @@ function SiteStyles() {
       }
       .phoneGreeting {
         font-size: 11px;
-        color: rgba(30, 50, 80, 0.45);
-        font-weight: 500;
+        color: rgba(20, 40, 70, 0.5);
+        font-weight: 600;
         margin-bottom: 1px;
       }
       .phoneHomeTitle {
@@ -3640,10 +3642,10 @@ function SiteStyles() {
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.65);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -3652,15 +3654,32 @@ function SiteStyles() {
         box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       }
 
+
+      /* Avatar initial circle */
+      .avatarInitial {
+        font-size: 11px;
+        font-weight: 700;
+        color: white;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .phoneAvatarBtn {
+        background: linear-gradient(135deg, #8B7EC8, #6B5CA5) !important;
+        border: none !important;
+      }
+
       /* Game plan card */
       .phoneGamePlan {
         display: flex;
         align-items: center;
         gap: 8px;
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
         border-radius: 12px;
         padding: 10px 10px;
         margin-bottom: 8px;
@@ -4087,7 +4106,7 @@ function SiteStyles() {
         justify-content: space-around;
         align-items: flex-start;
         padding: 5px 4px 2px;
-        background: rgba(160, 200, 192, 0.75);
+        background: rgba(190, 230, 222, 0.8);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         border-top: 0.5px solid rgba(255, 255, 255, 0.25);
