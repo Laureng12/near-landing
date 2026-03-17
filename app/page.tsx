@@ -167,6 +167,17 @@ export default function Page() {
 /* âââ Nav âââ */
 
 function TopNav() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [mobileMenuOpen])
+
   return (
     <header className="nav">
       <div className="navInner">
@@ -185,8 +196,30 @@ function TopNav() {
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
           <a className="navLink hideOnMobile" href="#household">Household</a>
           <a className="navLink hideOnMobile" href="/features">Features</a>
-          <a className="navCta" href={APP_STORE_URL}>Download</a>
+          <a className="navCta hideOnMobile" href={APP_STORE_URL}>Download</a>
+          <button
+            className="hamburger"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            <span className={`hamburgerBar ${mobileMenuOpen ? 'hamburgerOpen' : ''}`} />
+            <span className={`hamburgerBar ${mobileMenuOpen ? 'hamburgerOpen' : ''}`} />
+            <span className={`hamburgerBar ${mobileMenuOpen ? 'hamburgerOpen' : ''}`} />
+          </button>
         </nav>
+      </div>
+
+      {/* Mobile menu overlay */}
+      <div
+        className={`mobileMenuOverlay ${mobileMenuOpen ? 'mobileMenuVisible' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+      <div className={`mobileMenu ${mobileMenuOpen ? 'mobileMenuVisible' : ''}`}>
+        <a className="mobileMenuLink" href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How it works</a>
+        <a className="mobileMenuLink" href="#household" onClick={() => setMobileMenuOpen(false)}>Household</a>
+        <a className="mobileMenuLink" href="/features" onClick={() => setMobileMenuOpen(false)}>Features</a>
+        <a className="mobileMenuCta" href={APP_STORE_URL}>Download</a>
       </div>
     </header>
   )
@@ -1317,6 +1350,109 @@ function SiteStyles() {
       }
 
       .navCta:hover { background: var(--blue-hover); }
+
+      /* ── Hamburger (hidden on desktop) ── */
+
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+        flex-direction: column;
+        gap: 5px;
+        z-index: 60;
+      }
+
+      .hamburgerBar {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: #1D1D1F;
+        border-radius: 2px;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+
+      .hamburgerBar.hamburgerOpen:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburgerBar.hamburgerOpen:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburgerBar.hamburgerOpen:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* ── Mobile menu overlay ── */
+
+      .mobileMenuOverlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 48;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      .mobileMenuOverlay.mobileMenuVisible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* ── Mobile slide-down menu ── */
+
+      .mobileMenu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 49;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        padding: 90px 24px 32px;
+        flex-direction: column;
+        gap: 8px;
+        transform: translateY(-100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .mobileMenu.mobileMenuVisible {
+        transform: translateY(0);
+      }
+
+      .mobileMenuLink {
+        font-size: 1.1rem;
+        color: rgba(29, 29, 31, 0.8);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        transition: color 0.2s;
+      }
+
+      .mobileMenuLink:hover {
+        color: #1D1D1F;
+      }
+
+      .mobileMenuCta {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 0.7rem 1.4rem;
+        color: white;
+        background: var(--blue);
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 999px;
+        text-align: center;
+        transition: background 0.16s;
+      }
+
+      .mobileMenuCta:hover { background: var(--blue-hover); }
+
 
       /* ââ Hero ââ */
 
@@ -4671,6 +4807,19 @@ function SiteStyles() {
 
       @media (max-width: 720px) {
         .hideOnMobile { display: none; }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .mobileMenuOverlay {
+          display: block;
+        }
+
+        .mobileMenu {
+          display: flex;
+        }
+
 
         .hero {
           min-height: auto;
