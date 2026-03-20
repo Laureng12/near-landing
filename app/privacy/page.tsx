@@ -7,7 +7,7 @@ export default function PrivacyPage() {
   return (
     <>
       <header className="legalHeader">
-        <Link href="/" className="legalLogo">
+        <Link href="/" className="legalLog">
           <Image
             src="/near-icon-hero.png"
             alt="Near"
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <main className="legalMain">
         <article className="legalContent">
           <h1 className="legalTitle">Privacy Policy</h1>
-          <p className="legalUpdated">Last updated March 12, 2026</p>
+          <p className="legalUpdated">Last updated March 20, 2026</p>
 
           <section className="legalSection">
             <h2>Introduction</h2>
@@ -77,6 +77,22 @@ export default function PrivacyPage() {
               The tasks, places, and household information you create are stored on our servers to enable syncing, household sharing, and features like recurring item suggestions. This includes task titles, notes, due dates, subtask details, place names, addresses, coordinates, and household membership.
             </p>
 
+            <h3>Financial Data (Optional)</h3>
+            <p>
+              If you enable the spending insights feature in your profile settings, Near uses Apple&apos;s FinanceKit framework to access transaction data from your Apple Wallet accounts (such as Apple Card and Apple Cash). This data is used to:
+            </p>
+            <ul>
+              <li>
+                <strong>Display spending summaries</strong> — Near shows the total amount spent, visit count, and visit frequency (e.g., weekly or biweekly) for each of your saved places over the last 90 days
+              </li>
+              <li>
+                <strong>Improve task suggestions</strong> — places where you have regular spending patterns may be prioritized when suggesting where to assign a new task
+              </li>
+            </ul>
+            <p>
+              <strong>Financial data is processed entirely on your device.</strong> Transaction amounts, merchant details, and account information are never transmitted to our servers, shared with third parties, or used for advertising. Near only reads transaction data — it cannot modify your accounts or initiate payments. You can disable this feature at any time from your profile settings, and no financial data is retained after the feature is turned off.
+            </p>
+
             <h3>Usage Analytics</h3>
             <p>
               We collect usage events to understand how the app is used, to improve the experience, and to personalize your experience within the app. These include:
@@ -109,6 +125,8 @@ export default function PrivacyPage() {
               <li>Provide smart features like recurring item suggestions, proactive trip nudges, and weather-aware errand timing</li>
               <li><strong>Personalize your experience</strong> by learning your routines, preferences, and patterns to surface more relevant suggestions, reminders, and content</li>
               <li><strong>Generate aggregated and anonymized insights</strong> from user activity to improve the app and understand usage trends</li>
+              <li>Show on-device spending summaries and visit frequency for saved places when the spending insights feature is enabled</li>
+              <li>Prioritize &quot;habit places&quot; with regular spending patterns when suggesting where to assign new tasks</li>
               <li>Improve app quality and fix bugs using analytics</li>
               <li><strong>Support partnerships</strong> with retail and grocery providers to enhance the shopping and errand experience (see &quot;Retail &amp; Grocery Partners&quot; below)</li>
             </ul>
@@ -176,6 +194,9 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Kroger (optional)</strong> — if you choose to connect your Kroger account, we use OAuth to link your account so you can send grocery items to your Kroger cart and receive aisle and pricing data. You can disconnect at any time from your profile settings.
+              </li>
+              <li>
+                <strong>Apple FinanceKit (optional)</strong> — if you enable spending insights, Near uses Apple&apos;s FinanceKit framework to read transaction data from your Apple Wallet accounts (such as Apple Card and Apple Cash). All financial data is accessed and processed entirely on your device using Apple&apos;s on-device APIs. No financial data is sent to our servers or shared with any third party. Apple does not have access to your FinanceKit queries or the data returned to Near. You can disable this feature at any time from your profile settings.
               </li>
             </ul>
             <p>
@@ -258,6 +279,9 @@ export default function PrivacyPage() {
               <li>
                 <strong>Opt out of personalization</strong> — contact us to reset personalization data
               </li>
+              <li>
+                <strong>Disable spending insights</strong> — turn off FinanceKit access at any time from your profile settings; no financial data is retained after the feature is disabled
+              </li>
             </ul>
 
             <h3>California Residents (CCPA/CPRA)</h3>
@@ -284,7 +308,7 @@ export default function PrivacyPage() {
               <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>. We will verify your identity before processing your request.
             </p>
             <p>
-              In the preceding 12 months, we have collected the following categories of personal information: identifiers (phone number, user ID), geolocation data, and internet or electronic network activity information (usage analytics). We collect this information for the business purposes described in this policy.
+              In the preceding 12 months, we have collected the following categories of personal information: identifiers (phone number, user ID), geolocation data, and internet or electronic network activity information (usage analytics), and, if you enable spending insights, financial information (transaction amounts and merchant data accessed on-device via Apple FinanceKit). We collect this information for the business purposes described in this policy. Financial data accessed via FinanceKit is not transmitted to our servers, sold, or shared with third parties.
             </p>
 
             <h3>Canadian Residents (PIPEDA)</h3>
@@ -341,7 +365,7 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p>
-              We do not collect sensitive information (as defined under the Privacy Act) through Near, such as health information, biometric data, or information about racial or ethnic origin.
+              We do not collect sensitive information (as defined under the Privacy Act) through Near, such as health information, biometric data, or information about racial or ethnic origin. If you enable spending insights, financial transaction data is accessed on-device via Apple FinanceKit and is not transmitted to our servers or disclosed to any third party.
             </p>
           </section>
 
