@@ -11,7 +11,12 @@ export default function JoinPage() {
   const [showPage, setShowPage] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowPage(true), 300)
+    // Try to open the app via custom scheme first
+    // If the app is installed, this will open it and auto-join the household
+    window.location.href = `near://join?code=${code}`
+
+    // If the app didn't open (no app installed), show the landing page after a short delay
+    const timer = setTimeout(() => setShowPage(true), 800)
     return () => clearTimeout(timer)
   }, [code])
 

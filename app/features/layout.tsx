@@ -1,13 +1,16 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Features | Near",
+  title: "Features — Near | Ambient Task Intelligence for iPhone",
   description:
-    "Explore every feature of Near — location-based tasks, household sharing, CarPlay, Apple Watch, geofence alerts, AI intelligence, and more.",
+    "Near automatically surfaces your grocery list, errands, and tasks the moment you arrive at the places where they belong. Built for iPhone, Apple Watch, CarPlay, and Siri.",
+  alternates: {
+    canonical: "/features",
+  },
   openGraph: {
-    title: "Features | Near",
+    title: "Near — Your tasks. Already there.",
     description:
-      "Explore every feature of Near — location-based tasks, household sharing, CarPlay, Apple Watch, geofence alerts, AI intelligence, and more.",
+      "Ambient task intelligence for iPhone. Location-based reminders that find you.",
   },
 }
 

@@ -33,6 +33,7 @@ export default function FeaturesPage() {
             src="/near-logo-light-cropped.png"
             alt="Near"
             className="ftNavLogoImg"
+            style={{ height: 24, width: 'auto', display: 'block' }}
           />
         </Link>
         <div className="ftNavLinks">
@@ -318,7 +319,7 @@ export default function FeaturesPage() {
           border-bottom: 1px solid var(--line);
         }
         .ftNavLogo { display: flex; align-items: center; text-decoration: none; }
-        .ftNavLogoImg { height: 36px; width: auto; display: block; object-fit: contain; }
+        .ftNavLogoImg { height: 24px; width: auto; display: block; object-fit: contain; }
         .ftNavLinks { display: flex; align-items: center; gap: 1.5rem; }
         .ftNavLink { font-size: 14px; color: var(--text-secondary); text-decoration: none; font-weight: 500; }
         .ftNavLink:hover { color: var(--foreground); }
@@ -637,7 +638,7 @@ export default function FeaturesPage() {
         @media (max-width: 600px) {
           .ftNav { padding: 0 16px; height: 52px; }
           :global(.ftNavLinkHideMobile) { display: none; }
-          .ftNavLogoImg { height: 30px; }
+          .ftNavLogoImg { height: 20px; }
           .ftNavLinks { gap: 1rem; }
           .ftNavCta { padding: 6px 14px; font-size: 12px; }
           .ftHero { padding: 80px 16px 60px; }
