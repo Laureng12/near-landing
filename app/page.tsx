@@ -141,22 +141,46 @@ export default function Page() {
       <ArriveSection />
       <PassingBySection />
       <EcosystemSection />
+      <PhasesSection />
       <SimplerInterface />
       <NaturalInput />
       <HouseholdSection />
+      <MealPlanSection />
       <MapsSection />
       <CalmTechnology />
       <PrivacySection />
       <PhilosophySection />
       <FAQSection />
       <FinalCTA />
-      <footer className="siteFooter">
-        <div className="footerInner">
-          <span className="footerCopy">Near &copy; 2026 Rise-X, Inc. All rights reserved.</span>
-          <nav className="footerLinks">
-            <a href="/terms" className="footerLink">Terms &amp; Conditions</a>
-            <a href="/privacy" className="footerLink">Privacy Policy</a>
+      <footer className="siteFooter newFooter">
+        <div className="newFooterInner">
+          <div className="newFooterBrand">
+            <img src="/assets/brand/Near-Wordmark-Cream-Transparent.png" alt="Near" width="120" height="34" />
+            <p className="newFooterTag">The right task. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
+          </div>
+          <nav className="newFooterNav" aria-label="Footer">
+            <div>
+              <h3 className="newFooterNavHead">Product</h3>
+              <a href="/#how-it-works" className="newFooterLink">How it works</a>
+              <a href="/pricing" className="newFooterLink">Pricing</a>
+              <a href="/meal-plan" className="newFooterLink">Meal Plan</a>
+            </div>
+            <div>
+              <h3 className="newFooterNavHead">Company</h3>
+              <a href="/about" className="newFooterLink">About</a>
+              <a href="mailto:hello@nearesttask.com" className="newFooterLink">Contact</a>
+            </div>
+            <div>
+              <h3 className="newFooterNavHead">Legal</h3>
+              <a href="/privacy" className="newFooterLink">Privacy</a>
+              <a href="/terms" className="newFooterLink">Terms</a>
+              <a href="mailto:support@nearesttask.com" className="newFooterLink">Support</a>
+            </div>
           </nav>
+        </div>
+        <div className="newFooterApp">
+          <a href={APP_STORE_URL} className="newFooterCta">Download on the App Store</a>
+          <p className="newFooterCopy">&copy; 2026 Near. Made for the places you go.</p>
         </div>
       </footer>
       <SiteStyles />
@@ -194,8 +218,8 @@ function TopNav() {
         </a>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
+          <a className="navLink hideOnMobile" href="/pricing">Pricing</a>
           <a className="navLink hideOnMobile" href="#household">Household</a>
-          <a className="navLink hideOnMobile" href="/features">Features</a>
           <a className="navCta hideOnMobile" href={APP_STORE_URL}>Download</a>
           <button
             className="hamburger"
@@ -253,7 +277,7 @@ function Hero() {
       <div className="heroSplit">
         <div className="heroCopy">
           <Image
-            src="/near-icon-hero.png"
+            src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
             alt="Near app icon"
             className="heroIcon"
             width={861}
@@ -267,7 +291,8 @@ function Hero() {
             Never Forget<br /><span className="gradientText">Anything Again.</span>
           </h1>
           <p className="heroSub">
-            The right task. At the right place.
+            Near surfaces errands, groceries, and tasks the moment you arrive
+            where they matter. Quiet. Household-shared. On-device.
           </p>
           <div className="heroPhases">
             {phaseTexts.map((text, i) => (
@@ -946,22 +971,22 @@ function NaturalInput() {
         <div className="splitCopy">
           <h2 className="sectionTitle left" data-parallax>Add tasks the way <span className="gradientText">you think.</span></h2>
           <p className="bodyText">
-            Type what you need and Near suggests where it belongs.<br />
-            Or just ask Siri.
-          </p>
-        </div>
-        <div className="splitVisual">
-          <div className="inputCard" data-tilt>
-            <div className="inputField">Buy batteries</div>
-            <div className="inputSuggestions">
-              <span className="inputLabel">Attach to:</span>
+            Type whaclassName="splitVisual">
+          <div className="addMock" data-tilt>
+            <button className="micBtn" aria-label="Voice capture preview">
+              <span className="micHalo"></span>
+              <span className="micCore"></span>
+            </button>
+            <p className="micTranscript"><em>&ldquo;Pick up batteries at Target Tuesday.&rdquo;</em></p>
+            <div className="micChips">
               <span className="inputChip chipActive">Target</span>
               <span className="inputChip">Home Depot</span>
               <span className="inputChip">Walgreens</span>
             </div>
-            <div className="inputVoice">
-              <span className="voiceIcon">{"\uD83C\uDF99\uFE0F"}</span>
-              <span className="voiceText">&ldquo;Siri, remind me to buy batteries at Target.&rdquo;</span>
+            <p className="micCaption">Near hears it. Places it. Done.</p>
+          </div>
+        </div>
+      </di&ldquo;Siri, remind me to buy batteries at Target.&rdquo;</span>
             </div>
           </div>
         </div>
@@ -1104,8 +1129,8 @@ function PrivacySection() {
         </div>
         <h2 className="sectionTitle" data-parallax>Your task intelligence. <span className="gradientText">Kept private.</span></h2>
         <p className="bodyText center">
-          Near uses location only to show tasks when they matter.<br />
-          Your data stays on your device.
+          Near uses location only to surface tasks at the moment they matter.<br />
+          Geofences live on your device. Your route is never sent to us.
         </p>
         <div className="pillGrid">
           <span className="pill" data-stagger data-tilt>No ads</span>
@@ -1153,7 +1178,7 @@ function PhilosophySection() {
           <div className="philSparkle philSparkle4" />
           <div className="philSparkle philSparkle5" />
         </div>
-        <h2 className="sectionTitle" data-parallax>Your brain is for <span className="gradientText">ideas.</span></h2>
+        <h2 className="sectionTitle" data-parallax><em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>Your brain is for ideas.</em></h2>
         <p className="bodyText center">
           Not batteries. Not milk. Not remembering to return the package.
         </p>
@@ -1238,6 +1263,80 @@ function FinalCTA() {
 }
 
 /* âââ Styles âââ */
+
+
+/* ─── Phases Section ─── */
+
+function PhasesSection() {
+  return (
+    <section className="phasesSection" id="phases">
+      <div className="phasesIntro">
+        <p className="eyebrow">The Refined Orbital</p>
+        <h2 className="phasesHeadline">
+          It shifts with the day.<br />
+          <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>So does your life.</em>
+        </h2>
+        <p className="phasesSub">
+          Near&apos;s mark moves through Dawn, Day, Dusk, and Night —
+          the same anchor, four moods. Your home screen feels the time of day
+          the way your kitchen does.
+        </p>
+      </div>
+      <div className="phasesGrid">
+        <figure className="phaseItem">
+          <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} />
+          <figcaption>Dawn / Dusk</figcaption>
+        </figure>
+        <figure className="phaseItem">
+          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} />
+          <figcaption>Day</figcaption>
+        </figure>
+        <figure className="phaseItem">
+          <Image src="/assets/brand/Near-Icon-Orbital-Night-1024.png" alt="Night variant of the Near app icon" width={180} height={180} />
+          <figcaption>Night</figcaption>
+        </figure>
+        <figure className="phaseItem">
+          <Image src="/assets/brand/Near-Icon-Orbital-MonoGold-1024.png" alt="Mono gold variant of the Near app icon" width={180} height={180} />
+          <figcaption>Mono · Gold</figcaption>
+        </figure>
+      </div>
+    </section>
+  )
+}
+
+/* ─── Meal Plan Section ─── */
+
+function MealPlanSection() {
+  return (
+    <section className="mealplanSection">
+      <div className="mealplanCopy">
+        <p className="eyebrow">Meal Plan</p>
+        <h2 className="mealplanHeadline">
+          Tonight&apos;s dinner. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>Already planned.</em>
+        </h2>
+        <p className="mealplanBody">
+          Near plans the week from what your household actually cooks.
+          Carry over what worked. Skip what didn&apos;t. The grocery list builds itself.
+        </p>
+        <ul className="mealplanBullets">
+          <li><span className="mealDot"></span> Drag-and-drop weekly planner</li>
+          <li><span className="mealDot"></span> Recipes auto-fill the grocery list</li>
+          <li><span className="mealDot"></span> Notices when a protein repeats four nights in a row</li>
+          <li><span className="mealDot"></span> Carries over last week&apos;s hits</li>
+        </ul>
+      </div>
+      <div className="mealplanMock">
+        <div className="mealWeek">
+          <div className="mealDay"><span className="mealDayLabel">MON</span><span className="mealDayMeal">Salmon · 25 min</span></div>
+          <div className="mealDay"><span className="mealDayLabel">TUE</span><span className="mealDayMeal">Chicken bowls</span></div>
+          <div className="mealDay mealDayToday"><span className="mealDayLabel">WED · TONIGHT</span><span className="mealDayMeal">Pasta + broccoli</span></div>
+          <div className="mealDay"><span className="mealDayLabel">THU</span><span className="mealDayMeal">Carry-over: salmon</span></div>
+          <div className="mealDay"><span className="mealDayLabel">FRI</span><span className="mealDayMeal">Pizza night</span></div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function SiteStyles() {
   return (
@@ -5011,6 +5110,236 @@ function SiteStyles() {
           gap: 1rem;
           text-align: center;
         }
+      }
+
+    
+      /* ── Phases Section ── */
+      .phasesSection {
+        background: var(--cream, #FAF6F1);
+        color: var(--plum-text, #2A0A16);
+        padding: 120px 24px;
+        text-align: center;
+      }
+      .phasesIntro { max-width: 640px; margin: 0 auto 64px; }
+      .phasesHeadline {
+        font-size: 48px;
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin: 0 0 20px;
+      }
+      .phasesSub { font-size: 17px; line-height: 1.55; opacity: 0.7; }
+      .phasesGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      .phaseItem { margin: 0; }
+      .phaseItem img {
+        width: 100%;
+        height: auto;
+        max-width: 180px;
+        filter: drop-shadow(0 16px 32px rgba(26, 14, 31, 0.18));
+      }
+      .phaseItem figcaption {
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 16px;
+        opacity: 0.6;
+      }
+      @media (max-width: 720px) {
+        .phasesGrid { grid-template-columns: repeat(2, 1fr); }
+        .phasesHeadline { font-size: 32px; }
+      }
+
+      /* ── Meal Plan Section ── */
+      .mealplanSection {
+        background: var(--cream, #FAF6F1);
+        color: var(--plum-text, #2A0A16);
+        padding: 120px 24px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .mealplanHeadline {
+        font-size: 44px;
+        font-weight: 500;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin: 0 0 20px;
+      }
+      .mealplanBody { font-size: 17px; line-height: 1.55; opacity: 0.78; margin: 0 0 32px; }
+      .mealplanBullets { list-style: none; padding: 0; margin: 0; }
+      .mealplanBullets li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+      .mealDot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold, #D4A843);
+        flex-shrink: 0;
+        display: inline-block;
+      }
+      .mealWeek { display: flex; flex-direction: column; gap: 8px; }
+      .mealDay {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 16px 20px;
+        background: white;
+        border-radius: 14px;
+        border: 1px solid rgba(26,14,31,0.06);
+      }
+      .mealDayToday {
+        background: var(--plum-base, #1A0E1F);
+        color: var(--cream-text, #FFF0DB);
+        border-color: var(--plum-base, #1A0E1F);
+      }
+      .mealDayLabel {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        min-width: 110px;
+        opacity: 0.6;
+      }
+      .mealDayToday .mealDayLabel { color: var(--gold, #D4A843); opacity: 1; }
+      .mealDayMeal { font-size: 15px; font-weight: 500; line-height: 1.3; }
+      @media (max-width: 720px) {
+        .mealplanSection { grid-template-columns: 1fr; padding: 64px 20px; }
+        .mealplanHeadline { font-size: 32px; }
+      }
+
+      /* ── Voice Mic (Natural Input update) ── */
+      .addMock {
+        background: var(--plum-base, #1A0E1F);
+        color: var(--cream-text, #FFF0DB);
+        padding: 32px;
+        border-radius: 24px;
+        text-align: center;
+      }
+      .micBtn {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: transparent;
+        border: 0;
+        position: relative;
+        margin: 24px auto;
+        display: block;
+        cursor: pointer;
+      }
+      .micHalo {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--gold, #D4A843) 0%, transparent 70%);
+        opacity: 0.5;
+        filter: blur(6px);
+        animation: micPulse 2.4s ease-in-out infinite;
+      }
+      .micCore {
+        position: absolute;
+        inset: 28px;
+        border-radius: 50%;
+        background: var(--gold, #D4A843);
+      }
+      @keyframes micPulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.7; }
+      }
+      .micTranscript {
+        font-size: 18px;
+        line-height: 1.5;
+        font-style: italic;
+        color: var(--cream-warm, #FFEFD4);
+        margin: 16px 0 24px;
+      }
+      .micChips { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+      .micCaption { font-size: 14px; line-height: 1.5; opacity: 0.6; margin: 0; }
+
+      /* ── Philosophy italic ── */
+      .philItalic em {
+        font-family: var(--font-serif, Georgia, serif);
+        font-style: italic;
+      }
+
+    
+      /* ── New Footer ── */
+      .newFooter {
+        background: var(--plum-deep, #0C0815);
+        color: var(--cream-text, #FFF0DB);
+        padding: 80px 24px 48px;
+      }
+      .newFooterInner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 64px;
+        margin-bottom: 48px;
+      }
+      .newFooterBrand img { display: block; margin-bottom: 16px; }
+      .newFooterTag { font-size: 16px; line-height: 1.4; opacity: 0.7; margin: 0; }
+      .newFooterNav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+      .newFooterNavHead {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold, #D4A843);
+        margin: 0 0 16px;
+      }
+      .newFooterLink {
+        display: block;
+        font-size: 14px;
+        line-height: 1.8;
+        color: var(--cream-text, #FFF0DB);
+        text-decoration: none;
+        opacity: 0.78;
+      }
+      .newFooterLink:hover { opacity: 1; }
+      .newFooterApp {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 32px;
+        border-top: 1px solid rgba(255,240,219,0.08);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .newFooterCta {
+        display: inline-flex;
+        align-items: center;
+        padding: 14px 24px;
+        background: var(--pink, #E56E8E);
+        color: var(--cream-text, #FFF0DB);
+        border-radius: 28px;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .newFooterCopy { font-size: 13px; opacity: 0.5; margin: 0; }
+      @media (max-width: 720px) {
+        .newFooterInner { grid-template-columns: 1fr; gap: 40px; }
+        .newFooterNav { grid-template-columns: repeat(2, 1fr); }
+        .newFooterApp { flex-direction: column; gap: 24px; }
       }
 
     `}</style>
