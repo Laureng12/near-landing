@@ -986,10 +986,6 @@ function NaturalInput() {
             <p className="micCaption">Near hears it. Places it. Done.</p>
           </div>
         </div>
-      </di&ldquo;Siri, remind me to buy batteries at Target.&rdquo;</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )
