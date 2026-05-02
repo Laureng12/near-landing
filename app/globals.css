@@ -1,33 +1,56 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap');
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #1D1D1F;
-  --text-secondary: #6E6E73;
-  --surface: #F5F5F7;
-  --blue: #2F6DFF;
-  --blue-hover: #1C56E5;
-  --line: rgba(0, 0, 0, 0.08);
-  --line-strong: rgba(0, 0, 0, 0.12);
-  --glow: rgba(47, 109, 255, 0.25);
-  --font-sans: "DM Sans", -apple-system, "SF Pro Display", "SF Pro Text", system-ui, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --font-display: "DM Sans", -apple-system, system-ui, sans-serif;
-  --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
-  --mx: 0deg;
-  --my: 0deg;
-  --parallax-offset: 0px;
+    /* Sunset cascade */
+  --plum-deep:    #0C0815;
+    --plum-base:    #1A0E1F;
+    --plum-soft:    #2E1838;
+    --plum-warm:    #5C2440;
+    --berry:        #8B2A4A;
+    --rose:         #C44850;
+    --peach:        #F08246;
+    --gold-soft:    #FFC988;
+    --cream-warm:   #FFEFD4;
+    --cream:        #FAF6F1;
+    --cream-text:   #FFF0DB;
+
+  /* Brand accents */
+  --gold:         #D4A843;
+    --pink:         #E56E8E;
+    --plum-text:    #2A0A16;
+
+  /* Type */
+  --font-sans:    "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif:   "Instrument Serif", "Iowan Old Style", Georgia, serif;
+
+  /* Legacy vars (kept for backward compat) */
+  --background: #FAF6F1;
+    --foreground: #2A0A16;
+    --text-secondary: #6E6E73;
+    --surface: #F5F5F7;
+    --blue: #2F6DFF;
+    --blue-hover: #1C56E5;
+    --line: rgba(0, 0, 0, 0.08);
+    --line-strong: rgba(0, 0, 0, 0.12);
+    --glow: rgba(212, 168, 67, 0.25);
+    --font-display: "DM Sans", -apple-system, system-ui, sans-serif;
+    --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
+    --mx: 0deg;
+    --my: 0deg;
+    --parallax-offset: 0px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  transform: translate3d(0, 0, 0);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+    background: var(--background);
+    color: var(--foreground);
+    transform: translate3d(0, 0, 0);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
