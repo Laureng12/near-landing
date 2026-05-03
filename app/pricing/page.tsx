@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
