@@ -1266,19 +1266,19 @@ function PhasesSection() {
       </div>
       <div className="phasesGrid">
         <figure className="phaseItem">
-          <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} />
+          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} /></div>
           <figcaption>Dawn / Dusk</figcaption>
         </figure>
         <figure className="phaseItem">
-          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} />
+          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} /></div>
           <figcaption>Day</figcaption>
         </figure>
         <figure className="phaseItem">
-          <Image src="/assets/brand/Near-Icon-Orbital-Night-1024.png" alt="Night variant of the Near app icon" width={180} height={180} />
+          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-Night-1024.png" alt="Night variant of the Near app icon" width={180} height={180} /></div>
           <figcaption>Night</figcaption>
         </figure>
         <figure className="phaseItem">
-          <Image src="/assets/brand/Near-Icon-Orbital-MonoGold-1024.png" alt="Mono gold variant of the Near app icon" width={180} height={180} />
+          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-MonoGold-1024.png" alt="Mono gold variant of the Near app icon" width={180} height={180} /></div>
           <figcaption>Mono · Gold</figcaption>
         </figure>
       </div>
@@ -5125,10 +5125,19 @@ function SiteStyles() {
         max-width: 960px;
         margin: 0 auto;
       }
-      .phaseItem { margin: 0; border-radius: 20px; overflow: hidden; background: #1A0E1F; }
-      .phaseItem img {
+      .phaseItem { margin: 0; }
+      .phaseIconWrap {
+        border-radius: 20px;
+        overflow: hidden;
+        background: #1A0E1F;
+        display: block;
+        aspect-ratio: 1;
         width: 100%;
-        height: auto;
+      }
+      .phaseIconWrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         display: block;
       }
       .phaseItem figcaption {
