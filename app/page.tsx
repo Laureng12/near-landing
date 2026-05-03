@@ -361,7 +361,7 @@ function PhoneMockup({ phase }: { phase: number }) {
         {notifData.map((n, i) => n && (
           <div key={i} className={`phoneNotif ${phase === i ? "phoneNotifVisible" : ""}`}>
             <Image
-              src="/near-icon-hero.png"
+              src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
               alt=""
               width={36}
               height={36}
@@ -661,7 +661,7 @@ function PhoneMockup({ phase }: { phase: number }) {
             <div className="lockProximityGlow" />
             <div className="lockProximityHeader">
               <Image
-                src="/near-icon-hero.png"
+                src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
                 alt=""
                 width={28}
                 height={28}
@@ -1219,7 +1219,7 @@ function FinalCTA() {
         <div className="finalNotifCard">
           <div className="finalNotifGlow" />
           <Image
-            src="/near-icon-hero.png"
+            src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
             alt=""
             width={40}
             height={40}
