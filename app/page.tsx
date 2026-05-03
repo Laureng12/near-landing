@@ -215,6 +215,7 @@ function TopNav() {
             priority
             quality={100}
           />
+          <span className="brandName">near</span>
         </a>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
@@ -1410,6 +1411,13 @@ function SiteStyles() {
         display: block;
         object-fit: contain;
         border-radius: 8px;
+      }
+      .brandName {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1D1D1F;
+        letter-spacing: -0.02em;
+        font-family: 'DM Sans', sans-serif;
       }
 
       .navLink {
