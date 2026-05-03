@@ -155,7 +155,7 @@ export default function Page() {
       <footer className="siteFooter newFooter">
         <div className="newFooterInner">
           <div className="newFooterBrand">
-            <img src="/assets/brand/Near-Wordmark-Cream-Transparent.png" alt="Near" width="120" height="34" />
+            <span style={{fontSize:"20px",fontWeight:"700",letterSpacing:"-0.02em",fontFamily:"'DM Sans',sans-serif"}}>Near</span>
             <p className="newFooterTag">The right task. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
           </div>
           <nav className="newFooterNav" aria-label="Footer">
