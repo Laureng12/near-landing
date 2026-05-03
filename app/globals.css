@@ -33,8 +33,10 @@ html {
     --foreground: #2A0A16;
     --text-secondary: #6E6E73;
     --surface: #F5F5F7;
-    --blue: #2F6DFF;
-    --blue-hover: #1C56E5;
+    /* Legacy aliases — point to canon pink so any straggler blue references
+       still receive the correct CTA color until per-line cleanup lands. */
+    --blue: var(--pink);              /* #E56E8E */
+    --blue-hover: #C8536F;            /* darker pink for hover state */
     --line: rgba(0, 0, 0, 0.08);
     --line-strong: rgba(0, 0, 0, 0.12);
     --glow: rgba(212, 168, 67, 0.25);
