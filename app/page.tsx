@@ -207,11 +207,11 @@ function TopNav() {
       <div className="navInner">
         <a className="brand" href="#top">
           <Image
-            src="/near-logo-light-cropped.png"
+            src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
             alt="Near"
             className="brandLogo"
-            width={777}
-            height={305}
+            width={40}
+            height={40}
             priority
             quality={100}
           />
@@ -885,16 +885,7 @@ function PassingBySection() {
             <div className="passingByGlow2" />
             <div className="passingByNotif" data-tilt>
               <div className="passingByIcon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#pinGrad)" />
-                  <circle cx="10" cy="9" r="2.5" fill="white" />
-                  <defs>
-                    <linearGradient id="pinGrad" x1="3" y1="2" x2="17" y2="18">
-                      <stop stopColor="#5B8DEF" />
-                      <stop offset="1" stopColor="#7B5CFF" />
-                    </linearGradient>
-                  </defs>
-                </svg>
+                <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Near" width={28} height={28} style={{borderRadius:'6px'}} />
               </div>
               <div className="passingByNotifBody">
                 <div className="passingByLabel">Near &middot; Nearby errand</div>
@@ -1023,16 +1014,7 @@ function HouseholdSection() {
             </div>
             <div className="householdNotif" data-tilt>
               <div className="householdNotifIcon">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 9 7 9s7-3.75 7-9c0-3.87-3.13-7-7-7z" fill="url(#hhPinGrad)" />
-                  <circle cx="10" cy="9" r="2.5" fill="white" />
-                  <defs>
-                    <linearGradient id="hhPinGrad" x1="3" y1="2" x2="17" y2="18">
-                      <stop stopColor="#FF6B8A" />
-                      <stop offset="1" stopColor="#C74BF6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
+                <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Near" width={24} height={24} style={{borderRadius:'5px'}} />
               </div>
               <div className="householdNotifBody">
                 <div className="householdNotifLabel">Near &middot; now</div>
@@ -1286,8 +1268,8 @@ function PhasesSection() {
           <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} />
           <figcaption>Dawn / Dusk</figcaption>
         </figure>
-        <figure className="phaseItem">
-          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} />
+        <figure className="phaseItem" style={{background:'#F5E8D5', borderRadius:'20px', padding:'12px'}}>
+          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} style={{borderRadius:'12px'}} />
           <figcaption>Day</figcaption>
         </figure>
         <figure className="phaseItem">
@@ -1423,10 +1405,11 @@ function SiteStyles() {
       }
 
       .brandLogo {
-        width: auto;
+        width: 36px;
         height: 36px;
         display: block;
         object-fit: contain;
+        border-radius: 8px;
       }
 
       .navLink {
@@ -2142,7 +2125,7 @@ function SiteStyles() {
         width: 38px;
         height: 38px;
         border-radius: 10px;
-        background: linear-gradient(135deg, #e8efff 0%, #f0eaff 100%);
+        background: #FAF7F2;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -3045,7 +3028,7 @@ function SiteStyles() {
         padding: 5rem 2rem 4rem;
         border-radius: 2.5rem;
         text-align: center;
-        background: linear-gradient(145deg, #0a0820 0%, #12103a 20%, #1e1650 40%, #2a1f6e 60%, #1a1445 80%, #0e0b28 100%);
+        background: linear-gradient(145deg, #2C1B3E 0%, #3B1F30 30%, #4A2028 55%, #381520 80%, #241018 100%);
         color: white;
         overflow: hidden;
         position: relative;
