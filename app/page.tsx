@@ -1269,8 +1269,8 @@ function PhasesSection() {
           <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} />
           <figcaption>Dawn / Dusk</figcaption>
         </figure>
-        <figure className="phaseItem">
-          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} style={{borderRadius:'12px', mixBlendMode:'multiply'}} />
+        <figure className="phaseItem" style={{borderRadius:'20px', overflow:'hidden'}}>
+          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} style={{display:'block'}} />
           <figcaption>Day</figcaption>
         </figure>
         <figure className="phaseItem">
