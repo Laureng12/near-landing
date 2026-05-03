@@ -5125,7 +5125,7 @@ function SiteStyles() {
         max-width: 960px;
         margin: 0 auto;
       }
-      .phaseItem { margin: 0; }
+      .phaseItem { margin: 0; border-radius: 20px; overflow: hidden; background: #1A0E1F; }
       .phaseItem img {
         width: 100%;
         height: auto;
