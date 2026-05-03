@@ -1269,8 +1269,8 @@ function PhasesSection() {
           <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} />
           <figcaption>Dawn / Dusk</figcaption>
         </figure>
-        <figure className="phaseItem" style={{borderRadius:'20px', overflow:'hidden'}}>
-          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} style={{display:'block'}} />
+        <figure className="phaseItem">
+          <Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} />
           <figcaption>Day</figcaption>
         </figure>
         <figure className="phaseItem">
@@ -1615,14 +1615,13 @@ function SiteStyles() {
         height: 80px;
         margin: 0 0 1.5rem;
         display: block;
-        border-radius: 18px;
-        box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25);
+        filter: drop-shadow(0 10px 30px rgba(26, 14, 31, 0.22));
         animation: iconPulse 5.5s ease-in-out infinite;
       }
 
       @keyframes iconPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25); }
-        50% { transform: scale(1.03); box-shadow: 0 12px 36px rgba(47, 109, 255, 0.35); }
+        0%, 100% { transform: scale(1); filter: drop-shadow(0 10px 30px rgba(26, 14, 31, 0.22)); }
+        50% { transform: scale(1.03); filter: drop-shadow(0 12px 36px rgba(26, 14, 31, 0.32)); }
       }
 
       .eyebrow {
