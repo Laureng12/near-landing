@@ -1270,7 +1270,7 @@ function PhasesSection() {
           <figcaption>Dawn / Dusk</figcaption>
         </figure>
         <figure className="phaseItem">
-          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} /></div>
+          <div className="phaseIconWrap dayIcon"><Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} /></div>
           <figcaption>Day</figcaption>
         </figure>
         <figure className="phaseItem">
@@ -5139,6 +5139,9 @@ function SiteStyles() {
         height: 100%;
         object-fit: cover;
         display: block;
+      }
+      .phaseIconWrap.dayIcon img {
+        mix-blend-mode: multiply;
       }
       .phaseItem figcaption {
         font-size: 13px;
