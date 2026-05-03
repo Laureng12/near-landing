@@ -5140,8 +5140,8 @@ function SiteStyles() {
         object-fit: cover;
         display: block;
       }
-      .phaseIconWrap.dayIcon img {
-        mix-blend-mode: multiply;
+      .phaseIconWrap.dayIcon {
+        background: #F0E4CE;
       }
       .phaseItem figcaption {
         font-size: 13px;
