@@ -971,7 +971,10 @@ function NaturalInput() {
         <div className="splitCopy">
           <h2 className="sectionTitle left" data-parallax>Add tasks the way <span className="gradientText">you think.</span></h2>
           <p className="bodyText">
-            Type whaclassName="splitVisual">
+            Type what you think. Near hears it. Places it. Done.
+          </p>
+        </div>
+        <div className="splitVisual">
           <div className="addMock" data-tilt>
             <button className="micBtn" aria-label="Voice capture preview">
               <span className="micHalo"></span>
