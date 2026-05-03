@@ -1708,7 +1708,7 @@ function SiteStyles() {
 
       .primaryBtn {
         color: white;
-        background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 100%);
+        background: linear-gradient(135deg, var(--pink) 0%, #C44850 100%);
         border: none;
         box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25);
         background-size: 200% 200%;
@@ -2215,7 +2215,7 @@ function SiteStyles() {
         opacity: 1;
       }
 
-      .ecoCard0::before { background: linear-gradient(90deg, #2F6DFF, #7B5CFF); }
+      .ecoCard0::before { background: linear-gradient(90deg, var(--pink), #C44850); }
       .ecoCard1::before { background: linear-gradient(90deg, #FF6B8A, #FF9B6B); }
       .ecoCard2::before { background: linear-gradient(90deg, #34D399, #2F6DFF); }
       .ecoCard3::before { background: linear-gradient(90deg, #C74BF6, #FF6B8A); }
