@@ -5129,8 +5129,7 @@ function SiteStyles() {
       .phaseItem img {
         width: 100%;
         height: auto;
-        max-width: 180px;
-        filter: drop-shadow(0 16px 32px rgba(26, 14, 31, 0.18));
+        display: block;
       }
       .phaseItem figcaption {
         font-size: 13px;
