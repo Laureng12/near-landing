@@ -1431,14 +1431,17 @@ function SiteStyles() {
       .navCta {
         padding: 0.5rem 1.1rem;
         color: white;
-        background: var(--blue);
+        /* Build 631 — nav CTA flipped from legacy var(--blue) to
+           brand pink. The nav is the highest-visibility CTA on
+           every page; a stale blue read as off-brand. */
+        background: var(--pink);
         font-size: 0.88rem;
         font-weight: 600;
         border-radius: 999px;
         transition: background 0.16s;
       }
 
-      .navCta:hover { background: var(--blue-hover); }
+      .navCta:hover { background: #C44850; }
 
       /* ── Hamburger (hidden on desktop) ── */
 
@@ -1532,7 +1535,9 @@ function SiteStyles() {
         margin-top: 12px;
         padding: 0.7rem 1.4rem;
         color: white;
-        background: var(--blue);
+        /* Build 631 — mobile menu CTA flipped from legacy
+           var(--blue) to brand pink (matches navCta + primaryBtn). */
+        background: var(--pink);
         font-size: 1rem;
         font-weight: 600;
         border-radius: 999px;
@@ -1626,7 +1631,11 @@ function SiteStyles() {
 
       .eyebrow {
         display: block;
-        color: var(--blue);
+        /* Build 631 — eyebrow text flipped from legacy var(--blue)
+           to brand pink. Eyebrows lead every section; they should
+           read on the same color register as the rest of the
+           brand (orbital icon, primary CTA, accent gradients). */
+        color: var(--pink);
         font-size: 15px;
         font-weight: 600;
         text-transform: uppercase;
@@ -1700,7 +1709,12 @@ function SiteStyles() {
         color: white;
         background: linear-gradient(135deg, var(--pink) 0%, #C44850 100%);
         border: none;
-        box-shadow: 0 10px 30px rgba(47, 109, 255, 0.25);
+        /* Build 631 — drop-shadow flipped from legacy blue
+           rgba(47,109,255,...) to brand rose (#C44850). The
+           background gradient already shipped pink/rose; the
+           shadow had been left as the old blue tint, which read
+           as a stale color halo against the new button face. */
+        box-shadow: 0 10px 30px rgba(196, 72, 80, 0.25);
         background-size: 200% 200%;
         background-position: 0% 50%;
         transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -1708,14 +1722,19 @@ function SiteStyles() {
 
       .primaryBtn:hover {
         background-position: 100% 50%;
-        box-shadow: 0 14px 36px rgba(123, 92, 255, 0.3);
+        /* Hover lift uses brand pink (#E56E8E) at higher opacity
+           so the shadow brightens with the gradient sweep. */
+        box-shadow: 0 14px 36px rgba(229, 110, 142, 0.35);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
       .secondaryBtn {
-        color: var(--blue);
+        /* Build 631 — secondary CTA flipped from legacy blue
+           (var(--blue) + rgba(47,109,255,...)) to brand pink so
+           the section's dual-CTA row reads on-canon. */
+        color: var(--pink);
         background: transparent;
-        border: 1px solid rgba(47, 109, 255, 0.3);
+        border: 1px solid rgba(229, 110, 142, 0.3);
       }
 
       .secondaryBtn:hover { background: rgba(47, 109, 255, 0.06); }
