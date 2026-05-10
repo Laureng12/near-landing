@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
 const KEY_SENTENCE =
-  "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location."
+  "Near is the ambient memory layer for couples and households. It surfaces what you'd otherwise forget — groceries, errands, the thing one of you mentioned last week — automatically, the moment you arrive where it matters."
 
 function use3DEffects() {
   useEffect(() => {
@@ -59,7 +59,7 @@ const ecosystemItems = [
     icon: "\uD83D\uDCF1",
     title: "iPhone",
     description:
-      "Tasks appear on your lock screen when you arrive.",
+      "Your list appears on your lock screen when you arrive.",
   },
   {
     icon: "\u231A",
@@ -77,7 +77,7 @@ const ecosystemItems = [
     icon: "\uD83C\uDF10",
     title: "Siri & Maps",
     description:
-      "Ask naturally. See tasks where places already live.",
+      "Ask naturally. See your list where places already live.",
   },
 ]
 
@@ -156,7 +156,7 @@ export default function Page() {
         <div className="newFooterInner">
           <div className="newFooterBrand">
             <span style={{fontSize:"20px",fontWeight:"700",letterSpacing:"-0.02em",fontFamily:"'DM Sans',sans-serif"}}>Near</span>
-            <p className="newFooterTag">The right task. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
+            <p className="newFooterTag">The right thing. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
           </div>
           <nav className="newFooterNav" aria-label="Footer">
             <div>
@@ -256,10 +256,10 @@ const PHASE_NAMES = ["home", "lock-notif", "places", "household"] as const
 const PHASE_DURATION = 3200 // ms per phase
 
 const phaseTexts = [
-  "Near surfaces errands, groceries, and tasks when you arrive where they matter. Seize the day.",
+  "Near remembers what your household meant to do. It surfaces things at the moment they matter.",
   "Arrive at the store. Your list is already there.",
-  "Tap into a place and see exactly what you need. One store, one list.",
-  "Even home has a list. Near remembers so you don’t have to.",
+  "Tap into a place. See exactly what you need. One store, one list.",
+  "Brian's at Target. Lauren's list shows up on his lock screen. Nobody texts.",
 ]
 
 function Hero() {
@@ -287,13 +287,14 @@ function Hero() {
             quality={100}
             unoptimized
           />
-          <span className="eyebrow">Ambient task intelligence</span>
+          <span className="eyebrow">Built for couples and households</span>
           <h1 className="heroTitle">
             Never Forget<br /><span className="gradientText">Anything Again.</span>
           </h1>
           <p className="heroSub">
-            Near surfaces errands, groceries, and tasks the moment you arrive
-            where they matter. Quiet. Household-shared. On-device.
+            Near is the ambient memory layer for households. It surfaces what
+            you'd otherwise forget — the moment you arrive where it matters.
+            Quiet. Shared. On-device.
           </p>
           <div className="heroPhases">
             {phaseTexts.map((text, i) => (
