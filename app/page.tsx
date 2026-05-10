@@ -145,6 +145,7 @@ export default function Page() {
       <SimplerInterface />
       <NaturalInput />
       <HouseholdSection />
+      <BuiltForCouplesSection />
       <MealPlanSection />
       <MapsSection />
       <CalmTechnology />
@@ -1025,6 +1026,33 @@ function HouseholdSection() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* --- Built for couples --- */
+
+function BuiltForCouplesSection() {
+  return (
+    <section className="section" id="couples">
+      <div className="reveal sectionShell">
+        <div className="splitCopy" style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
+          <span className="eyebrow" style={{ display: "block", marginBottom: 14 }}>For couples</span>
+          <h2 className="sectionTitle" data-parallax>
+            For the couples who used to text<br />
+            <span className="gradientText">&ldquo;did you remember&hellip;?&rdquo;</span>
+          </h2>
+          <p className="bodyText" style={{ marginTop: 18 }}>
+            Brian&rsquo;s at Kroger. Lauren&rsquo;s grocery list shows up on his Lock Screen.
+            Nobody texts. Nobody forgets.
+          </p>
+          <p className="bodyText" style={{ marginTop: 12, opacity: 0.78 }}>
+            Lauren plans Tuesday&rsquo;s dinner Sunday night. Brian sees it
+            on his Watch when he walks into the kitchen Tuesday at 5.
+            The household acts like one organism.
+          </p>
         </div>
       </div>
     </section>
