@@ -1,12 +1,13 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 
 const KEY_SENTENCE =
-  "Near is the ambient memory layer for couples and households. It surfaces what you'd otherwise forget — groceries, errands, the thing one of you mentioned last week — automatically, the moment you arrive where it matters."
+  "Near remembers errands, groceries, home things, and the small promises busy people would otherwise carry in their head. It surfaces them at the moment and place they matter. Start solo. Add your people when the household needs shared memory."
 
 function use3DEffects() {
   useEffect(() => {
@@ -162,20 +163,19 @@ export default function Page() {
           <nav className="newFooterNav" aria-label="Footer">
             <div>
               <h3 className="newFooterNavHead">Product</h3>
-              <a href="/#how-it-works" className="newFooterLink">How it works</a>
-              <a href="/pricing" className="newFooterLink">Pricing</a>
-              <a href="/meal-plan" className="newFooterLink">Meal Plan</a>
+              <Link href="/#how-it-works" className="newFooterLink">How it works</Link>
+              <Link href="/pricing" className="newFooterLink">Pricing</Link>
+              <Link href="/#meal-plan" className="newFooterLink">Meal Plan</Link>
             </div>
             <div>
               <h3 className="newFooterNavHead">Company</h3>
-              <a href="/about" className="newFooterLink">About</a>
               <a href="mailto:hello@nearesttask.com" className="newFooterLink">Contact</a>
+              <Link href="/support" className="newFooterLink">Support</Link>
             </div>
             <div>
               <h3 className="newFooterNavHead">Legal</h3>
-              <a href="/privacy" className="newFooterLink">Privacy</a>
-              <a href="/terms" className="newFooterLink">Terms</a>
-              <a href="mailto:support@nearesttask.com" className="newFooterLink">Support</a>
+              <Link href="/privacy" className="newFooterLink">Privacy</Link>
+              <Link href="/terms" className="newFooterLink">Terms</Link>
             </div>
           </nav>
         </div>
@@ -220,7 +220,7 @@ function TopNav() {
         </a>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
-          <a className="navLink hideOnMobile" href="/pricing">Pricing</a>
+          <Link className="navLink hideOnMobile" href="/pricing">Pricing</Link>
           <a className="navLink hideOnMobile" href="#household">Household</a>
           <a className="navCta hideOnMobile" href={APP_STORE_URL}>Download</a>
           <button
@@ -244,7 +244,7 @@ function TopNav() {
       <div className={`mobileMenu ${mobileMenuOpen ? 'mobileMenuVisible' : ''}`}>
         <a className="mobileMenuLink" href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How it works</a>
         <a className="mobileMenuLink" href="#household" onClick={() => setMobileMenuOpen(false)}>Household</a>
-        <a className="mobileMenuLink" href="/features" onClick={() => setMobileMenuOpen(false)}>Features</a>
+        <Link className="mobileMenuLink" href="/features" onClick={() => setMobileMenuOpen(false)}>Features</Link>
         <a className="mobileMenuCta" href={APP_STORE_URL}>Download</a>
       </div>
     </header>
@@ -257,10 +257,10 @@ const PHASE_NAMES = ["home", "lock-notif", "places", "household"] as const
 const PHASE_DURATION = 3200 // ms per phase
 
 const phaseTexts = [
-  "Near remembers what your household meant to do. It surfaces things at the moment they matter.",
-  "Arrive at the store. Your list is already there.",
-  "Tap into a place. See exactly what you need. One store, one list.",
-  "Brian's at Target. Lauren's list shows up on his lock screen. Nobody texts.",
+  "For the person already juggling work, errands, dinner, and home.",
+  "Arrive at the store. The thing you needed is already there.",
+  "Use it solo as your memory on autopilot.",
+  "Add your partner or household so everyone stops reminding each other.",
 ]
 
 function Hero() {
@@ -288,14 +288,13 @@ function Hero() {
             quality={100}
             unoptimized
           />
-          <span className="eyebrow">Built for couples and households</span>
           <h1 className="heroTitle">
             Never Forget<br /><span className="gradientText">Anything Again.</span>
           </h1>
           <p className="heroSub">
-            Near is the ambient memory layer for households. It surfaces what
-            you'd otherwise forget — the moment you arrive where it matters.
-            Quiet. Shared. On-device.
+            Near catches the errands, groceries, and home things you&rsquo;d
+            otherwise forget. Then they surface in the right place. Use it solo
+            or share it with your household.
           </p>
           <div className="heroPhases">
             {phaseTexts.map((text, i) => (
@@ -995,10 +994,10 @@ function HouseholdSection() {
     <section className="section sectionSurface" id="household">
       <div className="reveal sectionShell splitGrid">
         <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>One household.<br />One <span className="gradientText">shared memory.</span></h2>
+          <h2 className="sectionTitle left" data-parallax>Start solo.<br />Add your <span className="gradientText">people.</span></h2>
           <p className="bodyText">
-            Anyone can add items.<br />
-            When someone is near the store, Near shows the list.
+            Near is useful before anyone joins.<br />
+            Invite your partner or household and it becomes shared memory.
           </p>
         </div>
         <div className="splitVisual">
@@ -1007,10 +1006,10 @@ function HouseholdSection() {
             <div className="householdGlow2" />
             <div className="householdOrbit">
               <div className="householdAvatar householdAvatar1">
-                <span>ð©</span>
+                <span className="householdInitial">L</span>
               </div>
               <div className="householdAvatar householdAvatar2">
-                <span>ð¨</span>
+                <span className="householdInitial">B</span>
               </div>
               <div className="householdRing" />
               <div className="householdRing householdRing2" />
@@ -1032,26 +1031,26 @@ function HouseholdSection() {
   )
 }
 
-/* --- Built for couples --- */
+/* --- Busy people + household multiplier --- */
 
 function BuiltForCouplesSection() {
   return (
     <section className="section" id="couples">
       <div className="reveal sectionShell">
         <div className="splitCopy" style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-          <span className="eyebrow" style={{ display: "block", marginBottom: 14 }}>For couples</span>
+          <span className="eyebrow" style={{ display: "block", marginBottom: 14 }}>Solo first. Shared when useful.</span>
           <h2 className="sectionTitle" data-parallax>
-            For the couples who used to text<br />
-            <span className="gradientText">&ldquo;did you remember&hellip;?&rdquo;</span>
+            For busy people who are tired<br />
+            <span className="gradientText">of carrying the whole day.</span>
           </h2>
           <p className="bodyText" style={{ marginTop: 18 }}>
-            Brian&rsquo;s at Kroger. Lauren&rsquo;s grocery list shows up on his Lock Screen.
-            Nobody texts. Nobody forgets.
+            On your own, Near becomes memory on autopilot. Groceries, returns,
+            home errands, and small promises come back at the place they matter.
           </p>
           <p className="bodyText" style={{ marginTop: 12, opacity: 0.78 }}>
-            Lauren plans Tuesday&rsquo;s dinner Sunday night. Brian sees it
-            on his Watch when he walks into the kitchen Tuesday at 5.
-            The household acts like one organism.
+            Add your partner or household and the value multiplies. Brian walks
+            into Kroger; Lauren&rsquo;s list appears on his Lock Screen. Nobody texts.
+            Nobody forgets.
           </p>
         </div>
       </div>
@@ -1293,23 +1292,15 @@ function PhasesSection() {
           the way your kitchen does.
         </p>
       </div>
-      <div className="phasesGrid">
-        <figure className="phaseItem">
-          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Dawn variant of the Near app icon" width={180} height={180} /></div>
-          <figcaption>Dawn / Dusk</figcaption>
-        </figure>
-        <figure className="phaseItem">
-          <div className="phaseIconWrap dayIcon"><Image src="/assets/brand/Near-Icon-Orbital-Day-1024.png" alt="Day variant of the Near app icon" width={180} height={180} /></div>
-          <figcaption>Day</figcaption>
-        </figure>
-        <figure className="phaseItem">
-          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-Night-1024.png" alt="Night variant of the Near app icon" width={180} height={180} /></div>
-          <figcaption>Night</figcaption>
-        </figure>
-        <figure className="phaseItem">
-          <div className="phaseIconWrap"><Image src="/assets/brand/Near-Icon-Orbital-MonoGold-1024.png" alt="Mono gold variant of the Near app icon" width={180} height={180} /></div>
-          <figcaption>Mono · Gold</figcaption>
-        </figure>
+      <div className="phasesRow" style={{maxWidth:"1000px", margin:"0 auto", padding:"0 24px"}}>
+        <Image
+          src="/assets/brand/Near-Orbital-Row.png"
+          alt="The Near app icon in four moods - Dawn/Dusk, Day, Night, and Mono Gold"
+          width={2099}
+          height={512}
+          priority
+          style={{width:"100%", height:"auto", display:"block"}}
+        />
       </div>
     </section>
   )
@@ -1319,7 +1310,7 @@ function PhasesSection() {
 
 function MealPlanSection() {
   return (
-    <section className="mealplanSection">
+    <section className="mealplanSection" id="meal-plan">
       <div className="mealplanCopy">
         <p className="eyebrow">Meal Plan</p>
         <h2 className="mealplanHeadline">
@@ -1538,6 +1529,8 @@ function SiteStyles() {
         flex-direction: column;
         gap: 8px;
         transform: translateY(-100%);
+        visibility: hidden;
+        pointer-events: none;
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         border-bottom: 1px solid rgba(0, 0, 0, 0.08);
         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
@@ -1545,6 +1538,8 @@ function SiteStyles() {
 
       .mobileMenu.mobileMenuVisible {
         transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
       }
 
       .mobileMenuLink {
@@ -1645,10 +1640,11 @@ function SiteStyles() {
       }
 
       .heroIcon {
-        width: 80px;
-        height: 80px;
-        margin: 0 0 1.5rem;
+        width: 72px;
+        height: 72px;
+        margin: 0 0 1.15rem;
         display: block;
+        border-radius: 18px;
         filter: drop-shadow(0 10px 30px rgba(26, 14, 31, 0.22));
         animation: iconPulse 5.5s ease-in-out infinite;
       }
@@ -1683,7 +1679,7 @@ function SiteStyles() {
 
       .heroSub {
         margin: 1.5rem 0 0;
-        font-size: 28px;
+        font-size: clamp(22px, 2.1vw, 26px);
         font-weight: 400;
         line-height: 1.2;
         color: #1D1D1F;
@@ -1692,15 +1688,12 @@ function SiteStyles() {
       /* Phase-rotating subtext */
       .heroPhases {
         position: relative;
-        min-height: 60px;
+        display: grid;
         margin: 1rem 0 0;
       }
 
       .heroPhaseText {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
+        grid-area: 1 / 1;
         margin: 0;
         font-size: 19px;
         font-weight: 400;
@@ -1718,7 +1711,7 @@ function SiteStyles() {
         display: flex;
         flex-wrap: wrap;
         gap: 0.9rem;
-        margin-top: 2.5rem;
+        margin-top: 2rem;
         justify-content: flex-start;
       }
 
@@ -2469,6 +2462,13 @@ function SiteStyles() {
         font-size: 24px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         z-index: 2;
+      }
+
+      .householdInitial {
+        font-size: 17px;
+        font-weight: 700;
+        color: rgba(42, 10, 22, 0.72);
+        letter-spacing: 0;
       }
 
       .householdAvatar1 {
@@ -4995,8 +4995,8 @@ function SiteStyles() {
 
         .heroSub { font-size: 17px; margin-top: 0.5rem; }
 
-        .heroPhaseText { font-size: 15px; }
-        .heroPhases { min-height: 44px; margin-top: 0.5rem; }
+        .heroPhaseText { font-size: 15px; line-height: 1.45; }
+        .heroPhases { margin-top: 0.5rem; }
 
         .sectionTitle {
           font-size: clamp(1.8rem, 7vw, 2.4rem);
@@ -5190,6 +5190,8 @@ function SiteStyles() {
       }
       .phaseIconWrap.dayIcon {
         background: #F0E4CE;
+        box-sizing: border-box;
+        border: 1px solid rgba(42, 10, 22, 0.12);
       }
       .phaseItem figcaption {
         font-size: 13px;

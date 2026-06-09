@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://nearesttask.com/sitemap.xml",
+    sitemap: "https://www.nearesttask.com/sitemap.xml",
   }
 }

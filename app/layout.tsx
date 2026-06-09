@@ -4,7 +4,7 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Near | The right task. At the right place.",
   description:
-    "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
+    "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
   keywords: [
     "ambient task intelligence",
     "location reminders",
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
     "grocery list app",
     "errand reminder",
     "household task sharing",
+    "busy people task app",
+    "solo task app",
     "geofence reminders",
     "place based reminders",
     "shared grocery list",
@@ -35,9 +37,9 @@ export const metadata: Metadata = {
     "location-aware AI",
     "ambient intelligence app",
   ],
-  metadataBase: new URL("https://nearesttask.com"),
+  metadataBase: new URL("https://www.nearesttask.com"),
   alternates: {
-    canonical: "https://nearesttask.com",
+    canonical: "https://www.nearesttask.com",
   },
   robots: {
     index: true,
@@ -53,8 +55,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Near | Ambient Task Intelligence",
     description:
-      "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
-    url: "https://nearesttask.com",
+      "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
+    url: "https://www.nearesttask.com",
     siteName: "Near",
     type: "website",
     locale: "en_US",
@@ -71,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Near | The right task. At the right place.",
     description:
-      "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
+      "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
     images: ["/near-og.png"],
   },
   category: "Productivity",
@@ -96,7 +98,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#FFFFFF" />
-        <link rel="canonical" href="https://nearesttask.com" />
+        <link rel="canonical" href="https://www.nearesttask.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -115,8 +117,8 @@ export default function RootLayout({
                 priceCurrency: "USD",
               },
               description:
-                "Near is an ambient task intelligence system that surfaces errands, reminders, and household tasks automatically based on location.",
-              url: "https://nearesttask.com",
+                "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
+              url: "https://www.nearesttask.com",
               downloadUrl: "https://apps.apple.com/app/id6744145553",
               featureList: "Location-based reminders, Shared grocery lists, Ambient task surfacing, Household task management, AI-powered errand detection",
             }),
@@ -188,7 +190,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               name: "Near",
-              url: "https://nearesttask.com",
+              url: "https://www.nearesttask.com",
               applicationCategory: "ProductivityApplication",
               operatingSystem: "iOS",
               browserRequirements: "Requires iOS 17.0 or later",
@@ -209,7 +211,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Near",
-              url: "https://nearesttask.com",
+              url: "https://www.nearesttask.com",
               description: "Ambient task intelligence for iPhone. The right task, at the right place.",
               brand: {
                 "@type": "Brand",
