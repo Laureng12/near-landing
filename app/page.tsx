@@ -371,7 +371,7 @@ function PhoneMockup({ phase }: { phase: number }) {
 
         {/* iOS-style notification banners */}
         {notifData.map((n, i) => n && (
-          <div key={i} className={`phoneNotif ${phase === i ? "phoneNotifVisible" : ""}`}>
+          <div key={i} className={`phoneNotif ${phase === i && !isLocked ? "phoneNotifVisible" : ""}`}>
             <Image
               src={BRAND_ICON}
               alt=""
@@ -654,7 +654,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           </div>
         </div>
 
-        {/* Lock screen overlay — mountain lake wallpaper */}
+        {/* Lock screen overlay */}
         <div className={`phoneLockOverlay ${isLocked ? "phoneLockVisible" : ""}`}>
           {/* Wallpaper scene layers */}
           <div className="lockWallpaper">
@@ -3502,11 +3502,14 @@ function SiteStyles() {
         transition: opacity 0.3s ease 0.15s, visibility 0s 0s;
       }
 
-      /* Mountain lake wallpaper */
+      /* Smooth lock screen wallpaper */
       .lockWallpaper {
         position: absolute;
         inset: 0;
         z-index: 0;
+        background:
+          radial-gradient(circle at 50% 44%, rgba(244, 255, 251, 0.94) 0 9%, rgba(195, 240, 241, 0.9) 22%, rgba(116, 205, 223, 0.74) 42%, transparent 64%),
+          linear-gradient(180deg, #74C5DD 0%, #AEE1E9 38%, #E9F8F4 58%, #7BCAD4 100%);
       }
 
       .lockSky {
@@ -3514,35 +3517,26 @@ function SiteStyles() {
         top: 0;
         left: 0;
         right: 0;
-        height: 50%;
-        background: linear-gradient(180deg, #7ecbcc 0%, #9dd8d2 25%, #b5e2d8 40%, #cceee5 55%, #e6f5f0 70%, #f0f8f4 100%);
+        height: 58%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
       }
 
       .lockMountainBack {
         position: absolute;
-        top: 18%;
-        left: 0;
-        right: 0;
-        height: 35%;
-        background:
-          linear-gradient(110deg, transparent 0%, transparent 5%,
-            #8a9eb0 5%, #92a5b5 12%, #a0b0bc 18%, #7a8f9e 25%,
-            #6d8494 30%, #8fa3b2 38%, #a5b7c4 42%, #92a5b5 48%,
-            #7a8f9e 55%, #889cac 60%, #95aab8 68%,
-            #a0b0bc 75%, #8a9eb0 82%, #7a8f9e 90%, transparent 95%);
-        clip-path: polygon(0% 70%, 5% 45%, 12% 55%, 20% 25%, 28% 40%, 35% 15%, 42% 30%, 50% 10%, 58% 28%, 65% 18%, 72% 35%, 78% 20%, 85% 38%, 92% 22%, 100% 50%, 100% 100%, 0% 100%);
+        top: 28%;
+        left: -8%;
+        right: -8%;
+        height: 25%;
+        display: none;
       }
 
       .lockMountainFront {
         position: absolute;
-        top: 30%;
-        left: 0;
-        right: 0;
-        height: 25%;
-        background:
-          linear-gradient(120deg, #3d6b4e 0%, #4a7a58 15%, #2d5a3e 30%, #4a7a58 45%, #3d6b4e 60%, #2d5a3e 75%, #4a7a58 90%, #3d6b4e 100%);
-        clip-path: polygon(0% 60%, 8% 40%, 15% 55%, 22% 30%, 30% 50%, 38% 25%, 45% 45%, 55% 20%, 62% 40%, 70% 30%, 78% 50%, 85% 35%, 92% 55%, 100% 40%, 100% 100%, 0% 100%);
-        position: absolute;
+        top: 38%;
+        left: -10%;
+        right: -10%;
+        height: 24%;
+        display: none;
       }
 
       .lockWater {
@@ -3550,8 +3544,10 @@ function SiteStyles() {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 52%;
-        background: linear-gradient(180deg, #56b8c8 0%, #4ab0c2 15%, #3da8bc 30%, #35a0b5 50%, #2d98ae 70%, #2590a7 85%, #1d88a0 100%);
+        height: 50%;
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.34), transparent 42%),
+          linear-gradient(180deg, rgba(123, 202, 212, 0.18) 0%, rgba(50, 143, 170, 0.28) 100%);
       }
 
       .lockWaterShimmer {
@@ -3559,20 +3555,18 @@ function SiteStyles() {
         bottom: 0;
         left: 0;
         right: 0;
-        height: 52%;
-        background:
-          repeating-linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 2%, transparent 4%),
-          repeating-linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 8px, transparent 16px);
-        animation: waterShimmer 4s ease-in-out infinite;
+        height: 50%;
+        display: none;
       }
 
       @keyframes waterShimmer {
-        0%, 100% { opacity: 0.6; transform: translateX(0); }
-        50% { opacity: 1; transform: translateX(3px); }
+        0%, 100% { opacity: 0.35; transform: translateX(-4px); }
+        50% { opacity: 0.5; transform: translateX(4px); }
       }
 
       .lockCloudDrift {
         position: absolute;
+        display: none;
         background: rgba(255, 255, 255, 0.25);
         border-radius: 50%;
         filter: blur(8px);
@@ -3608,7 +3602,7 @@ function SiteStyles() {
         color: #FFFFFF;
         line-height: 1;
         font-variant-numeric: tabular-nums;
-        text-shadow: 0 1px 12px rgba(0,0,0,0.15);
+        text-shadow: 0 2px 12px rgba(18, 84, 116, 0.18);
         position: relative;
         z-index: 2;
       }
@@ -3618,7 +3612,7 @@ function SiteStyles() {
         font-weight: 500;
         color: rgba(255, 255, 255, 0.85);
         margin-top: 4px;
-        text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+        text-shadow: 0 1px 5px rgba(18, 84, 116, 0.2);
         position: relative;
         z-index: 2;
       }
@@ -3630,34 +3624,27 @@ function SiteStyles() {
         margin-top: 16px;
         padding: 14px 16px;
         border-radius: 22px;
-        background: rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(249, 253, 255, 0.95);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid rgba(255, 255, 255, 0.88);
         width: 90%;
         animation: lockNotifSlide 0.6s ease-out 0.4s both;
         overflow: hidden;
         box-shadow:
-          0 8px 32px rgba(0, 150, 255, 0.15),
-          0 2px 8px rgba(0, 0, 0, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          0 18px 42px rgba(27, 105, 145, 0.18),
+          0 2px 8px rgba(0, 0, 0, 0.08);
       }
 
       .lockProximityGlow {
         position: absolute;
         inset: -3px;
         border-radius: 24px;
-        background: conic-gradient(
-          from 0deg,
-          rgba(0, 210, 255, 0.6),
-          rgba(120, 230, 255, 0.2),
-          rgba(0, 190, 255, 0.5),
-          rgba(80, 210, 240, 0.15),
-          rgba(0, 210, 255, 0.6)
-        );
-        animation: glowSpin 3s linear infinite;
-        filter: blur(8px);
+        display: none;
+        background: linear-gradient(135deg, rgba(255,255,255,0.46), rgba(92, 205, 232, 0.2), rgba(255,255,255,0.22));
+        filter: blur(10px);
         z-index: -1;
+        opacity: 0.75;
       }
 
       @keyframes glowSpin {
@@ -3691,7 +3678,7 @@ function SiteStyles() {
       .lockProximityLabel {
         font-size: 8px;
         font-weight: 700;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(44, 74, 91, 0.5);
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
@@ -3699,21 +3686,21 @@ function SiteStyles() {
       .lockProximityTitle {
         font-size: 15px;
         font-weight: 700;
-        color: white;
+        color: #14384D;
         line-height: 1.25;
-        text-shadow: 0 0 16px rgba(0, 200, 255, 0.6), 0 1px 3px rgba(0, 0, 0, 0.2);
+        text-shadow: none;
       }
 
       .lockProximitySub {
         font-size: 10px;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(44, 74, 91, 0.58);
         margin-top: 1px;
       }
 
       .lockTaskList {
         margin-top: 10px;
         padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(33, 91, 122, 0.1);
         display: flex;
         flex-direction: column;
         gap: 6px;
@@ -3726,15 +3713,11 @@ function SiteStyles() {
         gap: 10px;
         padding: 10px 12px;
         border-radius: 14px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow:
-          0 4px 16px rgba(0, 180, 255, 0.15),
-          0 1px 3px rgba(0, 0, 0, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        animation: lockTaskGlow 2.5s ease-in-out infinite alternate;
+        background: #FFFFFF;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1px solid rgba(33, 91, 122, 0.08);
+        box-shadow: 0 6px 16px rgba(21, 96, 125, 0.08);
         transform: translateZ(0);
         transition: transform 0.3s ease;
       }
@@ -3748,14 +3731,14 @@ function SiteStyles() {
 
       @keyframes lockTaskGlow {
         0% {
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
-          box-shadow: 0 4px 16px rgba(0, 180, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-          border-color: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.16);
+          box-shadow: 0 8px 20px rgba(20, 95, 125, 0.12), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.24);
         }
         100% {
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.12) 100%);
-          box-shadow: 0 6px 24px rgba(0, 200, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-          border-color: rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 10px 24px rgba(20, 95, 125, 0.16), 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+          border-color: rgba(255, 255, 255, 0.32);
         }
       }
 
@@ -3763,17 +3746,17 @@ function SiteStyles() {
         width: 18px;
         height: 18px;
         border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.5);
+        border: 2px solid rgba(0, 102, 177, 0.32);
         flex-shrink: 0;
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        box-shadow: none;
       }
 
       .lockTaskText {
         flex: 1;
         font-size: 14px;
         font-weight: 600;
-        color: white;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        color: #14384D;
+        text-shadow: none;
         letter-spacing: -0.01em;
       }
 
@@ -3786,12 +3769,12 @@ function SiteStyles() {
 
       .lockTaskPriorityOrange {
         background: #FF9F0A;
-        box-shadow: 0 0 10px rgba(255, 159, 10, 0.7), 0 0 20px rgba(255, 159, 10, 0.3);
+        box-shadow: 0 0 0 3px rgba(255, 159, 10, 0.14);
       }
 
       .lockTaskPriorityRed {
         background: #FF453A;
-        box-shadow: 0 0 10px rgba(255, 69, 58, 0.7), 0 0 20px rgba(255, 69, 58, 0.3);
+        box-shadow: 0 0 0 3px rgba(255, 69, 58, 0.12);
       }
 
       .lockProximityShimmer {
@@ -3800,8 +3783,9 @@ function SiteStyles() {
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
-        animation: proximityShimmer 3s ease-in-out infinite;
+        display: none;
+        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+        animation: proximityShimmer 5s ease-in-out infinite;
         border-radius: 18px;
         pointer-events: none;
       }
