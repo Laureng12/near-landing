@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
 
 export default function PricingPage() {
   const [billing, setBilling] = useState<"annual" | "monthly">("annual")
@@ -38,10 +39,10 @@ export default function PricingPage() {
           text-decoration: none; color: var(--plum-text, #2A0A16);
         }
         .pricingNavLogo {
-          width: 36px; height: 36px; border-radius: 8px;
+          width: 36px; height: 36px; border-radius: 9px; object-fit: cover;
         }
         .pricingNavWordmark {
-          font-size: 18px; font-weight: 600; letter-spacing: -0.03em;
+          font-size: 19px; font-weight: 800; letter-spacing: 0; color: #006EB8;
         }
         .pricingNavLinks {
           display: flex; align-items: center; gap: 28px;
@@ -188,13 +189,13 @@ export default function PricingPage() {
           <div className="pricingNavInner">
             <Link href="/" className="pricingNavBrand">
               <Image
-                src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
+                src={BRAND_ICON}
                 alt="Near"
                 width={36}
                 height={36}
                 className="pricingNavLogo"
               />
-              <span className="pricingNavWordmark">near</span>
+              <span className="pricingNavWordmark">Near</span>
             </Link>
             <div className="pricingNavLinks">
               <Link href="/#how-it-works" className="pricingNavLink">How it works</Link>

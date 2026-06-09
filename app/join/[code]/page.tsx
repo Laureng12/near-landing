@@ -1,9 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import { useParams } from "next/navigation"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
 
 export default function JoinPage() {
   const params = useParams()
@@ -31,8 +33,14 @@ export default function JoinPage() {
 
       <div style={styles.card}>
         <div style={styles.logoRow}>
-          <div style={styles.logoDot} />
-          <span style={styles.logoText}>near</span>
+          <Image
+            src={BRAND_ICON}
+            alt="Near"
+            width={32}
+            height={32}
+            style={styles.logoIcon}
+          />
+          <span style={styles.logoText}>Near</span>
         </div>
 
         <h1 style={styles.title}>You&apos;ve been invited</h1>
@@ -154,18 +162,18 @@ const styles: Record<string, React.CSSProperties> = {
     gap: "10px",
     marginBottom: 20,
   },
-  logoDot: {
-    width: 28,
-    height: 28,
+  logoIcon: {
+    width: 32,
+    height: 32,
     borderRadius: 8,
-    background: "linear-gradient(135deg, #58D9FF, #6B5CFF, #EC4899)",
-    boxShadow: "0 0 20px rgba(88,217,255,0.3)",
+    objectFit: "cover",
+    boxShadow: "0 0 24px rgba(88,217,255,0.28)",
   },
   logoText: {
     fontSize: 22,
-    fontWeight: 700,
-    letterSpacing: "-0.03em",
-    color: "#fff",
+    fontWeight: 800,
+    letterSpacing: 0,
+    color: "#7DD9FF",
   },
   title: {
     fontSize: 28,

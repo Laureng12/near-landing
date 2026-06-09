@@ -3,19 +3,21 @@
 import Link from "next/link"
 import Image from "next/image"
 
+const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
+
 export default function PrivacyPage() {
   return (
     <>
       <header className="legalHeader">
-        <Link href="/" className="legalLog">
+        <Link href="/" className="legalLogo">
           <Image
-            src="/near-icon-hero.png"
+            src={BRAND_ICON}
             alt="Near"
             width={32}
             height={32}
             className="legalLogoIcon"
           />
-          <span className="legalLogoText">near</span>
+          <span className="legalLogoText">Near</span>
         </Link>
       </header>
 
@@ -436,12 +438,13 @@ export default function PrivacyPage() {
           width: 32px;
           height: 32px;
           border-radius: 8px;
+          object-fit: cover;
         }
         .legalLogoText {
           font-size: 20px;
-          font-weight: 700;
-          color: var(--foreground);
-          letter-spacing: -0.03em;
+          font-weight: 800;
+          color: #006EB8;
+          letter-spacing: 0;
         }
         .legalMain {
           max-width: 680px;

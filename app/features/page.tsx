@@ -1,9 +1,11 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
 
 export default function FeaturesPage() {
   useEffect(() => {
@@ -37,12 +39,15 @@ export default function FeaturesPage() {
     <>
       <nav className="ftNav">
         <Link href="/" className="ftNavLogo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/near-logo-light-cropped.png"
+          <Image
+            src={BRAND_ICON}
             alt="Near"
-            className="ftNavLogoImg"
+            width={36}
+            height={36}
+            className="ftNavLogoIcon"
+            quality={100}
           />
+          <span className="ftNavLogoText">Near</span>
         </Link>
         <div className="ftNavLinks">
           <Link href="/" className="ftNavLink ftNavLinkHideMobile">Home</Link>
@@ -412,8 +417,9 @@ export default function FeaturesPage() {
           backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
           border-bottom: 1px solid var(--line);
         }
-        .ftNavLogo { display: flex; align-items: center; text-decoration: none; }
-        .ftNavLogoImg { height: 36px; width: auto; display: block; object-fit: contain; }
+        .ftNavLogo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .ftNavLogoIcon { width: 36px; height: 36px; border-radius: 9px; display: block; object-fit: cover; }
+        .ftNavLogoText { font-size: 19px; font-weight: 800; letter-spacing: 0; color: #006EB8; }
         .ftNavLinks { display: flex; align-items: center; gap: 1.5rem; }
         .ftNavLink { font-size: 14px; color: var(--text-secondary); text-decoration: none; font-weight: 500; }
         .ftNavLink:hover { color: var(--foreground); }
@@ -1713,7 +1719,8 @@ export default function FeaturesPage() {
           .ftSectionEverywhere { padding: 80px 16px; }
           .ftNav { padding: 0 16px; height: 52px; }
           :global(.ftNavLinkHideMobile) { display: none; }
-          .ftNavLogoImg { height: 30px; }
+          .ftNavLogoIcon { width: 30px; height: 30px; border-radius: 8px; }
+          .ftNavLogoText { font-size: 17px; }
           .ftNavLinks { gap: 1rem; }
           .ftNavCta { padding: 6px 14px; font-size: 12px; }
           .ftHero { padding: 80px 16px 60px; }

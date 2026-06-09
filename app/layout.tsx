@@ -76,6 +76,13 @@ export const metadata: Metadata = {
       "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
     images: ["/near-og.png"],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "64x64" },
+      { url: "/favicon.png", sizes: "64x64", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   category: "Productivity",
   appleWebApp: {
     title: "Near",
@@ -95,8 +102,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.ico" sizes="64x64" />
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <meta name="theme-color" content="#FFFFFF" />
         <link rel="canonical" href="https://www.nearesttask.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

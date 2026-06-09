@@ -5,6 +5,8 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
+const BRAND_LOGO = "/assets/brand/Near-Logo-Blue.png"
 
 const KEY_SENTENCE =
   "Near remembers errands, groceries, home things, and the small promises busy people would otherwise carry in their head. It surfaces them at the moment and place they matter. Start solo. Add your people when the household needs shared memory."
@@ -208,7 +210,7 @@ function TopNav() {
       <div className="navInner">
         <a className="brand" href="#top">
           <Image
-            src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
+            src={BRAND_ICON}
             alt="Near"
             className="brandLogo"
             width={40}
@@ -216,7 +218,7 @@ function TopNav() {
             priority
             quality={100}
           />
-          <span className="brandName">near</span>
+          <span className="brandName">Near</span>
         </a>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
@@ -279,14 +281,13 @@ function Hero() {
       <div className="heroSplit">
         <div className="heroCopy">
           <Image
-            src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
+            src={BRAND_ICON}
             alt="Near app icon"
             className="heroIcon"
-            width={861}
-            height={891}
+            width={72}
+            height={72}
             priority
             quality={100}
-            unoptimized
           />
           <h1 className="heroTitle">
             Never Forget<br /><span className="gradientText">Anything Again.</span>
@@ -362,7 +363,7 @@ function PhoneMockup({ phase }: { phase: number }) {
         {notifData.map((n, i) => n && (
           <div key={i} className={`phoneNotif ${phase === i ? "phoneNotifVisible" : ""}`}>
             <Image
-              src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
+              src={BRAND_ICON}
               alt=""
               width={36}
               height={36}
@@ -662,7 +663,7 @@ function PhoneMockup({ phase }: { phase: number }) {
             <div className="lockProximityGlow" />
             <div className="lockProximityHeader">
               <Image
-                src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
+                src={BRAND_ICON}
                 alt=""
                 width={28}
                 height={28}
@@ -887,7 +888,7 @@ function PassingBySection() {
             <div className="passingByGlow2" />
             <div className="passingByNotif" data-tilt>
               <div className="passingByIcon">
-                <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Near" width={28} height={28} style={{borderRadius:'6px'}} />
+                <Image src={BRAND_ICON} alt="Near" width={28} height={28} style={{borderRadius:'6px'}} />
               </div>
               <div className="passingByNotifBody">
                 <div className="passingByLabel">Near &middot; Nearby errand</div>
@@ -1016,7 +1017,7 @@ function HouseholdSection() {
             </div>
             <div className="householdNotif" data-tilt>
               <div className="householdNotifIcon">
-                <Image src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png" alt="Near" width={24} height={24} style={{borderRadius:'5px'}} />
+                <Image src={BRAND_ICON} alt="Near" width={24} height={24} style={{borderRadius:'5px'}} />
               </div>
               <div className="householdNotifBody">
                 <div className="householdNotifLabel">Near &middot; now</div>
@@ -1247,7 +1248,7 @@ function FinalCTA() {
         <div className="finalNotifCard">
           <div className="finalNotifGlow" />
           <Image
-            src="/assets/brand/Near-Icon-Orbital-Dawn-Dusk-1024.png"
+            src={BRAND_ICON}
             alt=""
             width={40}
             height={40}
@@ -1281,25 +1282,25 @@ function PhasesSection() {
   return (
     <section className="phasesSection" id="phases">
       <div className="phasesIntro">
-        <p className="eyebrow">The Refined Orbital</p>
+        <p className="eyebrow">The New Near Mark</p>
         <h2 className="phasesHeadline">
-          It shifts with the day.<br />
-          <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>So does your life.</em>
+          Clear, centered, instantly Near.<br />
+          <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>A target for everyday memory.</em>
         </h2>
         <p className="phasesSub">
-          Near&apos;s mark moves through Dawn, Day, Dusk, and Night —
-          the same anchor, four moods. Your home screen feels the time of day
-          the way your kitchen does.
+          The new blue rings make the app easier to recognize at a glance,
+          while the gold center keeps the idea simple: the right thing,
+          in the right place.
         </p>
       </div>
-      <div className="phasesRow" style={{maxWidth:"1000px", margin:"0 auto", padding:"0 24px"}}>
+      <div className="brandShowcase">
         <Image
-          src="/assets/brand/Near-Orbital-Row.png"
-          alt="The Near app icon in four moods - Dawn/Dusk, Day, Night, and Mono Gold"
-          width={2099}
-          height={512}
+          src={BRAND_LOGO}
+          alt="Near logo"
+          width={1200}
+          height={522}
           priority
-          style={{width:"100%", height:"auto", display:"block"}}
+          className="brandShowcaseLogo"
         />
       </div>
     </section>
@@ -1433,10 +1434,10 @@ function SiteStyles() {
         border-radius: 8px;
       }
       .brandName {
-        font-size: 18px;
-        font-weight: 600;
-        color: #1D1D1F;
-        letter-spacing: -0.02em;
+        font-size: 19px;
+        font-weight: 800;
+        color: #006EB8;
+        letter-spacing: 0;
         font-family: 'DM Sans', sans-serif;
       }
 
@@ -5138,7 +5139,7 @@ function SiteStyles() {
           align-items: center;
         }
 
-        .brandLogo { height: 30px; }
+        .brandLogo { width: 30px; height: 30px; }
 
         .finalShell { padding: 3rem 1.5rem; }
 
@@ -5166,6 +5167,17 @@ function SiteStyles() {
         margin: 0 0 20px;
       }
       .phasesSub { font-size: 17px; line-height: 1.55; opacity: 0.7; }
+      .brandShowcase {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .brandShowcaseLogo {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
       .phasesGrid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
