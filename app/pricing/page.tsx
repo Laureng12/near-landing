@@ -56,13 +56,20 @@ export default function PricingPage() {
         .pricingNavCta {
           display: inline-flex; align-items: center;
           padding: 10px 20px;
-          background: var(--blue, #006EB8);
+          background: linear-gradient(135deg, var(--blue, #006EB8) 0%, #004F86 100%);
+          background-size: 200% 200%;
+          background-position: 0% 50%;
           color: #FFFFFF;
           border-radius: 28px;
-          font-size: 13px; font-weight: 500;
+          font-size: 13px; font-weight: 600;
           text-decoration: none;
+          box-shadow: 0 10px 30px rgba(0, 110, 184, 0.25);
+          transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
         }
-        .pricingNavCta:hover { background: var(--blue-hover, #005A96); }
+        .pricingNavCta:hover {
+          background-position: 100% 50%;
+          box-shadow: 0 14px 36px rgba(0, 110, 184, 0.36);
+        }
 
         /* ── Page ── */
         .pricingPage {
@@ -159,9 +166,17 @@ export default function PricingPage() {
           text-align: center; box-sizing: border-box; cursor: pointer;
         }
         .tierCta.primary {
-          background: linear-gradient(135deg, var(--blue, #006EB8), #004F86);
+          background: linear-gradient(135deg, var(--blue, #006EB8) 0%, #004F86 100%);
+          background-size: 200% 200%;
+          background-position: 0% 50%;
           color: #FFFFFF; border: none;
-          box-shadow: 0 10px 24px rgba(0, 110, 184, 0.24);
+          font-weight: 600;
+          box-shadow: 0 10px 30px rgba(0, 110, 184, 0.25);
+          transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
+        }
+        .tierCta.primary:hover {
+          background-position: 100% 50%;
+          box-shadow: 0 14px 36px rgba(0, 110, 184, 0.36);
         }
         .tierCta.ghost {
           background: transparent; color: var(--blue, #006EB8);
