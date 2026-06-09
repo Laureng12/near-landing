@@ -1452,17 +1452,14 @@ function SiteStyles() {
       .navCta {
         padding: 0.5rem 1.1rem;
         color: white;
-        /* Build 631 — nav CTA flipped from legacy var(--blue) to
-           brand pink. The nav is the highest-visibility CTA on
-           every page; a stale blue read as off-brand. */
-        background: var(--pink);
+        background: var(--blue);
         font-size: 0.88rem;
         font-weight: 600;
         border-radius: 999px;
         transition: background 0.16s;
       }
 
-      .navCta:hover { background: #C44850; }
+      .navCta:hover { background: var(--blue-hover); }
 
       /* ── Hamburger (hidden on desktop) ── */
 
@@ -1560,9 +1557,7 @@ function SiteStyles() {
         margin-top: 12px;
         padding: 0.7rem 1.4rem;
         color: white;
-        /* Build 631 — mobile menu CTA flipped from legacy
-           var(--blue) to brand pink (matches navCta + primaryBtn). */
-        background: var(--pink);
+        background: var(--blue);
         font-size: 1rem;
         font-weight: 600;
         border-radius: 999px;
@@ -1730,14 +1725,9 @@ function SiteStyles() {
 
       .primaryBtn {
         color: white;
-        background: linear-gradient(135deg, var(--pink) 0%, #C44850 100%);
+        background: linear-gradient(135deg, var(--blue) 0%, #004F86 100%);
         border: none;
-        /* Build 631 — drop-shadow flipped from legacy blue
-           rgba(47,109,255,...) to brand rose (#C44850). The
-           background gradient already shipped pink/rose; the
-           shadow had been left as the old blue tint, which read
-           as a stale color halo against the new button face. */
-        box-shadow: 0 10px 30px rgba(196, 72, 80, 0.25);
+        box-shadow: 0 10px 30px rgba(0, 110, 184, 0.25);
         background-size: 200% 200%;
         background-position: 0% 50%;
         transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -1745,22 +1735,17 @@ function SiteStyles() {
 
       .primaryBtn:hover {
         background-position: 100% 50%;
-        /* Hover lift uses brand pink (#E56E8E) at higher opacity
-           so the shadow brightens with the gradient sweep. */
-        box-shadow: 0 14px 36px rgba(229, 110, 142, 0.35);
+        box-shadow: 0 14px 36px rgba(0, 110, 184, 0.36);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
       .secondaryBtn {
-        /* Build 631 — secondary CTA flipped from legacy blue
-           (var(--blue) + rgba(47,109,255,...)) to brand pink so
-           the section's dual-CTA row reads on-canon. */
-        color: var(--pink);
+        color: var(--blue);
         background: transparent;
-        border: 1px solid rgba(229, 110, 142, 0.3);
+        border: 1px solid rgba(0, 110, 184, 0.28);
       }
 
-      .secondaryBtn:hover { background: rgba(47, 109, 255, 0.06); }
+      .secondaryBtn:hover { background: rgba(0, 110, 184, 0.07); }
 
       /* ââ Sections ââ */
 
@@ -5390,13 +5375,14 @@ function SiteStyles() {
         display: inline-flex;
         align-items: center;
         padding: 14px 24px;
-        background: var(--pink, #E56E8E);
-        color: var(--cream-text, #FFF0DB);
+        background: var(--blue, #006EB8);
+        color: white;
         border-radius: 28px;
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
       }
+      .newFooterCta:hover { background: var(--blue-hover, #005A96); }
       .newFooterCopy { font-size: 13px; opacity: 0.5; margin: 0; }
       @media (max-width: 720px) {
         .newFooterInner { grid-template-columns: 1fr; gap: 40px; }

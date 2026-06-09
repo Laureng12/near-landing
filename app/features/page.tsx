@@ -426,11 +426,11 @@ export default function FeaturesPage() {
         .ftNavLinkActive { color: var(--foreground); }
         .ftNavCta {
           font-size: 13px; font-weight: 600; color: #fff;
-          background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 100%);
+          background: linear-gradient(135deg, var(--blue) 0%, #004F86 100%);
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(47,109,255,0.3); }
+        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,110,184,0.3); }
 
         /* ─── Hero ─── */
         .ftHero {
@@ -1640,13 +1640,13 @@ export default function FeaturesPage() {
         }
         .ftCtaBtn {
           display: inline-block; padding: 14px 36px; border-radius: 980px;
-          background: linear-gradient(135deg, var(--blue) 0%, #7B5CFF 50%, #C74BF6 100%);
+          background: linear-gradient(135deg, var(--blue) 0%, #007FC6 50%, #39B6E8 100%);
           background-size: 200% 200%; animation: btnShimmer 4s ease-in-out infinite;
           color: #fff; font-size: 16px; font-weight: 600; text-decoration: none;
           position: relative; z-index: 1;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(47,109,255,0.4); }
+        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,110,184,0.38); }
         @keyframes btnShimmer {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }

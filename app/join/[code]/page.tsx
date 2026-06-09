@@ -246,15 +246,15 @@ const styles: Record<string, React.CSSProperties> = {
   },
   button: {
     display: "block",
-    background: "linear-gradient(90deg, #58D9FF, #6B5CFF, #EC4899)",
-    color: "rgba(0,0,0,0.9)",
+    background: "linear-gradient(90deg, #006EB8, #008FD3, #39B6E8)",
+    color: "#FFFFFF",
     fontWeight: 750,
     fontSize: 16,
     padding: "16px 32px",
     borderRadius: 999,
     textDecoration: "none",
     marginBottom: 24,
-    boxShadow: "0 12px 40px rgba(88,217,255,0.2)",
+    boxShadow: "0 12px 40px rgba(0,110,184,0.28)",
     letterSpacing: "-0.01em",
   },
   steps: {
