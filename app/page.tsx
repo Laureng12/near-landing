@@ -6,7 +6,28 @@ import { useEffect, useState } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
-const BRAND_LOGO = "/assets/brand/Near-Logo-Blue.png"
+const ICON_VARIANTS = [
+  {
+    name: "Dawn",
+    src: "/assets/brand/Near-Icon-Orbital-Dawn-1024.png",
+    alt: "Dawn color variant of the Near app icon",
+  },
+  {
+    name: "Day",
+    src: "/assets/brand/Near-Icon-Orbital-Day-1024.png",
+    alt: "Day color variant of the Near app icon",
+  },
+  {
+    name: "Dusk",
+    src: "/assets/brand/Near-Icon-Orbital-Dusk-1024.png",
+    alt: "Dusk color variant of the Near app icon",
+  },
+  {
+    name: "Night",
+    src: "/assets/brand/Near-Icon-Orbital-Night-1024.png",
+    alt: "Night color variant of the Near app icon",
+  },
+] as const
 
 const KEY_SENTENCE =
   "Near remembers errands, groceries, home things, and the small promises busy people would otherwise carry in their head. It surfaces them at the moment and place they matter. Start solo. Add your people when the household needs shared memory."
@@ -1282,26 +1303,31 @@ function PhasesSection() {
   return (
     <section className="phasesSection" id="phases">
       <div className="phasesIntro">
-        <p className="eyebrow">The New Near Mark</p>
+        <p className="eyebrow">Dawn to Night</p>
         <h2 className="phasesHeadline">
-          Clear, centered, instantly Near.<br />
-          <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>A target for everyday memory.</em>
+          Four moods.<br />
+          <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>Same everyday memory.</em>
         </h2>
         <p className="phasesSub">
-          The new blue rings make the app easier to recognize at a glance,
-          while the gold center keeps the idea simple: the right thing,
-          in the right place.
+          Near&apos;s target shifts from dawn to day, through dusk, and into night,
+          while the mark stays centered on the same simple promise.
         </p>
       </div>
-      <div className="brandShowcase">
-        <Image
-          src={BRAND_LOGO}
-          alt="Near logo"
-          width={1200}
-          height={522}
-          priority
-          className="brandShowcaseLogo"
-        />
+      <div className="phasesGrid">
+        {ICON_VARIANTS.map((variant) => (
+          <figure className="phaseItem" key={variant.name}>
+            <div className="phaseIconWrap">
+              <Image
+                src={variant.src}
+                alt={variant.alt}
+                width={1024}
+                height={1024}
+                quality={100}
+              />
+            </div>
+            <figcaption>{variant.name}</figcaption>
+          </figure>
+        ))}
       </div>
     </section>
   )
@@ -5152,17 +5178,6 @@ function SiteStyles() {
         margin: 0 0 20px;
       }
       .phasesSub { font-size: 17px; line-height: 1.55; opacity: 0.7; }
-      .brandShowcase {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 0 24px;
-      }
-      .brandShowcaseLogo {
-        width: 100%;
-        height: auto;
-        display: block;
-        object-fit: contain;
-      }
       .phasesGrid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -5172,23 +5187,23 @@ function SiteStyles() {
       }
       .phaseItem { margin: 0; }
       .phaseIconWrap {
-        border-radius: 20px;
-        overflow: hidden;
-        background: #1A0E1F;
+        border-radius: 24px;
+        overflow: visible;
+        background: transparent;
         display: block;
         aspect-ratio: 1;
         width: 100%;
+        filter: drop-shadow(0 18px 34px rgba(12, 8, 21, 0.14));
       }
       .phaseIconWrap img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
+        border-radius: 24px;
       }
       .phaseIconWrap.dayIcon {
-        background: #F0E4CE;
-        box-sizing: border-box;
-        border: 1px solid rgba(42, 10, 22, 0.12);
+        background: transparent;
       }
       .phaseItem figcaption {
         font-size: 13px;
