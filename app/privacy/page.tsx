@@ -24,7 +24,7 @@ export default function PrivacyPage() {
       <main className="legalMain">
         <article className="legalContent">
           <h1 className="legalTitle">Privacy Policy</h1>
-          <p className="legalUpdated">Last updated March 20, 2026</p>
+          <p className="legalUpdated">Last updated June 9, 2026</p>
 
           <section className="legalSection">
             <h2>Introduction</h2>
@@ -32,7 +32,38 @@ export default function PrivacyPage() {
               Near is operated by Rise-X, Inc. (&quot;we,&quot; &quot;us,&quot; &quot;our,&quot; or &quot;the Company&quot;). Near is a location-based task reminder app for iPhone that surfaces errands, groceries, and household tasks automatically when you arrive at the places where they can be completed.
             </p>
             <p>
-              This Privacy Policy explains what information Near collects, how it is used, how it may be shared, and the choices you have. By using Near, you consent to the practices described in this policy.
+              This Privacy Policy explains what information Near collects, how it is used, how it may be shared, and the choices you have. Where consent is required, we ask for it separately in the app or through the relevant platform permission prompt.
+            </p>
+          </section>
+
+          <section className="legalSection">
+            <h2>Notice at Collection</h2>
+            <p>
+              This section summarizes the categories of personal information we collect and the purposes for which we use them. More detail appears throughout this policy.
+            </p>
+
+            <h3>Categories We Collect</h3>
+            <ul>
+              <li><strong>Identifiers</strong> such as phone number, user ID, Sign in with Apple token, Google identity token, display name, and push notification token.</li>
+              <li><strong>Geolocation data</strong> such as saved place coordinates and arrival or departure events at saved places. Near does not continuously transmit your live route to our servers.</li>
+              <li><strong>User content</strong> such as tasks, lists, notes, due dates, saved places, addresses, and household membership.</li>
+              <li><strong>Internet or electronic network activity</strong> such as app feature usage, permission events, task creation/completion counts, and notification interactions.</li>
+              <li><strong>Commercial or financial information</strong> only if you enable optional features, such as Kroger account integration or on-device FinanceKit spending insights. FinanceKit transaction data is processed on device and is not sent to our servers.</li>
+            </ul>
+
+            <h3>Purposes</h3>
+            <p>
+              We use this information to provide location-based reminders, sync your account, support household sharing, deliver notifications, improve app quality, personalize the Near experience, provide optional integrations you choose to enable, prevent abuse, comply with legal obligations, and respond to support and privacy requests.
+            </p>
+
+            <h3>Sensitive Personal Information</h3>
+            <p>
+              Precise geolocation may be considered sensitive personal information under some laws. We use it only to provide and improve the Near features you request, such as saved-place reminders, nearby task sorting, household arrival notifications you enable, and related safety or debugging functions. We do not use sensitive personal information to infer characteristics unrelated to Near&apos;s services, and we do not use it for advertising.
+            </p>
+
+            <h3>Sale or Sharing</h3>
+            <p>
+              Near does not sell personal information and does not share personal information for cross-context behavioral advertising. We also do not sell or share the personal information of users we know are under 16. If a future optional partner feature requires a use that is considered a &quot;sale&quot; or &quot;sharing&quot; under California law, we will provide notice and a way to opt out before that use begins.
             </p>
           </section>
 
@@ -125,7 +156,7 @@ export default function PrivacyPage() {
               <li>Enable household members to share places, tasks, and arrival activity</li>
               <li>Send push notifications for arrivals, departures, and task reminders</li>
               <li>Provide smart features like recurring item suggestions, proactive trip nudges, and weather-aware errand timing</li>
-              <li><strong>Personalize your experience</strong> by learning your routines, preferences, and patterns to surface more relevant suggestions, reminders, and content</li>
+              <li><strong>Personalize your experience</strong> by learning your routines, preferences, and patterns to surface more relevant suggestions, reminders, and in-app content</li>
               <li><strong>Generate aggregated and anonymized insights</strong> from user activity to improve the app and understand usage trends</li>
               <li>Show on-device spending summaries and visit frequency for saved places when the spending insights feature is enabled</li>
               <li>Prioritize &quot;habit places&quot; with regular spending patterns when suggesting where to assign new tasks</li>
@@ -137,7 +168,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Personalization</h2>
             <p>
-              Near uses your usage patterns, location history, task behavior, and preferences to personalize the app experience. This includes tailoring suggestions for tasks, places, trip timing, and product recommendations. Personalization is designed to make the app more useful to you over time.
+              Near uses your usage patterns, location history, task behavior, and preferences to personalize the app experience. This includes tailoring suggestions for tasks, places, trip timing, and in-app content. Personalization is designed to make the app more useful to you over time and is not used for third-party advertising.
             </p>
             <p>
               You can reset personalization data by contacting us at{" "}
@@ -148,14 +179,14 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Retail &amp; Grocery Partners</h2>
             <p>
-              Near may partner with retail and grocery providers to enhance your shopping experience. If you opt in to a retail partner integration (such as Kroger), we may:
+              Near may partner with retail and grocery providers to enhance your shopping experience. Partner integrations are optional. If you opt in to a retail partner integration (such as Kroger), we may:
             </p>
             <ul>
-              <li>Share certain usage data with the partner, such as task categories, shopping frequency, and place visit patterns, to improve the experience and provide relevant offers</li>
+              <li>Share the information needed to operate the integration, such as selected grocery items, linked-account identifiers, task categories, shopping frequency, and place visit patterns</li>
               <li>Receive data from the partner, such as product availability, aisle information, and pricing, to display within the app</li>
             </ul>
             <p>
-              <strong>We will always obtain your explicit consent before sharing personally identifiable information with any retail or grocery partner.</strong> You can disconnect from any partner integration at any time from your profile settings.
+              <strong>We will always obtain your explicit consent before sharing personal information with any retail or grocery partner.</strong> We do not share your real-time location route with retail or grocery partners. You can disconnect from any partner integration at any time from your profile settings.
             </p>
             <p>
               We may also share aggregated, de-identified data with partners that cannot reasonably be used to identify you individually. This data may include anonymized usage trends, category-level shopping patterns, and regional activity summaries.
@@ -186,6 +217,9 @@ export default function PrivacyPage() {
             <p>Near integrates with the following services:</p>
             <ul>
               <li>
+                <strong>Hosting, database, authentication, analytics, and support providers</strong> — service providers that process data on our behalf to operate Near, secure accounts, maintain the service, analyze product quality, and respond to support or privacy requests
+              </li>
+              <li>
                 <strong>Apple Push Notification service (APNs)</strong> — for delivering task reminders and arrival notifications
               </li>
               <li>
@@ -202,14 +236,14 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p>
-              Near does not include third-party advertising frameworks or tracking pixels. We do not share your data with Facebook, Google Analytics, or data brokers.
+              We require service providers that process personal information for us to protect that information and use it only to provide services to Near. Near does not include third-party advertising frameworks or tracking pixels. We do not share your data with Facebook, Google Analytics, or data brokers.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Data Aggregation &amp; Insights</h2>
             <p>
-              We may create aggregated, anonymized, or de-identified data derived from your use of the app. This aggregated data does not identify you personally and may be used for any lawful purpose, including business intelligence, research, product improvement, and sharing with current or prospective partners. Once data has been aggregated and de-identified, it is no longer considered personal information under this policy.
+              We may create aggregated, anonymized, or de-identified data derived from your use of the app. This aggregated data is designed not to identify you personally and may be used for lawful purposes such as business intelligence, research, product improvement, and sharing aggregate trends with current or prospective partners. We do not attempt to re-identify aggregated, anonymized, or de-identified data, and we do not permit partners to do so.
             </p>
           </section>
 
@@ -231,13 +265,27 @@ export default function PrivacyPage() {
             <p>
               Task and place data is also cached locally on your device for offline access and shared with app extensions (widget, watch app, share extension) via a secure App Group container.
             </p>
+            <p>
+              We use reasonable administrative, technical, and organizational safeguards designed to protect personal information, including access controls, encrypted transport, platform permission controls, and limited access for personnel or service providers who need the information to operate Near. No internet or mobile service can be guaranteed completely secure, so please use a strong device passcode and protect access to your account.
+            </p>
           </section>
 
           <section className="legalSection">
             <h2>Data Retention &amp; Deletion</h2>
             <p>
-              We retain your data for as long as your account is active. We may also retain aggregated, de-identified data indefinitely, even after account deletion.
+              We keep personal information only for as long as reasonably necessary for the purposes described in this policy, unless a longer period is required or permitted by law. Our retention periods depend on the type of information:
             </p>
+            <ul>
+              <li><strong>Account identifiers</strong> are retained while your account is active and are deleted or de-identified after account deletion, subject to legal, security, fraud-prevention, and backup requirements.</li>
+              <li><strong>Tasks, places, household data, and saved location data</strong> are retained while your account is active or until you delete the relevant item, leave a household, or delete your account.</li>
+              <li><strong>Arrival and departure events</strong> are retained while needed to provide reminders, household arrival notifications, visit history, debugging, and personalization, and are deleted or de-identified after account deletion.</li>
+              <li><strong>Account-linked analytics</strong> are retained only as long as needed for product improvement, security, and personalization, and are deleted or de-identified when you delete your account.</li>
+              <li><strong>Push notification tokens</strong> are retained until they expire, you disable notifications, sign out, or delete your account.</li>
+              <li><strong>Optional FinanceKit transaction data</strong> is processed on your device and is not retained on our servers.</li>
+              <li><strong>Optional partner integration data</strong> is retained while the integration is connected or as needed to complete the integration request, unless a longer period is required by the partner relationship or law.</li>
+              <li><strong>Backups and logs</strong> may retain limited information for a short period after deletion before they are overwritten or deleted in the ordinary course of business.</li>
+              <li><strong>Aggregated, anonymized, or de-identified information</strong> may be retained indefinitely because it is not designed to identify you.</li>
+            </ul>
             <p>
               You can delete your account at any time from your profile settings in the app. Account deletion permanently removes:
             </p>
@@ -267,6 +315,9 @@ export default function PrivacyPage() {
                 <strong>Access your data</strong> — all your tasks, places, and profile information are visible directly in the app
               </li>
               <li>
+                <strong>Correct your data</strong> — update inaccurate profile, task, place, or household information directly in the app, or contact us for help
+              </li>
+              <li>
                 <strong>Delete your account</strong> — permanently remove all your personal data from our servers via profile settings
               </li>
               <li>
@@ -284,11 +335,17 @@ export default function PrivacyPage() {
               <li>
                 <strong>Disable spending insights</strong> — turn off FinanceKit access at any time from your profile settings; no financial data is retained after the feature is disabled
               </li>
+              <li>
+                <strong>Opt out of sale or sharing</strong> — Near does not currently sell personal information or share it for cross-context behavioral advertising, but you may contact us with any opt-out request
+              </li>
+              <li>
+                <strong>Limit sensitive personal information</strong> — we use sensitive personal information only to provide and improve Near&apos;s requested services, and you can reduce location collection by changing location permissions in iPhone Settings
+              </li>
             </ul>
 
             <h3>California Residents (CCPA/CPRA)</h3>
             <p>
-              If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA) as amended by the California Privacy Rights Act (CPRA):
+              If you are a California resident, you may have additional rights under the California Consumer Privacy Act (CCPA), as amended by the California Privacy Rights Act (CPRA):
             </p>
             <ul>
               <li>
@@ -298,8 +355,13 @@ export default function PrivacyPage() {
                 <strong>Right to Delete:</strong> You have the right to request deletion of your personal information, subject to certain exceptions.
               </li>
               <li>
-                <strong>Right to Opt Out of Sale or Sharing:</strong> You have the right to opt out of the &quot;sale&quot; or &quot;sharing&quot; of your personal information. Near does not sell personal information in the traditional sense. However, sharing de-identified or aggregated data with partners may constitute a &quot;sale&quot; under the broad CCPA definition. You may opt out by contacting us at{" "}
-                <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
+                <strong>Right to Correct:</strong> You have the right to request correction of inaccurate personal information.
+              </li>
+              <li>
+                <strong>Right to Opt Out of Sale or Sharing:</strong> Near does not sell personal information or share personal information for cross-context behavioral advertising. If that changes, we will provide legally required notice and an opt-out method before the sale or sharing begins.
+              </li>
+              <li>
+                <strong>Right to Limit Use of Sensitive Personal Information:</strong> We use sensitive personal information, such as precise geolocation, only to provide and improve Near&apos;s requested services and for other purposes permitted by law. We do not use it for advertising or to infer unrelated characteristics.
               </li>
               <li>
                 <strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your CCPA rights.
@@ -307,10 +369,10 @@ export default function PrivacyPage() {
             </ul>
             <p>
               To exercise any of these rights, contact us at{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>. We will verify your identity before processing your request.
+              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>. You may also use an authorized agent to submit a request on your behalf. We will verify your identity and, where applicable, the agent&apos;s authorization before processing the request.
             </p>
             <p>
-              In the preceding 12 months, we have collected the following categories of personal information: identifiers (phone number, user ID), geolocation data, and internet or electronic network activity information (usage analytics), and, if you enable spending insights, financial information (transaction amounts and merchant data accessed on-device via Apple FinanceKit). We collect this information for the business purposes described in this policy. Financial data accessed via FinanceKit is not transmitted to our servers, sold, or shared with third parties.
+              In the preceding 12 months, we have collected the following categories of personal information: identifiers, geolocation data, user content, internet or electronic network activity information, device information, and optional commercial or financial information when you enable partner integrations or on-device FinanceKit features. We collect these categories from you, your device, Apple platform services, household members who interact with shared content, and optional partner integrations you connect. We disclose personal information to service providers and optional integration partners as described in this policy. We retain each category for the periods described in &quot;Data Retention &amp; Deletion.&quot;
             </p>
 
             <h3>Canadian Residents (PIPEDA)</h3>

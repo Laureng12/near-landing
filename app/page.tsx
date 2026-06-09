@@ -127,7 +127,7 @@ const faqItems = [
   },
   {
     q: "Does Near track my location?",
-    a: "No. Near uses location only to show tasks when they matter. Data stays on your device and is never used for advertising.",
+    a: "Near uses location to show tasks when they matter and does not use location data for advertising. Geofences are handled by iOS, while saved places, tasks, and arrival events may sync to support reminders, account sync, and household features.",
   },
 ]
 
@@ -1151,12 +1151,12 @@ function PrivacySection() {
         <h2 className="sectionTitle" data-parallax>Your task intelligence. <span className="gradientText">Kept private.</span></h2>
         <p className="bodyText center">
           Near uses location only to surface tasks at the moment they matter.<br />
-          Geofences live on your device. Your route is never sent to us.
+          Your live route is not continuously sent to us.
         </p>
         <div className="pillGrid">
           <span className="pill" data-stagger data-tilt>No ads</span>
-          <span className="pill" data-stagger data-tilt>No tracking</span>
-          <span className="pill" data-stagger data-tilt>No profiling</span>
+          <span className="pill" data-stagger data-tilt>No data brokers</span>
+          <span className="pill" data-stagger data-tilt>Delete anytime</span>
         </div>
       </div>
     </section>

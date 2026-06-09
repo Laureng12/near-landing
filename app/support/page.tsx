@@ -75,7 +75,16 @@ export default function SupportPage() {
             <p>
               Go to your profile and scroll to the bottom. Tap &quot;Delete Account.&quot;
               This permanently removes your account, tasks, places, and all associated data
-              from our servers.
+              from our servers, subject to legal, security, fraud-prevention, and backup requirements described in our Privacy Policy.
+            </p>
+
+            <h3>How do I make a privacy or data request?</h3>
+            <p>
+              You can request access, correction, deletion, sale/share opt-out, or help limiting
+              location data by emailing{" "}
+              <a href="mailto:hello@nearesttask.com" className="legalLink">
+                hello@nearesttask.com
+              </a>.
             </p>
 
             <h3>Does Near work offline?</h3>

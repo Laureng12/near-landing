@@ -168,7 +168,7 @@ export default function RootLayout({
                   name: "Does Near track my location?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "No. Near uses location only to show tasks when they matter. Data stays on your device and is never used for advertising.",
+                    text: "Near uses location to show tasks when they matter and does not use location data for advertising. Geofences are handled by iOS, while saved places, tasks, and arrival events may sync to Near servers to support reminders, account sync, and household features.",
                   },
                 },
                 {

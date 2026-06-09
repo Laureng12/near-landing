@@ -24,7 +24,7 @@ export default function TermsPage() {
       <main className="legalMain">
         <article className="legalContent">
           <h1 className="legalTitle">Terms &amp; Conditions</h1>
-          <p className="legalUpdated">Last updated March 12, 2026</p>
+          <p className="legalUpdated">Last updated June 9, 2026</p>
 
           <section className="legalSection">
             <h2>Agreement to Terms</h2>
@@ -50,7 +50,17 @@ export default function TermsPage() {
               <li>Personalized suggestions based on your usage patterns and preferences</li>
               <li>Automatic syncing via our servers with offline support</li>
             </ul>
-            <p>Near is provided free of charge with no in-app purchases or subscriptions.</p>
+            <p>Near includes free core features and may offer optional paid plans, subscriptions, or in-app purchases for additional features.</p>
+          </section>
+
+          <section className="legalSection">
+            <h2>Paid Plans &amp; App Store Purchases</h2>
+            <p>
+              Optional paid plans, subscriptions, free trials, and in-app purchases are offered through Apple&apos;s App Store. Prices, billing periods, free-trial terms, renewal terms, and cancellation instructions are displayed before purchase and may vary by country or region.
+            </p>
+            <p>
+              Subscriptions automatically renew unless canceled at least 24 hours before the end of the current billing period. You can manage or cancel App Store subscriptions in your Apple ID subscription settings. Apple handles payment processing, refunds where available, and billing information under Apple&apos;s terms and policies.
+            </p>
           </section>
 
           <section className="legalSection">
@@ -85,7 +95,7 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>License to Use Your Data</h2>
             <p>
-              You retain ownership of the content you create within Near (tasks, list names, notes, etc.). By using the app, you grant Rise-X, Inc. a worldwide, non-exclusive, royalty-free, transferable, sublicensable license to use, reproduce, process, adapt, and display your content solely for the purposes of:
+              You retain ownership of the content you create within Near (tasks, list names, notes, etc.). By using the app, you grant Rise-X, Inc. a limited, worldwide, non-exclusive, royalty-free license to use, reproduce, process, adapt, and display your content solely for the purposes of:
             </p>
             <ul>
               <li>Operating and providing the Near service</li>
@@ -95,7 +105,7 @@ export default function TermsPage() {
               <li>Supporting retail and grocery partner integrations you have opted into</li>
             </ul>
             <p>
-              This license survives termination of your account with respect to aggregated, de-identified data that can no longer be linked to you. For personally identifiable data, this license terminates when you delete your account, except as required by law or as described in our Privacy Policy.
+              We may allow our service providers to process your content only as needed to provide services to Near. This license survives termination of your account only with respect to aggregated, anonymized, or de-identified data that can no longer reasonably be linked to you. For personal data, this license terminates when you delete your account, except as required by law, for security or fraud-prevention needs, or as described in our Privacy Policy.
             </p>
             <p>
               By using the household feature, you additionally grant other household members permission to view and interact with your shared content within the app.
@@ -105,7 +115,7 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Personalization &amp; Analytics</h2>
             <p>
-              Near uses your usage data, location patterns, task behavior, and preferences to personalize your experience and provide relevant suggestions. By using the app, you consent to this personalization. You may request a reset of personalization data by contacting us at{" "}
+              Near uses your usage data, location patterns, task behavior, and preferences to personalize your experience and provide relevant in-app suggestions. This personalization is not used for third-party advertising. You may request a reset of personalization data by contacting us at{" "}
               <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
             </p>
             <p>
