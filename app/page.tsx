@@ -301,15 +301,6 @@ function Hero() {
       <div className="heroGlow" />
       <div className="heroSplit">
         <div className="heroCopy">
-          <Image
-            src={BRAND_ICON}
-            alt="Near app icon"
-            className="heroIcon"
-            width={72}
-            height={72}
-            priority
-            quality={100}
-          />
           <h1 className="heroTitle">
             Never Forget<br /><span className="gradientText">Anything Again.</span>
           </h1>
@@ -319,11 +310,9 @@ function Hero() {
             or share it with your household.
           </p>
           <div className="heroPhases">
-            {phaseTexts.map((text, i) => (
-              <p key={i} className={`heroPhaseText ${phase === i ? "phaseVisible" : ""}`}>
-                {text}
-              </p>
-            ))}
+            <p key={phase} className="heroPhaseText phaseVisible">
+              {phaseTexts[phase]}
+            </p>
           </div>
           <div className="heroCtas">
             <a className="primaryBtn" href={APP_STORE_URL}>Download on the App Store</a>
@@ -1265,23 +1254,6 @@ function FinalCTA() {
           <div className="finalStar finalStar6" />
         </div>
 
-        {/* Floating notification card */}
-        <div className="finalNotifCard">
-          <div className="finalNotifGlow" />
-          <Image
-            src={BRAND_ICON}
-            alt=""
-            width={40}
-            height={40}
-            className="finalNotifIcon"
-          />
-          <div className="finalNotifContent">
-            <div className="finalNotifTitle">Near</div>
-            <div className="finalNotifBody">You{'\u2019'}re near Target {'\u2014'} Stroller is on your list</div>
-          </div>
-          <div className="finalNotifTime">now</div>
-        </div>
-
         <h2 className="finalTitle">
           The right task.<br />At the right place.
         </h2>
@@ -1659,21 +1631,6 @@ function SiteStyles() {
         flex-shrink: 0;
         perspective: 1200px;
         transform-style: preserve-3d;
-      }
-
-      .heroIcon {
-        width: 72px;
-        height: 72px;
-        margin: 0 0 1.15rem;
-        display: block;
-        border-radius: 18px;
-        filter: drop-shadow(0 10px 30px rgba(26, 14, 31, 0.22));
-        animation: iconPulse 5.5s ease-in-out infinite;
-      }
-
-      @keyframes iconPulse {
-        0%, 100% { transform: scale(1); filter: drop-shadow(0 10px 30px rgba(26, 14, 31, 0.22)); }
-        50% { transform: scale(1.03); filter: drop-shadow(0 12px 36px rgba(26, 14, 31, 0.32)); }
       }
 
       .eyebrow {
@@ -3095,16 +3052,16 @@ function SiteStyles() {
         padding: 5rem 2rem 4rem;
         border-radius: 2.5rem;
         text-align: center;
-        background: linear-gradient(145deg, #2C1B3E 0%, #3B1F30 30%, #4A2028 55%, #381520 80%, #241018 100%);
+        background: linear-gradient(145deg, #006EB8 0%, #005D9C 34%, #004F86 68%, #073A66 100%);
         color: white;
         overflow: hidden;
         position: relative;
-        border: 1px solid rgba(123, 92, 255, 0.2);
+        border: 1px solid rgba(120, 204, 255, 0.24);
         box-shadow:
-          0 0 0 1px rgba(123, 92, 255, 0.08),
-          0 32px 100px rgba(0, 0, 0, 0.4),
-          0 0 80px rgba(123, 92, 255, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          0 0 0 1px rgba(120, 204, 255, 0.08),
+          0 32px 100px rgba(0, 62, 105, 0.34),
+          0 0 80px rgba(0, 110, 184, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12);
         transform: perspective(1200px) rotateX(1deg);
         transform-style: preserve-3d;
       }
@@ -3121,7 +3078,7 @@ function SiteStyles() {
         height: 500px;
         top: -120px;
         right: -100px;
-        background: radial-gradient(circle, rgba(123, 92, 255, 0.5) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(122, 213, 255, 0.45) 0%, transparent 70%);
         animation: orbFloat1 8s ease-in-out infinite;
       }
 
@@ -3151,7 +3108,7 @@ function SiteStyles() {
         left: 50%;
         margin-top: -125px;
         margin-left: -125px;
-        background: radial-gradient(circle, rgba(199, 75, 246, 0.25) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(0, 195, 255, 0.22) 0%, transparent 70%);
         animation: orbFloat3 12s ease-in-out infinite;
       }
 
@@ -3170,7 +3127,7 @@ function SiteStyles() {
 
       .finalP1 {
         width: 4px; height: 4px;
-        background: rgba(123, 92, 255, 0.6);
+        background: rgba(126, 218, 255, 0.6);
         top: 20%; left: 15%;
         animation: finalFloat 6s ease-in-out infinite;
       }
@@ -3184,21 +3141,21 @@ function SiteStyles() {
 
       .finalP3 {
         width: 5px; height: 5px;
-        background: rgba(199, 75, 246, 0.4);
+        background: rgba(118, 196, 255, 0.42);
         bottom: 25%; left: 25%;
         animation: finalFloat 7s ease-in-out infinite 2s;
       }
 
       .finalP4 {
         width: 3px; height: 3px;
-        background: rgba(255, 107, 138, 0.5);
+        background: rgba(173, 230, 255, 0.5);
         bottom: 35%; right: 15%;
         animation: finalFloat 9s ease-in-out infinite 0.5s;
       }
 
       .finalP5 {
         width: 4px; height: 4px;
-        background: rgba(255, 179, 71, 0.4);
+        background: rgba(225, 248, 255, 0.45);
         top: 60%; left: 10%;
         animation: finalFloat 5s ease-in-out infinite 3s;
       }
@@ -3243,88 +3200,6 @@ function SiteStyles() {
         transform: translateY(-2px) scale(1.02);
         box-shadow: 0 6px 30px rgba(47, 109, 255, 0.5), 0 0 60px rgba(47, 109, 255, 0.2);
       }
-      /* Floating notification card */
-      .finalNotifCard {
-        position: relative;
-        z-index: 3;
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px 20px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        margin-bottom: 2.5rem;
-        animation: notifBounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        box-shadow:
-          0 8px 32px rgba(0, 0, 0, 0.3),
-          0 0 40px rgba(47, 109, 255, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-        text-align: left;
-        transform: translateZ(30px);
-      }
-
-      @keyframes notifBounceIn {
-        0% { opacity: 0; transform: translateY(-30px) translateZ(30px) scale(0.8); }
-        60% { transform: translateY(4px) translateZ(30px) scale(1.02); }
-        100% { opacity: 1; transform: translateY(0) translateZ(30px) scale(1); }
-      }
-
-      .finalNotifGlow {
-        position: absolute;
-        inset: -2px;
-        border-radius: 22px;
-        background: conic-gradient(
-          from 180deg,
-          rgba(47, 109, 255, 0.5),
-          rgba(123, 92, 255, 0.2),
-          rgba(199, 75, 246, 0.4),
-          rgba(123, 92, 255, 0.15),
-          rgba(47, 109, 255, 0.5)
-        );
-        animation: glowSpin 4s linear infinite;
-        filter: blur(8px);
-        z-index: -1;
-        opacity: 0.7;
-      }
-
-      .finalNotifIcon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        flex-shrink: 0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      }
-
-      .finalNotifContent {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .finalNotifTitle {
-        font-size: 13px;
-        font-weight: 600;
-        color: white;
-        line-height: 1.2;
-      }
-
-      .finalNotifBody {
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.7);
-        margin-top: 2px;
-        white-space: nowrap;
-      }
-
-      .finalNotifTime {
-        font-size: 11px;
-        color: rgba(255, 255, 255, 0.35);
-        flex-shrink: 0;
-        align-self: flex-start;
-      }
-
       /* Star field */
       .finalStars {
         position: absolute;
@@ -4971,7 +4846,7 @@ function SiteStyles() {
 
         .hero {
           min-height: auto;
-          padding: 56px 0.5rem 2rem;
+          padding: 116px 0.5rem 2rem;
         }
 
         .heroSplit {
@@ -4984,20 +4859,11 @@ function SiteStyles() {
 
         .heroCopy { text-align: center; order: 1; }
 
-        .heroIcon { margin-left: auto; margin-right: auto; }
-
         .heroPhases { margin-left: auto; margin-right: auto; max-width: 320px; }
 
         .heroCtas { justify-content: center; }
 
         .section { padding: 5rem 1rem; }
-
-        .heroIcon {
-          width: 44px;
-          height: 44px;
-          margin-bottom: 0.5rem;
-          border-radius: 11px;
-        }
 
         .eyebrow { font-size: 12px; margin-bottom: 0.4rem; }
 
