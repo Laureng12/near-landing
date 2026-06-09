@@ -277,7 +277,7 @@ function TopNav() {
 /* âââ Hero (auto-cycling phases) âââ */
 
 const PHASE_NAMES = ["home", "lock-notif", "places", "household"] as const
-const PHASE_DURATION = 3200 // ms per phase
+const PHASE_DURATION = 4600 // ms per phase
 
 const phaseTexts = [
   "For the person already juggling work, errands, dinner, and home.",
@@ -3264,23 +3264,22 @@ function SiteStyles() {
       /* ââ Phone Mockup (scroll-driven) ââ */
 
       .phoneMockup {
-        width: 280px;
-        height: 572px;
+        width: 292px;
+        height: 596px;
         border-radius: 44px;
-        background: linear-gradient(160deg, #2A2A2E 0%, #1A1A1E 20%, #000 50%, #1A1A1E 100%);
+        background: linear-gradient(160deg, #303238 0%, #15171c 28%, #050608 55%, #22262d 100%);
         padding: 6px;
         position: relative;
         transform-style: preserve-3d;
-        transform: rotateY(-8deg) rotateX(4deg) translateZ(20px);
+        transform: translateZ(0);
         box-shadow:
-          0 0 0 1px rgba(255,255,255,0.1),
-          0 0 0 2px #1A1A1E,
-          0 0 0 4px #2A2A2E,
-          0 50px 100px rgba(0, 0, 0, 0.4),
-          0 20px 40px rgba(0, 0, 0, 0.25),
-          -16px 32px 64px rgba(47, 109, 255, 0.12),
-          0 0 100px rgba(100, 210, 230, 0.2), 0 0 200px rgba(80, 180, 220, 0.08);
-        animation: phoneFloat 6s ease-in-out infinite;
+          0 0 0 1px rgba(255,255,255,0.14),
+          0 0 0 2px #15171c,
+          0 0 0 4px #303238,
+          0 34px 80px rgba(0, 0, 0, 0.34),
+          0 16px 32px rgba(0, 0, 0, 0.2),
+          0 36px 90px rgba(0, 110, 184, 0.14),
+          0 0 120px rgba(100, 210, 230, 0.16);
       }
 
       .phoneMockup::before {
@@ -3300,15 +3299,9 @@ function SiteStyles() {
         left: 10%;
         right: 10%;
         height: 40px;
-        background: radial-gradient(ellipse, rgba(0,0,0,0.2) 0%, transparent 70%);
+        background: radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%);
         filter: blur(12px);
-        transform: translateZ(-40px);
         pointer-events: none;
-      }
-
-      @keyframes phoneFloat {
-        0%, 100% { transform: rotateY(-8deg) rotateX(4deg) translateZ(20px) translateY(0); }
-        50% { transform: rotateY(-5deg) rotateX(2deg) translateZ(30px) translateY(-12px); }
       }
 
       .phoneDynamic {
@@ -3327,7 +3320,10 @@ function SiteStyles() {
         width: 100%;
         height: 100%;
         border-radius: 38px;
-        background: linear-gradient(175deg, #c4ecf6 0%, #d4f4fa 12%, #e4faf6 25%, #eefcf4 40%, #e4f6ee 55%, #d4f0e4 70%, #c0e6de 85%, #a8dad4 100%);
+        background:
+          radial-gradient(circle at 72% 12%, rgba(255, 255, 255, 0.82) 0 12%, transparent 30%),
+          radial-gradient(circle at 18% 22%, rgba(0, 110, 184, 0.15) 0 18%, transparent 38%),
+          linear-gradient(180deg, #ecfbff 0%, #f8fffb 36%, #eef9f5 62%, #d3efe9 100%);
         overflow: hidden;
         position: relative;
         transform: translateZ(6px);
@@ -3340,9 +3336,11 @@ function SiteStyles() {
         position: absolute;
         inset: 0;
         border-radius: 38px;
-        background: linear-gradient(170deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 20%, rgba(255,255,255,0.02) 40%, transparent 60%);
+        background:
+          linear-gradient(170deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.08) 24%, transparent 58%),
+          radial-gradient(circle at 50% 0%, rgba(255,255,255,0.22), transparent 34%);
         pointer-events: none;
-        z-index: 15;
+        z-index: 4;
       }
 
       /* Status bar */
@@ -3350,7 +3348,7 @@ function SiteStyles() {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 14px 0;
+        padding: 11px 16px 0;
         height: 36px;
         position: relative;
         z-index: 12;
@@ -3405,16 +3403,16 @@ function SiteStyles() {
       /* Notification banner */
       .phoneNotif {
         position: absolute;
-        top: 12px;
-        left: 8px;
-        right: 8px;
-        padding: 12px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.85);
+        top: 11px;
+        left: 10px;
+        right: 10px;
+        padding: 12px 13px;
+        border-radius: 21px;
+        background: rgba(255, 255, 255, 0.9);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.6);
+        box-shadow: 0 14px 34px rgba(12, 38, 58, 0.13), 0 1px 0 rgba(255,255,255,0.88) inset;
+        border: 1px solid rgba(255, 255, 255, 0.72);
         display: flex;
         align-items: center;
         gap: 10px;
@@ -3883,15 +3881,15 @@ function SiteStyles() {
       .phoneGreeting {
         font-size: 11px;
         font-weight: 500;
-        color: rgba(30, 50, 80, 0.55);
+        color: rgba(25, 54, 82, 0.58);
         margin-bottom: 1px;
       }
 
       .phoneHomeTitle {
         font-size: 24px;
         font-weight: 800;
-        color: #0a1a35;
-        letter-spacing: -0.03em;
+        color: #10243a;
+        letter-spacing: -0.025em;
         line-height: 1.12;
       }
 
@@ -3901,7 +3899,7 @@ function SiteStyles() {
 
       .phoneHomeSub {
         font-size: 11px;
-        color: rgba(30, 50, 80, 0.45);
+        color: rgba(25, 54, 82, 0.48);
         margin-top: 1px;
         font-weight: 500;
       }
@@ -3910,13 +3908,15 @@ function SiteStyles() {
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-top: 6px;
-        padding: 6px 10px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.45);
+        margin-top: 8px;
+        margin-left: auto;
+        padding: 7px 11px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        box-shadow: 0 8px 20px rgba(0, 79, 134, 0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
         float: right;
       }
 
@@ -3949,13 +3949,14 @@ function SiteStyles() {
         display: flex;
         align-items: center;
         gap: 6px;
-        margin-top: 6px;
-        padding: 7px 10px;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.3);
+        margin-top: 8px;
+        padding: 8px 11px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.64);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.64);
+        box-shadow: 0 8px 24px rgba(0, 79, 134, 0.07);
       }
 
       .phoneRadarText {
@@ -3967,10 +3968,10 @@ function SiteStyles() {
       .phoneSectionLabel {
         font-size: 9px;
         font-weight: 700;
-        color: rgba(30, 50, 80, 0.4);
-        letter-spacing: 0.08em;
+        color: rgba(25, 54, 82, 0.43);
+        letter-spacing: 0.1em;
         text-transform: uppercase;
-        margin: 8px 0 5px;
+        margin: 10px 0 6px;
         display: flex;
         align-items: center;
         gap: 4px;
@@ -3986,40 +3987,41 @@ function SiteStyles() {
       .phoneGroupList {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 7px;
       }
 
       .phoneGroupItem {
         background: white;
-        border-radius: 12px;
-        padding: 8px 10px;
+        border-radius: 15px;
+        padding: 10px 11px;
         border: 1px solid rgba(0, 0, 0, 0.06);
       }
 
       .phoneGroupItemGlass {
-        background: rgba(255, 255, 255, 0.55);
+        background: rgba(255, 255, 255, 0.82);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        box-shadow: 0 10px 26px rgba(0, 79, 134, 0.08), 0 1px 0 rgba(255,255,255,0.92) inset;
       }
 
       .phoneGroupHeader {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
       }
 
       .phoneGroupEmoji {
-        font-size: 14px;
+        font-size: 15px;
         flex-shrink: 0;
-        width: 26px;
-        height: 26px;
-        background: rgba(255,255,255,0.35);
-        border-radius: 7px;
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(225,244,249,0.75));
+        border-radius: 9px;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 5px 14px rgba(0, 79, 134, 0.08);
       }
 
       .phoneGroupInfo {
@@ -4033,7 +4035,7 @@ function SiteStyles() {
       .phoneGroupName {
         font-size: 14px;
         font-weight: 700;
-        color: #0d1f3c;
+        color: #10243a;
         line-height: 1.2;
       }
 
@@ -4044,30 +4046,31 @@ function SiteStyles() {
       }
 
       .phoneGroupTasks {
-        margin-top: 4px;
+        margin-top: 6px;
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: 4px;
       }
 
       .phoneGroupTaskRow {
         display: flex;
         align-items: center;
         gap: 6px;
-        padding-left: 32px;
+        padding-left: 38px;
       }
 
       .phoneTaskCheck {
-        width: 14px;
-        height: 14px;
-        border-radius: 3px;
-        border: 1.5px solid rgba(30, 50, 80, 0.15);
+        width: 15px;
+        height: 15px;
+        border-radius: 5px;
+        border: 1.5px solid rgba(0, 110, 184, 0.18);
+        background: rgba(255, 255, 255, 0.7);
         flex-shrink: 0;
       }
 
       .phoneGroupTaskText {
-        font-size: 11px;
-        color: #1a2a4a;
+        font-size: 11.5px;
+        color: #263d56;
         flex: 1;
       }
 
@@ -4107,15 +4110,15 @@ function SiteStyles() {
       }
 
       .phoneChip {
-        padding: 4px 10px;
+        padding: 5px 11px;
         border-radius: 999px;
         font-size: 10px;
         font-weight: 600;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.68);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        color: rgba(30, 50, 80, 0.55);
-        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: rgba(25, 54, 82, 0.58);
+        border: 1px solid rgba(255, 255, 255, 0.68);
       }
 
       .phoneChipActive {
@@ -4126,7 +4129,7 @@ function SiteStyles() {
 
       /* Place cards */
       .phonePlaceCard {
-        padding: 7px 10px 6px;
+        padding: 9px 11px 8px;
       }
 
       .phonePlaceNameRow {
@@ -4163,17 +4166,17 @@ function SiteStyles() {
       .phonePlaceTags {
         display: flex;
         gap: 4px;
-        margin-top: 4px;
-        padding-left: 32px;
+        margin-top: 6px;
+        padding-left: 38px;
         flex-wrap: wrap;
       }
 
       .phonePlaceTaskTag {
         font-size: 9px;
-        padding: 2px 7px;
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.4);
-        color: rgba(30, 50, 80, 0.65);
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: rgba(0, 110, 184, 0.08);
+        color: rgba(25, 54, 82, 0.68);
         font-weight: 500;
       }
 
@@ -4195,7 +4198,7 @@ function SiteStyles() {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
       .phoneHomeHeaderLeft {
         flex: 1;
@@ -4226,19 +4229,19 @@ function SiteStyles() {
         margin-top: 2px;
       }
       .phoneHeaderBtn {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.78);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.74);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 12px;
         color: rgba(30, 50, 80, 0.55);
-        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        box-shadow: 0 7px 18px rgba(0, 79, 134, 0.08), 0 1px 0 rgba(255,255,255,0.9) inset;
       }
 
 
@@ -4261,26 +4264,27 @@ function SiteStyles() {
         display: flex;
         align-items: center;
         gap: 8px;
-        background: rgba(255, 255, 255, 0.55);
+        background: rgba(255, 255, 255, 0.86);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        border-radius: 12px;
-        padding: 10px 10px;
-        margin-bottom: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.74);
+        border-radius: 16px;
+        padding: 11px 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 12px 28px rgba(0, 79, 134, 0.09), 0 1px 0 rgba(255,255,255,0.9) inset;
       }
       .phoneGamePlanIcon {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: linear-gradient(135deg, #5B86E5, #36D1DC);
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #006EB8, #3FC7E8);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 15px;
         flex-shrink: 0;
         color: white;
-        box-shadow: 0 2px 6px rgba(91,134,229,0.3);
+        box-shadow: 0 8px 18px rgba(0,110,184,0.22);
       }
       .phoneGamePlanInfo {
         flex: 1;
@@ -4311,11 +4315,11 @@ function SiteStyles() {
         align-items: center;
         justify-content: center;
         gap: 5px;
-        padding: 8px 0;
-        margin-top: 6px;
-        border-radius: 10px;
-        border: 1.5px dashed rgba(30, 50, 80, 0.15);
-        background: rgba(255, 255, 255, 0.15);
+        padding: 9px 0;
+        margin-top: 8px;
+        border-radius: 14px;
+        border: 1.5px dashed rgba(0, 110, 184, 0.18);
+        background: rgba(255, 255, 255, 0.42);
         cursor: pointer;
       }
       .phoneAddPlaceIcon {
@@ -4340,14 +4344,14 @@ function SiteStyles() {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #006EB8, #64D2E6);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 18px;
         color: white;
         font-weight: 600;
-        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.35);
+        box-shadow: 0 10px 22px rgba(0, 110, 184, 0.18);
         flex-shrink: 0;
       }
       .hhProfileName {
@@ -4376,7 +4380,7 @@ function SiteStyles() {
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #f093fb, #f5576c);
+        background: linear-gradient(135deg, #006EB8, #64D2E6);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -4464,23 +4468,24 @@ function SiteStyles() {
       /* Phase content layers */
       .phoneContent {
         position: absolute;
-        top: 54px;
+        top: 56px;
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 0 12px 56px;
+        padding: 0 14px 64px;
         overflow-y: auto;
         overflow-x: hidden;
+        z-index: 6;
         opacity: 0;
-        transform: translateY(6px);
-        transition: opacity 0.2s ease, transform 0.2s ease;
+        transform: translateY(3px);
+        transition: opacity 0.28s ease, transform 0.28s ease;
         pointer-events: none;
       }
 
       .phoneContent.phoneContentVisible {
         opacity: 1;
         transform: translateY(0);
-        transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s;
+        transition: opacity 0.45s ease 0.08s, transform 0.45s ease 0.08s;
         pointer-events: auto;
       }
 
@@ -4685,16 +4690,18 @@ function SiteStyles() {
       .phoneTabBar {
         position: absolute;
         bottom: 14px;
-        left: 0;
-        right: 0;
+        left: 10px;
+        right: 10px;
         display: flex;
         justify-content: space-around;
         align-items: flex-start;
-        padding: 5px 4px 2px;
-        background: rgba(190, 230, 222, 0.8);
+        padding: 6px 4px 4px;
+        background: rgba(255, 255, 255, 0.8);
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
-        border-top: 0.5px solid rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.68);
+        border-radius: 24px;
+        box-shadow: 0 12px 30px rgba(0, 79, 134, 0.11), 0 1px 0 rgba(255,255,255,0.9) inset;
         z-index: 15;
       }
 
@@ -4728,14 +4735,14 @@ function SiteStyles() {
       }
 
       .phoneAddBtn {
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        background: var(--blue);
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--blue), #004F86);
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 6px rgba(47, 109, 255, 0.3);
+        box-shadow: 0 8px 18px rgba(0, 110, 184, 0.28);
       }
 
       .phoneAddBtn svg {
@@ -4898,12 +4905,8 @@ function SiteStyles() {
           height: 450px;
           border-radius: 36px;
           padding: 5px;
-          transform: rotateY(-4deg) rotateX(2deg) translateZ(10px);
-        }
-
-        @keyframes phoneFloat {
-          0%, 100% { transform: rotateY(-4deg) rotateX(2deg) translateZ(10px) translateY(0); }
-          50% { transform: rotateY(-3deg) rotateX(2deg) translateZ(12px) translateY(-5px); }
+          transform: translateZ(0);
+          animation: none;
         }
 
         .phoneScreen { border-radius: 31px; }
@@ -4924,7 +4927,7 @@ function SiteStyles() {
 
         .phoneNearIcon { top: 42px; left: 11px; width: 24px; height: 24px; }
         .phoneNearIconImg { width: 24px; height: 24px; border-radius: 5px; }
-        .phoneContent { top: 68px; bottom: 0; padding: 0 11px 52px; }
+        .phoneContent { top: 68px; bottom: 0; padding: 0 12px 58px; }
         .lockTimeDisplay { font-size: 46px; }
         .lockDateDisplay { font-size: 12px; }
         .phoneLockOverlay { padding-top: 58px; }
@@ -4934,7 +4937,7 @@ function SiteStyles() {
         .phoneHomeTitle { font-size: 20px; }
         .phoneHomeSub { font-size: 12px; }
         .phoneSectionLabel { font-size: 10px; margin: 10px 0 5px; }
-        .phoneGroupItem { padding: 8px 9px; border-radius: 9px; }
+        .phoneGroupItem { padding: 9px 10px; border-radius: 12px; }
         .phoneGroupEmoji { font-size: 14px; }
         .phoneGroupName { font-size: 13px; }
         .phoneGroupTask { font-size: 12px; padding-left: 22px; margin-top: 2px; }
@@ -4956,7 +4959,7 @@ function SiteStyles() {
         .phoneCheck { width: 19px; height: 19px; font-size: 11px; }
         .placeIcon { font-size: 1rem; }
         .phoneBadge { width: 19px; height: 19px; font-size: 11px; }
-        .phoneGroupList { gap: 4px; }
+        .phoneGroupList { gap: 6px; }
 
         .phoneNotif {
           top: 9px;
@@ -4987,9 +4990,9 @@ function SiteStyles() {
         .phoneCarplayTasks { gap: 5px; margin-top: 7px; }
         .phoneCarplayTasks span { padding: 7px 9px; font-size: 12px; border-radius: 7px; }
 
-        .phoneContent { bottom: 0; padding-bottom: 52px; }
+        .phoneContent { bottom: 0; padding-bottom: 58px; }
 
-        .phoneTabBar { padding: 5px 3px 2px; }
+        .phoneTabBar { left: 8px; right: 8px; padding: 5px 3px 3px; border-radius: 22px; }
         .phoneTab { font-size: 8px; gap: 2px; }
         .phoneTab svg { width: 16px; height: 16px; }
         .phoneAddBtn { width: 26px; height: 26px; }
