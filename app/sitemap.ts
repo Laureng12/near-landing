@@ -1,28 +1,44 @@
 import type { MetadataRoute } from "next"
 
+const BASE_URL = "https://www.nearesttask.com"
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date()
+
   return [
     {
-      url: "https://www.nearesttask.com",
-      lastModified: new Date(),
+      url: BASE_URL,
+      lastModified,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://www.nearesttask.com/features",
-      lastModified: new Date(),
+      url: `${BASE_URL}/features`,
+      lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://www.nearesttask.com/privacy",
-      lastModified: new Date(),
+      url: `${BASE_URL}/pricing`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/support`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/privacy`,
+      lastModified,
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
-      url: "https://www.nearesttask.com/terms",
-      lastModified: new Date(),
+      url: `${BASE_URL}/terms`,
+      lastModified,
       changeFrequency: "monthly",
       priority: 0.3,
     },

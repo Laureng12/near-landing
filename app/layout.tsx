@@ -1,10 +1,14 @@
 import type { Metadata } from "next"
 import "./globals.css"
 
+const SITE_URL = "https://www.nearesttask.com"
+const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const DEFAULT_DESCRIPTION =
+  "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household."
+
 export const metadata: Metadata = {
   title: "Near | The right task. At the right place.",
-  description:
-    "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
+  description: DEFAULT_DESCRIPTION,
   keywords: [
     "ambient task intelligence",
     "location reminders",
@@ -37,9 +41,9 @@ export const metadata: Metadata = {
     "location-aware AI",
     "ambient intelligence app",
   ],
-  metadataBase: new URL("https://www.nearesttask.com"),
+  metadataBase: new URL(SITE_URL),
   alternates: {
-    canonical: "https://www.nearesttask.com",
+    canonical: "/",
   },
   robots: {
     index: true,
@@ -54,9 +58,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Near | Ambient Task Intelligence",
-    description:
-      "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
-    url: "https://www.nearesttask.com",
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
     siteName: "Near",
     type: "website",
     locale: "en_US",
@@ -72,8 +75,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Near | The right task. At the right place.",
-    description:
-      "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
+    description: DEFAULT_DESCRIPTION,
     images: ["/near-og.png"],
   },
   icons: {
@@ -90,9 +92,92 @@ export const metadata: Metadata = {
   },
   other: {
     "apple-itunes-app": "app-id=6744145553",
-          "impact-site-verification": "baa37acf-c03a-4807-afce-bd3d947097ab",
+    "impact-site-verification": "baa37acf-c03a-4807-afce-bd3d947097ab",
   },
-};
+}
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: "Near",
+  legalName: "Rise-X, Inc.",
+  url: SITE_URL,
+  logo: `${SITE_URL}/assets/brand/Near-Logo-Blue.png`,
+  image: `${SITE_URL}/near-og.png`,
+  email: "hello@nearesttask.com",
+  description: "Ambient task intelligence for iPhone. The right task, at the right place.",
+  brand: {
+    "@type": "Brand",
+    name: "Near",
+    slogan: "The right task. At the right place.",
+  },
+}
+
+const mobileAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "@id": `${SITE_URL}/#mobile-app`,
+  name: "Near",
+  operatingSystem: "iOS",
+  applicationCategory: "ProductivityApplication",
+  url: SITE_URL,
+  downloadUrl: APP_STORE_URL,
+  installUrl: APP_STORE_URL,
+  image: `${SITE_URL}/near-og.png`,
+  isAccessibleForFree: true,
+  description: DEFAULT_DESCRIPTION,
+  publisher: {
+    "@id": `${SITE_URL}/#organization`,
+  },
+  featureList: [
+    "Location-based reminders",
+    "Place-based task surfacing",
+    "Shared household lists",
+    "Grocery lists grouped by department",
+    "Apple Watch and CarPlay support",
+    "AI-powered meal plans and suggestions on paid plans",
+  ],
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Near Free",
+      price: "0",
+      priceCurrency: "USD",
+      url: `${SITE_URL}/pricing`,
+      availability: "https://schema.org/InStock",
+    },
+    {
+      "@type": "Offer",
+      name: "Near Pro",
+      price: "9.99",
+      priceCurrency: "USD",
+      url: `${SITE_URL}/pricing`,
+      availability: "https://schema.org/InStock",
+    },
+    {
+      "@type": "Offer",
+      name: "Near Pro+",
+      price: "12.99",
+      priceCurrency: "USD",
+      url: `${SITE_URL}/pricing`,
+      availability: "https://schema.org/InStock",
+    },
+  ],
+}
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: "Near",
+  url: SITE_URL,
+  inLanguage: "en-US",
+  description: DEFAULT_DESCRIPTION,
+  publisher: {
+    "@id": `${SITE_URL}/#organization`,
+  },
+}
 
 export default function RootLayout({
   children,
@@ -106,127 +191,22 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <meta name="theme-color" content="#FFFFFF" />
-        <link rel="canonical" href="https://www.nearesttask.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "MobileApplication",
-              name: "Near",
-              operatingSystem: "iOS",
-              applicationCategory: "ProductivityApplication",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-              },
-              description:
-                "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
-              url: "https://www.nearesttask.com",
-              downloadUrl: "https://apps.apple.com/app/id6744145553",
-              featureList: "Location-based reminders, Shared grocery lists, Ambient task surfacing, Household task management, AI-powered errand detection",
-            }),
+            __html: JSON.stringify(organizationJsonLd),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: [
-                {
-                  "@type": "Question",
-                  name: "What is a location-based reminder?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "A location-based reminder is a task that appears when you arrive at or pass a specific place. Near uses location awareness to automatically show errands and reminders when they become relevant.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "How does Near know when I arrive somewhere?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Near uses iPhone location services to detect when you arrive at a location such as a grocery store, pharmacy, or home. When you reach that location, the relevant tasks appear automatically.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Can Near share grocery lists with family members?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Yes. Near supports shared household lists so anyone in the household can add items. When someone is near the store, they receive the reminder.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Does Near track my location?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Near uses location to show tasks when they matter and does not use location data for advertising. Geofences are handled by iOS, while saved places, tasks, and arrival events may sync to Near servers to support reminders, account sync, and household features.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "What is ambient task intelligence?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Ambient task intelligence means your tasks surface automatically based on where you are, without manual checking. Near uses AI-powered location awareness to deliver the right task at the right place and time.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  name: "Is Near an AI task manager?",
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: "Near is an ambient task intelligence system that uses AI and location awareness to surface tasks when they are most actionable. It goes beyond traditional task managers by proactively delivering reminders based on context.",
-                  },
-                },
-              ],
-            }),
+            __html: JSON.stringify(mobileAppJsonLd),
           }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "Near",
-              url: "https://www.nearesttask.com",
-              applicationCategory: "ProductivityApplication",
-              operatingSystem: "iOS",
-              browserRequirements: "Requires iOS 17.0 or later",
-              description:
-                "Near is an ambient task intelligence system. The right task, at the right place.",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "USD",
-              },
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Near",
-              url: "https://www.nearesttask.com",
-              description: "Ambient task intelligence for iPhone. The right task, at the right place.",
-              brand: {
-                "@type": "Brand",
-                name: "Near",
-                slogan: "The right task. At the right place.",
-              },
-            }),
+            __html: JSON.stringify(websiteJsonLd),
           }}
         />
       </head>

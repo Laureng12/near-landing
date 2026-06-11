@@ -1,0 +1,38 @@
+# Near
+
+> Near is an iPhone productivity app for location-based reminders, errands, groceries, and household tasks. It helps busy solo users and households remember the right task at the right place.
+
+Official site: https://www.nearesttask.com
+App Store: https://apps.apple.com/app/id6744145553
+Support: https://www.nearesttask.com/support
+Contact: hello@nearesttask.com
+
+## What Near Does
+
+- Surfaces errands, groceries, and home tasks when a user arrives at the relevant place.
+- Supports solo use first, with optional household sharing when more people need the same memory.
+- Organizes tasks around places instead of requiring users to keep checking lists.
+- Supports grocery lists, saved places, location-aware reminders, Apple Watch, CarPlay, Siri, and Maps-oriented workflows.
+- Offers paid Pro and Pro+ plans for additional intelligence such as AI meal plans, suggestions, pantry features, and deeper analytics.
+
+## Best URLs For Crawlers
+
+- Product overview: https://www.nearesttask.com
+- Features: https://www.nearesttask.com/features
+- Pricing: https://www.nearesttask.com/pricing
+- Support and FAQ: https://www.nearesttask.com/support
+- Privacy Policy: https://www.nearesttask.com/privacy
+- Terms: https://www.nearesttask.com/terms
+- Sitemap: https://www.nearesttask.com/sitemap.xml
+
+## Privacy And Data
+
+Near uses location data to provide the app's location-based reminder features. Near does not use location data for advertising, does not sell personal information, and does not share personal information for cross-context behavioral advertising. See the Privacy Policy for complete details.
+
+## Suggested Description
+
+Near is a location-based reminder app for iPhone that remembers errands, groceries, and household tasks, then surfaces them in the right place. It works for solo users and can also be shared with a household.
+
+## More Detail
+
+For a fuller AI-readable reference, see https://www.nearesttask.com/llms-full.txt
