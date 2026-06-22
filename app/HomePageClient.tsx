@@ -303,7 +303,7 @@ function Hero() {
       <div className="heroSplit">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Never Forget<br /><span className="gradientText">Anything Again.</span>
+            Never Forget<br /><span className="gradientText heroAccent">Anything Again.</span>
           </h1>
           <p className="heroSub">
             Near catches the errands, groceries, and home things you&rsquo;d
@@ -1390,6 +1390,12 @@ function SiteStyles() {
         -webkit-text-fill-color: transparent;
         background-clip: text;
         animation: gradientShift 6s ease-in-out infinite;
+      }
+
+      /* Hero "Anything Again." — brand palette (navy -> pink -> gold) */
+      .gradientText.heroAccent {
+        background: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
+        background-size: 200% 200%;
       }
 
       @keyframes gradientShift {
