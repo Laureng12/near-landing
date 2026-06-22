@@ -1396,6 +1396,9 @@ function SiteStyles() {
       .gradientText.heroAccent {
         background-image: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
         background-size: 200% 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       @keyframes gradientShift {
