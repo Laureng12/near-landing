@@ -5,7 +5,8 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
-const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
+const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
+const BRAND_LOGO = "/assets/brand/Near-Icon-Orbital-Soft.png"
 const ICON_VARIANTS = [
   {
     name: "Dawn",
@@ -231,7 +232,7 @@ function TopNav() {
       <div className="navInner">
         <a className="brand" href="#top">
           <Image
-            src={BRAND_ICON}
+            src={BRAND_LOGO}
             alt="Near"
             className="brandLogo"
             width={40}

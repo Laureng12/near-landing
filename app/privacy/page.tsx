@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 
-const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
+const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
 
 export default function PrivacyPage() {
   return (
