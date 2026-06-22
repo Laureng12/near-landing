@@ -1443,14 +1443,14 @@ function SiteStyles() {
       .navCta {
         padding: 0.5rem 1.1rem;
         color: white;
-        background: var(--blue);
+        background: var(--cta);
         font-size: 0.88rem;
         font-weight: 600;
         border-radius: 999px;
         transition: background 0.16s;
       }
 
-      .navCta:hover { background: var(--blue-hover); }
+      .navCta:hover { background: var(--cta-deep); }
 
       /* ── Hamburger (hidden on desktop) ── */
 
@@ -1548,7 +1548,7 @@ function SiteStyles() {
         margin-top: 12px;
         padding: 0.7rem 1.4rem;
         color: white;
-        background: var(--blue);
+        background: var(--cta);
         font-size: 1rem;
         font-weight: 600;
         border-radius: 999px;
@@ -1556,7 +1556,7 @@ function SiteStyles() {
         transition: background 0.16s;
       }
 
-      .mobileMenuCta:hover { background: var(--blue-hover); }
+      .mobileMenuCta:hover { background: var(--cta-deep); }
 
 
       /* ââ Hero ââ */
@@ -1701,7 +1701,7 @@ function SiteStyles() {
 
       .primaryBtn {
         color: white;
-        background: linear-gradient(135deg, var(--blue) 0%, #0E1733 100%);
+        background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
         border: none;
         box-shadow: 0 10px 30px rgba(229, 110, 142, 0.25);
         background-size: 200% 200%;
@@ -4715,7 +4715,7 @@ function SiteStyles() {
         width: 30px;
         height: 30px;
         border-radius: 10px;
-        background: linear-gradient(135deg, var(--blue), #0E1733);
+        background: linear-gradient(135deg, var(--cta), var(--cta-deep));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -5236,14 +5236,14 @@ function SiteStyles() {
         display: inline-flex;
         align-items: center;
         padding: 14px 24px;
-        background: var(--blue, #121C41);
+        background: var(--cta, #D24E78);
         color: white;
         border-radius: 28px;
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
       }
-      .newFooterCta:hover { background: var(--blue-hover, #20305C); }
+      .newFooterCta:hover { background: var(--cta-deep, #B23A63); }
       .newFooterCopy { font-size: 13px; opacity: 0.5; margin: 0; }
       @media (max-width: 720px) {
         .newFooterInner { grid-template-columns: 1fr; gap: 40px; }

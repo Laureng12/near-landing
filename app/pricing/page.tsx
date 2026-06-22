@@ -53,7 +53,7 @@ export default function PricingPage() {
         .pricingNavCta {
           display: inline-flex; align-items: center;
           padding: 10px 20px;
-          background: linear-gradient(135deg, var(--blue, #121C41) 0%, #0E1733 100%);
+          background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
           background-size: 200% 200%;
           background-position: 0% 50%;
           color: #FFFFFF;
@@ -163,7 +163,7 @@ export default function PricingPage() {
           text-align: center; box-sizing: border-box; cursor: pointer;
         }
         .tierCta.primary {
-          background: linear-gradient(135deg, var(--blue, #121C41) 0%, #0E1733 100%);
+          background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
           background-size: 200% 200%;
           background-position: 0% 50%;
           color: #FFFFFF; border: none;
@@ -176,7 +176,7 @@ export default function PricingPage() {
           box-shadow: 0 14px 36px rgba(229, 110, 142, 0.36);
         }
         .tierCta.ghost {
-          background: transparent; color: var(--blue, #121C41);
+          background: transparent; color: var(--cta-deep, #B23A63);
           border: 1px solid rgba(229, 110, 142,0.28);
         }
         .tierCta.ghost:hover { background: rgba(229, 110, 142,0.07); }

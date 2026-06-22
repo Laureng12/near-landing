@@ -424,7 +424,7 @@ export default function FeaturesPage() {
         .ftNavLinkActive { color: var(--foreground); }
         .ftNavCta {
           font-size: 13px; font-weight: 600; color: #fff;
-          background: linear-gradient(135deg, var(--blue) 0%, #0E1733 100%);
+          background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -1638,7 +1638,7 @@ export default function FeaturesPage() {
         }
         .ftCtaBtn {
           display: inline-block; padding: 14px 36px; border-radius: 980px;
-          background: linear-gradient(135deg, var(--blue) 0%, #007FC6 50%, #E56E8E 100%);
+          background: linear-gradient(135deg, var(--cta-deep) 0%, var(--cta) 50%, #F2A0B8 100%);
           background-size: 200% 200%; animation: btnShimmer 4s ease-in-out infinite;
           color: #fff; font-size: 16px; font-weight: 600; text-decoration: none;
           position: relative; z-index: 1;
