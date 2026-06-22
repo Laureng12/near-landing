@@ -354,15 +354,15 @@ function PhoneMockup({ phase }: { phase: number }) {
           <span className="phoneTime">1:03</span>
           <div className="phoneStatusRight">
             <svg className="phoneSignal" width="17" height="11" viewBox="0 0 17 11" fill="none">
-              <rect x="0" y="8" width="3" height="3" rx="0.5" fill="#1D1D1F"/>
-              <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.5" fill="#1D1D1F"/>
-              <rect x="9" y="3" width="3" height="8" rx="0.5" fill="#1D1D1F" opacity="0.3"/>
-              <rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="#1D1D1F" opacity="0.3"/>
+              <rect x="0" y="8" width="3" height="3" rx="0.5" fill="#121C41"/>
+              <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.5" fill="#121C41"/>
+              <rect x="9" y="3" width="3" height="8" rx="0.5" fill="#121C41" opacity="0.3"/>
+              <rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="#121C41" opacity="0.3"/>
             </svg>
             <svg className="phoneWifi" width="15" height="12" viewBox="0 0 15 12" fill="none">
-              <path d="M7.5 10.5C8.33 10.5 9 11.17 9 12C9 12.83 8.33 13.5 7.5 13.5C6.67 13.5 6 12.83 6 12C6 11.17 6.67 10.5 7.5 10.5Z" fill="#1D1D1F" transform="translate(0,-2)"/>
-              <path d="M4.23 8.27C5.12 7.38 6.31 6.93 7.5 6.93C8.69 6.93 9.88 7.38 10.77 8.27" stroke="#1D1D1F" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
-              <path d="M1.76 5.8C3.34 4.22 5.42 3.43 7.5 3.43C9.58 3.43 11.66 4.22 13.24 5.8" stroke="#1D1D1F" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
+              <path d="M7.5 10.5C8.33 10.5 9 11.17 9 12C9 12.83 8.33 13.5 7.5 13.5C6.67 13.5 6 12.83 6 12C6 11.17 6.67 10.5 7.5 10.5Z" fill="#121C41" transform="translate(0,-2)"/>
+              <path d="M4.23 8.27C5.12 7.38 6.31 6.93 7.5 6.93C8.69 6.93 9.88 7.38 10.77 8.27" stroke="#121C41" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
+              <path d="M1.76 5.8C3.34 4.22 5.42 3.43 7.5 3.43C9.58 3.43 11.66 4.22 13.24 5.8" stroke="#121C41" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
             </svg>
             <div className="phoneBatt">
               <div className="phoneBattFill" />
@@ -1352,7 +1352,7 @@ function SiteStyles() {
       .page {
         min-height: 100vh;
         background: #FFFFFF;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       /* ââ Scroll reveal ââ */
@@ -1438,7 +1438,7 @@ function SiteStyles() {
         transition: color 0.2s;
       }
 
-      .navLink:hover { color: #1D1D1F; }
+      .navLink:hover { color: #121C41; }
 
       .navCta {
         padding: 0.5rem 1.1rem;
@@ -1469,7 +1469,7 @@ function SiteStyles() {
         display: block;
         width: 22px;
         height: 2px;
-        background: #1D1D1F;
+        background: #121C41;
         border-radius: 2px;
         transition: transform 0.3s ease, opacity 0.3s ease;
       }
@@ -1540,7 +1540,7 @@ function SiteStyles() {
       }
 
       .mobileMenuLink:hover {
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .mobileMenuCta {
@@ -1646,7 +1646,7 @@ function SiteStyles() {
         font-weight: 500;
         line-height: 1.05;
         letter-spacing: -0.02em;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .heroSub {
@@ -1654,7 +1654,7 @@ function SiteStyles() {
         font-size: clamp(22px, 2.1vw, 26px);
         font-weight: 400;
         line-height: 1.2;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       /* Phase-rotating subtext */
@@ -1835,7 +1835,7 @@ function SiteStyles() {
         font-weight: 500;
         line-height: 1.1;
         letter-spacing: -0.01em;
-        color: #1D1D1F;
+        color: #121C41;
         text-wrap: balance;
         transform: translateY(var(--parallax-offset, 0px));
         transition: transform 0.1s linear;
@@ -1941,7 +1941,7 @@ function SiteStyles() {
         font-size: clamp(1.8rem, 4vw, 2.4rem);
         font-weight: 700;
         letter-spacing: -0.03em;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .arriveSubline {
@@ -1986,7 +1986,7 @@ function SiteStyles() {
       .taskText {
         font-size: 0.95rem;
         font-weight: 500;
-        color: #1D1D1F;
+        color: #121C41;
         transition: all 0.22s;
       }
 
@@ -2027,7 +2027,7 @@ function SiteStyles() {
 
       @keyframes textTickLoop {
         0%, 22% {
-          color: #1D1D1F;
+          color: #121C41;
           opacity: 1;
           text-decoration: none;
         }
@@ -2037,7 +2037,7 @@ function SiteStyles() {
           text-decoration: line-through;
         }
         84%, 100% {
-          color: #1D1D1F;
+          color: #121C41;
           opacity: 1;
           text-decoration: none;
         }
@@ -2223,7 +2223,7 @@ function SiteStyles() {
         margin: 0;
         font-size: 1.15rem;
         font-weight: 600;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .ecoCard p {
@@ -2263,7 +2263,7 @@ function SiteStyles() {
         flex: 1;
         font-size: 1rem;
         font-weight: 600;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .placeCount {
@@ -2294,7 +2294,7 @@ function SiteStyles() {
         border: 1px solid rgba(14, 23, 51, 0.08);
         font-size: 1rem;
         font-weight: 500;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .inputSuggestions {
@@ -2319,7 +2319,7 @@ function SiteStyles() {
         border: 1px solid rgba(14, 23, 51, 0.08);
         font-size: 0.85rem;
         font-weight: 500;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .inputChip.chipActive {
@@ -2549,7 +2549,7 @@ function SiteStyles() {
       .mapsName {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #1D1D1F;
+        color: #121C41;
       }
 
       .mapsTask {
@@ -2832,7 +2832,7 @@ function SiteStyles() {
         border: 1.5px solid transparent;
         font-size: 0.95rem;
         font-weight: 500;
-        color: #1D1D1F;
+        color: #121C41;
         transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
       }
 
@@ -2954,7 +2954,7 @@ function SiteStyles() {
       .aiFeatureLabel {
         font-size: 16px;
         font-weight: 500;
-        color: #1D1D1F;
+        color: #121C41;
         margin-bottom: 6px;
         letter-spacing: -0.01em;
       }
@@ -3006,7 +3006,7 @@ function SiteStyles() {
         padding: 1.25rem 0;
         font-size: 1.05rem;
         font-weight: 600;
-        color: #1D1D1F;
+        color: #121C41;
         cursor: pointer;
         list-style: none;
       }
@@ -3252,7 +3252,7 @@ function SiteStyles() {
         transition: color 0.2s;
       }
 
-      .footerLink:hover { color: #1D1D1F; }
+      .footerLink:hover { color: #121C41; }
 
       /* ââ Phone Mockup (scroll-driven) ââ */
 
@@ -3260,15 +3260,15 @@ function SiteStyles() {
         width: 292px;
         height: 596px;
         border-radius: 44px;
-        background: linear-gradient(160deg, #303238 0%, #15171c 28%, #050608 55%, #22262d 100%);
+        background: linear-gradient(160deg, #1E2747 0%, #141E3A 28%, #0B1228 55%, #1A2547 100%);
         padding: 6px;
         position: relative;
         transform-style: preserve-3d;
         transform: translateZ(0);
         box-shadow:
           0 0 0 1px rgba(255,255,255,0.14),
-          0 0 0 2px #15171c,
-          0 0 0 4px #303238,
+          0 0 0 2px #141E3A,
+          0 0 0 4px #1E2747,
           0 34px 80px rgba(14, 23, 51, 0.34),
           0 16px 32px rgba(14, 23, 51, 0.2),
           0 36px 90px rgba(229, 110, 142, 0.14),
@@ -3355,7 +3355,7 @@ function SiteStyles() {
       .phoneTime {
         font-size: 13px;
         font-weight: 700;
-        color: #1D1D1F;
+        color: #121C41;
         letter-spacing: 0.01em;
       }
 
@@ -3368,7 +3368,7 @@ function SiteStyles() {
       .phoneBatt {
         width: 22px;
         height: 10px;
-        border: 1.5px solid #1D1D1F;
+        border: 1.5px solid #121C41;
         border-radius: 3px;
         padding: 1.5px;
         position: relative;
@@ -3383,14 +3383,14 @@ function SiteStyles() {
         width: 2px;
         height: 5px;
         border-radius: 0 1px 1px 0;
-        background: #1D1D1F;
+        background: #121C41;
       }
 
       .phoneBattFill {
         width: 75%;
         height: 100%;
         border-radius: 1px;
-        background: #1D1D1F;
+        background: #121C41;
       }
 
       /* Notification banner */
@@ -3436,7 +3436,7 @@ function SiteStyles() {
       .phoneNotifTitle {
         font-size: 13px;
         font-weight: 600;
-        color: #1D1D1F;
+        color: #121C41;
         line-height: 1.2;
       }
 
@@ -4528,7 +4528,7 @@ function SiteStyles() {
       .phoneAppTitle {
         font-size: 28px;
         font-weight: 700;
-        color: #1D1D1F;
+        color: #121C41;
         letter-spacing: -0.02em;
       }
 
@@ -4574,7 +4574,7 @@ function SiteStyles() {
       .phoneTaskText {
         font-size: 15px;
         font-weight: 400;
-        color: #1D1D1F;
+        color: #121C41;
         flex: 1;
       }
 
@@ -5112,9 +5112,9 @@ function SiteStyles() {
         border: 1px solid rgba(26,14,31,0.06);
       }
       .mealDayToday {
-        background: var(--plum-base, #1A0E1F);
+        background: var(--plum-base, #14213F);
         color: var(--cream-text, #FFF0DB);
-        border-color: var(--plum-base, #1A0E1F);
+        border-color: var(--plum-base, #14213F);
       }
       .mealDayLabel {
         font-size: 11px;
@@ -5132,7 +5132,7 @@ function SiteStyles() {
 
       /* ── Voice Mic (Natural Input update) ── */
       .addMock {
-        background: var(--plum-base, #1A0E1F);
+        background: var(--plum-base, #14213F);
         color: var(--cream-text, #FFF0DB);
         padding: 32px;
         border-radius: 24px;
@@ -5187,7 +5187,7 @@ function SiteStyles() {
     
       /* ── New Footer ── */
       .newFooter {
-        background: var(--plum-deep, #0C0815);
+        background: var(--plum-deep, #0B1228);
         color: var(--cream-text, #FFF0DB);
         padding: 80px 24px 48px;
       }

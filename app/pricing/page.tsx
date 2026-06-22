@@ -124,15 +124,15 @@ export default function PricingPage() {
           color: var(--plum-text, #2A0A16); position: relative;
         }
         .tierCard.featured {
-          background: var(--plum-base, #1A0E1F);
+          background: var(--plum-base, #14213F);
           color: var(--cream-text, #FFF0DB);
-          border-color: var(--plum-base, #1A0E1F);
+          border-color: var(--plum-base, #14213F);
           transform: translateY(-8px);
         }
         .tierBadge {
           position: absolute; top: -14px; left: 50%;
           transform: translateX(-50%);
-          background: var(--gold, #D4A843); color: var(--plum-base, #1A0E1F);
+          background: var(--gold, #D4A843); color: var(--plum-base, #14213F);
           font-size: 11px; font-weight: 500;
           padding: 6px 14px; border-radius: 999px;
           letter-spacing: 0.08em; text-transform: uppercase;

@@ -112,7 +112,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "linear-gradient(180deg, #04050C 0%, #0A0E1A 50%, #04050C 100%)",
+    background: "linear-gradient(180deg, #070C1C 0%, #0E1733 50%, #070C1C 100%)",
     padding: "24px",
     fontFamily: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     position: "relative",

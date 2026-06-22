@@ -250,7 +250,7 @@ export function PhoneShowcase() {
           height: 100%;
           border-radius: 36px;
           overflow: hidden;
-          background: #0a0a0a;
+          background: #0B1228;
           position: relative;
         }
 

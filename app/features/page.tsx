@@ -1593,7 +1593,7 @@ export default function FeaturesPage() {
         /* ─── CTA ─── */
         .ftCta {
           position: relative; text-align: center; padding: 100px 24px;
-          background: linear-gradient(135deg, #0f0c29 0%, #1a1040 30%, #302b63 60%, #24243e 100%);
+          background: linear-gradient(135deg, #0E1733 0%, #16224A 30%, #243B6B 60%, #121C41 100%);
           overflow: hidden;
         }
         .ftCtaOrb {
