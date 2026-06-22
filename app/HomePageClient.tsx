@@ -1384,7 +1384,7 @@ function SiteStyles() {
       /* ââ Gradient text ââ */
 
       .gradientText {
-        background: linear-gradient(135deg, #2F6DFF 0%, #5B8DEF 20%, #7B5CFF 40%, #C74BF6 60%, #FF6B8A 80%, #FFB347 100%);
+        background: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
         background-size: 200% 200%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;

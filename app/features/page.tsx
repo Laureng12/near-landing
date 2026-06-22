@@ -487,7 +487,7 @@ export default function FeaturesPage() {
           background: linear-gradient(90deg, #2F6DFF, #7B5CFF, #C74BF6, #FF6B8A);
         }
         .ftGradient {
-          background: linear-gradient(135deg, #2F6DFF 0%, #7B5CFF 40%, #C74BF6 70%, #FF6B8A 100%);
+          background: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
         }
