@@ -745,7 +745,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           <div className="phoneTab phoneTabAdd">
             <div className="phoneAddBtn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M12 5v14M5 12h14" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M12 5v14M5 12h14" stroke="#121C41" strokeWidth="2.5" strokeLinecap="round"/>
               </svg>
             </div>
           </div>
@@ -1442,7 +1442,7 @@ function SiteStyles() {
 
       .navCta {
         padding: 0.5rem 1.1rem;
-        color: white;
+        color: var(--cta-text);
         background: var(--cta);
         font-size: 0.88rem;
         font-weight: 600;
@@ -1547,7 +1547,7 @@ function SiteStyles() {
         display: inline-block;
         margin-top: 12px;
         padding: 0.7rem 1.4rem;
-        color: white;
+        color: var(--cta-text);
         background: var(--cta);
         font-size: 1rem;
         font-weight: 600;
@@ -1700,7 +1700,7 @@ function SiteStyles() {
       }
 
       .primaryBtn {
-        color: white;
+        color: var(--cta-text);
         background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
         border: none;
         box-shadow: 0 10px 30px rgba(229, 110, 142, 0.25);
@@ -5236,8 +5236,8 @@ function SiteStyles() {
         display: inline-flex;
         align-items: center;
         padding: 14px 24px;
-        background: var(--cta, #D24E78);
-        color: white;
+        background: var(--cta, #F4C7CF);
+        color: var(--cta-text);
         border-radius: 28px;
         font-size: 14px;
         font-weight: 500;

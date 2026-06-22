@@ -56,7 +56,7 @@ export default function PricingPage() {
           background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
           background-size: 200% 200%;
           background-position: 0% 50%;
-          color: #FFFFFF;
+          color: var(--cta-text, #121C41);
           border-radius: 28px;
           font-size: 13px; font-weight: 600;
           text-decoration: none;
@@ -166,7 +166,7 @@ export default function PricingPage() {
           background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
           background-size: 200% 200%;
           background-position: 0% 50%;
-          color: #FFFFFF; border: none;
+          color: var(--cta-text, #121C41); border: none;
           font-weight: 600;
           box-shadow: 0 10px 30px rgba(229, 110, 142, 0.25);
           transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -176,7 +176,7 @@ export default function PricingPage() {
           box-shadow: 0 14px 36px rgba(229, 110, 142, 0.36);
         }
         .tierCta.ghost {
-          background: transparent; color: var(--cta-deep, #B23A63);
+          background: transparent; color: var(--blue, #121C41);
           border: 1px solid rgba(229, 110, 142,0.28);
         }
         .tierCta.ghost:hover { background: rgba(229, 110, 142,0.07); }

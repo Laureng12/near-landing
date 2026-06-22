@@ -423,7 +423,7 @@ export default function FeaturesPage() {
         .ftNavLink:hover { color: var(--foreground); }
         .ftNavLinkActive { color: var(--foreground); }
         .ftNavCta {
-          font-size: 13px; font-weight: 600; color: #fff;
+          font-size: 13px; font-weight: 600; color: var(--cta-text, #121C41);
           background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -1640,7 +1640,7 @@ export default function FeaturesPage() {
           display: inline-block; padding: 14px 36px; border-radius: 980px;
           background: linear-gradient(135deg, var(--cta-deep) 0%, var(--cta) 50%, #F2A0B8 100%);
           background-size: 200% 200%; animation: btnShimmer 4s ease-in-out infinite;
-          color: #fff; font-size: 16px; font-weight: 600; text-decoration: none;
+          color: var(--cta-text, #121C41); font-size: 16px; font-weight: 600; text-decoration: none;
           position: relative; z-index: 1;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
