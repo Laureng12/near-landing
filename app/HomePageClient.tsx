@@ -792,7 +792,7 @@ function AIDefinition() {
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="url(#aiGrad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#E9A335"/><stop offset="1" stopColor="#E56E8E"/></linearGradient></defs>
+                <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#14213F"/><stop offset="1" stopColor="#E9A335"/></linearGradient></defs>
               </svg>
             </div>
             <div className="aiFeatureLabel">At the store</div>
@@ -803,7 +803,7 @@ function AIDefinition() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
                 <circle cx="12" cy="9" r="2.5" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
-                <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#6E3D8C"/><stop offset="1" stopColor="#F5C4B8"/></linearGradient></defs>
+                <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#382B66"/><stop offset="1" stopColor="#E89A86"/></linearGradient></defs>
               </svg>
             </div>
             <div className="aiFeatureLabel">Passing by</div>
@@ -813,7 +813,7 @@ function AIDefinition() {
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="url(#aiGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#243B6B"/><stop offset="1" stopColor="#E56E8E"/></linearGradient></defs>
+                <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#0E1830"/><stop offset="1" stopColor="#7B5CC4"/></linearGradient></defs>
               </svg>
             </div>
             <div className="aiFeatureLabel">Arriving home</div>
@@ -2938,17 +2938,20 @@ function SiteStyles() {
         margin-bottom: 16px;
       }
 
+      /* Dawn: navy -> gold */
       .aiFeatureCard:nth-child(1) .aiFeatureIcon {
-        background: linear-gradient(135deg, rgba(233, 163, 53, 0.16), rgba(229, 110, 142, 0.10));
+        background: linear-gradient(135deg, rgba(20, 33, 63, 0.12), rgba(233, 163, 53, 0.16));
         box-shadow: 0 4px 14px rgba(233, 163, 53, 0.12);
       }
+      /* Dusk: indigo -> coral */
       .aiFeatureCard:nth-child(2) .aiFeatureIcon {
-        background: linear-gradient(135deg, rgba(110, 61, 140, 0.16), rgba(245, 196, 184, 0.12));
-        box-shadow: 0 4px 14px rgba(110, 61, 140, 0.12);
+        background: linear-gradient(135deg, rgba(56, 43, 102, 0.16), rgba(232, 154, 134, 0.14));
+        box-shadow: 0 4px 14px rgba(56, 43, 102, 0.12);
       }
+      /* Night: navy -> purple */
       .aiFeatureCard:nth-child(3) .aiFeatureIcon {
-        background: linear-gradient(135deg, rgba(36, 59, 107, 0.16), rgba(229, 110, 142, 0.10));
-        box-shadow: 0 4px 14px rgba(36, 59, 107, 0.12);
+        background: linear-gradient(135deg, rgba(14, 24, 48, 0.16), rgba(123, 92, 196, 0.16));
+        box-shadow: 0 4px 14px rgba(123, 92, 196, 0.12);
       }
 
       .aiFeatureLabel {
