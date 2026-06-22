@@ -1394,7 +1394,7 @@ function SiteStyles() {
 
       /* Hero "Anything Again." — brand palette (navy -> pink -> gold) */
       .gradientText.heroAccent {
-        background: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
+        background-image: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
         background-size: 200% 200%;
       }
 
