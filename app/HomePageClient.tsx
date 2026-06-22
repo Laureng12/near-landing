@@ -6,7 +6,8 @@ import { useEffect, useState } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
-const BRAND_LOGO = "/assets/brand/Near-Icon-Orbital-Soft.png"
+// Full horizontal logo (orbital icon + "Near" wordmark) used in the header lockup
+const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 const ICON_VARIANTS = [
   {
     name: "Dawn",
@@ -232,15 +233,14 @@ function TopNav() {
       <div className="navInner">
         <a className="brand" href="#top">
           <Image
-            src={BRAND_LOGO}
+            src={BRAND_WORDMARK}
             alt="Near"
-            className="brandLogo"
-            width={40}
-            height={40}
+            className="brandFullLogo"
+            width={1035}
+            height={420}
             priority
             quality={100}
           />
-          <span className="brandName">Near</span>
         </a>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
@@ -1425,19 +1425,11 @@ function SiteStyles() {
         gap: 14px;
       }
 
-      .brandLogo {
-        width: 36px;
-        height: 36px;
+      .brandFullLogo {
+        height: 34px;
+        width: auto;
         display: block;
         object-fit: contain;
-        border-radius: 8px;
-      }
-      .brandName {
-        font-size: 19px;
-        font-weight: 800;
-        color: #006EB8;
-        letter-spacing: 0;
-        font-family: 'DM Sans', sans-serif;
       }
 
       .navLink {
@@ -5004,7 +4996,7 @@ function SiteStyles() {
           align-items: center;
         }
 
-        .brandLogo { width: 30px; height: 30px; }
+        .brandFullLogo { height: 28px; width: auto; }
 
         .finalShell { padding: 3rem 1.5rem; }
 

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 
-const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
+const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 
 export default function TermsPage() {
   return (
@@ -11,13 +11,12 @@ export default function TermsPage() {
       <header className="legalHeader">
         <Link href="/" className="legalLogo">
           <Image
-            src={BRAND_ICON}
+            src={BRAND_WORDMARK}
             alt="Near"
-            width={32}
-            height={32}
-            className="legalLogoIcon"
+            width={1035}
+            height={420}
+            className="legalLogoFull"
           />
-          <span className="legalLogoText">Near</span>
         </Link>
       </header>
 
@@ -336,17 +335,10 @@ export default function TermsPage() {
           margin: 0 auto;
           padding: 14px 0;
         }
-        .legalLogoIcon {
-          width: 32px;
-          height: 32px;
-          border-radius: 8px;
-          object-fit: cover;
-        }
-        .legalLogoText {
-          font-size: 20px;
-          font-weight: 800;
-          color: #006EB8;
-          letter-spacing: 0;
+        .legalLogoFull {
+          height: 30px;
+          width: auto;
+          object-fit: contain;
         }
         .legalMain {
           max-width: 680px;
