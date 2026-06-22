@@ -428,7 +428,7 @@ export default function FeaturesPage() {
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(229, 110, 142,0.3); }
+        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,110,184,0.3); }
 
         /* ─── Hero ─── */
         .ftHero {
@@ -1644,7 +1644,7 @@ export default function FeaturesPage() {
           position: relative; z-index: 1;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(229, 110, 142,0.38); }
+        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,110,184,0.38); }
         @keyframes btnShimmer {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -1718,6 +1718,7 @@ export default function FeaturesPage() {
           .ftNav { padding: 0 16px; height: 52px; }
           :global(.ftNavLinkHideMobile) { display: none; }
           .ftNavLogoFull { height: 26px; width: auto; }
+          .ftNavLogoText { font-size: 17px; }
           .ftNavLinks { gap: 1rem; }
           .ftNavCta { padding: 6px 14px; font-size: 12px; }
           .ftHero { padding: 80px 16px 60px; }

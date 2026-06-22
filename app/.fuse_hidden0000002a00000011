@@ -33,8 +33,8 @@ html {
     --foreground: #2A0A16;
     --text-secondary: #6E6E73;
     --surface: #F5F5F7;
-    --blue: #121C41;
-    --blue-hover: #20305C;
+    --blue: #006EB8;
+    --blue-hover: #005A96;
     --line: rgba(0, 0, 0, 0.08);
     --line-strong: rgba(0, 0, 0, 0.12);
     --glow: rgba(212, 168, 67, 0.25);

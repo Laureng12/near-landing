@@ -254,7 +254,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 999,
     textDecoration: "none",
     marginBottom: 24,
-    boxShadow: "0 12px 40px rgba(229, 110, 142,0.28)",
+    boxShadow: "0 12px 40px rgba(0,110,184,0.28)",
     letterSpacing: "-0.01em",
   },
   steps: {

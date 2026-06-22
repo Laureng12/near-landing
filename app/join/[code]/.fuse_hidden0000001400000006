@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useParams } from "next/navigation"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
-const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
+const BRAND_ICON = "/assets/brand/Near-App-Icon-Blue-1024.png"
 
 export default function JoinPage() {
   const params = useParams()
@@ -125,7 +125,7 @@ const styles: Record<string, React.CSSProperties> = {
     transform: "translateX(-50%)",
     width: "600px",
     height: "400px",
-    background: "radial-gradient(circle, rgba(229,110,142,0.18), rgba(107,92,255,0.10), transparent 65%)",
+    background: "radial-gradient(circle, rgba(88,217,255,0.15), rgba(107,92,255,0.10), transparent 65%)",
     filter: "blur(80px)",
     pointerEvents: "none",
   },
@@ -138,7 +138,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: 32,
     height: 32,
     border: "3px solid rgba(255,255,255,0.1)",
-    borderTop: "3px solid #E56E8E",
+    borderTop: "3px solid #58D9FF",
     borderRadius: "50%",
     animation: "spin 0.8s linear infinite",
   },
@@ -167,13 +167,13 @@ const styles: Record<string, React.CSSProperties> = {
     height: 32,
     borderRadius: 8,
     objectFit: "cover",
-    boxShadow: "0 0 24px rgba(229,110,142,0.30)",
+    boxShadow: "0 0 24px rgba(88,217,255,0.28)",
   },
   logoText: {
     fontSize: 22,
     fontWeight: 800,
     letterSpacing: 0,
-    color: "#FFEFD4",
+    color: "#7DD9FF",
   },
   title: {
     fontSize: 28,
@@ -239,14 +239,14 @@ const styles: Record<string, React.CSSProperties> = {
   codeValue: {
     fontSize: 22,
     fontWeight: 800,
-    color: "#E56E8E",
+    color: "#58D9FF",
     fontFamily: "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace",
     margin: 0,
     letterSpacing: "0.12em",
   },
   button: {
     display: "block",
-    background: "linear-gradient(90deg, #121C41, #8B2A4A, #E56E8E)",
+    background: "linear-gradient(90deg, #006EB8, #008FD3, #39B6E8)",
     color: "#FFFFFF",
     fontWeight: 750,
     fontSize: 16,
@@ -254,7 +254,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 999,
     textDecoration: "none",
     marginBottom: 24,
-    boxShadow: "0 12px 40px rgba(229, 110, 142,0.28)",
+    boxShadow: "0 12px 40px rgba(0,110,184,0.28)",
     letterSpacing: "-0.01em",
   },
   steps: {

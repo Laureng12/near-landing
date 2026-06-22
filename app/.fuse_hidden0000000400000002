@@ -1703,7 +1703,7 @@ function SiteStyles() {
         color: white;
         background: linear-gradient(135deg, var(--blue) 0%, #0E1733 100%);
         border: none;
-        box-shadow: 0 10px 30px rgba(229, 110, 142, 0.25);
+        box-shadow: 0 10px 30px rgba(0, 110, 184, 0.25);
         background-size: 200% 200%;
         background-position: 0% 50%;
         transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -1711,17 +1711,17 @@ function SiteStyles() {
 
       .primaryBtn:hover {
         background-position: 100% 50%;
-        box-shadow: 0 14px 36px rgba(229, 110, 142, 0.36);
+        box-shadow: 0 14px 36px rgba(0, 110, 184, 0.36);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
       .secondaryBtn {
         color: var(--blue);
         background: transparent;
-        border: 1px solid rgba(229, 110, 142, 0.28);
+        border: 1px solid rgba(0, 110, 184, 0.28);
       }
 
-      .secondaryBtn:hover { background: rgba(229, 110, 142, 0.07); }
+      .secondaryBtn:hover { background: rgba(0, 110, 184, 0.07); }
 
       /* ââ Sections ââ */
 
@@ -3053,7 +3053,7 @@ function SiteStyles() {
         box-shadow:
           0 0 0 1px rgba(120, 204, 255, 0.08),
           0 32px 100px rgba(0, 62, 105, 0.34),
-          0 0 80px rgba(229, 110, 142, 0.16),
+          0 0 80px rgba(0, 110, 184, 0.16),
           inset 0 1px 0 rgba(255, 255, 255, 0.12);
         transform: perspective(1200px) rotateX(1deg);
         transform-style: preserve-3d;
@@ -3271,7 +3271,7 @@ function SiteStyles() {
           0 0 0 4px #303238,
           0 34px 80px rgba(0, 0, 0, 0.34),
           0 16px 32px rgba(0, 0, 0, 0.2),
-          0 36px 90px rgba(229, 110, 142, 0.14),
+          0 36px 90px rgba(0, 110, 184, 0.14),
           0 0 120px rgba(100, 210, 230, 0.16);
       }
 
@@ -3315,7 +3315,7 @@ function SiteStyles() {
         border-radius: 38px;
         background:
           radial-gradient(circle at 72% 12%, rgba(255, 255, 255, 0.82) 0 12%, transparent 30%),
-          radial-gradient(circle at 18% 22%, rgba(229, 110, 142, 0.15) 0 18%, transparent 38%),
+          radial-gradient(circle at 18% 22%, rgba(0, 110, 184, 0.15) 0 18%, transparent 38%),
           linear-gradient(180deg, #ecfbff 0%, #f8fffb 36%, #eef9f5 62%, #d3efe9 100%);
         overflow: hidden;
         position: relative;
@@ -4040,7 +4040,7 @@ function SiteStyles() {
         width: 15px;
         height: 15px;
         border-radius: 5px;
-        border: 1.5px solid rgba(229, 110, 142, 0.18);
+        border: 1.5px solid rgba(0, 110, 184, 0.18);
         background: rgba(255, 255, 255, 0.7);
         flex-shrink: 0;
       }
@@ -4152,7 +4152,7 @@ function SiteStyles() {
         font-size: 9px;
         padding: 3px 8px;
         border-radius: 999px;
-        background: rgba(229, 110, 142, 0.08);
+        background: rgba(0, 110, 184, 0.08);
         color: rgba(25, 54, 82, 0.68);
         font-weight: 500;
       }
@@ -4261,7 +4261,7 @@ function SiteStyles() {
         font-size: 15px;
         flex-shrink: 0;
         color: white;
-        box-shadow: 0 8px 18px rgba(229, 110, 142,0.22);
+        box-shadow: 0 8px 18px rgba(0,110,184,0.22);
       }
       .phoneGamePlanInfo {
         flex: 1;
@@ -4295,7 +4295,7 @@ function SiteStyles() {
         padding: 9px 0;
         margin-top: 8px;
         border-radius: 14px;
-        border: 1.5px dashed rgba(229, 110, 142, 0.18);
+        border: 1.5px dashed rgba(0, 110, 184, 0.18);
         background: rgba(255, 255, 255, 0.42);
         cursor: pointer;
       }
@@ -4328,7 +4328,7 @@ function SiteStyles() {
         font-size: 18px;
         color: white;
         font-weight: 600;
-        box-shadow: 0 10px 22px rgba(229, 110, 142, 0.18);
+        box-shadow: 0 10px 22px rgba(0, 110, 184, 0.18);
         flex-shrink: 0;
       }
       .hhProfileName {
@@ -4719,7 +4719,7 @@ function SiteStyles() {
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 8px 18px rgba(229, 110, 142, 0.28);
+        box-shadow: 0 8px 18px rgba(0, 110, 184, 0.28);
       }
 
       .phoneAddBtn svg {
