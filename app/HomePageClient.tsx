@@ -2873,14 +2873,17 @@ function SiteStyles() {
         transform-style: preserve-3d;
       }
 
+      /* Dawn: warm cream/gold */
       .aiFeatureCard:nth-child(1) {
-        background: linear-gradient(145deg, #f0f4ff 0%, #e8eeff 30%, #dde6ff 60%, #f5f7ff 100%);
+        background: linear-gradient(145deg, #FBF5E8 0%, #F7ECD6 30%, #F1E2C3 60%, #FCF8ED 100%);
       }
+      /* Dusk: soft indigo -> peach */
       .aiFeatureCard:nth-child(2) {
-        background: linear-gradient(145deg, #f3effb 0%, #eae4f8 30%, #e0d8f4 60%, #f6f3fc 100%);
+        background: linear-gradient(145deg, #F2EDF8 0%, #ECE3F1 30%, #F4E4DF 60%, #FBF3F0 100%);
       }
+      /* Night: soft navy/lavender */
       .aiFeatureCard:nth-child(3) {
-        background: linear-gradient(145deg, #fff0f3 0%, #ffe8ed 30%, #ffdde5 60%, #fff5f7 100%);
+        background: linear-gradient(145deg, #EEF1F9 0%, #E6EAF4 30%, #EBE5F5 60%, #F4F2FB 100%);
       }
 
       .aiFeatureCard::before {
@@ -2895,13 +2898,13 @@ function SiteStyles() {
         transition: opacity 0.3s ease;
       }
       .aiFeatureCard:nth-child(1)::before {
-        background: linear-gradient(90deg, #2F6DFF, #5B8DEF);
+        background: linear-gradient(90deg, #14213F, #E9A335);
       }
       .aiFeatureCard:nth-child(2)::before {
-        background: linear-gradient(90deg, #7B5CFF, #A855F7);
+        background: linear-gradient(90deg, #382B66, #E89A86);
       }
       .aiFeatureCard:nth-child(3)::before {
-        background: linear-gradient(90deg, #FF6B8A, #FFB347);
+        background: linear-gradient(90deg, #0E1830, #7B5CC4);
       }
 
       .aiFeatureCard:hover {
@@ -2913,13 +2916,13 @@ function SiteStyles() {
       }
 
       .aiFeatureCard:nth-child(1):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(229, 110, 142, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(233, 163, 53, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
       .aiFeatureCard:nth-child(2):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(123, 92, 255, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(232, 154, 134, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
       .aiFeatureCard:nth-child(3):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(255, 107, 138, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(123, 92, 196, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
 
       .aiFeatureCard:hover::before {
