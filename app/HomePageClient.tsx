@@ -792,7 +792,7 @@ function AIDefinition() {
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="url(#aiGrad1)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#2F6DFF"/><stop offset="1" stopColor="#C74BF6"/></linearGradient></defs>
+                <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#E9A335"/><stop offset="1" stopColor="#E56E8E"/></linearGradient></defs>
               </svg>
             </div>
             <div className="aiFeatureLabel">At the store</div>
@@ -803,7 +803,7 @@ function AIDefinition() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
                 <circle cx="12" cy="9" r="2.5" stroke="url(#aiGrad2)" strokeWidth="1.5" fill="none"/>
-                <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#5B8DEF"/><stop offset="1" stopColor="#FF6B8A"/></linearGradient></defs>
+                <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#6E3D8C"/><stop offset="1" stopColor="#F5C4B8"/></linearGradient></defs>
               </svg>
             </div>
             <div className="aiFeatureLabel">Passing by</div>
@@ -813,7 +813,7 @@ function AIDefinition() {
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="url(#aiGrad3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#7B5CFF"/><stop offset="1" stopColor="#FFB347"/></linearGradient></defs>
+                <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#243B6B"/><stop offset="1" stopColor="#E56E8E"/></linearGradient></defs>
               </svg>
             </div>
             <div className="aiFeatureLabel">Arriving home</div>
@@ -1406,7 +1406,7 @@ function SiteStyles() {
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         background: rgba(255, 255, 255, 0.8);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid rgba(14, 23, 51, 0.06);
       }
 
       .navInner {
@@ -1490,7 +1490,7 @@ function SiteStyles() {
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(14, 23, 51, 0.3);
         z-index: 48;
         opacity: 0;
         transition: opacity 0.3s ease;
@@ -1521,8 +1521,8 @@ function SiteStyles() {
         visibility: hidden;
         pointer-events: none;
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 24px rgba(14, 23, 51, 0.08);
       }
 
       .mobileMenu.mobileMenuVisible {
@@ -1535,7 +1535,7 @@ function SiteStyles() {
         font-size: 1.1rem;
         color: rgba(29, 29, 31, 0.8);
         padding: 14px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid rgba(14, 23, 51, 0.06);
         transition: color 0.2s;
       }
 
@@ -1894,8 +1894,8 @@ function SiteStyles() {
         padding: 2rem;
         border-radius: 1.5rem;
         background: #FFFFFF;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(14, 23, 51, 0.08);
+        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
@@ -1964,7 +1964,7 @@ function SiteStyles() {
         padding: 0.8rem 1rem;
         border-radius: 0.8rem;
         background: #F5F5F7;
-        border: 1px solid rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(14, 23, 51, 0.06);
         transition: background 0.22s, border-color 0.22s;
       }
 
@@ -1975,7 +1975,7 @@ function SiteStyles() {
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        border: 1.5px solid rgba(0, 0, 0, 0.15);
+        border: 1.5px solid rgba(14, 23, 51, 0.15);
         font-size: 0.75rem;
         font-weight: 800;
         color: transparent;
@@ -2008,7 +2008,7 @@ function SiteStyles() {
         0%, 22% {
           color: transparent;
           background: transparent;
-          border-color: rgba(0, 0, 0, 0.15);
+          border-color: rgba(14, 23, 51, 0.15);
           transform: scale(1);
         }
         30%, 74% {
@@ -2020,7 +2020,7 @@ function SiteStyles() {
         84%, 100% {
           color: transparent;
           background: transparent;
-          border-color: rgba(0, 0, 0, 0.15);
+          border-color: rgba(14, 23, 51, 0.15);
           transform: scale(1);
         }
       }
@@ -2046,7 +2046,7 @@ function SiteStyles() {
       @keyframes taskGlowLoop {
         0%, 22%, 84%, 100% {
           background: #F5F5F7;
-          border-color: rgba(0, 0, 0, 0.06);
+          border-color: rgba(14, 23, 51, 0.06);
         }
         30%, 74% {
           background: rgba(229, 110, 142, 0.04);
@@ -2241,7 +2241,7 @@ function SiteStyles() {
         border-radius: 1.5rem;
         background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
         border: 2px solid transparent;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: grid;
         gap: 0;
@@ -2252,7 +2252,7 @@ function SiteStyles() {
         align-items: center;
         gap: 0.8rem;
         padding: 1rem 0.5rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid rgba(14, 23, 51, 0.06);
       }
 
       .placeRow:last-child { border-bottom: none; }
@@ -2278,7 +2278,7 @@ function SiteStyles() {
         border-radius: 1.5rem;
         background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #34D399, #2F6DFF) border-box;
         border: 2px solid transparent;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
@@ -2291,7 +2291,7 @@ function SiteStyles() {
         padding: 0.9rem 1rem;
         border-radius: 0.8rem;
         background: #F5F5F7;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(14, 23, 51, 0.08);
         font-size: 1rem;
         font-weight: 500;
         color: #1D1D1F;
@@ -2316,7 +2316,7 @@ function SiteStyles() {
         padding: 0.4rem 0.8rem;
         border-radius: 999px;
         background: #F5F5F7;
-        border: 1px solid rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(14, 23, 51, 0.08);
         font-size: 0.85rem;
         font-weight: 500;
         color: #1D1D1F;
@@ -2334,7 +2334,7 @@ function SiteStyles() {
         gap: 0.6rem;
         margin-top: 1.25rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
+        border-top: 1px solid rgba(14, 23, 51, 0.06);
       }
 
       .voiceIcon { font-size: 1.1rem; }
@@ -2422,7 +2422,7 @@ function SiteStyles() {
         align-items: center;
         justify-content: center;
         font-size: 24px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 20px rgba(14, 23, 51, 0.08);
         z-index: 2;
       }
 
@@ -2535,7 +2535,7 @@ function SiteStyles() {
         border-radius: 1.5rem;
         background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #FF6B8A, #C74BF6) border-box;
         border: 2px solid transparent;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
@@ -2863,9 +2863,9 @@ function SiteStyles() {
         padding: 28px 22px;
         border: 1px solid rgba(255, 255, 255, 0.6);
         box-shadow:
-          0 2px 4px rgba(0, 0, 0, 0.04),
+          0 2px 4px rgba(14, 23, 51, 0.04),
           0 12px 32px rgba(229, 110, 142, 0.1),
-          0 24px 64px rgba(0, 0, 0, 0.05),
+          0 24px 64px rgba(14, 23, 51, 0.05),
           inset 0 1px 0 rgba(255, 255, 255, 0.8);
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
         position: relative;
@@ -2907,19 +2907,19 @@ function SiteStyles() {
       .aiFeatureCard:hover {
         transform: translateY(-8px) scale(1.03) translateZ(10px);
         box-shadow:
-          0 4px 8px rgba(0, 0, 0, 0.06),
+          0 4px 8px rgba(14, 23, 51, 0.06),
           0 20px 48px rgba(229, 110, 142, 0.18),
-          0 32px 80px rgba(0, 0, 0, 0.08);
+          0 32px 80px rgba(14, 23, 51, 0.08);
       }
 
       .aiFeatureCard:nth-child(1):hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 48px rgba(229, 110, 142, 0.22), 0 32px 80px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(229, 110, 142, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
       .aiFeatureCard:nth-child(2):hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 48px rgba(123, 92, 255, 0.2), 0 32px 80px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(123, 92, 255, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
       .aiFeatureCard:nth-child(3):hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 20px 48px rgba(255, 107, 138, 0.2), 0 32px 80px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(255, 107, 138, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
 
       .aiFeatureCard:hover::before {
@@ -2939,16 +2939,16 @@ function SiteStyles() {
       }
 
       .aiFeatureCard:nth-child(1) .aiFeatureIcon {
-        background: linear-gradient(135deg, rgba(229, 110, 142, 0.15), rgba(229, 110, 142, 0.1));
-        box-shadow: 0 4px 14px rgba(229, 110, 142, 0.12);
+        background: linear-gradient(135deg, rgba(233, 163, 53, 0.16), rgba(229, 110, 142, 0.10));
+        box-shadow: 0 4px 14px rgba(233, 163, 53, 0.12);
       }
       .aiFeatureCard:nth-child(2) .aiFeatureIcon {
-        background: linear-gradient(135deg, rgba(123, 92, 255, 0.15), rgba(168, 85, 247, 0.1));
-        box-shadow: 0 4px 14px rgba(123, 92, 255, 0.12);
+        background: linear-gradient(135deg, rgba(110, 61, 140, 0.16), rgba(245, 196, 184, 0.12));
+        box-shadow: 0 4px 14px rgba(110, 61, 140, 0.12);
       }
       .aiFeatureCard:nth-child(3) .aiFeatureIcon {
-        background: linear-gradient(135deg, rgba(255, 107, 138, 0.15), rgba(255, 179, 71, 0.1));
-        box-shadow: 0 4px 14px rgba(255, 107, 138, 0.12);
+        background: linear-gradient(135deg, rgba(36, 59, 107, 0.16), rgba(229, 110, 142, 0.10));
+        box-shadow: 0 4px 14px rgba(36, 59, 107, 0.12);
       }
 
       .aiFeatureLabel {
@@ -2987,7 +2987,7 @@ function SiteStyles() {
       }
 
       .faqItem {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(14, 23, 51, 0.08);
         border-left: 3px solid transparent;
         padding-left: 0.75rem;
         transition: border-color 0.3s ease, background 0.3s ease;
@@ -2999,7 +2999,7 @@ function SiteStyles() {
       }
 
       .faqItem:first-child {
-        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-top: 1px solid rgba(14, 23, 51, 0.08);
       }
 
       .faqQ {
@@ -3223,7 +3223,7 @@ function SiteStyles() {
       /* ââ Footer ââ */
 
       .siteFooter {
-        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-top: 1px solid rgba(14, 23, 51, 0.08);
         padding: 2rem 1.5rem;
         background: #FFFFFF;
       }
@@ -3269,8 +3269,8 @@ function SiteStyles() {
           0 0 0 1px rgba(255,255,255,0.14),
           0 0 0 2px #15171c,
           0 0 0 4px #303238,
-          0 34px 80px rgba(0, 0, 0, 0.34),
-          0 16px 32px rgba(0, 0, 0, 0.2),
+          0 34px 80px rgba(14, 23, 51, 0.34),
+          0 16px 32px rgba(14, 23, 51, 0.2),
           0 36px 90px rgba(229, 110, 142, 0.14),
           0 0 120px rgba(100, 210, 230, 0.16);
       }
@@ -3292,7 +3292,7 @@ function SiteStyles() {
         left: 10%;
         right: 10%;
         height: 40px;
-        background: radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%);
+        background: radial-gradient(ellipse, rgba(14, 23, 51, 0.18) 0%, transparent 70%);
         filter: blur(12px);
         pointer-events: none;
       }
@@ -3305,7 +3305,7 @@ function SiteStyles() {
         width: 100px;
         height: 28px;
         border-radius: 14px;
-        background: #000;
+        background: #0E1733;
         z-index: 10;
       }
 
@@ -3626,7 +3626,7 @@ function SiteStyles() {
         overflow: hidden;
         box-shadow:
           0 18px 42px rgba(27, 105, 145, 0.18),
-          0 2px 8px rgba(0, 0, 0, 0.08);
+          0 2px 8px rgba(14, 23, 51, 0.08);
       }
 
       .lockProximityGlow {
@@ -3725,12 +3725,12 @@ function SiteStyles() {
       @keyframes lockTaskGlow {
         0% {
           background: rgba(255, 255, 255, 0.16);
-          box-shadow: 0 8px 20px rgba(20, 95, 125, 0.12), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 20px rgba(20, 95, 125, 0.12), 0 1px 3px rgba(14, 23, 51, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
           border-color: rgba(255, 255, 255, 0.24);
         }
         100% {
           background: rgba(255, 255, 255, 0.2);
-          box-shadow: 0 10px 24px rgba(20, 95, 125, 0.16), 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+          box-shadow: 0 10px 24px rgba(20, 95, 125, 0.16), 0 2px 6px rgba(14, 23, 51, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.26);
           border-color: rgba(255, 255, 255, 0.32);
         }
       }
@@ -3971,7 +3971,7 @@ function SiteStyles() {
         background: white;
         border-radius: 15px;
         padding: 10px 11px;
-        border: 1px solid rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(14, 23, 51, 0.06);
       }
 
       .phoneGroupItemGlass {
@@ -4543,7 +4543,7 @@ function SiteStyles() {
         display: flex;
         flex-direction: column;
         gap: 1px;
-        background: rgba(0, 0, 0, 0.06);
+        background: rgba(14, 23, 51, 0.06);
         border-radius: 12px;
         overflow: hidden;
       }
@@ -4560,7 +4560,7 @@ function SiteStyles() {
         width: 22px;
         height: 22px;
         border-radius: 50%;
-        border: 1.5px solid rgba(0, 0, 0, 0.2);
+        border: 1.5px solid rgba(14, 23, 51, 0.2);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -4604,7 +4604,7 @@ function SiteStyles() {
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.4);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 8px 32px rgba(14, 23, 51, 0.04);
       }
 
       .glassTaskList .phoneTaskRow {
@@ -4621,7 +4621,7 @@ function SiteStyles() {
         color: white;
         margin-top: 20px;
         border: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 40px rgba(14, 23, 51, 0.15);
       }
 
       .phoneCarplayLabel {
@@ -4745,7 +4745,7 @@ function SiteStyles() {
         width: 36%;
         height: 4px;
         border-radius: 100px;
-        background: rgba(0, 0, 0, 0.22);
+        background: rgba(14, 23, 51, 0.22);
       }
 
       /* ââ Responsive ââ */

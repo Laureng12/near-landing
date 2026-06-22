@@ -151,7 +151,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 24,
     padding: "40px 28px 32px",
     border: "1px solid rgba(255,255,255,0.10)",
-    boxShadow: "0 40px 120px rgba(0,0,0,0.6)",
+    boxShadow: "0 40px 120px rgba(14, 23, 51, 0.6)",
     backdropFilter: "blur(20px)",
     animation: "fadeIn 0.5s ease-out",
   },
@@ -222,7 +222,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginTop: 2,
   },
   codeBox: {
-    background: "rgba(0,0,0,0.3)",
+    background: "rgba(14, 23, 51, 0.3)",
     border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 14,
     padding: "16px",

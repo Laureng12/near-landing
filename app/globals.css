@@ -38,8 +38,8 @@ html {
     --cta: #F4C7CF;
     --cta-deep: #E9B7C0;
     --cta-text: #121C41;
-    --line: rgba(0, 0, 0, 0.08);
-    --line-strong: rgba(0, 0, 0, 0.12);
+    --line: rgba(14, 23, 51, 0.08);
+    --line-strong: rgba(14, 23, 51, 0.12);
     --glow: rgba(212, 168, 67, 0.25);
     --font-display: "DM Sans", -apple-system, system-ui, sans-serif;
     --font-mono: "SF Mono", "Menlo", "Monaco", monospace;

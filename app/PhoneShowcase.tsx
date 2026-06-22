@@ -71,14 +71,14 @@ export function PhoneShowcase() {
           position: relative;
           padding: 80px 0 160px;
           overflow: hidden;
-          background: #000000;
+          background: #0E1733;
         }
 
         .showcase:before {
           content: "";
           position: absolute;
           inset: -2px;
-          background: radial-gradient(800px 500px at 50% 30%, rgba(41, 151, 255, 0.06), rgba(0, 0, 0, 0) 60%);
+          background: radial-gradient(800px 500px at 50% 30%, rgba(41, 151, 255, 0.06), rgba(14, 23, 51, 0) 60%);
           filter: blur(60px);
           pointer-events: none;
         }
@@ -159,7 +159,7 @@ export function PhoneShowcase() {
         }
 
         .dawn-glow .bezel {
-          box-shadow: 0 50px 120px rgba(0,0,0,0.7), 0 0 80px rgba(41, 151, 255, 0.12);
+          box-shadow: 0 50px 120px rgba(14, 23, 51, 0.7), 0 0 80px rgba(41, 151, 255, 0.12);
         }
 
         .arrivalOrb {
@@ -205,7 +205,7 @@ export function PhoneShowcase() {
           text-transform: uppercase;
           background: rgba(11, 15, 28, 0.82);
           border: 1px solid rgba(255,255,255,0.12);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.38);
+          box-shadow: 0 20px 50px rgba(14, 23, 51, 0.38);
           animation: arrivalCardFloat 3.6s ease-in-out infinite;
           backdrop-filter: blur(14px);
         }
@@ -219,17 +219,17 @@ export function PhoneShowcase() {
           animation: pingPulse 2.2s ease-out infinite;
         }
         .night-glow .bezel {
-          box-shadow: 0 50px 120px rgba(0,0,0,0.7), 0 0 100px rgba(41, 151, 255, 0.18);
+          box-shadow: 0 50px 120px rgba(14, 23, 51, 0.7), 0 0 100px rgba(41, 151, 255, 0.18);
         }
         .dusk-glow .bezel {
-          box-shadow: 0 50px 120px rgba(0,0,0,0.7), 0 0 90px rgba(41, 151, 255, 0.12);
+          box-shadow: 0 50px 120px rgba(14, 23, 51, 0.7), 0 0 90px rgba(41, 151, 255, 0.12);
         }
 
         .center:before {
           content: "";
           position: absolute;
           inset: -100px;
-          background: radial-gradient(circle, rgba(41, 151, 255, 0.1), rgba(0, 0, 0, 0) 60%);
+          background: radial-gradient(circle, rgba(41, 151, 255, 0.1), rgba(14, 23, 51, 0) 60%);
           filter: blur(60px);
           z-index: -1;
         }
@@ -241,7 +241,7 @@ export function PhoneShowcase() {
           padding: 10px;
           background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
           border: 1px solid rgba(255, 255, 255, 0.14);
-          box-shadow: 0 50px 120px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          box-shadow: 0 50px 120px rgba(14, 23, 51, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
           overflow: hidden;
         }
 
