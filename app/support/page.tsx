@@ -13,8 +13,8 @@ export default function SupportPage() {
           <Image
             src={BRAND_WORDMARK}
             alt="Near"
-            width={1035}
-            height={420}
+            width={1181}
+            height={500}
             className="legalLogoFull"
           />
         </Link>

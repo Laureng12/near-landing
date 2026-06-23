@@ -42,8 +42,8 @@ export default function FeaturesPage() {
           <Image
             src={BRAND_WORDMARK}
             alt="Near"
-            width={1035}
-            height={420}
+            width={1181}
+            height={500}
             className="ftNavLogoFull"
             quality={100}
           />
@@ -348,7 +348,7 @@ export default function FeaturesPage() {
                   <path d="M20 32l6 6 10-12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                   <defs>
                     <linearGradient id="shieldFill" x1="4" y1="2" x2="52" y2="62">
-                      <stop stopColor="rgba(229, 110, 142,0.15)" />
+                      <stop stopColor="rgba(219, 72, 144,0.15)" />
                       <stop offset="1" stopColor="rgba(123,92,255,0.15)" />
                     </linearGradient>
                     <linearGradient id="shieldStroke" x1="4" y1="2" x2="52" y2="62">
@@ -428,7 +428,7 @@ export default function FeaturesPage() {
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(229, 110, 142,0.3); }
+        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(219, 72, 144,0.3); }
 
         /* ─── Hero ─── */
         .ftHero {
@@ -441,7 +441,7 @@ export default function FeaturesPage() {
         }
         .ftHeroOrb1 {
           width: 500px; height: 400px; top: -100px; left: 50%; margin-left: -250px;
-          background: radial-gradient(ellipse, rgba(229, 110, 142,0.15) 0%, transparent 70%);
+          background: radial-gradient(ellipse, rgba(219, 72, 144,0.15) 0%, transparent 70%);
           animation: heroFloat1 12s ease-in-out infinite;
         }
         .ftHeroOrb2 {
@@ -487,7 +487,7 @@ export default function FeaturesPage() {
           background: linear-gradient(90deg, #2F6DFF, #7B5CFF, #C74BF6, #FF6B8A);
         }
         .ftGradient {
-          background: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
+          background: linear-gradient(135deg, #101B3E 0%, #200F8B 20%, #7A25A2 40%, #DB4890 60%, #FD8F65 80%, #FCE496 100%);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
         }
@@ -504,7 +504,7 @@ export default function FeaturesPage() {
         }
 
         .ftFeatureSection2 {
-          background: linear-gradient(180deg, rgba(229, 110, 142,0.02) 0%, rgba(123,92,255,0.02) 100%);
+          background: linear-gradient(180deg, rgba(219, 72, 144,0.02) 0%, rgba(123,92,255,0.02) 100%);
         }
 
         .ftFeatureSection3 {
@@ -644,7 +644,7 @@ export default function FeaturesPage() {
         }
 
         .ft3DGlow1 {
-          background: radial-gradient(circle, rgba(229, 110, 142,0.25) 0%, rgba(123,92,255,0.1) 50%, transparent 70%);
+          background: radial-gradient(circle, rgba(219, 72, 144,0.25) 0%, rgba(123,92,255,0.1) 50%, transparent 70%);
         }
 
         .ft3DGlow2 {
@@ -668,7 +668,7 @@ export default function FeaturesPage() {
             0 0 0 1px rgba(14, 23, 51, 0.04),
             0 4px 8px rgba(14, 23, 51, 0.04),
             0 12px 24px rgba(14, 23, 51, 0.06),
-            0 24px 48px rgba(229, 110, 142,0.08),
+            0 24px 48px rgba(219, 72, 144,0.08),
             0 48px 80px rgba(14, 23, 51, 0.06);
           transform-style: preserve-3d;
           transform: rotateY(var(--ry, -6deg)) rotateX(var(--rx, 4deg)) translateZ(20px);
@@ -697,7 +697,7 @@ export default function FeaturesPage() {
           width: 80%;
           height: 20px;
           border-radius: 50%;
-          background: radial-gradient(ellipse, rgba(229, 110, 142,0.15) 0%, transparent 70%);
+          background: radial-gradient(ellipse, rgba(219, 72, 144,0.15) 0%, transparent 70%);
           filter: blur(8px);
           z-index: -1;
         }
@@ -744,7 +744,7 @@ export default function FeaturesPage() {
           gap: 8px;
           padding: 10px;
           border-radius: 12px;
-          background: linear-gradient(135deg, rgba(229, 110, 142, 0.06) 0%, rgba(123, 92, 255, 0.04) 100%);
+          background: linear-gradient(135deg, rgba(219, 72, 144, 0.06) 0%, rgba(123, 92, 255, 0.04) 100%);
           margin-bottom: 14px;
         }
 
@@ -840,7 +840,7 @@ export default function FeaturesPage() {
         .ftHHDottedLine {
           flex: 1;
           height: 2px;
-          background: repeating-linear-gradient(90deg, rgba(229, 110, 142, 0.3) 0px, rgba(229, 110, 142, 0.3) 4px, transparent 4px, transparent 8px);
+          background: repeating-linear-gradient(90deg, rgba(219, 72, 144, 0.3) 0px, rgba(219, 72, 144, 0.3) 4px, transparent 4px, transparent 8px);
           max-width: 40px;
         }
 
@@ -864,7 +864,7 @@ export default function FeaturesPage() {
 
         .ftHHAvatarClose {
           background: linear-gradient(135deg, #2F6DFF, #7B5CFF);
-          box-shadow: 0 4px 12px rgba(229, 110, 142, 0.3);
+          box-shadow: 0 4px 12px rgba(219, 72, 144, 0.3);
         }
 
         .ftHHAvatarFar {
@@ -891,8 +891,8 @@ export default function FeaturesPage() {
           border-radius: 12px;
           background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(10px);
-          border: 1px solid rgba(229, 110, 142, 0.12);
-          box-shadow: 0 4px 16px rgba(229, 110, 142, 0.06);
+          border: 1px solid rgba(219, 72, 144, 0.12);
+          box-shadow: 0 4px 16px rgba(219, 72, 144, 0.06);
           font-size: 11px;
           font-weight: 600;
           color: var(--foreground);
@@ -1008,11 +1008,11 @@ export default function FeaturesPage() {
         }
 
         .ftIconOrb1 {
-          background: linear-gradient(145deg, rgba(229, 110, 142,0.08) 0%, rgba(123,92,255,0.12) 100%);
-          box-shadow: 0 8px 32px rgba(229, 110, 142,0.12), 0 24px 48px rgba(14, 23, 51, 0.04);
+          background: linear-gradient(145deg, rgba(219, 72, 144,0.08) 0%, rgba(123,92,255,0.12) 100%);
+          box-shadow: 0 8px 32px rgba(219, 72, 144,0.12), 0 24px 48px rgba(14, 23, 51, 0.04);
         }
-        .ftIconOrb1::after { background: radial-gradient(ellipse, rgba(229, 110, 142,0.15) 0%, transparent 70%); }
-        .ftIconOrb1 .ftIconOrbGlow { background: radial-gradient(circle, rgba(229, 110, 142,0.15) 0%, transparent 70%); }
+        .ftIconOrb1::after { background: radial-gradient(ellipse, rgba(219, 72, 144,0.15) 0%, transparent 70%); }
+        .ftIconOrb1 .ftIconOrbGlow { background: radial-gradient(circle, rgba(219, 72, 144,0.15) 0%, transparent 70%); }
 
         .ftIconOrb2 {
           background: linear-gradient(145deg, rgba(123,92,255,0.08) 0%, rgba(199,75,246,0.12) 100%);
@@ -1112,7 +1112,7 @@ export default function FeaturesPage() {
           box-shadow:
             0 0 0 1px rgba(255,255,255,0.05),
             0 8px 24px rgba(14, 23, 51, 0.15),
-            0 24px 48px rgba(229, 110, 142,0.1);
+            0 24px 48px rgba(219, 72, 144,0.1);
           animation: deviceFloat 8s ease-in-out infinite;
           position: relative;
           overflow: hidden;
@@ -1141,7 +1141,7 @@ export default function FeaturesPage() {
           flex: 1;
           width: 100%;
           border-radius: 10px;
-          background: linear-gradient(180deg, rgba(229, 110, 142,0.15) 0%, rgba(123,92,255,0.08) 100%);
+          background: linear-gradient(180deg, rgba(219, 72, 144,0.15) 0%, rgba(123,92,255,0.08) 100%);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -1166,7 +1166,7 @@ export default function FeaturesPage() {
           border-radius: 50%;
           background: linear-gradient(135deg, #2F6DFF, #7B5CFF);
           margin-top: 4px;
-          box-shadow: 0 0 8px rgba(229, 110, 142,0.5);
+          box-shadow: 0 0 8px rgba(219, 72, 144,0.5);
         }
 
         /* Apple Watch */
@@ -1266,7 +1266,7 @@ export default function FeaturesPage() {
           width: 100%;
           height: 100%;
           border-radius: 10px;
-          background: linear-gradient(135deg, rgba(255,107,138,0.1) 0%, rgba(229, 110, 142,0.08) 100%);
+          background: linear-gradient(135deg, rgba(255,107,138,0.1) 0%, rgba(219, 72, 144,0.08) 100%);
           display: flex;
           overflow: hidden;
         }
@@ -1281,7 +1281,7 @@ export default function FeaturesPage() {
 
         .ftShowcaseCarNotif {
           width: 56px;
-          background: rgba(229, 110, 142,0.12);
+          background: rgba(219, 72, 144,0.12);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -1315,7 +1315,7 @@ export default function FeaturesPage() {
           width: 90px;
           height: 90px;
           border-radius: 50%;
-          background: linear-gradient(160deg, rgba(199,75,246,0.1) 0%, rgba(229, 110, 142,0.08) 100%);
+          background: linear-gradient(160deg, rgba(199,75,246,0.1) 0%, rgba(219, 72, 144,0.08) 100%);
           border: 2px solid rgba(199,75,246,0.15);
           display: flex;
           align-items: center;
@@ -1390,7 +1390,7 @@ export default function FeaturesPage() {
         }
         .ftPlatformChip {
           display: flex; align-items: center; gap: 8px; position: relative;
-          background: #fff; border: 1.5px solid rgba(229, 110, 142,0.15); border-radius: 980px;
+          background: #fff; border: 1.5px solid rgba(219, 72, 144,0.15); border-radius: 980px;
           padding: 10px 24px; font-size: 14px; font-weight: 600; color: var(--foreground);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
           overflow: hidden;
@@ -1459,8 +1459,8 @@ export default function FeaturesPage() {
           background: linear-gradient(160deg, #FFFFFF 0%, #F8F9FF 50%, #F0F2FF 100%);
           border: 1px solid rgba(255,255,255,0.8);
           box-shadow:
-            0 0 0 1px rgba(229, 110, 142,0.08),
-            0 8px 24px rgba(229, 110, 142,0.1),
+            0 0 0 1px rgba(219, 72, 144,0.08),
+            0 8px 24px rgba(219, 72, 144,0.1),
             0 24px 48px rgba(14, 23, 51, 0.06);
           animation: shieldFloat 6s ease-in-out infinite;
         }
@@ -1490,7 +1490,7 @@ export default function FeaturesPage() {
         .ftShieldOrbitRing {
           position: absolute;
           border-radius: 50%;
-          border: 1px solid rgba(229, 110, 142,0.1);
+          border: 1px solid rgba(219, 72, 144,0.1);
         }
 
         .ftShieldOrbit1 {
@@ -1517,7 +1517,7 @@ export default function FeaturesPage() {
           left: 50%;
           margin-left: -4px;
           background: linear-gradient(135deg, #2F6DFF, #7B5CFF);
-          box-shadow: 0 0 12px rgba(229, 110, 142,0.5);
+          box-shadow: 0 0 12px rgba(219, 72, 144,0.5);
         }
 
         .ftShieldOrbitDot2 {
@@ -1564,7 +1564,7 @@ export default function FeaturesPage() {
 
         .ftPrivacyPillar:hover {
           transform: translateY(-4px);
-          box-shadow: 0 16px 48px rgba(229, 110, 142,0.08);
+          box-shadow: 0 16px 48px rgba(219, 72, 144,0.08);
         }
 
         .ftPillarIconWrap {
@@ -1602,7 +1602,7 @@ export default function FeaturesPage() {
         }
         .ftCtaOrb1 {
           width: 400px; height: 400px; top: -100px; right: -100px;
-          background: radial-gradient(circle, rgba(229, 110, 142,0.6) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(219, 72, 144,0.6) 0%, transparent 70%);
           animation: orbFloat1 8s ease-in-out infinite;
         }
         .ftCtaOrb2 {
@@ -1644,7 +1644,7 @@ export default function FeaturesPage() {
           position: relative; z-index: 1;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(229, 110, 142,0.38); }
+        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(219, 72, 144,0.38); }
         @keyframes btnShimmer {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }

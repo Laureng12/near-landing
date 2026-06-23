@@ -236,8 +236,8 @@ function TopNav() {
             src={BRAND_WORDMARK}
             alt="Near"
             className="brandFullLogo"
-            width={1035}
-            height={420}
+            width={1181}
+            height={500}
             priority
             quality={100}
           />
@@ -791,7 +791,7 @@ function AIDefinition() {
           <div className="aiFeatureCard" data-tilt data-stagger>
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="#E9A335" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="#FDCF7F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#14213F"/><stop offset="1" stopColor="#E9A335"/></linearGradient></defs>
               </svg>
             </div>
@@ -801,8 +801,8 @@ function AIDefinition() {
           <div className="aiFeatureCard" data-tilt data-stagger>
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#E89A86" strokeWidth="1.5" fill="none"/>
-                <circle cx="12" cy="9" r="2.5" stroke="#E89A86" strokeWidth="1.5" fill="none"/>
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#F1597D" strokeWidth="1.5" fill="none"/>
+                <circle cx="12" cy="9" r="2.5" stroke="#F1597D" strokeWidth="1.5" fill="none"/>
                 <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#382B66"/><stop offset="1" stopColor="#E89A86"/></linearGradient></defs>
               </svg>
             </div>
@@ -812,7 +812,7 @@ function AIDefinition() {
           <div className="aiFeatureCard" data-tilt data-stagger>
             <div className="aiFeatureIcon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="#7B5CC4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="#A86FE0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#0E1830"/><stop offset="1" stopColor="#7B5CC4"/></linearGradient></defs>
               </svg>
             </div>
@@ -1384,7 +1384,7 @@ function SiteStyles() {
       /* ââ Gradient text ââ */
 
       .gradientText {
-        background: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
+        background: linear-gradient(135deg, #101B3E 0%, #200F8B 20%, #7A25A2 40%, #DB4890 60%, #FD8F65 80%, #FCE496 100%);
         background-size: 200% 200%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1394,7 +1394,7 @@ function SiteStyles() {
 
       /* Hero "Anything Again." — brand palette (navy -> pink -> gold) */
       .gradientText.heroAccent {
-        background-image: linear-gradient(135deg, #121C41 0%, #E56E8E 55%, #E9A335 100%);
+        background-image: linear-gradient(135deg, #101B3E 0%, #200F8B 20%, #7A25A2 40%, #DB4890 60%, #FD8F65 80%, #FCE496 100%);
         background-size: 200% 200%;
         -webkit-background-clip: text;
         background-clip: text;
@@ -1587,7 +1587,7 @@ function SiteStyles() {
         left: 10%;
         right: 10%;
         height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(229, 110, 142, 0.3) 20%, rgba(199, 75, 246, 0.3) 50%, rgba(255, 107, 138, 0.3) 80%, transparent);
+        background: linear-gradient(90deg, transparent, rgba(219, 72, 144, 0.3) 20%, rgba(199, 75, 246, 0.3) 50%, rgba(255, 107, 138, 0.3) 80%, transparent);
         border-radius: 1px;
       }
 
@@ -1600,7 +1600,7 @@ function SiteStyles() {
         height: 1000px;
         border-radius: 50%;
         background:
-          radial-gradient(ellipse 60% 50% at 30% 40%, rgba(229, 110, 142, 0.12) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 30% 40%, rgba(219, 72, 144, 0.12) 0%, transparent 60%),
           radial-gradient(ellipse 50% 60% at 70% 60%, rgba(199, 75, 246, 0.08) 0%, transparent 60%),
           radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255, 107, 138, 0.06) 0%, transparent 50%);
         pointer-events: none;
@@ -1712,7 +1712,7 @@ function SiteStyles() {
         color: var(--cta-text);
         background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
         border: none;
-        box-shadow: 0 10px 30px rgba(229, 110, 142, 0.25);
+        box-shadow: 0 10px 30px rgba(219, 72, 144, 0.25);
         background-size: 200% 200%;
         background-position: 0% 50%;
         transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -1720,17 +1720,17 @@ function SiteStyles() {
 
       .primaryBtn:hover {
         background-position: 100% 50%;
-        box-shadow: 0 14px 36px rgba(229, 110, 142, 0.36);
+        box-shadow: 0 14px 36px rgba(219, 72, 144, 0.36);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
       .secondaryBtn {
         color: var(--blue);
         background: transparent;
-        border: 1px solid rgba(229, 110, 142, 0.28);
+        border: 1px solid rgba(219, 72, 144, 0.28);
       }
 
-      .secondaryBtn:hover { background: rgba(229, 110, 142, 0.07); }
+      .secondaryBtn:hover { background: rgba(219, 72, 144, 0.07); }
 
       /* ââ Sections ââ */
 
@@ -1772,7 +1772,7 @@ function SiteStyles() {
       .magicOrb1 {
         width: 300px;
         height: 300px;
-        background: radial-gradient(circle, rgba(229, 110, 142, 0.35) 0%, rgba(229, 110, 142, 0) 70%);
+        background: radial-gradient(circle, rgba(219, 72, 144, 0.35) 0%, rgba(219, 72, 144, 0) 70%);
         top: -50px;
         right: -80px;
         animation-delay: 0s;
@@ -1814,7 +1814,7 @@ function SiteStyles() {
         bottom: 0;
         background:
           linear-gradient(135deg,
-            rgba(229, 110, 142, 0.03) 0%,
+            rgba(219, 72, 144, 0.03) 0%,
             transparent 30%,
             rgba(168, 85, 247, 0.03) 50%,
             transparent 70%,
@@ -1910,7 +1910,7 @@ function SiteStyles() {
 
       .arriveCard:hover {
         transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(229, 110, 142, 0.12);
+        box-shadow: 0 24px 64px rgba(219, 72, 144, 0.12);
       }
 
       .sectionSurface .arriveCard {
@@ -2058,8 +2058,8 @@ function SiteStyles() {
           border-color: rgba(14, 23, 51, 0.06);
         }
         30%, 74% {
-          background: rgba(229, 110, 142, 0.04);
-          border-color: rgba(229, 110, 142, 0.12);
+          background: rgba(219, 72, 144, 0.04);
+          border-color: rgba(219, 72, 144, 0.12);
         }
       }
 
@@ -2079,7 +2079,7 @@ function SiteStyles() {
         width: 260px;
         height: 260px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(229, 110, 142, 0.35) 0%, rgba(123, 92, 255, 0.15) 40%, transparent 70%);
+        background: radial-gradient(circle, rgba(219, 72, 144, 0.35) 0%, rgba(123, 92, 255, 0.15) 40%, transparent 70%);
         filter: blur(40px);
         animation: glowPulse 4s ease-in-out infinite;
       }
@@ -2117,7 +2117,7 @@ function SiteStyles() {
         backdrop-filter: saturate(180%) blur(20px);
         -webkit-backdrop-filter: saturate(180%) blur(20px);
         box-shadow:
-          0 2px 12px rgba(229, 110, 142, 0.15),
+          0 2px 12px rgba(219, 72, 144, 0.15),
           0 8px 32px rgba(123, 92, 255, 0.1),
           0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
         max-width: 340px;
@@ -2134,7 +2134,7 @@ function SiteStyles() {
       .passingByNotif:hover {
         transform: translateY(-4px) scale(1.02);
         box-shadow:
-          0 4px 20px rgba(229, 110, 142, 0.25),
+          0 4px 20px rgba(219, 72, 144, 0.25),
           0 12px 48px rgba(123, 92, 255, 0.15),
           0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
       }
@@ -2187,7 +2187,7 @@ function SiteStyles() {
       .ecoCard {
         padding: 2rem 1.5rem;
         border-radius: 1.25rem;
-        background: linear-gradient(#F5F5F7, #F5F5F7) padding-box, linear-gradient(135deg, rgba(229, 110, 142, 0.15), rgba(168, 85, 247, 0.15)) border-box;
+        background: linear-gradient(#F5F5F7, #F5F5F7) padding-box, linear-gradient(135deg, rgba(219, 72, 144, 0.15), rgba(168, 85, 247, 0.15)) border-box;
         border: 2px solid transparent;
         text-align: center;
         transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
@@ -2209,7 +2209,7 @@ function SiteStyles() {
 
       .ecoCard:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(229, 110, 142, 0.12);
+        box-shadow: 0 12px 32px rgba(219, 72, 144, 0.12);
         background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
       }
 
@@ -2293,7 +2293,7 @@ function SiteStyles() {
 
       .inputCard:hover {
         transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(229, 110, 142, 0.12);
+        box-shadow: 0 24px 64px rgba(219, 72, 144, 0.12);
       }
 
       .inputField {
@@ -2380,7 +2380,7 @@ function SiteStyles() {
         width: 180px;
         height: 180px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(123, 92, 255, 0.25) 0%, rgba(229, 110, 142, 0.1) 40%, transparent 70%);
+        background: radial-gradient(circle, rgba(123, 92, 255, 0.25) 0%, rgba(219, 72, 144, 0.1) 40%, transparent 70%);
         filter: blur(30px);
         animation: hhGlow2 6s ease-in-out infinite 1.5s;
         transform: translate(-20px, 20px);
@@ -2550,7 +2550,7 @@ function SiteStyles() {
 
       .mapsCard:hover {
         transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(229, 110, 142, 0.12);
+        box-shadow: 0 24px 64px rgba(219, 72, 144, 0.12);
       }
 
       .mapsPin { font-size: 2rem; }
@@ -2584,7 +2584,7 @@ function SiteStyles() {
         width: 160px;
         height: 160px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(229, 110, 142, 0.25) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
+        background: radial-gradient(circle, rgba(219, 72, 144, 0.25) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
         filter: blur(25px);
         animation: privGlow 4s ease-in-out infinite;
       }
@@ -2604,7 +2604,7 @@ function SiteStyles() {
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
         box-shadow:
-          0 4px 20px rgba(229, 110, 142, 0.12),
+          0 4px 20px rgba(219, 72, 144, 0.12),
           0 0 0 0.5px rgba(255, 255, 255, 0.5) inset;
         display: flex;
         align-items: center;
@@ -2622,14 +2622,14 @@ function SiteStyles() {
         width: 110px;
         height: 110px;
         border-radius: 50%;
-        border: 1.5px dashed rgba(229, 110, 142, 0.15);
+        border: 1.5px dashed rgba(219, 72, 144, 0.15);
         animation: hhRingSpin 25s linear infinite;
       }
 
             .privacyOrbitRing {
         position: absolute;
         border-radius: 50%;
-        border: 1px solid rgba(229, 110, 142, 0.08);
+        border: 1px solid rgba(219, 72, 144, 0.08);
       }
 
       .privacyOrbit1 {
@@ -2663,7 +2663,7 @@ function SiteStyles() {
         left: 50%;
         margin-left: -3px;
         background: #2F6DFF;
-        box-shadow: 0 0 8px rgba(229, 110, 142, 0.6);
+        box-shadow: 0 0 8px rgba(219, 72, 144, 0.6);
       }
 
       .privacyParticle2 {
@@ -2837,7 +2837,7 @@ function SiteStyles() {
         padding: 0.65rem 1.25rem;
         border-radius: 999px;
         background: #FFFFFF;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(229, 110, 142, 0.25), rgba(168, 85, 247, 0.25)) border-box;
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(219, 72, 144, 0.25), rgba(168, 85, 247, 0.25)) border-box;
         border: 1.5px solid transparent;
         font-size: 0.95rem;
         font-weight: 500;
@@ -2847,9 +2847,9 @@ function SiteStyles() {
 
       .pill:hover {
         transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 8px 24px rgba(229, 110, 142, 0.18);
-        border-color: rgba(229, 110, 142, 0.5);
-        background: linear-gradient(135deg, rgba(229, 110, 142, 0.06), rgba(168, 85, 247, 0.06));
+        box-shadow: 0 8px 24px rgba(219, 72, 144, 0.18);
+        border-color: rgba(219, 72, 144, 0.5);
+        background: linear-gradient(135deg, rgba(219, 72, 144, 0.06), rgba(168, 85, 247, 0.06));
       }
 
       .sectionSurface .pill {
@@ -2873,7 +2873,7 @@ function SiteStyles() {
         border: 1px solid rgba(255, 255, 255, 0.6);
         box-shadow:
           0 2px 4px rgba(14, 23, 51, 0.04),
-          0 12px 32px rgba(229, 110, 142, 0.1),
+          0 12px 32px rgba(219, 72, 144, 0.1),
           0 24px 64px rgba(14, 23, 51, 0.05),
           inset 0 1px 0 rgba(255, 255, 255, 0.8);
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
@@ -2882,17 +2882,17 @@ function SiteStyles() {
         transform-style: preserve-3d;
       }
 
-      /* Dawn: warm cream/gold */
+      /* Sunset — gold */
       .aiFeatureCard:nth-child(1) {
-        background: linear-gradient(145deg, #FBF5E8 0%, #F7ECD6 30%, #F1E2C3 60%, #FCF8ED 100%);
+        background: linear-gradient(145deg, #FCF6E9 0%, #FBEFD6 30%, #FCE7C6 60%, #FEFAF0 100%);
       }
-      /* Dusk: soft indigo -> peach */
+      /* Sunset — pink/magenta */
       .aiFeatureCard:nth-child(2) {
-        background: linear-gradient(145deg, #F2EDF8 0%, #ECE3F1 30%, #F4E4DF 60%, #FBF3F0 100%);
+        background: linear-gradient(145deg, #FCEDF4 0%, #FBE3EE 30%, #F8DBE8 60%, #FEF3F8 100%);
       }
-      /* Night: soft navy/lavender */
+      /* Sunset — purple/indigo */
       .aiFeatureCard:nth-child(3) {
-        background: linear-gradient(145deg, #EEF1F9 0%, #E6EAF4 30%, #EBE5F5 60%, #F4F2FB 100%);
+        background: linear-gradient(145deg, #F2ECFB 0%, #EBE2F7 30%, #E7DCF4 60%, #F7F3FD 100%);
       }
 
       .aiFeatureCard::before {
@@ -2907,31 +2907,31 @@ function SiteStyles() {
         transition: opacity 0.3s ease;
       }
       .aiFeatureCard:nth-child(1)::before {
-        background: linear-gradient(90deg, #14213F, #E9A335);
+        background: linear-gradient(90deg, #101B3E, #FDCF7F);
       }
       .aiFeatureCard:nth-child(2)::before {
-        background: linear-gradient(90deg, #382B66, #E89A86);
+        background: linear-gradient(90deg, #101B3E, #DB4890);
       }
       .aiFeatureCard:nth-child(3)::before {
-        background: linear-gradient(90deg, #0E1830, #7B5CC4);
+        background: linear-gradient(90deg, #101B3E, #7A25A2);
       }
 
       .aiFeatureCard:hover {
         transform: translateY(-8px) scale(1.03) translateZ(10px);
         box-shadow:
           0 4px 8px rgba(14, 23, 51, 0.06),
-          0 20px 48px rgba(229, 110, 142, 0.18),
+          0 20px 48px rgba(219, 72, 144, 0.18),
           0 32px 80px rgba(14, 23, 51, 0.08);
       }
 
       .aiFeatureCard:nth-child(1):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(233, 163, 53, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(253, 207, 127, 0.28), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
       .aiFeatureCard:nth-child(2):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(232, 154, 134, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(219, 72, 144, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
       .aiFeatureCard:nth-child(3):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(123, 92, 196, 0.2), 0 32px 80px rgba(14, 23, 51, 0.08);
+        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(122, 37, 162, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
       }
 
       .aiFeatureCard:hover::before {
@@ -2942,28 +2942,28 @@ function SiteStyles() {
         width: 52px;
         height: 52px;
         border-radius: 16px;
-        background: linear-gradient(135deg, rgba(229, 110, 142, 0.1), rgba(199, 75, 246, 0.1));
-        box-shadow: 0 4px 12px rgba(229, 110, 142, 0.08);
+        background: linear-gradient(135deg, rgba(219, 72, 144, 0.1), rgba(199, 75, 246, 0.1));
+        box-shadow: 0 4px 12px rgba(219, 72, 144, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 16px;
       }
 
-      /* Dawn: navy field, gold mark */
+      /* Sunset — navy field, gold mark */
       .aiFeatureCard:nth-child(1) .aiFeatureIcon {
-        background: radial-gradient(circle at 50% 45%, #233861 0%, #14213F 72%);
-        box-shadow: 0 6px 18px rgba(233, 163, 53, 0.22);
+        background: radial-gradient(circle at 50% 45%, #1B2A52 0%, #101B3E 72%);
+        box-shadow: 0 6px 18px rgba(253, 207, 127, 0.28);
       }
-      /* Dusk: indigo field, coral mark */
+      /* Sunset — navy field, pink mark */
       .aiFeatureCard:nth-child(2) .aiFeatureIcon {
-        background: radial-gradient(circle at 50% 45%, #44316F 0%, #2A1F58 72%);
-        box-shadow: 0 6px 18px rgba(232, 154, 134, 0.24);
+        background: radial-gradient(circle at 50% 45%, #2A1A52 0%, #101B3E 72%);
+        box-shadow: 0 6px 18px rgba(219, 72, 144, 0.26);
       }
-      /* Night: deep navy field, purple mark */
+      /* Sunset — navy field, purple mark */
       .aiFeatureCard:nth-child(3) .aiFeatureIcon {
-        background: radial-gradient(circle at 50% 45%, #271C49 0%, #0E1830 72%);
-        box-shadow: 0 6px 18px rgba(123, 92, 196, 0.24);
+        background: radial-gradient(circle at 50% 45%, #2A1456 0%, #101B3E 72%);
+        box-shadow: 0 6px 18px rgba(122, 37, 162, 0.26);
       }
 
       .aiFeatureLabel {
@@ -3010,7 +3010,7 @@ function SiteStyles() {
 
       .faqItem:hover {
         border-left-color: #2F6DFF;
-        background: linear-gradient(90deg, rgba(229, 110, 142, 0.03), transparent);
+        background: linear-gradient(90deg, rgba(219, 72, 144, 0.03), transparent);
       }
 
       .faqItem:first-child {
@@ -3068,7 +3068,7 @@ function SiteStyles() {
         box-shadow:
           0 0 0 1px rgba(120, 204, 255, 0.08),
           0 32px 100px rgba(0, 62, 105, 0.34),
-          0 0 80px rgba(229, 110, 142, 0.16),
+          0 0 80px rgba(219, 72, 144, 0.16),
           inset 0 1px 0 rgba(255, 255, 255, 0.12);
         transform: perspective(1200px) rotateX(1deg);
         transform-style: preserve-3d;
@@ -3095,7 +3095,7 @@ function SiteStyles() {
         height: 450px;
         bottom: -100px;
         left: -80px;
-        background: radial-gradient(circle, rgba(229, 110, 142, 0.45) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(219, 72, 144, 0.45) 0%, transparent 70%);
         animation: orbFloat2 10s ease-in-out infinite;
       }
 
@@ -3142,7 +3142,7 @@ function SiteStyles() {
 
       .finalP2 {
         width: 3px; height: 3px;
-        background: rgba(229, 110, 142, 0.5);
+        background: rgba(219, 72, 144, 0.5);
         top: 30%; right: 20%;
         animation: finalFloat 8s ease-in-out infinite 1s;
       }
@@ -3200,13 +3200,13 @@ function SiteStyles() {
         margin-top: 2rem;
         position: relative;
         z-index: 2;
-        box-shadow: 0 4px 20px rgba(229, 110, 142, 0.4), 0 0 40px rgba(229, 110, 142, 0.15);
+        box-shadow: 0 4px 20px rgba(219, 72, 144, 0.4), 0 0 40px rgba(219, 72, 144, 0.15);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
       .finalBtn:hover {
         transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 6px 30px rgba(229, 110, 142, 0.5), 0 0 60px rgba(18, 28, 65, 0.15);
+        box-shadow: 0 6px 30px rgba(219, 72, 144, 0.5), 0 0 60px rgba(18, 28, 65, 0.15);
       }
       /* Star field */
       .finalStars {
@@ -3286,7 +3286,7 @@ function SiteStyles() {
           0 0 0 4px #1E2747,
           0 34px 80px rgba(14, 23, 51, 0.34),
           0 16px 32px rgba(14, 23, 51, 0.2),
-          0 36px 90px rgba(229, 110, 142, 0.14),
+          0 36px 90px rgba(219, 72, 144, 0.14),
           0 0 120px rgba(100, 210, 230, 0.16);
       }
 
@@ -3330,7 +3330,7 @@ function SiteStyles() {
         border-radius: 38px;
         background:
           radial-gradient(circle at 72% 12%, rgba(255, 255, 255, 0.82) 0 12%, transparent 30%),
-          radial-gradient(circle at 18% 22%, rgba(229, 110, 142, 0.15) 0 18%, transparent 38%),
+          radial-gradient(circle at 18% 22%, rgba(219, 72, 144, 0.15) 0 18%, transparent 38%),
           linear-gradient(180deg, #ecfbff 0%, #f8fffb 36%, #eef9f5 62%, #d3efe9 100%);
         overflow: hidden;
         position: relative;
@@ -4055,7 +4055,7 @@ function SiteStyles() {
         width: 15px;
         height: 15px;
         border-radius: 5px;
-        border: 1.5px solid rgba(229, 110, 142, 0.18);
+        border: 1.5px solid rgba(219, 72, 144, 0.18);
         background: rgba(255, 255, 255, 0.7);
         flex-shrink: 0;
       }
@@ -4134,7 +4134,7 @@ function SiteStyles() {
         font-size: 7px;
         font-weight: 700;
         color: var(--blue);
-        background: rgba(229, 110, 142, 0.12);
+        background: rgba(219, 72, 144, 0.12);
         padding: 1px 5px;
         border-radius: 3px;
         letter-spacing: 0.04em;
@@ -4167,7 +4167,7 @@ function SiteStyles() {
         font-size: 9px;
         padding: 3px 8px;
         border-radius: 999px;
-        background: rgba(229, 110, 142, 0.08);
+        background: rgba(219, 72, 144, 0.08);
         color: rgba(25, 54, 82, 0.68);
         font-weight: 500;
       }
@@ -4269,14 +4269,14 @@ function SiteStyles() {
         width: 34px;
         height: 34px;
         border-radius: 10px;
-        background: linear-gradient(135deg, #121C41, #E56E8E);
+        background: linear-gradient(135deg, #121C41, #DB4890);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 15px;
         flex-shrink: 0;
         color: white;
-        box-shadow: 0 8px 18px rgba(229, 110, 142,0.22);
+        box-shadow: 0 8px 18px rgba(219, 72, 144,0.22);
       }
       .phoneGamePlanInfo {
         flex: 1;
@@ -4310,7 +4310,7 @@ function SiteStyles() {
         padding: 9px 0;
         margin-top: 8px;
         border-radius: 14px;
-        border: 1.5px dashed rgba(229, 110, 142, 0.18);
+        border: 1.5px dashed rgba(219, 72, 144, 0.18);
         background: rgba(255, 255, 255, 0.42);
         cursor: pointer;
       }
@@ -4336,14 +4336,14 @@ function SiteStyles() {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #121C41, #E56E8E);
+        background: linear-gradient(135deg, #121C41, #DB4890);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 18px;
         color: white;
         font-weight: 600;
-        box-shadow: 0 10px 22px rgba(229, 110, 142, 0.18);
+        box-shadow: 0 10px 22px rgba(219, 72, 144, 0.18);
         flex-shrink: 0;
       }
       .hhProfileName {
@@ -4372,7 +4372,7 @@ function SiteStyles() {
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #121C41, #E56E8E);
+        background: linear-gradient(135deg, #121C41, #DB4890);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -4734,7 +4734,7 @@ function SiteStyles() {
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 8px 18px rgba(229, 110, 142, 0.28);
+        box-shadow: 0 8px 18px rgba(219, 72, 144, 0.28);
       }
 
       .phoneAddBtn svg {
