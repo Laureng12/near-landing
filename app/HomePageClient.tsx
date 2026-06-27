@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
@@ -283,7 +283,8 @@ const phaseTexts = [
 ]
 
 function Hero() {
-  const [phase, setPhase] = useState(0)
+  const [phase, setPhase] = useState(1) // lead with the arrival-notification moment
+  const heroRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -292,9 +293,31 @@ function Hero() {
     return () => clearInterval(id)
   }, [])
 
+  // Replay the arrival moment whenever the hero scrolls back into view
+  useEffect(() => {
+    const el = heroRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setPhase(1) }),
+      { threshold: 0.5 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  // Cursor-reactive glow
+  const onHeroMove = (e: ReactMouseEvent<HTMLElement>) => {
+    const el = heroRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty("--cx", `${e.clientX - r.left}px`)
+    el.style.setProperty("--cy", `${e.clientY - r.top}px`)
+  }
+
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" ref={heroRef} onMouseMove={onHeroMove}>
       <div className="heroGlow" />
+      <div className="heroCursorGlow hideOnMobile" />
       <div className="heroSplit">
         <div className="heroCopy">
           <h1 className="heroTitle">
@@ -1644,11 +1667,13 @@ function SiteStyles() {
         width: 1000px;
         height: 1000px;
         border-radius: 50%;
+        width: 1120px;
+        height: 1120px;
         background:
-          radial-gradient(ellipse 55% 45% at 28% 38%, rgba(236, 78, 114, 0.18) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 55% at 72% 58%, rgba(122, 37, 162, 0.13) 0%, transparent 60%),
-          radial-gradient(ellipse 45% 40% at 62% 30%, rgba(253, 143, 101, 0.14) 0%, transparent 55%),
-          radial-gradient(ellipse 42% 42% at 44% 72%, rgba(253, 207, 127, 0.12) 0%, transparent 55%);
+          radial-gradient(ellipse 55% 45% at 28% 38%, rgba(236, 78, 114, 0.30) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 55% at 72% 58%, rgba(122, 37, 162, 0.22) 0%, transparent 60%),
+          radial-gradient(ellipse 45% 40% at 62% 30%, rgba(253, 143, 101, 0.24) 0%, transparent 55%),
+          radial-gradient(ellipse 42% 42% at 44% 72%, rgba(253, 207, 127, 0.18) 0%, transparent 55%);
         pointer-events: none;
         animation: glowBreathe 7s ease-in-out infinite, glowDrift 22s ease-in-out infinite;
         will-change: transform;
@@ -1658,6 +1683,30 @@ function SiteStyles() {
         33%  { transform: translate(-46%, -53%) rotate(8deg)  scale(1.06); }
         66%  { transform: translate(-54%, -47%) rotate(-6deg) scale(1.03); }
         100% { transform: translate(-50%, -50%) rotate(0deg)  scale(1); }
+      }
+
+      /* Cursor-reactive glow */
+      .heroCursorGlow {
+        position: absolute;
+        left: var(--cx, 35%);
+        top: var(--cy, 40%);
+        width: 480px;
+        height: 480px;
+        margin: -240px 0 0 -240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(236, 78, 114, 0.22) 0%, rgba(253, 143, 101, 0.14) 40%, transparent 70%);
+        filter: blur(40px);
+        pointer-events: none;
+        z-index: 0;
+        transition: left 0.22s ease-out, top 0.22s ease-out;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .heroCursorGlow { transition: none; }
+        .heroGlow { animation: none; }
+      }
+      @keyframes ctaSheen {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
       }
 
       @keyframes glowBreathe {
@@ -1782,16 +1831,17 @@ function SiteStyles() {
 
       .primaryBtn {
         color: var(--cta-text);
-        background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
+        background: linear-gradient(115deg, var(--cta-deep) 0%, var(--cta) 38%, #FF8FA3 50%, var(--cta) 62%, var(--cta-deep) 100%);
         border: none;
         box-shadow: 0 10px 30px rgba(236, 78, 114, 0.30);
-        background-size: 200% 200%;
+        background-size: 220% 220%;
         background-position: 0% 50%;
-        transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
+        animation: ctaSheen 5.5s ease-in-out infinite;
+        transition: transform 0.16s, box-shadow 0.3s ease;
       }
 
       .primaryBtn:hover {
-        background-position: 100% 50%;
+        box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
         box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
