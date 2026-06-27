@@ -236,7 +236,7 @@ function TopNav() {
             src={BRAND_WORDMARK}
             alt="Near"
             className="brandFullLogo"
-            width={1140}
+            width={1185}
             height={500}
             priority
             quality={100}

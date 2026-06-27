@@ -13,7 +13,7 @@ export default function TermsPage() {
           <Image
             src={BRAND_WORDMARK}
             alt="Near"
-            width={1140}
+            width={1185}
             height={500}
             className="legalLogoFull"
           />
