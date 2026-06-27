@@ -42,7 +42,7 @@ export default function FeaturesPage() {
           <Image
             src={BRAND_WORDMARK}
             alt="Near"
-            width={1181}
+            width={1140}
             height={500}
             className="ftNavLogoFull"
             quality={100}

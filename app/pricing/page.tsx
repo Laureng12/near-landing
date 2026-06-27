@@ -206,7 +206,7 @@ export default function PricingPage() {
               <Image
                 src={BRAND_WORDMARK}
                 alt="Near"
-                width={1181}
+                width={1140}
                 height={500}
                 className="pricingNavLogoFull"
               />

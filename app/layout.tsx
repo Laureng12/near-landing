@@ -80,10 +80,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico?v=3", sizes: "64x64" },
-      { url: "/favicon.png?v=3", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.ico?v=4", sizes: "64x64" },
+      { url: "/favicon.png?v=4", sizes: "64x64", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png?v=4", sizes: "180x180", type: "image/png" }],
   },
   category: "Productivity",
   appleWebApp: {
@@ -187,9 +187,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico?v=3" sizes="64x64" />
-        <link rel="icon" href="/favicon.png?v=3" type="image/png" sizes="64x64" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" sizes="180x180" />
+        <link rel="icon" href="/favicon.ico?v=4" sizes="64x64" />
+        <link rel="icon" href="/favicon.png?v=4" type="image/png" sizes="64x64" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" sizes="180x180" />
         <meta name="theme-color" content="#FFFFFF" />
         <script
           type="application/ld+json"
