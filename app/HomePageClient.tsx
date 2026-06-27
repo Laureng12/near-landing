@@ -306,9 +306,10 @@ function Hero() {
             Your errands<br /><span className="gradientText heroAccent">find you.</span>
           </h1>
           <p className="heroSub">
-            Near catches the errands, groceries, and home things you&rsquo;d
-            otherwise forget. Then they surface in the right place. Use it solo
-            or share it with your household.
+            You drove right past the store with the one thing still on your
+            mind. Near remembers for you &mdash; then surfaces it the moment
+            you&rsquo;re somewhere you can actually do it. Solo, or shared with
+            your household.
           </p>
           <div className="heroPhases">
             <p key={phase} className="heroPhaseText phaseVisible">
@@ -319,6 +320,10 @@ function Hero() {
             <a className="primaryBtn" href={APP_STORE_URL}>Download on the App Store</a>
             <a className="secondaryBtn" href="#how-it-works">See how it works</a>
           </div>
+          <a className="heroQr hideOnMobile" href={APP_STORE_URL} aria-label="Scan to download Near on the App Store">
+            <Image src="/app-store-qr.png" alt="QR code linking to Near on the App Store" width={84} height={84} />
+            <span>Scan to download<br />on your iPhone</span>
+          </a>
         </div>
         <div className="heroPhone">
           <PhoneMockup phase={phase} />
@@ -1694,6 +1699,25 @@ function SiteStyles() {
         gap: 0.9rem;
         margin-top: 2rem;
         justify-content: flex-start;
+      }
+
+      .heroQr {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 1.6rem;
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.35;
+        font-weight: 500;
+      }
+      .heroQr :global(img) {
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        padding: 6px;
+        background: #fff;
+        box-shadow: 0 4px 16px rgba(14, 23, 51, 0.08);
       }
 
       .primaryBtn, .secondaryBtn {
