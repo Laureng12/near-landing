@@ -346,7 +346,7 @@ export default function FeaturesPage() {
             <div className="ftPrivacyPillars">
               {[
                 { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", label: "Offline-first", desc: "Works without internet", color: "#2F6DFF" },
-                { icon: "M12 2a2 2 0 012 2v2a6 6 0 11-4 0V4a2 2 0 012-2zM4 18v-1a8 8 0 0116 0v1", label: "FinanceKit local", desc: "Wallet insights stay on device", color: "#7B5CFF" },
+                { icon: "M12 2a2 2 0 012 2v2a6 6 0 11-4 0V4a2 2 0 012-2zM4 18v-1a8 8 0 0116 0v1", label: "No data brokers", desc: "We never sell your data", color: "#7B5CFF" },
                 { icon: "M18.36 6.64A9 9 0 115.64 18.36M12 2v4M2 12h4", label: "No ads ever", desc: "No ad tracking", color: "#FF6B8A" },
                 { icon: "M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14", label: "Delete anytime", desc: "Your data, your choice", color: "#34C759" },
               ].map((item, i) => (

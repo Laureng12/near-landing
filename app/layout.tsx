@@ -130,18 +130,15 @@ const mobileAppJsonLd = {
     {
       "@type": "Offer",
       name: "Near Pro",
-      price: "9.99",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
       availability: "https://schema.org/InStock",
-    },
-    {
-      "@type": "Offer",
-      name: "Near Pro+",
-      price: "12.99",
-      priceCurrency: "USD",
-      url: `${SITE_URL}/pricing`,
-      availability: "https://schema.org/InStock",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "12.99",
+        priceCurrency: "USD",
+        unitText: "MONTH",
+      },
     },
   ],
 }
