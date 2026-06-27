@@ -298,13 +298,13 @@ function Hero() {
       <div className="heroSplit">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Your errands<br /><span className="gradientText heroAccent">find you.</span>
+            Never Forget<br /><span className="gradientText heroAccent">Anything Again.</span>
           </h1>
           <p className="heroSub">
-            You drove right past the store with the one thing still on your
-            mind. Near remembers for you &mdash; then surfaces it the moment
-            you&rsquo;re somewhere you can actually do it. Solo, or shared with
-            your household.
+            Near catches every errand, grocery run, and home thing you&rsquo;d
+            otherwise forget &mdash; then drops it onto your lock screen the
+            second you arrive where it gets done. No lists. No reminders to set.
+            You just show up.
           </p>
           <div className="heroPhases">
             <p key={phase} className="heroPhaseText phaseVisible">
@@ -1776,7 +1776,7 @@ function SiteStyles() {
         color: var(--cta-text);
         background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
         border: none;
-        box-shadow: 0 10px 30px rgba(219, 72, 144, 0.25);
+        box-shadow: 0 10px 30px rgba(16, 27, 62, 0.22);
         background-size: 200% 200%;
         background-position: 0% 50%;
         transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -1784,7 +1784,7 @@ function SiteStyles() {
 
       .primaryBtn:hover {
         background-position: 100% 50%;
-        box-shadow: 0 14px 36px rgba(219, 72, 144, 0.36);
+        box-shadow: 0 14px 36px rgba(16, 27, 62, 0.30);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
@@ -2198,7 +2198,7 @@ function SiteStyles() {
       .passingByNotif:hover {
         transform: translateY(-4px) scale(1.02);
         box-shadow:
-          0 4px 20px rgba(219, 72, 144, 0.25),
+          0 4px 20px rgba(16, 27, 62, 0.22),
           0 12px 48px rgba(123, 92, 255, 0.15),
           0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
       }
@@ -2648,7 +2648,7 @@ function SiteStyles() {
         width: 160px;
         height: 160px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(219, 72, 144, 0.25) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
+        background: radial-gradient(circle, rgba(16, 27, 62, 0.22) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
         filter: blur(25px);
         animation: privGlow 4s ease-in-out infinite;
       }
@@ -2901,7 +2901,7 @@ function SiteStyles() {
         padding: 0.65rem 1.25rem;
         border-radius: 999px;
         background: #FFFFFF;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(219, 72, 144, 0.25), rgba(168, 85, 247, 0.25)) border-box;
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(16, 27, 62, 0.22), rgba(168, 85, 247, 0.25)) border-box;
         border: 1.5px solid transparent;
         font-size: 0.95rem;
         font-weight: 500;

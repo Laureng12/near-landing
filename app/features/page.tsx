@@ -410,7 +410,7 @@ export default function FeaturesPage() {
           padding: 7px 18px; border-radius: 980px; text-decoration: none;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(219, 72, 144,0.3); }
+        .ftNavCta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(16, 27, 62,0.28); }
 
         /* ─── Hero ─── */
         .ftHero {
@@ -626,7 +626,7 @@ export default function FeaturesPage() {
         }
 
         .ft3DGlow1 {
-          background: radial-gradient(circle, rgba(219, 72, 144,0.25) 0%, rgba(123,92,255,0.1) 50%, transparent 70%);
+          background: radial-gradient(circle, rgba(16, 27, 62, 0.22) 0%, rgba(123,92,255,0.1) 50%, transparent 70%);
         }
 
         .ft3DGlow2 {
@@ -1626,7 +1626,7 @@ export default function FeaturesPage() {
           position: relative; z-index: 1;
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(219, 72, 144,0.38); }
+        .ftCtaBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(16, 27, 62,0.34); }
         @keyframes btnShimmer {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }

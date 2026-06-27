@@ -35,8 +35,8 @@ html {
     --surface: #F5F5F7;
     --blue: #101B3E;
     --blue-hover: #243463;
-    --cta: #DB4890;
-    --cta-deep: #C73B7F;
+    --cta: #101B3E;
+    --cta-deep: #243463;
     --cta-text: #FFFFFF;
     --line: rgba(14, 23, 51, 0.08);
     --line-strong: rgba(14, 23, 51, 0.12);

@@ -60,12 +60,12 @@ export default function PricingPage() {
           border-radius: 28px;
           font-size: 13px; font-weight: 600;
           text-decoration: none;
-          box-shadow: 0 10px 30px rgba(219, 72, 144, 0.25);
+          box-shadow: 0 10px 30px rgba(16, 27, 62, 0.22);
           transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
         }
         .pricingNavCta:hover {
           background-position: 100% 50%;
-          box-shadow: 0 14px 36px rgba(219, 72, 144, 0.36);
+          box-shadow: 0 14px 36px rgba(16, 27, 62, 0.30);
         }
 
         /* ── Page ── */
@@ -168,18 +168,18 @@ export default function PricingPage() {
           background-position: 0% 50%;
           color: var(--cta-text, #121C41); border: none;
           font-weight: 600;
-          box-shadow: 0 10px 30px rgba(219, 72, 144, 0.25);
+          box-shadow: 0 10px 30px rgba(16, 27, 62, 0.22);
           transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
         }
         .tierCta.primary:hover {
           background-position: 100% 50%;
-          box-shadow: 0 14px 36px rgba(219, 72, 144, 0.36);
+          box-shadow: 0 14px 36px rgba(16, 27, 62, 0.30);
         }
         .tierCta.ghost {
           background: transparent; color: var(--blue, #121C41);
-          border: 1px solid rgba(219, 72, 144,0.28);
+          border: 1px solid rgba(16, 27, 62, 0.22);
         }
-        .tierCta.ghost:hover { background: rgba(219, 72, 144,0.07); }
+        .tierCta.ghost:hover { background: rgba(16, 27, 62, 0.05); }
         .featured .tierCta.ghost {
           color: var(--cream-text, #FFF0DB);
           border-color: rgba(255,240,219,0.3);
