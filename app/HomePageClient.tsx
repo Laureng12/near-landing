@@ -305,14 +305,24 @@ function Hero() {
     return () => io.disconnect()
   }, [])
 
-  // Cursor-reactive glow
+  // Cursor-reactive glow — throttled to one update per animation frame
+  const posRef = useRef({ x: 0, y: 0 })
+  const rafRef = useRef<number | null>(null)
   const onHeroMove = (e: ReactMouseEvent<HTMLElement>) => {
     const el = heroRef.current
     if (!el) return
     const r = el.getBoundingClientRect()
-    el.style.setProperty("--cx", `${e.clientX - r.left}px`)
-    el.style.setProperty("--cy", `${e.clientY - r.top}px`)
+    posRef.current = { x: e.clientX - r.left, y: e.clientY - r.top }
+    if (rafRef.current != null) return
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null
+      const el2 = heroRef.current
+      if (!el2) return
+      el2.style.setProperty("--cx", `${posRef.current.x}px`)
+      el2.style.setProperty("--cy", `${posRef.current.y}px`)
+    })
   }
+  useEffect(() => () => { if (rafRef.current != null) cancelAnimationFrame(rafRef.current) }, [])
 
   return (
     <section className="hero" id="top" ref={heroRef} onMouseMove={onHeroMove}>
@@ -1457,16 +1467,16 @@ function SiteStyles() {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        animation: gradientShift 6s ease-in-out infinite;
       }
 
-      /* Hero "Anything Again." — brand palette (navy -> pink -> gold) */
+      /* Hero "Anything Again." — brand palette (navy -> pink -> gold); only the hero heading animates */
       .gradientText.heroAccent {
         background-image: linear-gradient(135deg, #101B3E 0%, #200F8B 20%, #7A25A2 40%, #DB4890 60%, #FD8F65 80%, #FCE496 100%);
         background-size: 200% 200%;
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        animation: gradientShift 6s ease-in-out infinite;
       }
 
       @keyframes gradientShift {
@@ -1688,17 +1698,18 @@ function SiteStyles() {
       /* Cursor-reactive glow */
       .heroCursorGlow {
         position: absolute;
-        left: var(--cx, 35%);
-        top: var(--cy, 40%);
+        left: 0;
+        top: 0;
         width: 480px;
         height: 480px;
-        margin: -240px 0 0 -240px;
         border-radius: 50%;
         background: radial-gradient(circle, rgba(236, 78, 114, 0.22) 0%, rgba(253, 143, 101, 0.14) 40%, transparent 70%);
         filter: blur(40px);
         pointer-events: none;
         z-index: 0;
-        transition: left 0.22s ease-out, top 0.22s ease-out;
+        transform: translate3d(calc(var(--cx, 280px) - 240px), calc(var(--cy, 260px) - 240px), 0);
+        transition: transform 0.22s ease-out;
+        will-change: transform;
       }
       @media (prefers-reduced-motion: reduce) {
         .heroCursorGlow { transition: none; }
