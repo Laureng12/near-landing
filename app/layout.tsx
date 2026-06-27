@@ -1,5 +1,24 @@
 import type { Metadata } from "next"
+import { DM_Sans, Instrument_Serif } from "next/font/google"
 import "./globals.css"
+import ConsentBanner from "./ConsentBanner"
+
+// Self-hosted at build time (next/font downloads + serves the fonts from our own
+// origin) — no runtime request to fonts.googleapis.com, so no visitor IP is sent
+// to Google just by loading the page.
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+})
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+})
 
 const SITE_URL = "https://www.nearesttask.com"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
@@ -162,7 +181,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico?v=4" sizes="64x64" />
         <link rel="icon" href="/favicon.png?v=4" type="image/png" sizes="64x64" />
@@ -189,6 +208,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <ConsentBanner />
       </body>
     </html>
   )
