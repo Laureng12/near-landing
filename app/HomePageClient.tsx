@@ -157,6 +157,7 @@ export default function HomePageClient() {
     <main className="page">
       <TopNav />
       <Hero />
+      <SocialProof />
       <AIDefinition />
       <ArriveSection />
       <PassingBySection />
@@ -772,6 +773,51 @@ function PhoneMockup({ phase }: { phase: number }) {
 }
 
 /* âââ AI Definition âââ */
+
+function SocialProof() {
+  return (
+    <section className="socialProof" aria-label="What people are saying">
+      <div className="spStars" aria-hidden="true">★★★★★</div>
+      <blockquote className="spQuote">
+        &ldquo;It&rsquo;s the first app that remembers the errand <em>for</em> me.
+        I just show up, and it&rsquo;s there.&rdquo;
+      </blockquote>
+      <cite className="spName">Lindsay</cite>
+      <style jsx>{`
+        .socialProof {
+          text-align: center;
+          max-width: 760px;
+          margin: 0 auto;
+          padding: 52px 24px 60px;
+          position: relative;
+          z-index: 2;
+        }
+        .spStars {
+          color: #E9A335;
+          font-size: 20px;
+          letter-spacing: 5px;
+          margin-bottom: 16px;
+        }
+        .spQuote {
+          margin: 0 0 16px;
+          font-family: var(--font-serif, "Instrument Serif", Georgia, serif);
+          font-style: italic;
+          font-size: clamp(23px, 3.4vw, 34px);
+          line-height: 1.3;
+          color: var(--blue, #101B3E);
+        }
+        .spQuote em { font-style: normal; }
+        .spName {
+          font-style: normal;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          color: var(--text-secondary, #6E6E73);
+        }
+      `}</style>
+    </section>
+  )
+}
 
 function AIDefinition() {
   return (
