@@ -94,12 +94,6 @@ const ecosystemItems = [
       "A gentle tap when something nearby matters.",
   },
   {
-    icon: "\uD83D\uDE97",
-    title: "CarPlay",
-    description:
-      "Errands surface while you’re already on the road.",
-  },
-  {
     icon: "\uD83C\uDF10",
     title: "Siri & Maps",
     description:

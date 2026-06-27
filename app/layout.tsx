@@ -115,7 +115,7 @@ const mobileAppJsonLd = {
     "Place-based task surfacing",
     "Shared household lists",
     "Grocery lists grouped by department",
-    "Apple Watch and CarPlay support",
+    "Apple Watch support",
     "AI-powered meal plans and suggestions on paid plans",
   ],
   offers: [

@@ -3,14 +3,14 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Features | Near",
   description:
-    "Explore every feature of Near — location-based tasks, household sharing, CarPlay, Apple Watch, geofence alerts, AI intelligence, and more.",
+    "Explore every feature of Near — location-based tasks, household sharing, Apple Watch, geofence alerts, and more.",
   alternates: {
     canonical: "/features",
   },
   openGraph: {
     title: "Features | Near",
     description:
-      "Explore every feature of Near — location-based tasks, household sharing, CarPlay, Apple Watch, geofence alerts, AI intelligence, and more.",
+      "Explore every feature of Near — location-based tasks, household sharing, Apple Watch, geofence alerts, and more.",
     url: "/features",
     type: "website",
     images: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Features | Near",
     description:
-      "Explore every feature of Near — location-based tasks, household sharing, CarPlay, Apple Watch, geofence alerts, AI intelligence, and more.",
+      "Explore every feature of Near — location-based tasks, household sharing, Apple Watch, geofence alerts, and more.",
     images: ["/near-og.png"],
   },
 }

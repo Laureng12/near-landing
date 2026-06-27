@@ -118,7 +118,7 @@ export default function FeaturesPage() {
             <div className="ftFeatureLayout ftFeatureLayout2">
               <div className="ftFeatureText">
                 <h2 className="ftFeatureTitle">Keeps the household aligned</h2>
-                <p className="ftFeatureDesc">Whoever&apos;s closest gets the reminder, so things get done without the back-and-forth.</p>
+                <p className="ftFeatureDesc">See who&apos;s closest and hand it off in a tap &mdash; no back-and-forth.</p>
               </div>
               <div className="ftFeatureVisual">
                 <div className="ft3DStage">
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
                       </div>
                       <div className="ftHHNudge">
                         <div className="ftHHNudgeDot" />
-                        <span>Lauren is closer — sending the list</span>
+                        <span>Lauren is closer — send her the list?</span>
                       </div>
                     </div>
                   </div>
@@ -284,24 +284,6 @@ export default function FeaturesPage() {
                   </div>
                 </div>
                 <span className="ftShowcaseLabel">Apple Watch</span>
-              </div>
-
-              {/* CarPlay */}
-              <div className="ftShowcaseDevice ftShowcaseCar" data-tilt-ft>
-                <div className="ftShowcaseDeviceGlow ftShowcaseGlowCar" />
-                <div className="ftShowcaseCarBody">
-                  <div className="ftShowcaseCarScreen">
-                    <div className="ftShowcaseCarMap" />
-                    <div className="ftShowcaseCarNotif">
-                      <div className="ftShowcaseCarNotifDot" />
-                      <div className="ftShowcaseCarNotifLines">
-                        <div className="ftShowcaseScreenLine ftShowcaseCarLine1" />
-                        <div className="ftShowcaseScreenLine ftShowcaseCarLine2" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <span className="ftShowcaseLabel">CarPlay</span>
               </div>
 
               {/* Siri */}
