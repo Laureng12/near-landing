@@ -3208,7 +3208,7 @@ function SiteStyles() {
         height: 500px;
         top: -120px;
         right: -100px;
-        background: radial-gradient(circle, rgba(122, 213, 255, 0.45) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(253, 170, 95, 0.42) 0%, transparent 70%);
         animation: orbFloat1 8s ease-in-out infinite;
       }
 
@@ -3217,7 +3217,7 @@ function SiteStyles() {
         height: 450px;
         bottom: -100px;
         left: -80px;
-        background: radial-gradient(circle, rgba(219, 72, 144, 0.45) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(236, 78, 114, 0.45) 0%, transparent 70%);
         animation: orbFloat2 10s ease-in-out infinite;
       }
 
@@ -3238,7 +3238,7 @@ function SiteStyles() {
         left: 50%;
         margin-top: -125px;
         margin-left: -125px;
-        background: radial-gradient(circle, rgba(0, 195, 255, 0.22) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(140, 60, 195, 0.26) 0%, transparent 70%);
         animation: orbFloat3 12s ease-in-out infinite;
       }
 
