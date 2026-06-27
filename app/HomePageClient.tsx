@@ -1645,11 +1645,19 @@ function SiteStyles() {
         height: 1000px;
         border-radius: 50%;
         background:
-          radial-gradient(ellipse 60% 50% at 30% 40%, rgba(219, 72, 144, 0.12) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 60% at 70% 60%, rgba(199, 75, 246, 0.08) 0%, transparent 60%),
-          radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255, 107, 138, 0.06) 0%, transparent 50%);
+          radial-gradient(ellipse 55% 45% at 28% 38%, rgba(236, 78, 114, 0.18) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 55% at 72% 58%, rgba(122, 37, 162, 0.13) 0%, transparent 60%),
+          radial-gradient(ellipse 45% 40% at 62% 30%, rgba(253, 143, 101, 0.14) 0%, transparent 55%),
+          radial-gradient(ellipse 42% 42% at 44% 72%, rgba(253, 207, 127, 0.12) 0%, transparent 55%);
         pointer-events: none;
-        animation: glowBreathe 7s ease-in-out infinite;
+        animation: glowBreathe 7s ease-in-out infinite, glowDrift 22s ease-in-out infinite;
+        will-change: transform;
+      }
+      @keyframes glowDrift {
+        0%   { transform: translate(-50%, -50%) rotate(0deg)  scale(1); }
+        33%  { transform: translate(-46%, -53%) rotate(8deg)  scale(1.06); }
+        66%  { transform: translate(-54%, -47%) rotate(-6deg) scale(1.03); }
+        100% { transform: translate(-50%, -50%) rotate(0deg)  scale(1); }
       }
 
       @keyframes glowBreathe {
@@ -1776,7 +1784,7 @@ function SiteStyles() {
         color: var(--cta-text);
         background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
         border: none;
-        box-shadow: 0 10px 30px rgba(16, 27, 62, 0.22);
+        box-shadow: 0 10px 30px rgba(236, 78, 114, 0.30);
         background-size: 200% 200%;
         background-position: 0% 50%;
         transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
@@ -1784,7 +1792,7 @@ function SiteStyles() {
 
       .primaryBtn:hover {
         background-position: 100% 50%;
-        box-shadow: 0 14px 36px rgba(16, 27, 62, 0.30);
+        box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
       }
       .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
 
@@ -2198,7 +2206,7 @@ function SiteStyles() {
       .passingByNotif:hover {
         transform: translateY(-4px) scale(1.02);
         box-shadow:
-          0 4px 20px rgba(16, 27, 62, 0.22),
+          0 4px 20px rgba(236, 78, 114, 0.30),
           0 12px 48px rgba(123, 92, 255, 0.15),
           0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
       }
@@ -2648,7 +2656,7 @@ function SiteStyles() {
         width: 160px;
         height: 160px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(16, 27, 62, 0.22) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
+        background: radial-gradient(circle, rgba(236, 78, 114, 0.30) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
         filter: blur(25px);
         animation: privGlow 4s ease-in-out infinite;
       }
@@ -2901,7 +2909,7 @@ function SiteStyles() {
         padding: 0.65rem 1.25rem;
         border-radius: 999px;
         background: #FFFFFF;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(16, 27, 62, 0.22), rgba(168, 85, 247, 0.25)) border-box;
+        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(236, 78, 114, 0.30), rgba(168, 85, 247, 0.25)) border-box;
         border: 1.5px solid transparent;
         font-size: 0.95rem;
         font-weight: 500;
