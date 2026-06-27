@@ -183,7 +183,7 @@ export default function HomePageClient() {
         <div className="newFooterInner">
           <div className="newFooterBrand">
             <span style={{fontSize:"20px",fontWeight:"700",letterSpacing:"-0.02em",fontFamily:"'DM Sans',sans-serif"}}>Near</span>
-            <p className="newFooterTag">The right thing. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
+            <p className="newFooterTag">The right task. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
           </div>
           <nav className="newFooterNav" aria-label="Footer">
             <div>
@@ -303,7 +303,7 @@ function Hero() {
       <div className="heroSplit">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Never Forget<br /><span className="gradientText heroAccent">Anything Again.</span>
+            Your errands<br /><span className="gradientText heroAccent">find you.</span>
           </h1>
           <p className="heroSub">
             Near catches the errands, groceries, and home things you&rsquo;d

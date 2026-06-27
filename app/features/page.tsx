@@ -67,7 +67,7 @@ export default function FeaturesPage() {
             The right reminder.<br />The right place.<br /><span className="ftGradient">The right person.</span>
           </h1>
           <p className="ftHeroSub">
-            Near turns errands, grocery runs, and household to-dos into timely nudges that appear exactly when they can become action.
+            Near turns errands, grocery runs, and household tasks into timely nudges that appear exactly when they can become action.
           </p>
           <div className="ftHeroDivider" />
         </section>
