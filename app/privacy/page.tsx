@@ -216,6 +216,19 @@ export default function PrivacyPage() {
           </section>
 
           <section className="legalSection">
+            <h2>Cookies, Consent &amp; Website Analytics</h2>
+            <p>
+              Our website (nearesttask.com) does not use advertising cookies, tracking pixels, session-replay tools, or third-party analytics by default. We do not load any third-party tracker when you simply visit the site. Web fonts are served from our own servers, so loading a page does not send your information to a font or content-delivery network.
+            </p>
+            <p>
+              The only thing we store in your browser is a small record of your cookie-consent choice, kept in your browser&apos;s local storage so we don&apos;t ask again. This is strictly necessary for the consent feature itself and is not used to identify or track you.
+            </p>
+            <p>
+              If we later introduce website analytics to understand and improve the site, it will load <strong>only after you opt in</strong> through the consent banner shown on your first visit. You can decline, and nothing beyond the strictly necessary consent record will be loaded or stored. Declining does not limit your use of the site. Like all browsers, our hosting provider may keep standard, short-lived server logs (such as IP address and request metadata) for security and reliability; these are not used for advertising.
+            </p>
+          </section>
+
+          <section className="legalSection">
             <h2>Data Aggregation &amp; Insights</h2>
             <p>
               We may create aggregated, anonymized, or de-identified data derived from your use of the app. This aggregated data is designed not to identify you personally and may be used for lawful purposes such as business intelligence, research, product improvement, and sharing aggregate trends with current or prospective partners. We do not attempt to re-identify aggregated, anonymized, or de-identified data, and we do not permit partners to do so.
