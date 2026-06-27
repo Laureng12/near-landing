@@ -2302,8 +2302,10 @@ function SiteStyles() {
 
       .ecoGrid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
+        max-width: 920px;
+        margin: 0 auto;
       }
 
       .ecoCard {
@@ -3004,17 +3006,11 @@ function SiteStyles() {
         transform-style: preserve-3d;
       }
 
-      /* Sunset — gold */
-      .aiFeatureCard:nth-child(1) {
-        background: linear-gradient(145deg, #FCF6E9 0%, #FBEFD6 30%, #FCE7C6 60%, #FEFAF0 100%);
-      }
-      /* Sunset — pink/magenta */
-      .aiFeatureCard:nth-child(2) {
-        background: linear-gradient(145deg, #FCEDF4 0%, #FBE3EE 30%, #F8DBE8 60%, #FEF3F8 100%);
-      }
-      /* Sunset — purple/indigo */
+      /* Uniform clean cards (color lives in the icon tiles, not the boxes) */
+      .aiFeatureCard:nth-child(1),
+      .aiFeatureCard:nth-child(2),
       .aiFeatureCard:nth-child(3) {
-        background: linear-gradient(145deg, #F2ECFB 0%, #EBE2F7 30%, #E7DCF4 60%, #F7F3FD 100%);
+        background: #FFFFFF;
       }
 
       .aiFeatureCard::before {
@@ -4922,7 +4918,7 @@ function SiteStyles() {
         .splitGrid.reverse .splitVisual { order: 2; }
 
         .ecoGrid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
         }
 
         .sectionTitle.left { text-align: center; }
