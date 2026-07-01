@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, CSSProperties } from "react"
+import { useState, useEffect, CSSProperties } from "react"
 
 const API_BASE = "https://backend-one-xi.vercel.app/v1"
 // Guest → install growth loop. `ct` is an App Store campaign token so installs
@@ -31,6 +31,36 @@ export default function GatherInteractive({
 }) {
   const [event, setEvent] = useState<GatherEvent | null>(initialEvent)
   const notFound = !initialEvent
+
+  // Guest → install funnel. Fire `viewed` once per session (a refresh
+  // shouldn't inflate the count) and `install_click` on the CTA. keepalive so
+  // the click event survives the navigation to the App Store. Best-effort.
+  function track(name: "viewed" | "install_click") {
+    try {
+      fetch(`${API_BASE}/public/gather/${token}/event`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ event: name }),
+        keepalive: true,
+      }).catch(() => {})
+    } catch {
+      /* ignore */
+    }
+  }
+
+  useEffect(() => {
+    if (!event) return
+    try {
+      const key = `gather_viewed_${token}`
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, "1")
+        track("viewed")
+      }
+    } catch {
+      /* sessionStorage unavailable — skip */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [!!event, token])
 
   // RSVP form
   const [name, setName] = useState("")
@@ -199,7 +229,7 @@ export default function GatherInteractive({
         {/* Guest → install loop: host-attributed conversion CTA. The invite
             already puts a household's coordination in front of the guest; this
             turns that moment into a recruit ("host your own, free"). */}
-        <a href={APP_STORE_URL} style={styles.ctaCard}>
+        <a href={APP_STORE_URL} style={styles.ctaCard} onClick={() => track("install_click")}>
           <p style={styles.ctaEyebrow}>
             {event.hostName ? `${event.hostName} planned this with Near.` : "This gathering was planned with Near."}
           </p>
