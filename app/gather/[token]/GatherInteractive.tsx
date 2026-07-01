@@ -3,6 +3,9 @@
 import { useState, CSSProperties } from "react"
 
 const API_BASE = "https://backend-one-xi.vercel.app/v1"
+// Guest → install growth loop. `ct` is an App Store campaign token so installs
+// originating from a gather invite are attributable in App Store Connect.
+const APP_STORE_URL = "https://apps.apple.com/app/id6744145553?ct=guest_gather"
 
 type MenuCourse = { course?: string | null; title: string }
 type RSVP = { name: string; status: string; partySize: number; note?: string | null }
@@ -193,6 +196,18 @@ export default function GatherInteractive({
           </div>
         )}
 
+        {/* Guest → install loop: host-attributed conversion CTA. The invite
+            already puts a household's coordination in front of the guest; this
+            turns that moment into a recruit ("host your own, free"). */}
+        <a href={APP_STORE_URL} style={styles.ctaCard}>
+          <p style={styles.ctaEyebrow}>
+            {event.hostName ? `${event.hostName} planned this with Near.` : "This gathering was planned with Near."}
+          </p>
+          <p style={styles.ctaTitle}>Host your own, free.</p>
+          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place — Near does the remembering.</p>
+          <span style={styles.ctaBtn}>Get Near</span>
+        </a>
+
         <p style={styles.footer}>Planned with Near</p>
       </div>
     </main>
@@ -256,6 +271,19 @@ const styles: Record<string, CSSProperties> = {
   secondary: {
     width: "100%", marginTop: 12, padding: "13px", borderRadius: 14, cursor: "pointer",
     background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFEFD4", fontSize: 15, fontWeight: 600,
+  },
+  ctaCard: {
+    display: "block", textDecoration: "none",
+    background: "linear-gradient(180deg, rgba(219,72,144,0.14) 0%, rgba(219,72,144,0.05) 100%)",
+    border: "1px solid rgba(219,72,144,0.3)",
+    borderRadius: 24, padding: 24, marginTop: 4,
+  },
+  ctaEyebrow: { color: "#FFEFD4", fontSize: 13, fontWeight: 600, letterSpacing: 0.3, margin: "0 0 8px" },
+  ctaTitle: { color: "#fff", fontSize: 22, fontWeight: 700, margin: "0 0 8px", lineHeight: 1.15 },
+  ctaSub: { color: "rgba(255,255,255,0.7)", fontSize: 15, margin: "0 0 16px", lineHeight: 1.45 },
+  ctaBtn: {
+    display: "inline-block", padding: "12px 22px", borderRadius: 14,
+    background: "#DB4890", color: "#fff", fontSize: 16, fontWeight: 700,
   },
   success: { color: "#7CD9A0", fontSize: 16, fontWeight: 600, margin: 0 },
   dishList: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 4 },
