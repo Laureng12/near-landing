@@ -1,5 +1,24 @@
 import type { Metadata } from "next"
+import { DM_Sans, Instrument_Serif } from "next/font/google"
 import "./globals.css"
+import ConsentBanner from "./ConsentBanner"
+
+// Self-hosted at build time (next/font downloads + serves the fonts from our own
+// origin) — no runtime request to fonts.googleapis.com, so no visitor IP is sent
+// to Google just by loading the page.
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+})
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+})
 
 const SITE_URL = "https://www.nearesttask.com"
 const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
@@ -60,10 +79,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico?v=5", sizes: "64x64" },
-      { url: "/favicon.png?v=5", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.ico?v=6", sizes: "64x64" },
+      { url: "/favicon.png?v=6", sizes: "64x64", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png?v=5", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png?v=6", sizes: "180x180", type: "image/png" }],
   },
   category: "Productivity",
   appleWebApp: {
@@ -130,18 +149,15 @@ const mobileAppJsonLd = {
     {
       "@type": "Offer",
       name: "Near Pro",
-      price: "9.99",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
       availability: "https://schema.org/InStock",
-    },
-    {
-      "@type": "Offer",
-      name: "Near Pro+",
-      price: "12.99",
-      priceCurrency: "USD",
-      url: `${SITE_URL}/pricing`,
-      availability: "https://schema.org/InStock",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "12.99",
+        priceCurrency: "USD",
+        unitText: "MONTH",
+      },
     },
   ],
 }
@@ -165,11 +181,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
       <head>
-        <link rel="icon" href="/favicon.ico?v=5" sizes="64x64" />
-        <link rel="icon" href="/favicon.png?v=5" type="image/png" sizes="64x64" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=5" sizes="180x180" />
+        <link rel="icon" href="/favicon.ico?v=6" sizes="64x64" />
+        <link rel="icon" href="/favicon.png?v=6" type="image/png" sizes="64x64" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=6" sizes="180x180" />
         <meta name="theme-color" content="#FFFFFF" />
         <script
           type="application/ld+json"
@@ -192,6 +208,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <ConsentBanner />
       </body>
     </html>
   )
