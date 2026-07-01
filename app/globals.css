@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss";
 
 html {
@@ -23,9 +24,9 @@ html {
     --pink:         #DB4890;
     --plum-text:    #2A0A16;
 
-  /* Type — self-hosted via next/font (see app/layout.tsx) */
-  --font-sans:    var(--font-dm-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-serif:   var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  /* Type */
+  --font-sans:    "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif:   "Instrument Serif", "Iowan Old Style", Georgia, serif;
 
   /* Legacy vars (kept for backward compat) */
   --background: #FAF6F1;
@@ -40,7 +41,7 @@ html {
     --line: rgba(14, 23, 51, 0.08);
     --line-strong: rgba(14, 23, 51, 0.12);
     --glow: rgba(212, 168, 67, 0.25);
-    --font-display: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
+    --font-display: "DM Sans", -apple-system, system-ui, sans-serif;
     --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
     --mx: 0deg;
     --my: 0deg;
@@ -67,8 +68,4 @@ body {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }

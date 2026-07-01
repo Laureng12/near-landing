@@ -11,12 +11,14 @@ export default function PricingPage() {
   const [billing, setBilling] = useState<"annual" | "monthly">("annual")
 
   const prices = {
-    pro: billing === "annual" ? { amount: "$109", period: "/year" } : { amount: "$12.99", period: "/month" },
+    pro:  billing === "annual" ? { amount: "$79.99", period: "/year" } : { amount: "$9.99",  period: "/month" },
+    plus: billing === "annual" ? { amount: "$109",   period: "/year" } : { amount: "$12.99", period: "/month" },
   }
 
   return (
     <>
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap');
         * { box-sizing: border-box; }
         body { margin: 0; font-family: var(--font-sans, "DM Sans", sans-serif); }
 
@@ -113,9 +115,8 @@ export default function PricingPage() {
 
         /* ── Tiers ── */
         .tiersGrid {
-          display: grid; grid-template-columns: repeat(2, 1fr);
+          display: grid; grid-template-columns: repeat(3, 1fr);
           gap: 24px; align-items: start;
-          max-width: 760px; margin: 0 auto;
         }
         .tierCard {
           background: white; border-radius: 24px; padding: 40px 32px;
@@ -226,7 +227,7 @@ export default function PricingPage() {
               The location magic is free. <em>Always.</em>
             </h1>
             <p className="pricingSub">
-              Pro adds intelligence on top &mdash; meal plans, AI suggestions,
+              Pro and Pro+ add intelligence on top &mdash; meal plans, AI suggestions,
               deeper analytics. Cancel anytime.
             </p>
             <div className="pricingToggle">
@@ -282,16 +283,30 @@ export default function PricingPage() {
               <Link href={APP_STORE_URL} className="tierCta primary">Start 7-day free trial</Link>
             </article>
 
+            {/* Pro+ */}
+            <article className="tierCard">
+              <h2 className="tierName">Pro+</h2>
+              <p className="tierPrice">
+                <strong>{prices.plus.amount}</strong>
+                <span>{prices.plus.period}</span>
+              </p>
+              <p className="tierTag">The full surface.</p>
+              <ul className="tierList">
+                <li>Everything in Pro</li>
+                <li>Aisle-aware grocery lists</li>
+                <li>Cart price intelligence</li>
+                <li>Pantry tracking</li>
+                <li>Household pantry sync</li>
+                <li>Priority support</li>
+              </ul>
+              <Link href={APP_STORE_URL} className="tierCta ghost">Choose Pro+</Link>
+            </article>
+
           </div>
 
           <p className="pricingFootnote">
-            Pro is $12.99/month or $109/year, and starts with a 7-day free trial.
-            Subscriptions auto-renew unless canceled at least 24 hours before the end of
-            the period; manage or cancel anytime in Settings &rarr; Apple ID.
-            See our{" "}
-            <Link href="/terms" style={{ textDecoration: "underline", color: "inherit" }}>Terms</Link>
-            {" "}and{" "}
-            <Link href="/privacy" style={{ textDecoration: "underline", color: "inherit" }}>Privacy Policy</Link>.
+            Monthly: $9.99 (Pro) &middot; $12.99 (Pro+). 7-day free trial on annual plans.
+            Cancel anytime in Settings &rarr; Apple ID.
           </p>
         </div>
       </div>

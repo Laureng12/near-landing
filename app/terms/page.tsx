@@ -23,7 +23,7 @@ export default function TermsPage() {
       <main className="legalMain">
         <article className="legalContent">
           <h1 className="legalTitle">Terms &amp; Conditions</h1>
-          <p className="legalUpdated">Last updated June 27, 2026</p>
+          <p className="legalUpdated">Last updated June 9, 2026</p>
 
           <section className="legalSection">
             <h2>Agreement to Terms</h2>
@@ -175,16 +175,6 @@ export default function TermsPage() {
             </ul>
             <p>
               Near relies on iPhone location services, which are provided by Apple and subject to their own terms and limitations.
-            </p>
-          </section>
-
-          <section className="legalSection">
-            <h2>Reliance on the App</h2>
-            <p>
-              Near is an assistive convenience tool, not a guaranteed or fail-safe reminder service. Location detection and notifications depend on factors outside our control &mdash; including GPS accuracy, your device settings and permissions, battery level and Low Power Mode, network conditions, and Apple&apos;s location and notification systems &mdash; and may be delayed, inaccurate, or fail to appear.
-            </p>
-            <p>
-              <strong>Do not rely on Near for any matter where a missed, late, or inaccurate reminder could cause harm, injury, or loss.</strong> This includes medical, health, or medication needs; financial, legal, or tax deadlines; child, elder, or dependent care; travel or transportation; and any other safety-critical or time-sensitive task. You remain solely responsible for completing your own tasks and for independently verifying anything important. Near is intended to help you remember everyday errands and household tasks, not to serve as your sole or primary safeguard for anything consequential.
             </p>
           </section>
 

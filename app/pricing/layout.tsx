@@ -3,14 +3,14 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Pricing | Near",
   description:
-    "Near's core location-based reminders are free. Compare Free and Pro — Pro adds AI meal plans, recipe Discover, smart observations, and voice intake.",
+    "Near's core location-based reminders are free. Compare Free, Pro, and Pro+ plans for AI meal plans, smart observations, pantry tracking, and household features.",
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
     title: "Pricing | Near",
     description:
-      "Near's core location-based reminders are free. Compare Free and Pro — Pro adds AI meal plans, recipe Discover, smart observations, and voice intake.",
+      "Near's core location-based reminders are free. Compare Free, Pro, and Pro+ plans for AI meal plans, smart observations, pantry tracking, and household features.",
     url: "/pricing",
     type: "website",
     images: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         url: "/near-og.png",
         width: 1200,
         height: 630,
-        alt: "Near pricing for Free and Pro plans",
+        alt: "Near pricing for Free, Pro, and Pro+ plans",
       },
     ],
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pricing | Near",
     description:
-      "Near's core location-based reminders are free. Compare Free and Pro — Pro adds AI meal plans, recipe Discover, smart observations, and voice intake.",
+      "Near's core location-based reminders are free. Compare Free, Pro, and Pro+ plans for AI meal plans, smart observations, pantry tracking, and household features.",
     images: ["/near-og.png"],
   },
 }
