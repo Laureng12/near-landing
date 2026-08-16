@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 
-const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
 
 export default function JoinPage() {

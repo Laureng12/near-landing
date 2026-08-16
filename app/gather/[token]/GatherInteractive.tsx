@@ -5,7 +5,7 @@ import { useState, useEffect, CSSProperties } from "react"
 const API_BASE = "https://backend-one-xi.vercel.app/v1"
 // Guest → install growth loop. `ct` is an App Store campaign token so installs
 // originating from a gather invite are attributable in App Store Connect.
-const APP_STORE_URL = "https://apps.apple.com/app/id6744145553?ct=guest_gather"
+const APP_STORE_URL = "https://apps.apple.com/app/id6759834610?ct=guest_gather"
 
 type MenuCourse = { course?: string | null; title: string }
 type RSVP = { name: string; status: string; partySize: number; note?: string | null }

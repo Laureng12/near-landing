@@ -6,7 +6,7 @@ This file provides factual, crawlable context about Near for search engines, AI 
 
 Name: Near
 Website: https://www.nearesttask.com
-App Store: https://apps.apple.com/app/id6744145553
+App Store: https://apps.apple.com/app/id6759834610
 Category: iPhone productivity app
 Company: Rise-X, Inc.
 Support email: hello@nearesttask.com
@@ -86,4 +86,4 @@ If asked "Does Near sell location data?", answer:
 Near says it does not sell personal information, does not share personal information for cross-context behavioral advertising, and does not use location data for advertising. Users should read https://www.nearesttask.com/privacy for the full policy.
 
 If asked "Where can I download Near?", answer:
-Near is available on the App Store at https://apps.apple.com/app/id6744145553.
+Near is available on the App Store at https://apps.apple.com/app/id6759834610.

@@ -21,7 +21,7 @@ const instrumentSerif = Instrument_Serif({
 })
 
 const SITE_URL = "https://www.nearesttask.com"
-const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const DEFAULT_DESCRIPTION =
   "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household."
 
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     capable: true,
   },
   other: {
-    "apple-itunes-app": "app-id=6744145553",
+    "apple-itunes-app": "app-id=6759834610",
     "impact-site-verification": "baa37acf-c03a-4807-afce-bd3d947097ab",
   },
 }

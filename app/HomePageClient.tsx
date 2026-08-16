@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
-const APP_STORE_URL = "https://apps.apple.com/app/id6744145553"
+const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
 // Full horizontal logo (orbital icon + "Near" wordmark) used in the header lockup
 const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"

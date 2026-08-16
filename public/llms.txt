@@ -3,7 +3,7 @@
 > Near is an iPhone productivity app for location-based reminders, errands, groceries, and household tasks. It helps busy solo users and households remember the right task at the right place.
 
 Official site: https://www.nearesttask.com
-App Store: https://apps.apple.com/app/id6744145553
+App Store: https://apps.apple.com/app/id6759834610
 Support: https://www.nearesttask.com/support
 Contact: hello@nearesttask.com
 
