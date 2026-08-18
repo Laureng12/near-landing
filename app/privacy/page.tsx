@@ -23,7 +23,7 @@ export default function PrivacyPage() {
       <main className="legalMain">
         <article className="legalContent">
           <h1 className="legalTitle">Privacy Policy</h1>
-          <p className="legalUpdated">Last updated June 27, 2026</p>
+          <p className="legalUpdated">Last updated August 18, 2026</p>
 
           <section className="legalSection">
             <h2>Introduction</h2>
@@ -46,6 +46,7 @@ export default function PrivacyPage() {
               <li><strong>Identifiers</strong> such as phone number, user ID, Sign in with Apple token, display name, and push notification token.</li>
               <li><strong>Geolocation data</strong> such as saved place coordinates and arrival or departure events at saved places. Near does not continuously transmit your live route to our servers.</li>
               <li><strong>User content</strong> such as tasks, lists, notes, due dates, saved places, addresses, and household membership.</li>
+              <li><strong>Audio data</strong> when you use voice capture — the recorded audio is sent to our speech-to-text provider to transcribe what you said, and the resulting transcript is stored with your account.</li>
               <li><strong>Internet or electronic network activity</strong> such as app feature usage, permission events, task creation/completion counts, and notification interactions.</li>
               <li><strong>Commercial information</strong> only if you enable optional retail features, such as Kroger account integration.</li>
             </ul>
@@ -124,6 +125,11 @@ export default function PrivacyPage() {
             <h3>Device Information</h3>
             <p>
               We collect basic device information (push notification tokens and platform identifier) solely to deliver push notifications.
+            </p>
+
+            <h3>Voice Input</h3>
+            <p>
+              When you use voice capture to add items by speaking, the recorded audio is sent to our speech-to-text provider (OpenAI) to convert it into text. We use the resulting transcript only to create the tasks, lists, or places you dictated, and we store that transcript with your account so the feature works reliably. Voice input is optional — you can always type instead. If your device supports on-device transcription, some voice processing may happen locally on your device without the audio leaving it.
             </p>
           </section>
 
@@ -205,6 +211,9 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Apple MapKit</strong> — for place search and map display
+              </li>
+              <li>
+                <strong>OpenAI (voice transcription)</strong> — when you use voice capture, your recorded audio is sent to OpenAI&apos;s speech-to-text service to convert it into text. The audio is used only to produce the transcript for your request; we do not use it for advertising.
               </li>
               <li>
                 <strong>Kroger (optional)</strong> — if you choose to connect your Kroger account, we use OAuth to link your account so you can send grocery items to your Kroger cart and receive aisle and pricing data. You can disconnect at any time from your profile settings.
@@ -356,7 +365,7 @@ export default function PrivacyPage() {
               <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>. You may also use an authorized agent to submit a request on your behalf. We will verify your identity and, where applicable, the agent&apos;s authorization before processing the request.
             </p>
             <p>
-              In the preceding 12 months, we have collected the following categories of personal information: identifiers, geolocation data, user content, internet or electronic network activity information, device information, and optional commercial information when you enable partner integrations. We collect these categories from you, your device, Apple platform services, household members who interact with shared content, and optional partner integrations you connect. We disclose personal information to service providers and optional integration partners as described in this policy. We retain each category for the periods described in &quot;Data Retention &amp; Deletion.&quot;
+              In the preceding 12 months, we have collected the following categories of personal information: identifiers, geolocation data, user content, audio data (voice capture), internet or electronic network activity information, device information, and optional commercial information when you enable partner integrations. We collect these categories from you, your device, Apple platform services, household members who interact with shared content, and optional partner integrations you connect. We disclose personal information to service providers and optional integration partners as described in this policy. We retain each category for the periods described in &quot;Data Retention &amp; Deletion.&quot;
             </p>
 
             <h3>Canadian Residents (PIPEDA)</h3>
