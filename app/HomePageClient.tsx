@@ -330,13 +330,13 @@ function Hero() {
       <div className="heroSplit">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Never Forget<br /><span className="gradientText heroAccent">Anything Again.</span>
+            The right task.<br /><span className="gradientText heroAccent">Right when you arrive.</span>
           </h1>
           <p className="heroSub">
-            Near catches every errand, grocery run, and home thing you&rsquo;d
-            otherwise forget &mdash; then drops it onto your lock screen the
-            second you arrive where it gets done. No lists. No reminders to set.
-            You just show up.
+            Near quietly holds every errand, grocery, and home thing &mdash; then
+            puts it on your lock screen the second you&rsquo;re at the place it
+            gets done. Start solo; add your household and everyone stops
+            reminding each other.
           </p>
           <div className="heroPhases">
             <p key={phase} className="heroPhaseText phaseVisible">
