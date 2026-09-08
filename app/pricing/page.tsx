@@ -226,8 +226,8 @@ export default function PricingPage() {
               The location magic is free. <em>Always.</em>
             </h1>
             <p className="pricingSub">
-              Pro adds intelligence on top &mdash; meal plans, AI suggestions,
-              deeper analytics. Cancel anytime.
+              Pro adds intelligence on top &mdash; meal plans, AI recipes, and
+              lists that restock themselves. Cancel anytime.
             </p>
             <div className="pricingToggle">
               <button

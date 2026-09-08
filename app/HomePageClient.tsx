@@ -438,7 +438,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           <div className="phoneHomeHeader">
             <div className="phoneHomeHeaderLeft">
               <div className="phoneGreeting">Good morning, Reese</div>
-              <div className="phoneHomeTitle">Let’s get things done.</div>
+              <div className="phoneHomeTitle">Here’s what’s near you.</div>
               <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
             </div>
             <div className="phoneHomeHeaderRight">
@@ -1022,7 +1022,7 @@ function NaturalInput() {
         <div className="splitCopy">
           <h2 className="sectionTitle left" data-parallax>Add tasks the way <span className="gradientText">you think.</span></h2>
           <p className="bodyText">
-            Type what you think. Near hears it. Places it. Done.
+            Say it or type it. Near places it. Done.
           </p>
         </div>
         <div className="splitVisual">
@@ -1195,7 +1195,7 @@ function PrivacySection() {
           </div>
           <div className="privacyRing" />
         </div>
-        <h2 className="sectionTitle" data-parallax>Your task intelligence. <span className="gradientText">Kept private.</span></h2>
+        <h2 className="sectionTitle" data-parallax>Everything Near learns. <span className="gradientText">Kept private.</span></h2>
         <p className="bodyText center">
           Near uses location only to surface tasks at the moment they matter.<br />
           Your live route is not continuously sent to us.
