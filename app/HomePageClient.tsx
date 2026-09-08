@@ -56,28 +56,33 @@ function use3DEffects() {
     // static while cards move) or the pointer left through another surface
     // ("stuck in an awkward spot"). Fine-pointer only: a touch tap can't leave
     // a stuck tilt behind.
+    const finePointer = window.matchMedia('(pointer: fine)').matches
     const tiltCleanups: Array<() => void> = []
-    if (window.matchMedia('(pointer: fine)').matches) {
-      document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card) => {
-        const onMove = (e: MouseEvent) => {
-          const rect = card.getBoundingClientRect()
-          const rotateX = (((e.clientY - rect.top) - rect.height / 2) / rect.height) * 8
-          const rotateY = (((e.clientX - rect.left) - rect.width / 2) / rect.width) * -8
-          card.style.setProperty('--mx', `${rotateY}deg`)
-          card.style.setProperty('--my', `${rotateX}deg`)
-        }
-        const reset = () => {
-          card.style.setProperty('--mx', '0deg')
-          card.style.setProperty('--my', '0deg')
-        }
-        card.addEventListener('mousemove', onMove)
-        card.addEventListener('mouseleave', reset)
-        tiltCleanups.push(() => {
-          card.removeEventListener('mousemove', onMove)
-          card.removeEventListener('mouseleave', reset)
-        })
+    document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card, i) => {
+      // Stagger the ambient float so cards don't drift in unison (all devices).
+      // Negative delay starts each card mid-cycle, so there's no dead pause on load.
+      card.style.animationDelay = `${(i % 6) * -1.3}s`
+
+      // Hover tilt is fine-pointer only — a touch tap can't strand a stuck tilt.
+      if (!finePointer) return
+      const onMove = (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect()
+        const rotateX = (((e.clientY - rect.top) - rect.height / 2) / rect.height) * 8
+        const rotateY = (((e.clientX - rect.left) - rect.width / 2) / rect.width) * -8
+        card.style.setProperty('--mx', `${rotateY}deg`)
+        card.style.setProperty('--my', `${rotateX}deg`)
+      }
+      const reset = () => {
+        card.style.setProperty('--mx', '0deg')
+        card.style.setProperty('--my', '0deg')
+      }
+      card.addEventListener('mousemove', onMove)
+      card.addEventListener('mouseleave', reset)
+      tiltCleanups.push(() => {
+        card.removeEventListener('mousemove', onMove)
+        card.removeEventListener('mouseleave', reset)
       })
-    }
+    })
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
@@ -1949,10 +1954,31 @@ function SiteStyles() {
       .sectionTitle.center { text-align: center; }
       .sectionTitle.left { text-align: left; }
 
+      /* Registered so the hover-tilt angles and the ambient-float offsets can
+         each animate independently inside one transform without fighting a
+         transform-level transition. */
+      @property --mx { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+      @property --my { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+      @property --floatY { syntax: '<length>'; inherits: false; initial-value: 0px; }
+      @property --floatR { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
       [data-tilt] {
-        transform: perspective(1200px) rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg));
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transform: perspective(1200px)
+          translateY(var(--floatY, 0px)) rotate(var(--floatR, 0deg))
+          rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg));
+        /* Transition the tilt ANGLES (not transform) so the always-on float
+           keyframe animating --floatY/--floatR is never re-smoothed/fought. */
+        transition: --mx 0.3s ease, --my 0.3s ease, box-shadow 0.3s ease;
+        animation: cardFloat 8s ease-in-out infinite;
         will-change: transform;
+      }
+
+      /* Gentle, calm ambient drift — a few px of lift and a hair of rotation.
+         Cards are staggered via inline animation-delay (set in use3DEffects)
+         so they don't bob in unison. */
+      @keyframes cardFloat {
+        0%, 100% { --floatY: 0px;  --floatR: -0.5deg; }
+        50%      { --floatY: -7px; --floatR:  0.5deg; }
       }
 
       .bodyText {
@@ -4902,7 +4928,7 @@ function SiteStyles() {
 
       @media (prefers-reduced-motion: reduce) {
         .reveal { transition-duration: 0.01ms !important; }
-        [data-tilt] { transform: none !important; transition: none !important; }
+        [data-tilt] { transform: none !important; transition: none !important; animation: none !important; }
         .sectionTitle { transform: none !important; }
         .gradientText { animation: none !important; }
         .privacyOrbitRing { animation: none !important; }
