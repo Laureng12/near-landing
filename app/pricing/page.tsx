@@ -255,7 +255,7 @@ export default function PricingPage() {
               <ul className="tierList">
                 <li>Location-aware reminders</li>
                 <li>Lock Screen widget</li>
-                <li>Manual task entry</li>
+                <li>Voice &amp; manual task entry</li>
                 <li>Grocery list with department grouping</li>
                 <li>Household sync (1 partner)</li>
               </ul>
@@ -276,7 +276,7 @@ export default function PricingPage() {
                 <li>Unlimited AI meal plans</li>
                 <li>AI recipe Discover</li>
                 <li>Smart Observations (10 rules)</li>
-                <li>Voice intake</li>
+                <li>Predictive restock lists</li>
                 <li>Annual Wrapped</li>
               </ul>
               <Link href={APP_STORE_URL} className="tierCta primary">Start 7-day free trial</Link>

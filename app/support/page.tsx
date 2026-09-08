@@ -58,7 +58,8 @@ export default function SupportPage() {
 
             <h3>How do I share lists with my household?</h3>
             <p>
-              Go to the Household tab, create a household, and send an invite link to your
+              Tap your avatar in the top corner to open your profile, then tap
+              &quot;Invite a household member&quot; and send the invite link to your
               partner or roommates. Once they join, all your places and tasks are shared
               automatically.
             </p>
