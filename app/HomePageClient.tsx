@@ -48,34 +48,43 @@ function use3DEffects() {
       })
     }
 
-    const tiltCards = (e: MouseEvent) => {
-      document.querySelectorAll('[data-tilt]').forEach((card) => {
-        const rect = card.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        const y = e.clientY - rect.top
-        const rotateX = ((y - rect.height / 2) / rect.height) * 8
-        const rotateY = ((x - rect.width / 2) / rect.width) * -8
-        ;(card as HTMLElement).style.setProperty('--mx', `${rotateY}deg`)
-        ;(card as HTMLElement).style.setProperty('--my', `${rotateX}deg`)
-      })
-    }
-
-    const resetTilt = () => {
-      document.querySelectorAll('[data-tilt]').forEach((card) => {
-        ;(card as HTMLElement).style.setProperty('--mx', '0deg')
-        ;(card as HTMLElement).style.setProperty('--my', '0deg')
+    // 3D tilt — scoped PER CARD so a card only tilts while the cursor is
+    // actually over it, and always snaps back to flat when the cursor leaves.
+    // The old version listened on `window` and tilted EVERY card from one
+    // global cursor position, only resetting on window-leave — so cards sat
+    // permanently tilted and froze mid-tilt when the page scrolled (cursor
+    // static while cards move) or the pointer left through another surface
+    // ("stuck in an awkward spot"). Fine-pointer only: a touch tap can't leave
+    // a stuck tilt behind.
+    const tiltCleanups: Array<() => void> = []
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card) => {
+        const onMove = (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect()
+          const rotateX = (((e.clientY - rect.top) - rect.height / 2) / rect.height) * 8
+          const rotateY = (((e.clientX - rect.left) - rect.width / 2) / rect.width) * -8
+          card.style.setProperty('--mx', `${rotateY}deg`)
+          card.style.setProperty('--my', `${rotateX}deg`)
+        }
+        const reset = () => {
+          card.style.setProperty('--mx', '0deg')
+          card.style.setProperty('--my', '0deg')
+        }
+        card.addEventListener('mousemove', onMove)
+        card.addEventListener('mouseleave', reset)
+        tiltCleanups.push(() => {
+          card.removeEventListener('mousemove', onMove)
+          card.removeEventListener('mouseleave', reset)
+        })
       })
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('mousemove', tiltCards)
-    window.addEventListener('mouseleave', resetTilt)
     handleScroll()
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('mousemove', tiltCards)
-      window.removeEventListener('mouseleave', resetTilt)
+      tiltCleanups.forEach((fn) => fn())
     }
   }, [])
 }
