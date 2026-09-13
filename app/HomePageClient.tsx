@@ -334,12 +334,12 @@ function PhoneMockup({ phase }: { phase: number }) {
               <div className="phoneGroupTasks">
                 <div className="phoneGroupTaskRow">
                   <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Gift for mom</span>
+                  <span className="phoneGroupTaskText">Water the plants</span>
                   <span className="phoneTaskDot phoneTaskDotOrange" />
                 </div>
                 <div className="phoneGroupTaskRow">
                   <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Pick up dry cleaning</span>
+                  <span className="phoneGroupTaskText">Take out recycling</span>
                   <span className="phoneTaskDot phoneTaskDotRed" />
                 </div>
               </div>
@@ -435,8 +435,8 @@ function PhoneMockup({ phase }: { phase: number }) {
                 <span className="phoneBadge">2</span>
               </div>
               <div className="phonePlaceTags">
-                <span className="phonePlaceTaskTag">Gift for mom</span>
-                <span className="phonePlaceTaskTag">Pick up dry cleaning</span>
+                <span className="phonePlaceTaskTag">Water the plants</span>
+                <span className="phonePlaceTaskTag">Take out recycling</span>
               </div>
             </div>
             <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
@@ -498,11 +498,11 @@ function PhoneMockup({ phase }: { phase: number }) {
             <div className="hhNearTasks">
               <div className="phoneGroupTaskRow">
                 <span className="phoneTaskCheck" />
-                <span className="phoneGroupTaskText">Gift for mom</span>
+                <span className="phoneGroupTaskText">Water the plants</span>
               </div>
               <div className="phoneGroupTaskRow">
                 <span className="phoneTaskCheck" />
-                <span className="phoneGroupTaskText">Pick up dry cleaning</span>
+                <span className="phoneGroupTaskText">Take out recycling</span>
               </div>
             </div>
             <div className="hhViewTasks">
@@ -518,7 +518,7 @@ function PhoneMockup({ phase }: { phase: number }) {
               <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
               <div className="hhPlaceInfo">
                 <span className="phoneGroupName">Home</span>
-                <span className="hhPlaceTasksText">Gift for mom &middot; Pick up dry cleaning</span>
+                <span className="hhPlaceTasksText">Water the plants &middot; Take out recycling</span>
               </div>
               <span className="phoneBadge">2</span>
             </div>
@@ -542,7 +542,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           <div className="phoneSectionLabel">ACTIVITY</div>
           <div className="phoneGroupItem phoneGroupItemGlass hhActivityRow">
             <span style={{fontSize: "14px"}}>{String.fromCodePoint(0x1F9D1, 0x1F3FB)}</span>
-            <div className="hhActivityText"><strong>Someone</strong> <span style={{color: "rgba(30,50,80,0.45)"}}>added</span> <strong>Gift for mom</strong></div>
+            <div className="hhActivityText"><strong>Someone</strong> <span style={{color: "rgba(30,50,80,0.45)"}}>added</span> <strong>Water the plants</strong></div>
           </div>
         </div>
 
@@ -580,12 +580,12 @@ function PhoneMockup({ phase }: { phase: number }) {
             <div className="lockTaskList">
               <div className="lockTaskItem lockTaskItem1">
                 <div className="lockTaskCheck" />
-                <span className="lockTaskText">Return package</span>
+                <span className="lockTaskText">Diapers</span>
                 <span className="lockTaskPriority lockTaskPriorityOrange" />
               </div>
               <div className="lockTaskItem lockTaskItem2">
                 <div className="lockTaskCheck" />
-                <span className="lockTaskText">Diapers</span>
+                <span className="lockTaskText">Paper towels</span>
                 <span className="lockTaskPriority lockTaskPriorityRed" />
               </div>
             </div>
