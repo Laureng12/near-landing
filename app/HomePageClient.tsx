@@ -45,6 +45,7 @@ const moments = [
   { tone: "grocery", text: "Groceries when you walk into the store" },
   { tone: "errand", text: "Returns before you pass the drop-off" },
   { tone: "pharmacy", text: "Prescriptions when you reach the pharmacy" },
+  { tone: "ask", text: "The question for the doctor when you\u2019re finally in the room" },
   { tone: "home", text: "Home things the moment you come through the door" },
 ]
 
@@ -1408,8 +1409,9 @@ function SiteStyles() {
       }
       .placeGlyph--grocery  { background: #4C7A5A; }
       .placeGlyph--errand   { background: var(--accent-lit); }
-      .placeGlyph--home     { background: var(--gold); }
       .placeGlyph--pharmacy { background: #4A6FB5; }
+      .placeGlyph--ask      { background: #7B5C9E; }
+      .placeGlyph--home     { background: var(--peach); }
       /* ── Capture ───────────────────────────────────────────── */
 
       /* ── Household ─────────────────────────────────────────── */
