@@ -118,7 +118,7 @@ export default function FeaturesPage() {
             <div className="ftFeatureLayout ftFeatureLayout2">
               <div className="ftFeatureText">
                 <h2 className="ftFeatureTitle">Keeps the household aligned</h2>
-                <p className="ftFeatureDesc">See who&apos;s closest and hand it off in a tap &mdash; no back-and-forth.</p>
+                <p className="ftFeatureDesc">See who&apos;s closest and hand it off in a tap - no back-and-forth.</p>
               </div>
               <div className="ftFeatureVisual">
                 <div className="ft3DStage">
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
                       </div>
                       <div className="ftHHNudge">
                         <div className="ftHHNudgeDot" />
-                        <span>Lauren is closer — send her the list?</span>
+                        <span>Lauren is closer - send her the list?</span>
                       </div>
                     </div>
                   </div>

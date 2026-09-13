@@ -1,63 +1,101 @@
 @import "tailwindcss";
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 :root {
-    /* Sunset cascade */
-  --plum-deep:    #0B1228;
-    --plum-base:    #14213F;
-    --plum-soft:    #2E1838;
-    --plum-warm:    #5C2440;
-    --berry:        #8B2A4A;
-    --rose:         #C44850;
-    --peach:        #F08246;
-    --gold-soft:    #FFC988;
-    --cream-warm:   #FFEFD4;
-    --cream:        #FAF6F1;
-    --cream-text:   #FFF0DB;
+  /* ── Ground ───────────────────────────────────────────────
+     Warm paper in the light chapters, deep plum sky in the dark ones.
+     Warmth lives in the gradient, never in a flat fill.            */
+  --paper:         #FBF8F3;
+  --paper-sunk:    #F4EFE7;
+  --paper-raised:  #FFFFFF;
 
-  /* Brand accents */
-  --gold:         #D4A843;
-    --pink:         #DB4890;
-    --plum-text:    #2A0A16;
+  --night:         #0B1228;
+  --night-deep:    #070C1C;
+  --night-soft:    #14213F;
+  --night-plum:    #2E1838;
 
-  /* Type — self-hosted via next/font (see app/layout.tsx) */
-  --font-sans:    var(--font-dm-sans), -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-serif:   var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  /* ── Ink ──────────────────────────────────────────────── */
+  --ink:           #14183A;
+  --ink-soft:      #4A4E68;
+  --ink-faint:     #7C7F92;
+  --ink-hair:      rgba(20, 24, 58, 0.10);
+  --ink-hair-soft: rgba(20, 24, 58, 0.06);
 
-  /* Legacy vars (kept for backward compat) */
-  --background: #FAF6F1;
-    --foreground: #2A0A16;
-    --text-secondary: #6E6E73;
-    --surface: #F5F5F7;
-    --blue: #101B3E;
-    --blue-hover: #243463;
-    --cta: #EC4E72;
-    --cta-deep: #D83E66;
-    --cta-text: #FFFFFF;
-    --line: rgba(14, 23, 51, 0.08);
-    --line-strong: rgba(14, 23, 51, 0.12);
-    --glow: rgba(212, 168, 67, 0.25);
-    --font-display: var(--font-dm-sans), -apple-system, system-ui, sans-serif;
-    --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
-    --mx: 0deg;
-    --my: 0deg;
-    --parallax-offset: 0px;
+  --on-night:          #FFF4E4;
+  --on-night-soft:     rgba(255, 244, 228, 0.68);
+  --on-night-faint:    rgba(255, 244, 228, 0.42);
+  --on-night-hair:     rgba(255, 244, 228, 0.14);
+
+  /* ── Gold - Near's voice. Discovery, AI, the arrival moment.
+     Never a user-action colour.                                  */
+  --gold:          #C4942F;
+  --gold-lit:      #D4A843;
+  --gold-glow:     rgba(212, 168, 67, 0.22);
+
+  /* ── Accent - the user's move.                                 */
+  --accent:        #A8264A;
+  --accent-lit:    #C44850;
+  --peach:         #F08246;
+
+  /* ── Type ───────────────────────────────────────────────── */
+  --font-sans:  var(--font-dm-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+
+  /* ── Rhythm ─────────────────────────────────────────────── */
+  --shell:      1140px;
+  --gutter:     clamp(20px, 5vw, 40px);
+  --chapter:    clamp(84px, 11vw, 148px);
+  --radius:     22px;
+  --radius-sm:  14px;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft:  cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Legacy aliases kept so /features, /pricing, /privacy, /terms,
+     /support and /join keep rendering while they are migrated.     */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --text-secondary: var(--ink-soft);
+  --surface: var(--paper-sunk);
+  --blue: #14213F;
+  --blue-hover: #243463;
+  --cta: var(--accent);
+  --cta-deep: #8E1D3D;
+  --cta-text: #FFFFFF;
+  --line: var(--ink-hair-soft);
+  --line-strong: var(--ink-hair);
+  --glow: var(--gold-glow);
+  --font-display: var(--font-sans);
+  --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
+  --plum-deep: var(--night);
+  --plum-base: var(--night-soft);
+  --plum-soft: var(--night-plum);
+  --cream: var(--paper);
+  --cream-text: var(--on-night);
+  --plum-text: var(--ink);
+  --pink: var(--accent-lit);
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
-    transform: translate3d(0, 0, 0);
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-/* Accessibility + performance: honor reduced-motion */
+::selection {
+  background: var(--gold-glow);
+  color: var(--ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -67,8 +105,4 @@ body {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }

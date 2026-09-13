@@ -5,19 +5,19 @@ const SITE_URL = "https://www.nearesttask.com"
 const faqItems = [
   {
     q: "What is a location-based reminder?",
-    a: "A location-based reminder is a task that appears when you arrive at or pass a specific place. Near uses location awareness to automatically show errands and reminders when they become relevant.",
+    a: "A task that waits at a place instead of a time. Near holds it quietly until you arrive at the store, the pharmacy, or your own front door, then shows it on your Lock Screen.",
   },
   {
     q: "How does Near know when I arrive somewhere?",
-    a: "Near uses iPhone location services to detect when you arrive at a location such as a grocery store, pharmacy, or home. When you reach that location, the relevant tasks appear automatically.",
+    a: "iPhone location services tell Near you have reached a place you saved. The geofence is handled by iOS on the device; Near simply surfaces what belongs there.",
   },
   {
     q: "Can Near share grocery lists with family members?",
-    a: "Yes. Near supports shared household lists so anyone in the household can add items. When someone is near the store, they receive the reminder.",
+    a: "Yes. A household shares one memory. Anyone can add to it, and whoever is closest to the store is the one who gets the reminder.",
   },
   {
     q: "Does Near track my location?",
-    a: "Near uses location to show tasks when they matter and does not use location data for advertising. Geofences are handled by iOS, while saved places, tasks, and arrival events may sync to support reminders, account sync, and household features.",
+    a: "Near uses location to surface a task at the moment it matters, and never for advertising. Geofences run on your iPhone. Saved places, tasks, and arrival events sync so reminders and household sharing work, and you can delete all of it at any time.",
   },
 ]
 
@@ -26,10 +26,10 @@ function HomeStructuredData() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${SITE_URL}/#webpage`,
-    name: "Near | The right task. At the right place.",
+    name: "Near - Never forget anything again | Location reminders for iPhone",
     url: SITE_URL,
     description:
-      "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household.",
+      "Near remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design.",
     isPartOf: {
       "@id": `${SITE_URL}/#website`,
     },

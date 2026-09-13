@@ -46,7 +46,7 @@ export default function PrivacyPage() {
               <li><strong>Identifiers</strong> such as phone number, user ID, Sign in with Apple token, display name, and push notification token.</li>
               <li><strong>Geolocation data</strong> such as saved place coordinates and arrival or departure events at saved places. Near does not continuously transmit your live route to our servers.</li>
               <li><strong>User content</strong> such as tasks, lists, notes, due dates, saved places, addresses, and household membership.</li>
-              <li><strong>Audio data</strong> when you use voice capture — the recorded audio is sent to our speech-to-text provider to transcribe what you said, and the resulting transcript is stored with your account.</li>
+              <li><strong>Audio data</strong> when you use voice capture - the recorded audio is sent to our speech-to-text provider to transcribe what you said, and the resulting transcript is stored with your account.</li>
               <li><strong>Internet or electronic network activity</strong> such as app feature usage, permission events, task creation/completion counts, and notification interactions.</li>
               <li><strong>Commercial information</strong> only if you enable optional retail features, such as Kroger account integration.</li>
             </ul>
@@ -92,10 +92,10 @@ export default function PrivacyPage() {
             </p>
             <ul>
               <li>
-                <strong>Arrival and departure events</strong> — when you enter or leave a geofenced place, we record the event (place ID, timestamp, and coordinates) on our server to trigger reminders, track visit history, and enable household arrival notifications.
+                <strong>Arrival and departure events</strong> - when you enter or leave a geofenced place, we record the event (place ID, timestamp, and coordinates) on our server to trigger reminders, track visit history, and enable household arrival notifications.
               </li>
               <li>
-                <strong>Current location</strong> — used on-device for distance-based sorting and route awareness. Your real-time location is not continuously transmitted to our server.
+                <strong>Current location</strong> - used on-device for distance-based sorting and route awareness. Your real-time location is not continuously transmitted to our server.
               </li>
             </ul>
             <p>
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
 
             <h3>Voice Input</h3>
             <p>
-              When you use voice capture to add items by speaking, the recorded audio is sent to our speech-to-text provider (OpenAI) to convert it into text. We use the resulting transcript only to create the tasks, lists, or places you dictated, and we store that transcript with your account so the feature works reliably. Voice input is optional — you can always type instead. If your device supports on-device transcription, some voice processing may happen locally on your device without the audio leaving it.
+              When you use voice capture to add items by speaking, the recorded audio is sent to our speech-to-text provider (OpenAI) to convert it into text. We use the resulting transcript only to create the tasks, lists, or places you dictated, and we store that transcript with your account so the feature works reliably. Voice input is optional - you can always type instead. If your device supports on-device transcription, some voice processing may happen locally on your device without the audio leaving it.
             </p>
           </section>
 
@@ -201,22 +201,22 @@ export default function PrivacyPage() {
             <p>Near integrates with the following services:</p>
             <ul>
               <li>
-                <strong>Hosting, database, authentication, analytics, and support providers</strong> — service providers that process data on our behalf to operate Near, secure accounts, maintain the service, analyze product quality, and respond to support or privacy requests
+                <strong>Hosting, database, authentication, analytics, and support providers</strong> - service providers that process data on our behalf to operate Near, secure accounts, maintain the service, analyze product quality, and respond to support or privacy requests
               </li>
               <li>
-                <strong>Apple Push Notification service (APNs)</strong> — for delivering task reminders and arrival notifications
+                <strong>Apple Push Notification service (APNs)</strong> - for delivering task reminders and arrival notifications
               </li>
               <li>
-                <strong>Apple WeatherKit</strong> — your coordinates are sent to Apple&apos;s weather service to power weather-aware errand suggestions
+                <strong>Apple WeatherKit</strong> - your coordinates are sent to Apple&apos;s weather service to power weather-aware errand suggestions
               </li>
               <li>
-                <strong>Apple MapKit</strong> — for place search and map display
+                <strong>Apple MapKit</strong> - for place search and map display
               </li>
               <li>
-                <strong>OpenAI (voice transcription)</strong> — when you use voice capture, your recorded audio is sent to OpenAI&apos;s speech-to-text service to convert it into text. The audio is used only to produce the transcript for your request; we do not use it for advertising.
+                <strong>OpenAI (voice transcription)</strong> - when you use voice capture, your recorded audio is sent to OpenAI&apos;s speech-to-text service to convert it into text. The audio is used only to produce the transcript for your request; we do not use it for advertising.
               </li>
               <li>
-                <strong>Kroger (optional)</strong> — if you choose to connect your Kroger account, we use OAuth to link your account so you can send grocery items to your Kroger cart and receive aisle and pricing data. You can disconnect at any time from your profile settings.
+                <strong>Kroger (optional)</strong> - if you choose to connect your Kroger account, we use OAuth to link your account so you can send grocery items to your Kroger cart and receive aisle and pricing data. You can disconnect at any time from your profile settings.
               </li>
             </ul>
             <p>
@@ -308,31 +308,31 @@ export default function PrivacyPage() {
             <p>You have the right to:</p>
             <ul>
               <li>
-                <strong>Access your data</strong> — all your tasks, places, and profile information are visible directly in the app
+                <strong>Access your data</strong> - all your tasks, places, and profile information are visible directly in the app
               </li>
               <li>
-                <strong>Correct your data</strong> — update inaccurate profile, task, place, or household information directly in the app, or contact us for help
+                <strong>Correct your data</strong> - update inaccurate profile, task, place, or household information directly in the app, or contact us for help
               </li>
               <li>
-                <strong>Delete your account</strong> — permanently remove all your personal data from our servers via profile settings
+                <strong>Delete your account</strong> - permanently remove all your personal data from our servers via profile settings
               </li>
               <li>
-                <strong>Control location access</strong> — change or revoke location permissions at any time in iPhone Settings
+                <strong>Control location access</strong> - change or revoke location permissions at any time in iPhone Settings
               </li>
               <li>
-                <strong>Disconnect integrations</strong> — unlink your Kroger account or other partner accounts at any time from profile settings
+                <strong>Disconnect integrations</strong> - unlink your Kroger account or other partner accounts at any time from profile settings
               </li>
               <li>
-                <strong>Leave a household</strong> — remove yourself from shared lists at any time
+                <strong>Leave a household</strong> - remove yourself from shared lists at any time
               </li>
               <li>
-                <strong>Opt out of personalization</strong> — contact us to reset personalization data
+                <strong>Opt out of personalization</strong> - contact us to reset personalization data
               </li>
               <li>
-                <strong>Opt out of sale or sharing</strong> — Near does not currently sell personal information or share it for cross-context behavioral advertising, but you may contact us with any opt-out request
+                <strong>Opt out of sale or sharing</strong> - Near does not currently sell personal information or share it for cross-context behavioral advertising, but you may contact us with any opt-out request
               </li>
               <li>
-                <strong>Limit sensitive personal information</strong> — we use sensitive personal information only to provide and improve Near&apos;s requested services, and you can reduce location collection by changing location permissions in iPhone Settings
+                <strong>Limit sensitive personal information</strong> - we use sensitive personal information only to provide and improve Near&apos;s requested services, and you can reduce location collection by changing location permissions in iPhone Settings
               </li>
             </ul>
 

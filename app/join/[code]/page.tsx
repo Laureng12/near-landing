@@ -45,7 +45,7 @@ export default function JoinPage() {
 
         <h1 style={styles.title}>You&apos;ve been invited</h1>
         <p style={styles.subtitle}>
-          Someone wants to share their lists with you on <strong style={{ color: "#fff" }}>Near</strong> &mdash;
+          Someone wants to share their lists with you on <strong style={{ color: "#fff" }}>Near</strong> -
           the app that shows you what you need, right when you arrive.
         </p>
 
@@ -79,7 +79,7 @@ export default function JoinPage() {
         </div>
 
         <a href={APP_STORE_URL} style={styles.button}>
-          Download Near &mdash; It&apos;s Free
+          Download Near - It&apos;s Free
         </a>
 
         <div style={styles.steps}>
@@ -89,7 +89,7 @@ export default function JoinPage() {
         </div>
 
         <p style={styles.hint}>
-          Already have Near? Open the app &mdash; it will detect this invite automatically.
+          Already have Near? Open the app - it will detect this invite automatically.
         </p>
       </div>
 

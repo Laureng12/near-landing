@@ -6,319 +6,165 @@ import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
-// Full horizontal logo (orbital icon + "Near" wordmark) used in the header lockup
 const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
-const ICON_VARIANTS = [
+
+/* The product story, in three beats. This replaces the six overlapping
+   sections the old site used to explain the same behaviour. */
+const beats = [
   {
-    name: "Dawn",
-    src: "/assets/brand/Near-Icon-Orbital-Dawn-1024.png",
-    alt: "Dawn color variant of the Near app icon",
+    step: "01",
+    title: "Say it.",
+    line: "“Paper towels at Target.”",
+    body: "Type it or speak it. That is the entire capture step.",
   },
   {
-    name: "Day",
-    src: "/assets/brand/Near-Icon-Orbital-Day-1024.png",
-    alt: "Day color variant of the Near app icon",
+    step: "02",
+    title: "Near places it.",
+    line: "Target · Household",
+    body: "No folders, no tags, no organizing. It goes where it gets done.",
   },
   {
-    name: "Dusk",
-    src: "/assets/brand/Near-Icon-Orbital-Dusk-1024.png",
-    alt: "Dusk color variant of the Near app icon",
-  },
-  {
-    name: "Night",
-    src: "/assets/brand/Near-Icon-Orbital-Night-1024.png",
-    alt: "Night color variant of the Near app icon",
-  },
-] as const
-
-const KEY_SENTENCE =
-  "Near remembers errands, groceries, home things, and the small promises busy people would otherwise carry in their head. It surfaces them at the moment and place they matter. Start solo. Add your people when the household needs shared memory."
-
-function use3DEffects() {
-  useEffect(() => {
-    const isMobile = window.matchMedia('(max-width: 720px)').matches
-    const handleScroll = () => {
-      if (isMobile) return
-      document.querySelectorAll('[data-parallax]').forEach((el) => {
-        const rect = el.getBoundingClientRect()
-        const center = rect.top + rect.height / 2
-        const viewCenter = window.innerHeight / 2
-        const offset = (center - viewCenter) * 0.04
-        ;(el as HTMLElement).style.setProperty('--parallax-offset', `${offset}px`)
-      })
-    }
-
-    // 3D tilt — scoped PER CARD so a card only tilts while the cursor is
-    // actually over it, and always snaps back to flat when the cursor leaves.
-    // The old version listened on `window` and tilted EVERY card from one
-    // global cursor position, only resetting on window-leave — so cards sat
-    // permanently tilted and froze mid-tilt when the page scrolled (cursor
-    // static while cards move) or the pointer left through another surface
-    // ("stuck in an awkward spot"). Fine-pointer only: a touch tap can't leave
-    // a stuck tilt behind.
-    const finePointer = window.matchMedia('(pointer: fine)').matches
-    const tiltCleanups: Array<() => void> = []
-    document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((card, i) => {
-      // Stagger the ambient float so cards don't drift in unison (all devices).
-      // Negative delay starts each card mid-cycle, so there's no dead pause on load.
-      card.style.animationDelay = `${(i % 6) * -1.3}s`
-
-      // Hover tilt is fine-pointer only — a touch tap can't strand a stuck tilt.
-      if (!finePointer) return
-      const onMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect()
-        const rotateX = (((e.clientY - rect.top) - rect.height / 2) / rect.height) * 8
-        const rotateY = (((e.clientX - rect.left) - rect.width / 2) / rect.width) * -8
-        card.style.setProperty('--mx', `${rotateY}deg`)
-        card.style.setProperty('--my', `${rotateX}deg`)
-      }
-      const reset = () => {
-        card.style.setProperty('--mx', '0deg')
-        card.style.setProperty('--my', '0deg')
-      }
-      card.addEventListener('mousemove', onMove)
-      card.addEventListener('mouseleave', reset)
-      tiltCleanups.push(() => {
-        card.removeEventListener('mousemove', onMove)
-        card.removeEventListener('mouseleave', reset)
-      })
-    })
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      tiltCleanups.forEach((fn) => fn())
-    }
-  }, [])
-}
-
-const ecosystemItems = [
-  {
-    icon: "\uD83D\uDCF1",
-    title: "iPhone",
-    description:
-      "Your list appears on your lock screen when you arrive.",
-  },
-  {
-    icon: "\u231A",
-    title: "Apple Watch",
-    description:
-      "A gentle tap when something nearby matters.",
-  },
-  {
-    icon: "\uD83C\uDF10",
-    title: "Siri & Maps",
-    description:
-      "Ask naturally. See your list where places already live.",
+    step: "03",
+    title: "It appears when you arrive.",
+    line: "You’re at Target",
+    body: "Before you can forget it again.",
   },
 ]
 
-const placesUI = [
-  { name: "Trader Joe’s", count: 4, emoji: "\uD83C\uDF4E" },
-  { name: "Target", count: 2, emoji: "\uD83C\uDFAF" },
-  { name: "Home", count: 3, emoji: "\uD83C\uDFE0" },
-  { name: "Walgreens", count: 1, emoji: "\uD83D\uDC8A" },
+/* Recognizable moments, not another description of geofencing. */
+const moments = [
+  { tone: "grocery", text: "Groceries when you walk into the store" },
+  { tone: "errand", text: "Returns before you pass the drop-off" },
+  { tone: "pharmacy", text: "Prescriptions when you reach the pharmacy" },
+  { tone: "home", text: "Home things the moment you come through the door" },
 ]
 
 const faqItems = [
   {
     q: "What is a location-based reminder?",
-    a: "A location-based reminder is a task that appears when you arrive at or pass a specific place. Near uses location awareness to automatically show errands and reminders when they become relevant.",
+    a: "A task that waits at a place instead of a time. Near holds it quietly until you arrive at the store, the pharmacy, or your own front door, then shows it on your Lock Screen.",
   },
   {
     q: "How does Near know when I arrive somewhere?",
-    a: "Near uses iPhone location services to detect when you arrive at a location such as a grocery store, pharmacy, or home. When you reach that location, the relevant tasks appear automatically.",
+    a: "iPhone location services tell Near you have reached a place you saved. The geofence is handled by iOS on the device; Near simply surfaces what belongs there.",
   },
   {
     q: "Can Near share grocery lists with family members?",
-    a: "Yes. Near supports shared household lists so anyone in the household can add items. When someone is near the store, they receive the reminder.",
+    a: "Yes. A household shares one memory. Anyone can add to it, and whoever is closest to the store is the one who gets the reminder.",
   },
   {
     q: "Does Near track my location?",
-    a: "Near uses location to show tasks when they matter and does not use location data for advertising. Geofences are handled by iOS, while saved places, tasks, and arrival events may sync to support reminders, account sync, and household features.",
+    a: "Near uses location to surface a task at the moment it matters, and never for advertising. Geofences run on your iPhone. Saved places, tasks, and arrival events sync so reminders and household sharing work, and you can delete all of it at any time.",
   },
 ]
 
-/* âââ Page âââ */
+/* ── Reveal on scroll ──────────────────────────────────────────── */
 
-export default function HomePageClient() {
+function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll('.reveal')
+    const els = document.querySelectorAll(".reveal")
     const io = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add("revealed")
-          // Stagger children with data-stagger attribute
-          const children = e.target.querySelectorAll('[data-stagger]')
-          children.forEach((child, i) => {
-            ;(child as HTMLElement).style.transitionDelay = `${i * 120}ms`
-            child.classList.add('staggered')
-          })
-          io.unobserve(e.target)
-        }
-      }),
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("revealed")
+            e.target.querySelectorAll<HTMLElement>("[data-stagger]").forEach((child, i) => {
+              child.style.transitionDelay = `${i * 90}ms`
+            })
+            io.unobserve(e.target)
+          }
+        }),
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     )
-    els.forEach(el => io.observe(el))
+    els.forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [])
+}
 
-  use3DEffects()
+/* ── Page ──────────────────────────────────────────────────────── */
+
+export default function HomePageClient() {
+  useReveal()
 
   return (
     <main className="page">
       <TopNav />
       <Hero />
-      <AIDefinition />
-      <ArriveSection />
-      <PassingBySection />
-      <EcosystemSection />
-      <PhasesSection />
-      <SimplerInterface />
-      <NaturalInput />
-      <HouseholdSection />
-      <BuiltForCouplesSection />
-      <MealPlanSection />
-      <MapsSection />
-      <CalmTechnology />
-      <PrivacySection />
-      <PhilosophySection />
+      <ProofLine />
+      <ThreeBeats />
+      <HouseholdChapter />
+      <MomentsSection />
+      <QuietSection />
       <FAQSection />
       <FinalCTA />
-      <footer className="siteFooter newFooter">
-        <div className="newFooterInner">
-          <div className="newFooterBrand">
-            <span style={{fontSize:"20px",fontWeight:"700",letterSpacing:"-0.02em",fontFamily:"'DM Sans',sans-serif"}}>Near</span>
-            <p className="newFooterTag">The right task. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>At the right place.</em></p>
-          </div>
-          <nav className="newFooterNav" aria-label="Footer">
-            <div>
-              <h3 className="newFooterNavHead">Product</h3>
-              <Link href="/#how-it-works" className="newFooterLink">How it works</Link>
-              <Link href="/pricing" className="newFooterLink">Pricing</Link>
-              <Link href="/#meal-plan" className="newFooterLink">Meal Plan</Link>
-            </div>
-            <div>
-              <h3 className="newFooterNavHead">Company</h3>
-              <a href="mailto:hello@nearesttask.com" className="newFooterLink">Contact</a>
-              <Link href="/support" className="newFooterLink">Support</Link>
-            </div>
-            <div>
-              <h3 className="newFooterNavHead">Legal</h3>
-              <Link href="/privacy" className="newFooterLink">Privacy</Link>
-              <Link href="/terms" className="newFooterLink">Terms</Link>
-            </div>
-          </nav>
-        </div>
-        <div className="newFooterApp">
-          <a href={APP_STORE_URL} className="newFooterCta">Download on the App Store</a>
-          <p className="newFooterCopy">&copy; 2026 Near. Made for the places you go.</p>
-        </div>
-      </footer>
+      <SiteFooter />
       <SiteStyles />
     </main>
   )
 }
 
-/* âââ Nav âââ */
+/* ── Nav ───────────────────────────────────────────────────────── */
 
 function TopNav() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [lifted, setLifted] = useState(false)
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+    const onScroll = () => setLifted(window.scrollY > 12)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
     }
-    return () => { document.body.style.overflow = '' }
-  }, [mobileMenuOpen])
+  }, [open])
 
   return (
-    <header className="nav">
+    <header className={`nav ${lifted ? "navLifted" : ""}`}>
       <div className="navInner">
-        <a className="brand" href="#top">
-          <Image
-            src={BRAND_WORDMARK}
-            alt="Near"
-            className="brandFullLogo"
-            width={1185}
-            height={500}
-            priority
-            quality={100}
-          />
+        <a className="brand" href="#top" aria-label="Near, home">
+          <Image src={BRAND_WORDMARK} alt="Near" className="brandLogo" width={1185} height={500} priority quality={100} />
         </a>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href="#how-it-works">How it works</a>
+          <a className="navLink hideOnMobile" href="#household">For households</a>
           <Link className="navLink hideOnMobile" href="/pricing">Pricing</Link>
-          <a className="navLink hideOnMobile" href="#household">Household</a>
           <a className="navCta hideOnMobile" href={APP_STORE_URL}>Download</a>
           <button
             className="hamburger"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
           >
-            <span className={`hamburgerBar ${mobileMenuOpen ? 'hamburgerOpen' : ''}`} />
-            <span className={`hamburgerBar ${mobileMenuOpen ? 'hamburgerOpen' : ''}`} />
-            <span className={`hamburgerBar ${mobileMenuOpen ? 'hamburgerOpen' : ''}`} />
+            <span className={`hamburgerBar ${open ? "hamburgerOpen" : ""}`} />
+            <span className={`hamburgerBar ${open ? "hamburgerOpen" : ""}`} />
           </button>
         </nav>
       </div>
 
-      {/* Mobile menu overlay */}
-      <div
-        className={`mobileMenuOverlay ${mobileMenuOpen ? 'mobileMenuVisible' : ''}`}
-        onClick={() => setMobileMenuOpen(false)}
-      />
-      <div className={`mobileMenu ${mobileMenuOpen ? 'mobileMenuVisible' : ''}`}>
-        <a className="mobileMenuLink" href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How it works</a>
-        <a className="mobileMenuLink" href="#household" onClick={() => setMobileMenuOpen(false)}>Household</a>
-        <Link className="mobileMenuLink" href="/features" onClick={() => setMobileMenuOpen(false)}>Features</Link>
-        <a className="mobileMenuCta" href={APP_STORE_URL}>Download</a>
+      <div className={`mobileMenuOverlay ${open ? "mobileMenuVisible" : ""}`} onClick={() => setOpen(false)} />
+      <div className={`mobileMenu ${open ? "mobileMenuVisible" : ""}`}>
+        <a className="mobileMenuLink" href="#how-it-works" onClick={() => setOpen(false)}>How it works</a>
+        <a className="mobileMenuLink" href="#household" onClick={() => setOpen(false)}>For households</a>
+        <Link className="mobileMenuLink" href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
+        <a className="mobileMenuCta" href={APP_STORE_URL}>Download Near</a>
       </div>
     </header>
   )
 }
 
-/* âââ Hero (auto-cycling phases) âââ */
-
-const PHASE_NAMES = ["home", "lock-notif", "places", "household"] as const
-const PHASE_DURATION = 4600 // ms per phase
-
-const phaseTexts = [
-  "For the person already juggling work, errands, dinner, and home.",
-  "Arrive at the store. The thing you needed is already there.",
-  "Use it solo as your memory on autopilot.",
-  "Add your partner or household so everyone stops reminding each other.",
-]
+/* ── Hero ──────────────────────────────────────────────────────────
+   One headline, one sentence, one live product moment. The phone is
+   locked to the arrival instant rather than cycling through screens:
+   the benefit has to read before anyone reaches the body copy.      */
 
 function Hero() {
-  const [phase, setPhase] = useState(1) // lead with the arrival-notification moment
   const heroRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      setPhase((p) => (p + 1) % PHASE_NAMES.length)
-    }, PHASE_DURATION)
-    return () => clearInterval(id)
-  }, [])
-
-  // Replay the arrival moment whenever the hero scrolls back into view
-  useEffect(() => {
-    const el = heroRef.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) setPhase(1) }),
-      { threshold: 0.5 }
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
-  // Cursor-reactive glow — throttled to one update per animation frame
   const posRef = useRef({ x: 0, y: 0 })
   const rafRef = useRef<number | null>(null)
   const onHeroMove = (e: ReactMouseEvent<HTMLElement>) => {
@@ -339,49 +185,39 @@ function Hero() {
 
   return (
     <section className="hero" id="top" ref={heroRef} onMouseMove={onHeroMove}>
-      <div className="heroGlow" />
-      <div className="heroCursorGlow hideOnMobile" />
-      <div className="heroSplit">
+      <div className="heroDawn" aria-hidden="true" />
+      <div className="heroCursorGlow hideOnMobile" aria-hidden="true" />
+      <div className="heroInner">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            The right task.<br /><span className="gradientText heroAccent">Right when you arrive.</span>
+            Never Forget
+            <br />
+            <em>Anything Again.</em>
           </h1>
-          <p className="heroSub">
-            Near quietly holds every errand, grocery, and home thing &mdash; then
-            puts it on your lock screen the second you&rsquo;re at the place it
-            gets done. Start solo; add your household and everyone stops
-            reminding each other.
+          <p className="heroLead">
+            Near remembers what you need and where you need it - then puts it
+            on your Lock Screen the moment you arrive.
           </p>
-          <div className="heroPhases">
-            <p key={phase} className="heroPhaseText phaseVisible">
-              {phaseTexts[phase]}
-            </p>
-          </div>
           <div className="heroCtas">
-            <a className="primaryBtn" href={APP_STORE_URL}>Download on the App Store</a>
-            <a className="secondaryBtn" href="#how-it-works">See how it works</a>
+            <a className="btnPrimary" href={APP_STORE_URL}>Download Near</a>
+            <a className="btnGhost" href="#how-it-works">Watch it work</a>
           </div>
-          <a className="heroQr hideOnMobile" href={APP_STORE_URL} aria-label="Scan to download Near on the App Store">
-            <Image src="/app-store-qr.png" alt="QR code linking to Near on the App Store" width={84} height={84} />
-            <span>Scan to download<br />on your iPhone</span>
-          </a>
+          <p className="heroMicro">Free for iPhone. No ads. Private by design.</p>
         </div>
         <div className="heroPhone">
-          <PhoneMockup phase={phase} />
+          <PhoneMockup phase={1} />
         </div>
       </div>
     </section>
   )
 }
 
-/* --- Phone Mockup (auto-cycling phases) --- */
-
 /* Which tab is active per phase: 0=Home, 1=lock+notif, 2=Places, 3=lock+notif */
 const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
 
 const notifData = [
   null, // home screen
-  { title: "Near", body: "You’re near Target — 1 item on your list" },
+  { title: "Near", body: "You’re near Target - 1 item on your list" },
   null, // places screen
   { title: "Near", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
   null, // household screen
@@ -438,7 +274,7 @@ function PhoneMockup({ phase }: { phase: number }) {
           <div className="phoneHomeHeader">
             <div className="phoneHomeHeaderLeft">
               <div className="phoneGreeting">Good morning, Reese</div>
-              <div className="phoneHomeTitle">Here’s what’s near you.</div>
+              <div className="phoneHomeTitle">Let’s get things done.</div>
               <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
             </div>
             <div className="phoneHomeHeaderRight">
@@ -728,14 +564,14 @@ function PhoneMockup({ phase }: { phase: number }) {
               />
               <div className="lockProximityTitleArea">
                 <div className="lockProximityLabel">NEAR</div>
-                <div className="lockProximityTitle">You’re near Target</div>
-                <div className="lockProximitySub">1.2 mi · 2 items on your list</div>
+                <div className="lockProximityTitle">You’re at Target</div>
+                <div className="lockProximitySub">2 things you needed</div>
               </div>
             </div>
             <div className="lockTaskList">
               <div className="lockTaskItem lockTaskItem1">
                 <div className="lockTaskCheck" />
-                <span className="lockTaskText">Stroller</span>
+                <span className="lockTaskText">Return package</span>
                 <span className="lockTaskPriority lockTaskPriorityOrange" />
               </div>
               <div className="lockTaskItem lockTaskItem2">
@@ -818,268 +654,84 @@ function PhoneMockup({ phase }: { phase: number }) {
   )
 }
 
-/* âââ AI Definition âââ */
 
-function AIDefinition() {
+/* ── Proof ─────────────────────────────────────────────────────── */
+
+function ProofLine() {
   return (
-    <section className="section sectionSurface sectionMagic" id="what-is-near">
-      <div className="magicOrb magicOrb1" />
-      <div className="magicOrb magicOrb2" />
-      <div className="magicOrb magicOrb3" />
-      <div className="magicAurora" />
-      <div className="reveal sectionShell narrow" style={{position: 'relative', zIndex: 2}}>
-        <h2 className="sectionTitle" data-parallax>What is <span className="gradientText">Near</span>?</h2>
-        <p className="bodyText">{KEY_SENTENCE}</p>
-        <p className="bodyText">
-          Instead of checking lists or setting timers, tasks appear when you arrive at the places where they can actually be completed.
-        </p>
-        <div className="aiFeatureCards">
-          <div className="aiFeatureCard" data-tilt data-stagger>
-            <div className="aiFeatureIcon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" stroke="#FDCF7F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="aiGrad1" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#14213F"/><stop offset="1" stopColor="#E9A335"/></linearGradient></defs>
-              </svg>
-            </div>
-            <div className="aiFeatureLabel">At the store</div>
-            <div className="aiFeatureDesc">Groceries appear when you arrive at the grocery store</div>
-          </div>
-          <div className="aiFeatureCard" data-tilt data-stagger>
-            <div className="aiFeatureIcon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#F1597D" strokeWidth="1.5" fill="none"/>
-                <circle cx="12" cy="9" r="2.5" stroke="#F1597D" strokeWidth="1.5" fill="none"/>
-                <defs><linearGradient id="aiGrad2" x1="5" y1="2" x2="19" y2="22"><stop stopColor="#382B66"/><stop offset="1" stopColor="#E89A86"/></linearGradient></defs>
-              </svg>
-            </div>
-            <div className="aiFeatureLabel">Passing by</div>
-            <div className="aiFeatureDesc">Errand reminders surface when you pass a store</div>
-          </div>
-          <div className="aiFeatureCard" data-tilt data-stagger>
-            <div className="aiFeatureIcon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="#A86FE0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <defs><linearGradient id="aiGrad3" x1="3" y1="3" x2="21" y2="21"><stop stopColor="#0E1830"/><stop offset="1" stopColor="#7B5CC4"/></linearGradient></defs>
-              </svg>
-            </div>
-            <div className="aiFeatureLabel">Arriving home</div>
-            <div className="aiFeatureDesc">Home tasks appear the moment you walk through the door</div>
-          </div>
-        </div>
-        <p className="bodyAccent">Near turns everyday places into reminders.</p>
+    <section className="proof" aria-label="What people say">
+      <div className="reveal proofInner">
+        <blockquote className="proofQuote">
+          &ldquo;The first app that remembers the errand for me.
+          I just show up, and it&rsquo;s there.&rdquo;
+        </blockquote>
+        <cite className="proofName">Lindsay &middot; Near on iPhone</cite>
       </div>
     </section>
   )
 }
 
-/* âââ Arrive âââ */
+/* ── The product, in three beats ───────────────────────────────── */
 
-function ArriveSection() {
+function ThreeBeats() {
   return (
-    <section className="section" id="how-it-works">
-      <div className="reveal sectionShell splitGrid">
-        <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>
-            Arrive somewhere.<br />Your list is <span className="gradientText">already there.</span>
-          </h2>
-          <p className="bodyText">
-            Near understands that most tasks belong to places. When you arrive somewhere, the tasks that belong there appear automatically.
-          </p>
-          <p className="caption">No app opening required.</p>
+    <section className="chapter chapterSunk" id="how-it-works">
+      <div className="reveal shell">
+        <div className="centeredHead">
+          <p className="eyebrow">How it works</p>
+          <h2 className="h2 h2Center">Three steps. Then never again.</h2>
         </div>
-        <div className="splitVisual">
-          <div className="arriveCard" data-tilt>
-            <div className="arriveHeader">
-              <span className="arriveLabel">Now arriving</span>
-              <span className="arriveDot" />
-            </div>
-            <div className="arrivePlace">Trader Joe&apos;s</div>
-            <p className="arriveSubline">Your grocery list is ready</p>
-            <div className="arriveTasks">
-              <TaskRow text="Milk" animateClass="checkOne" />
-              <TaskRow text="Lemons" animateClass="checkTwo" />
-              <TaskRow text="Sparkling water" animateClass="checkThree" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* âââ TaskRow (reused) âââ */
-
-function TaskRow({
-  text,
-  animateClass = "",
-}: {
-  text: string
-  animateClass?: string
-}) {
-  return (
-    <div className={`taskRow ${animateClass}`}>
-      <span className="taskCheck" aria-hidden="true">{"\u2713"}</span>
-      <span className="taskText">{text}</span>
-    </div>
-  )
-}
-
-/* âââ Passing By âââ */
-
-function PassingBySection() {
-  return (
-    <section className="section sectionSurface">
-      <div className="reveal sectionShell splitGrid reverse">
-        <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>
-            Passing a place you need to stop.<br />Near notices before you <span className="gradientText">miss the turn.</span>
-          </h2>
-          <p className="bodyText">
-            Near can surface errands when you pass a place where they can be completed.
-          </p>
-          <p className="caption">Helpful while driving. Quiet by design.</p>
-        </div>
-        <div className="splitVisual">
-          <div className="passingByVisual">
-            <div className="passingByGlow" />
-            <div className="passingByGlow2" />
-            <div className="passingByNotif" data-tilt>
-              <div className="passingByIcon">
-                <Image src={BRAND_ICON} alt="Near" width={28} height={28} style={{borderRadius:'6px'}} />
-              </div>
-              <div className="passingByNotifBody">
-                <div className="passingByLabel">Near &middot; Nearby errand</div>
-                <div className="passingByTitle">Target is on your route</div>
-                <div className="passingByItems">Return package &middot; Buy batteries</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* âââ Ecosystem âââ */
-
-function EcosystemSection() {
-  return (
-    <section className="section">
-      <div className="reveal sectionShell">
-        <div className="sectionHeading">
-          <h2 className="sectionTitle" data-parallax>Designed for the <span className="gradientText">Apple ecosystem.</span></h2>
-        </div>
-        <div className="ecoGrid">
-          {ecosystemItems.map((item, i) => (
-            <article className={`ecoCard ecoCard${i}`} key={item.title} data-tilt>
-              <span className="ecoIcon">{item.icon}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
+        <ol className="beatGrid">
+          {beats.map((b) => (
+            <li className="beat" key={b.step} data-stagger>
+              <span className="beatStep">{b.step}</span>
+              <h3 className="beatTitle">{b.title}</h3>
+              <p className="beatLine">{b.line}</p>
+              <p className="beatBody">{b.body}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )
 }
 
-/* âââ Simpler Interface âââ */
+/* ── Household ─────────────────────────────────────────────────── */
 
-function SimplerInterface() {
+function HouseholdChapter() {
   return (
-    <section className="section sectionSurface">
-      <div className="reveal sectionShell splitGrid">
+    <section className="chapter chapterNight" id="household">
+      <div className="skyWash skyWashWarm" aria-hidden="true" />
+      <div className="reveal shell split">
         <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>Just <span className="gradientText">places.</span></h2>
-          <p className="bodyText">
-            Near organizes tasks around places instead of lists.<br />
-            Because errands belong somewhere.
+          <p className="eyebrow">For households</p>
+          <h2 className="h2">
+            One less thing to
+            <br />
+            <em>remind each other.</em>
+          </h2>
+          <p className="lead">
+            Add something once. When the right person reaches the right place,
+            Near handles the rest.
           </p>
-          <p className="caption">No folders. No tags. No projects.</p>
-        </div>
-        <div className="splitVisual">
-          <div className="placesCard" data-tilt>
-            {placesUI.map((p) => (
-              <div className="placeRow" key={p.name}>
-                <span className="placeEmoji">{p.emoji}</span>
-                <span className="placeName">{p.name}</span>
-                <span className="placeCount">{p.count} {p.count === 1 ? "task" : "tasks"}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* âââ Natural Input âââ */
-
-function NaturalInput() {
-  return (
-    <section className="section">
-      <div className="reveal sectionShell splitGrid reverse">
-        <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>Add tasks the way <span className="gradientText">you think.</span></h2>
-          <p className="bodyText">
-            Say it or type it. Near places it. Done.
-          </p>
-        </div>
-        <div className="splitVisual">
-          <div className="addMock" data-tilt>
-            <button className="micBtn" aria-label="Voice capture preview">
-              <span className="micHalo"></span>
-              <span className="micCore"></span>
-            </button>
-            <p className="micTranscript"><em>&ldquo;Pick up batteries at Target Tuesday.&rdquo;</em></p>
-            <div className="micChips">
-              <span className="inputChip chipActive">Target</span>
-              <span className="inputChip">Home Depot</span>
-              <span className="inputChip">Walgreens</span>
-            </div>
-            <p className="micCaption">Near hears it. Places it. Done.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* âââ Household âââ */
-
-function HouseholdSection() {
-  return (
-    <section className="section sectionSurface" id="household">
-      <div className="reveal sectionShell splitGrid">
-        <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>Start solo.<br />Add your <span className="gradientText">people.</span></h2>
-          <p className="bodyText">
-            Near is useful before anyone joins.<br />
-            Invite your partner or household and it becomes shared memory.
-          </p>
+          <p className="caption">Start on your own. Better together.</p>
         </div>
         <div className="splitVisual">
           <div className="householdVisual">
-            <div className="householdGlow" />
-            <div className="householdGlow2" />
-            <div className="householdOrbit">
-              <div className="householdAvatar householdAvatar1">
-                <span className="householdInitial">L</span>
-              </div>
-              <div className="householdAvatar householdAvatar2">
-                <span className="householdInitial">B</span>
-              </div>
+            <div className="householdOrbit" aria-hidden="true">
               <div className="householdRing" />
               <div className="householdRing householdRing2" />
+              <div className="householdAvatar householdAvatar1"><span>L</span></div>
+              <div className="householdAvatar householdAvatar2"><span>B</span></div>
             </div>
-            <div className="householdNotif" data-tilt>
+            <div className="householdNotif">
               <div className="householdNotifIcon">
-                <Image src={BRAND_ICON} alt="Near" width={24} height={24} style={{borderRadius:'5px'}} />
+                <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </div>
-              <div className="householdNotifBody">
+              <div>
                 <div className="householdNotifLabel">Near &middot; now</div>
-                <div className="householdNotifTitle">Brian is near Target</div>
-                <div className="householdNotifSub">Send the grocery list?</div>
+                <div className="householdNotifTitle">Brian is at Kroger</div>
+                <div className="householdNotifSub">Your shared list is ready</div>
               </div>
             </div>
           </div>
@@ -1089,182 +741,67 @@ function HouseholdSection() {
   )
 }
 
-/* --- Busy people + household multiplier --- */
+/* ── Everyday moments ──────────────────────────────────────────── */
 
-function BuiltForCouplesSection() {
+function MomentsSection() {
   return (
-    <section className="section" id="couples">
-      <div className="reveal sectionShell">
-        <div className="splitCopy" style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-          <span className="eyebrow" style={{ display: "block", marginBottom: 14 }}>Solo first. Shared when useful.</span>
-          <h2 className="sectionTitle" data-parallax>
-            For busy people who are tired<br />
-            <span className="gradientText">of carrying the whole day.</span>
-          </h2>
-          <p className="bodyText" style={{ marginTop: 18 }}>
-            On your own, Near becomes memory on autopilot. Groceries, returns,
-            home errands, and small promises come back at the place they matter.
-          </p>
-          <p className="bodyText" style={{ marginTop: 12, opacity: 0.78 }}>
-            Add your partner or household and the value multiplies. Brian walks
-            into Kroger; Lauren&rsquo;s list appears on his Lock Screen. Nobody texts.
-            Nobody forgets.
-          </p>
-        </div>
+    <section className="chapter">
+      <div className="reveal shell narrow center">
+        <p className="eyebrow">Every day</p>
+        <h2 className="h2 h2Center">The little things stop slipping through.</h2>
+        <ul className="momentList">
+          {moments.map((m) => (
+            <li className="moment" key={m.text} data-stagger>
+              <span className={`placeGlyph placeGlyph--${m.tone}`} aria-hidden="true" />
+              {m.text}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )
 }
 
-/* âââ Maps âââ */
+/* ── Quiet and private ─────────────────────────────────────────── */
 
-function MapsSection() {
+function QuietSection() {
   return (
-    <section className="section">
-      <div className="reveal sectionShell splitGrid reverse">
-        <div className="splitCopy">
-          <h2 className="sectionTitle left" data-parallax>Built around the <span className="gradientText">places you go.</span></h2>
-          <p className="bodyText">
-            Search for a place in Maps and Near shows the tasks waiting there.
-          </p>
+    <section className="chapter chapterSunk">
+      <div className="reveal shell narrow center">
+        <div className="privacyMark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <rect x="13" y="22" width="22" height="17" rx="5" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M18.5 22v-5.5a5.5 5.5 0 0 1 11 0V22" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <circle cx="24" cy="30.5" r="2" fill="currentColor" />
+          </svg>
         </div>
-        <div className="splitVisual">
-          <div className="mapsCard" data-tilt>
-            <div className="mapsPin">{"\uD83D\uDCCD"}</div>
-            <div className="mapsInfo">
-              <div className="mapsName">Walgreens</div>
-              <div className="mapsTask">Pick up prescription</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* âââ Calm Technology âââ */
-
-function CalmTechnology() {
-  return (
-    <section className="section sectionSurface">
-      <div className="reveal sectionShell narrow center">
-        <h2 className="sectionTitle" data-parallax><span className="gradientText">Technology</span> that stays out of the way.</h2>
-        <p className="bodyText center">
-          Near is designed to be quiet. Only high-value moments.
+        <p className="eyebrow">Quiet by design</p>
+        <h2 className="h2 h2Center">
+          Helpful when it matters.
+          <br />
+          Invisible when it doesn&rsquo;t.
+        </h2>
+        <p className="lead leadCenter">
+          Near uses location to deliver your reminders - not to sell ads,
+          build a profile, or follow your day.
         </p>
-        <div className="pillGrid">
-          <span className="pill" data-stagger>No feeds</span>
-          <span className="pill" data-stagger>No streaks</span>
-          <span className="pill" data-stagger>No productivity pressure</span>
-          <span className="pill" data-stagger>No noise</span>
+        <div className="pillRow">
+          <span className="pill" data-stagger>No ads</span>
+          <span className="pill" data-stagger>No data brokers</span>
+          <span className="pill" data-stagger>No productivity guilt</span>
         </div>
       </div>
     </section>
   )
 }
 
-/* âââ Privacy âââ */
-
-function PrivacySection() {
-  return (
-    <section className="section">
-      <div className="reveal sectionShell narrow center">
-        <div className="privacyVisual" data-tilt>
-          <div className="privacyGlow" />
-          <div className="privacyOrbitRing privacyOrbit1">
-            <div className="privacyOrbitParticle privacyParticle1" />
-          </div>
-          <div className="privacyOrbitRing privacyOrbit2">
-            <div className="privacyOrbitParticle privacyParticle2" />
-          </div>
-          <div className="privacyOrbitRing privacyOrbit3">
-            <div className="privacyOrbitParticle privacyParticle3" />
-          </div>
-          <div className="privacyIcon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="12" y="22" width="24" height="18" rx="4" fill="url(#lockGrad)" />
-              <path d="M18 22V16a6 6 0 0 1 12 0v6" stroke="url(#lockGrad)" strokeWidth="3" strokeLinecap="round" fill="none" />
-              <circle cx="24" cy="32" r="2.5" fill="white" />
-              <defs>
-                <linearGradient id="lockGrad" x1="12" y1="16" x2="36" y2="40">
-                  <stop stopColor="#2F6DFF" />
-                  <stop offset="1" stopColor="#7B5CFF" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div className="privacyRing" />
-        </div>
-        <h2 className="sectionTitle" data-parallax>Everything Near learns. <span className="gradientText">Kept private.</span></h2>
-        <p className="bodyText center">
-          Near uses location only to surface tasks at the moment they matter.<br />
-          Your live route is not continuously sent to us.
-        </p>
-        <div className="pillGrid">
-          <span className="pill" data-stagger data-tilt>No ads</span>
-          <span className="pill" data-stagger data-tilt>No data brokers</span>
-          <span className="pill" data-stagger data-tilt>Delete anytime</span>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* âââ Philosophy âââ */
-
-function PhilosophySection() {
-  return (
-    <section className="section sectionSurface">
-      <div className="reveal sectionShell narrow center">
-        <div className="philVisual" data-tilt>
-          <div className="philGlow" />
-          <div className="philGlow2" />
-          <div className="philPulseRing" />
-          <div className="philIcon">
-            <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-              <path d="M26 6C18.27 6 12 12.27 12 20c0 4.5 2.12 8.5 5.43 11.07C18.56 32.01 19 33.2 19 34.5V38a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-3.5c0-1.3.44-2.49 1.57-3.43C37.88 28.5 40 24.5 40 20c0-7.73-6.27-14-14-14z" fill="url(#bulbGrad)" />
-              <rect x="21" y="42" width="10" height="2" rx="1" fill="url(#bulbGrad2)" />
-              <rect x="22" y="45" width="8" height="2" rx="1" fill="url(#bulbGrad2)" opacity="0.6" />
-              <circle cx="26" cy="22" r="4" fill="white" opacity="0.9" />
-              <line x1="26" y1="26" x2="26" y2="34" stroke="white" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
-              <defs>
-                <linearGradient id="bulbGrad" x1="12" y1="6" x2="40" y2="46">
-                  <stop stopColor="#FFB347" />
-                  <stop offset="0.5" stopColor="#FF6B8A" />
-                  <stop offset="1" stopColor="#C74BF6" />
-                </linearGradient>
-                <linearGradient id="bulbGrad2" x1="21" y1="42" x2="30" y2="47">
-                  <stop stopColor="#C74BF6" />
-                  <stop offset="1" stopColor="#7B5CFF" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div className="philSparkle philSparkle1" />
-          <div className="philSparkle philSparkle2" />
-          <div className="philSparkle philSparkle3" />
-          <div className="philSparkle philSparkle4" />
-          <div className="philSparkle philSparkle5" />
-        </div>
-        <h2 className="sectionTitle" data-parallax><em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>Your brain is for ideas.</em></h2>
-        <p className="bodyText center">
-          Not batteries. Not milk. Not remembering to return the package.
-        </p>
-        <p className="bodyText center">
-          Near handles the small logistics of everyday life so you don&apos;t have to think about them.
-        </p>
-      </div>
-    </section>
-  )
-}
-
-/* âââ FAQ âââ */
+/* ── FAQ ───────────────────────────────────────────────────────── */
 
 function FAQSection() {
   return (
-    <section className="section" id="faq">
-      <div className="reveal sectionShell narrow">
-        <h2 className="sectionTitle center" data-parallax>Frequently asked <span className="gradientText">questions</span></h2>
+    <section className="chapter chapterTight" id="faq">
+      <div className="reveal shell narrow">
+        <h2 className="h3Quiet">Questions, answered</h2>
         <div className="faqList">
           {faqItems.map((item) => (
             <details className="faqItem" key={item.q}>
@@ -1278,111 +815,66 @@ function FAQSection() {
   )
 }
 
-/* âââ Final CTA âââ */
+/* ── Close ─────────────────────────────────────────────────────── */
 
 function FinalCTA() {
   return (
     <section className="finalCta">
-      <div className="reveal finalShell">
-        <div className="finalOrb finalOrb1" />
-        <div className="finalOrb finalOrb2" />
-        <div className="finalOrb finalOrb3" />
-        <div className="finalParticle finalP1" />
-        <div className="finalParticle finalP2" />
-        <div className="finalParticle finalP3" />
-        <div className="finalParticle finalP4" />
-        <div className="finalParticle finalP5" />
-        <div className="finalStars">
-          <div className="finalStar finalStar1" />
-          <div className="finalStar finalStar2" />
-          <div className="finalStar finalStar3" />
-          <div className="finalStar finalStar4" />
-          <div className="finalStar finalStar5" />
-          <div className="finalStar finalStar6" />
-        </div>
-
+      <div className="finalSky" aria-hidden="true" />
+      <div className="reveal finalInner">
         <h2 className="finalTitle">
-          The right task.<br />At the right place.
+          Your brain has
+          <br />
+          <em>better things to do.</em>
         </h2>
-        <p className="finalSub">Near remembers so you don{'\u2019'}t have to. Download and let your errands find you.</p>
-        <a className="primaryBtn finalBtn" href={APP_STORE_URL}>
-          Download on the App Store
+        <p className="finalSub">
+          Near remembers the small things - right where they matter.
+        </p>
+        <a className="btnCream" href={APP_STORE_URL}>Download Near</a>
+        <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download Near on the App Store">
+          <Image src="/app-store-qr.png" alt="QR code linking to Near on the App Store" width={72} height={72} />
+          <span>Or scan to open it<br />on your iPhone</span>
         </a>
       </div>
     </section>
   )
 }
 
-/* âââ Styles âââ */
+/* ── Footer ────────────────────────────────────────────────────── */
 
-
-/* ─── Phases Section ─── */
-
-function PhasesSection() {
+function SiteFooter() {
   return (
-    <section className="phasesSection" id="phases">
-      <div className="phasesIntro">
-        <p className="eyebrow">Dawn to Night</p>
-        <h2 className="phasesHeadline">
-          Four moods.<br />
-          <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>Same everyday memory.</em>
-        </h2>
-        <p className="phasesSub">
-          Near&apos;s target shifts from dawn to day, through dusk, and into night,
-          while the mark stays centered on the same simple promise.
-        </p>
-      </div>
-      <div className="phasesGrid">
-        {ICON_VARIANTS.map((variant) => (
-          <figure className="phaseItem" key={variant.name}>
-            <div className="phaseIconWrap">
-              <Image
-                src={variant.src}
-                alt={variant.alt}
-                width={1024}
-                height={1024}
-                quality={100}
-              />
-            </div>
-            <figcaption>{variant.name}</figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-/* ─── Meal Plan Section ─── */
-
-function MealPlanSection() {
-  return (
-    <section className="mealplanSection" id="meal-plan">
-      <div className="mealplanCopy">
-        <p className="eyebrow">Meal Plan</p>
-        <h2 className="mealplanHeadline">
-          Tonight&apos;s dinner. <em style={{fontStyle:'italic', fontFamily:'var(--font-serif)'}}>Already planned.</em>
-        </h2>
-        <p className="mealplanBody">
-          Near plans the week from what your household actually cooks.
-          Carry over what worked. Skip what didn&apos;t. The grocery list builds itself.
-        </p>
-        <ul className="mealplanBullets">
-          <li><span className="mealDot"></span> Drag-and-drop weekly planner</li>
-          <li><span className="mealDot"></span> Recipes auto-fill the grocery list</li>
-          <li><span className="mealDot"></span> Notices when a protein repeats four nights in a row</li>
-          <li><span className="mealDot"></span> Carries over last week&apos;s hits</li>
-        </ul>
-      </div>
-      <div className="mealplanMock">
-        <div className="mealWeek">
-          <div className="mealDay"><span className="mealDayLabel">MON</span><span className="mealDayMeal">Salmon · 25 min</span></div>
-          <div className="mealDay"><span className="mealDayLabel">TUE</span><span className="mealDayMeal">Chicken bowls</span></div>
-          <div className="mealDay mealDayToday"><span className="mealDayLabel">WED · TONIGHT</span><span className="mealDayMeal">Pasta + broccoli</span></div>
-          <div className="mealDay"><span className="mealDayLabel">THU</span><span className="mealDayMeal">Carry-over: salmon</span></div>
-          <div className="mealDay"><span className="mealDayLabel">FRI</span><span className="mealDayMeal">Pizza night</span></div>
+    <footer className="footer">
+      <div className="footerTop">
+        <div className="footerBrand">
+          <span className="footerWord">Near</span>
+          <p className="footerTag">Memory for the places you go.</p>
         </div>
+        <nav className="footerNav" aria-label="Footer">
+          <div>
+            <h3 className="footerHead">Product</h3>
+            <Link href="/#how-it-works" className="footerLink">How it works</Link>
+            <Link href="/#household" className="footerLink">For households</Link>
+            <Link href="/features" className="footerLink">Everything Near does</Link>
+            <Link href="/pricing" className="footerLink">Pricing</Link>
+          </div>
+          <div>
+            <h3 className="footerHead">Company</h3>
+            <a href="mailto:hello@nearesttask.com" className="footerLink">Contact</a>
+            <Link href="/support" className="footerLink">Support</Link>
+          </div>
+          <div>
+            <h3 className="footerHead">Legal</h3>
+            <Link href="/privacy" className="footerLink">Privacy</Link>
+            <Link href="/terms" className="footerLink">Terms</Link>
+          </div>
+        </nav>
       </div>
-    </section>
+      <div className="footerBase">
+        <a href={APP_STORE_URL} className="footerCta">Download Near</a>
+        <p className="footerCopy">&copy; 2026 Near</p>
+      </div>
+    </footer>
   )
 }
 
@@ -1390,2008 +882,692 @@ function SiteStyles() {
   return (
     <style jsx global>{`
 
-      /* ââ Reset ââ */
+      /* ── Reset ─────────────────────────────────────────────── */
 
       * { box-sizing: border-box; }
       a { color: inherit; text-decoration: none; }
 
       .page {
         min-height: 100vh;
-        background: #FFFFFF;
-        color: #121C41;
+        background: var(--paper);
+        color: var(--ink);
+        overflow-x: clip;
       }
 
-      /* ââ Scroll reveal ââ */
+      /* ── Reveal ────────────────────────────────────────────── */
 
       .reveal {
         opacity: 0;
-        transform: translateY(48px) scale(0.94) rotateX(8deg);
-        transform-origin: center bottom;
-        transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translate3d(0, 26px, 0);
+        transition: opacity 1s var(--ease), transform 1s var(--ease);
       }
+      .reveal.revealed { opacity: 1; transform: none; }
 
-      .reveal.revealed {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotateX(0deg);
-      }
-
-      /* Staggered children animation */
-      [data-stagger] {
+      .reveal [data-stagger] {
         opacity: 0;
-        transform: translateY(24px);
-        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translate3d(0, 14px, 0);
+        transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+      }
+      .reveal.revealed [data-stagger] { opacity: 1; transform: none; }
+
+      /* ── Type ──────────────────────────────────────────────── */
+
+      .eyebrow {
+        margin: 0 0 20px;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.19em;
+        text-transform: uppercase;
+        color: var(--gold);
       }
 
-      [data-stagger].staggered {
-        opacity: 1;
-        transform: translateY(0);
+      .h2 {
+        margin: 0;
+        font-size: clamp(2.05rem, 4.6vw, 3.45rem);
+        font-weight: 500;
+        line-height: 1.06;
+        letter-spacing: -0.028em;
+        color: var(--ink);
+        text-wrap: balance;
+      }
+      .h2 em,
+      .heroTitle em,
+      .finalTitle em {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+      .h2Center { text-align: center; }
+
+      .lead {
+        margin: 26px 0 0;
+        max-width: 46ch;
+        font-size: clamp(1.02rem, 1.35vw, 1.17rem);
+        line-height: 1.62;
+        color: var(--ink-soft);
+      }
+      .leadCenter { margin-left: auto; margin-right: auto; text-align: center; }
+
+      .caption {
+        margin: 22px 0 0;
+        font-size: 0.9rem;
+        letter-spacing: 0.005em;
+        color: var(--ink-faint);
       }
 
-      /* ââ Gradient text ââ */
+      /* ── Layout ────────────────────────────────────────────── */
 
-      .gradientText {
-        background: linear-gradient(135deg, #101B3E 0%, #200F8B 20%, #7A25A2 40%, #DB4890 60%, #FD8F65 80%, #FCE496 100%);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+      .chapter {
+        position: relative;
+        padding: var(--chapter) 0;
+        isolation: isolate;
+      }
+      .chapterSunk { background: var(--paper-sunk); }
+
+      .chapterNight {
+        background: var(--night);
+        color: var(--on-night);
+        overflow: hidden;
+      }
+      .chapterNight .h2,
+      .chapterNight .statement { color: var(--on-night); }
+      .chapterNight .lead { color: var(--on-night-soft); }
+      .chapterNight .caption { color: var(--on-night-faint); }
+      .chapterNight .eyebrow { color: var(--gold-lit); }
+      .chapterQuiet { padding: clamp(104px, 14vw, 180px) 0; }
+
+      .skyWash {
+        position: absolute;
+        inset: -30% -10% auto -10%;
+        height: 130%;
+        background:
+          radial-gradient(60% 55% at 22% 12%, rgba(212, 168, 67, 0.16), transparent 62%),
+          radial-gradient(55% 50% at 82% 78%, rgba(196, 72, 80, 0.16), transparent 65%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .skyWashWarm {
+        background:
+          radial-gradient(58% 52% at 76% 16%, rgba(240, 130, 70, 0.18), transparent 62%),
+          radial-gradient(60% 55% at 16% 84%, rgba(139, 42, 74, 0.26), transparent 66%);
+      }
+      .skyWashDeep {
+        background:
+          radial-gradient(70% 60% at 50% 0%, rgba(46, 24, 56, 0.9), transparent 70%),
+          radial-gradient(40% 40% at 50% 92%, rgba(212, 168, 67, 0.12), transparent 70%);
       }
 
-      /* Hero "Anything Again." — brand palette (navy -> pink -> gold); only the hero heading animates */
-      .gradientText.heroAccent {
-        background-image: linear-gradient(135deg, #101B3E 0%, #200F8B 20%, #7A25A2 40%, #DB4890 60%, #FD8F65 80%, #FCE496 100%);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: gradientShift 6s ease-in-out infinite;
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: var(--shell);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+      .shell.narrow { max-width: 760px; }
+      .shell.center { text-align: center; }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.02fr 1fr;
+        gap: clamp(2.5rem, 6vw, 6rem);
+        align-items: center;
+      }
+      .splitReverse .splitCopy { order: 2; }
+      .splitReverse .splitVisual { order: 1; }
+      .splitVisual { display: flex; justify-content: center; }
+
+      .centeredHead {
+        max-width: 720px;
+        margin: 0 auto clamp(3rem, 6vw, 4.75rem);
+        text-align: center;
+      }
+      .centeredHead .eyebrow { text-align: center; }
+
+      /* ── Buttons ───────────────────────────────────────────── */
+
+      .btnPrimary,
+      .btnGhost,
+      .btnCream,
+      .navCta,
+      .footerCta,
+      .mobileMenuCta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font-family: inherit;
+        font-size: 0.97rem;
+        font-weight: 500;
+        letter-spacing: -0.005em;
+        cursor: pointer;
+        transition: transform 0.45s var(--ease), background 0.3s var(--ease-soft),
+          box-shadow 0.45s var(--ease), border-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft);
       }
 
-      @keyframes gradientShift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+      .btnPrimary {
+        padding: 15px 27px;
+        background: var(--night-soft);
+        color: #FFF6E8;
+        box-shadow: 0 10px 28px rgba(20, 33, 63, 0.22);
+      }
+      .btnPrimary:hover {
+        background: #1B2C53;
+        transform: translateY(-2px);
+        box-shadow: 0 16px 38px rgba(20, 33, 63, 0.28);
       }
 
-      /* ââ Nav ââ */
+      .btnGhost {
+        padding: 15px 25px;
+        background: transparent;
+        border-color: var(--ink-hair);
+        color: var(--ink);
+      }
+      .btnGhost:hover { border-color: rgba(20, 24, 58, 0.28); transform: translateY(-2px); }
+
+      .btnCream {
+        padding: 16px 30px;
+        background: var(--on-night);
+        color: #14183A;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+      }
+      .btnCream:hover { transform: translateY(-2px); box-shadow: 0 20px 52px rgba(0, 0, 0, 0.45); }
+
+      .btnPrimary:active, .btnGhost:active, .btnCream:active { transform: translateY(0); }
+
+      /* ── Nav ───────────────────────────────────────────────── */
 
       .nav {
         position: sticky;
         top: 0;
-        z-index: 50;
-        backdrop-filter: saturate(180%) blur(20px);
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        background: rgba(255, 255, 255, 0.8);
-        border-bottom: 1px solid rgba(14, 23, 51, 0.06);
+        z-index: 60;
+        transition: background 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft),
+          border-color 0.4s var(--ease-soft);
+        border-bottom: 1px solid transparent;
       }
-
+      .navLifted {
+        background: rgba(251, 248, 243, 0.78);
+        backdrop-filter: saturate(180%) blur(22px);
+        -webkit-backdrop-filter: saturate(180%) blur(22px);
+        border-bottom-color: var(--ink-hair-soft);
+      }
       .navInner {
-        max-width: 980px;
+        max-width: var(--shell);
         margin: 0 auto;
-        padding: 14px 24px;
+        padding: 14px var(--gutter);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 24px;
+        gap: 20px;
       }
-
-      .brand, .navLinks {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .brandFullLogo {
-        height: 34px;
-        width: auto;
-        display: block;
-        object-fit: contain;
-      }
-
+      .brand { display: inline-flex; align-items: center; }
+      .brandLogo { width: auto; height: 28px; }
+      .navLinks { display: flex; align-items: center; gap: 30px; }
       .navLink {
-        font-size: 0.95rem;
-        color: rgba(29, 29, 31, 0.6);
-        transition: color 0.2s;
+        position: relative;
+        font-size: 0.93rem;
+        color: var(--ink-soft);
+        transition: color 0.3s var(--ease-soft);
       }
-
-      .navLink:hover { color: #121C41; }
+      .navLink::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: -6px;
+        height: 1px;
+        background: var(--gold);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.45s var(--ease);
+      }
+      .navLink:hover { color: var(--ink); }
+      .navLink:hover::after { transform: scaleX(1); }
 
       .navCta {
-        padding: 0.5rem 1.1rem;
-        color: var(--cta-text);
-        background: var(--cta);
-        font-size: 0.88rem;
-        font-weight: 600;
-        border-radius: 999px;
-        transition: background 0.16s;
+        padding: 10px 20px;
+        background: var(--night-soft);
+        color: #FFF6E8;
+        font-size: 0.9rem;
       }
-
-      .navCta:hover { background: var(--cta-deep); }
-
-      /* ── Hamburger (hidden on desktop) ── */
+      .navCta:hover { background: #1B2C53; transform: translateY(-1px); }
 
       .hamburger {
         display: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 6px;
         flex-direction: column;
-        gap: 5px;
-        z-index: 60;
+        gap: 6px;
+        width: 40px; height: 40px;
+        align-items: center; justify-content: center;
+        background: none; border: none; padding: 0;
       }
-
       .hamburgerBar {
-        display: block;
-        width: 22px;
-        height: 2px;
-        background: #121C41;
+        width: 20px; height: 1.5px;
+        background: var(--ink);
         border-radius: 2px;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition: transform 0.4s var(--ease), opacity 0.3s var(--ease-soft);
       }
-
-      .hamburgerBar.hamburgerOpen:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-      .hamburgerBar.hamburgerOpen:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburgerBar.hamburgerOpen:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
-
-      /* ── Mobile menu overlay ── */
+      .hamburgerBar.hamburgerOpen:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+      .hamburgerBar.hamburgerOpen:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
 
       .mobileMenuOverlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(14, 23, 51, 0.3);
-        z-index: 48;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
+        position: fixed; inset: 0;
+        background: rgba(11, 18, 40, 0.4);
+        backdrop-filter: blur(6px);
+        opacity: 0; pointer-events: none;
+        transition: opacity 0.4s var(--ease-soft);
+        z-index: 70;
       }
-
-      .mobileMenuOverlay.mobileMenuVisible {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      /* ── Mobile slide-down menu ── */
-
+      .mobileMenuOverlay.mobileMenuVisible { opacity: 1; pointer-events: auto; }
       .mobileMenu {
-        display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 49;
-        background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: saturate(180%) blur(20px);
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        padding: 90px 24px 32px;
-        flex-direction: column;
-        gap: 8px;
-        transform: translateY(-100%);
-        visibility: hidden;
-        pointer-events: none;
-        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        border-bottom: 1px solid rgba(14, 23, 51, 0.08);
-        box-shadow: 0 4px 24px rgba(14, 23, 51, 0.08);
+        top: 0; right: 0; bottom: 0;
+        width: min(320px, 86vw);
+        background: var(--paper);
+        padding: 92px 30px 34px;
+        display: flex; flex-direction: column; gap: 4px;
+        transform: translateX(100%);
+        transition: transform 0.55s var(--ease);
+        z-index: 80;
+        box-shadow: -24px 0 60px rgba(20, 24, 58, 0.16);
       }
-
-      .mobileMenu.mobileMenuVisible {
-        transform: translateY(0);
-        visibility: visible;
-        pointer-events: auto;
-      }
-
+      .mobileMenu.mobileMenuVisible { transform: none; }
       .mobileMenuLink {
-        font-size: 1.1rem;
-        color: rgba(29, 29, 31, 0.8);
-        padding: 14px 0;
-        border-bottom: 1px solid rgba(14, 23, 51, 0.06);
-        transition: color 0.2s;
+        padding: 15px 0;
+        font-size: 1.12rem;
+        font-weight: 500;
+        color: var(--ink);
+        border-bottom: 1px solid var(--ink-hair-soft);
       }
-
-      .mobileMenuLink:hover {
-        color: #121C41;
-      }
-
       .mobileMenuCta {
-        display: inline-block;
-        margin-top: 12px;
-        padding: 0.7rem 1.4rem;
-        color: var(--cta-text);
-        background: var(--cta);
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 999px;
-        text-align: center;
-        transition: background 0.16s;
+        margin-top: 26px;
+        padding: 15px 22px;
+        background: var(--night-soft);
+        color: #FFF6E8;
       }
 
-      .mobileMenuCta:hover { background: var(--cta-deep); }
-
-
-      /* ââ Hero ââ */
+      /* ── Hero ──────────────────────────────────────────────── */
 
       .hero {
         position: relative;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
+        padding: clamp(48px, 7vw, 82px) 0 clamp(64px, 9vw, 112px);
         overflow: hidden;
-        perspective: 1200px;
-        transform-style: preserve-3d;
+        isolation: isolate;
       }
-
-      .hero::after {
-        content: '';
+      .heroDawn {
         position: absolute;
-        bottom: 0;
-        left: 10%;
-        right: 10%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(219, 72, 144, 0.3) 20%, rgba(199, 75, 246, 0.3) 50%, rgba(255, 107, 138, 0.3) 80%, transparent);
-        border-radius: 1px;
-      }
-
-      .heroGlow {
-        position: absolute;
-        top: 50%;
-        left: 55%;
-        transform: translate(-50%, -50%);
-        width: 1000px;
-        height: 1000px;
-        border-radius: 50%;
-        width: 1120px;
-        height: 1120px;
+        inset: -28% -20% auto -20%;
+        height: 150%;
         background:
-          radial-gradient(ellipse 55% 45% at 28% 38%, rgba(236, 78, 114, 0.30) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 55% at 72% 58%, rgba(122, 37, 162, 0.22) 0%, transparent 60%),
-          radial-gradient(ellipse 45% 40% at 62% 30%, rgba(253, 143, 101, 0.24) 0%, transparent 55%),
-          radial-gradient(ellipse 42% 42% at 44% 72%, rgba(253, 207, 127, 0.18) 0%, transparent 55%);
+          radial-gradient(48% 44% at 18% 6%, rgba(255, 201, 136, 0.5), transparent 64%),
+          radial-gradient(46% 42% at 84% 26%, rgba(219, 72, 144, 0.16), transparent 66%),
+          radial-gradient(60% 46% at 50% 96%, rgba(251, 248, 243, 0.96), transparent 70%);
         pointer-events: none;
-        animation: glowBreathe 7s ease-in-out infinite, glowDrift 22s ease-in-out infinite;
-        will-change: transform;
+        z-index: -2;
+        animation: dawnDrift 26s ease-in-out infinite alternate;
       }
-      @keyframes glowDrift {
-        0%   { transform: translate(-50%, -50%) rotate(0deg)  scale(1); }
-        33%  { transform: translate(-46%, -53%) rotate(8deg)  scale(1.06); }
-        66%  { transform: translate(-54%, -47%) rotate(-6deg) scale(1.03); }
-        100% { transform: translate(-50%, -50%) rotate(0deg)  scale(1); }
+      @keyframes dawnDrift {
+        from { transform: translate3d(0, 0, 0) scale(1); }
+        to   { transform: translate3d(-2%, 1.5%, 0) scale(1.06); }
       }
-
-      /* Cursor-reactive glow */
       .heroCursorGlow {
         position: absolute;
-        left: 0;
-        top: 0;
-        width: 480px;
-        height: 480px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(236, 78, 114, 0.22) 0%, rgba(253, 143, 101, 0.14) 40%, transparent 70%);
-        filter: blur(40px);
+        inset: 0;
+        z-index: -1;
         pointer-events: none;
-        z-index: 0;
-        transform: translate3d(calc(var(--cx, 280px) - 240px), calc(var(--cy, 260px) - 240px), 0);
-        transition: transform 0.22s ease-out;
-        will-change: transform;
+        background: radial-gradient(260px 260px at var(--cx, 50%) var(--cy, 40%), rgba(212, 168, 67, 0.16), transparent 70%);
+        transition: background 0.2s linear;
       }
       @media (prefers-reduced-motion: reduce) {
-        .heroCursorGlow { transition: none; }
-        .heroGlow { animation: none; }
-      }
-      @keyframes ctaSheen {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+        .heroDawn { animation: none; }
+        .heroCursorGlow { display: none; }
       }
 
-      @keyframes glowBreathe {
-        0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-        33% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) rotate(2deg); }
-        66% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.04) rotate(-1deg); }
-      }
-
-      .heroSplit {
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 0 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 4rem;
+      .heroInner {
         position: relative;
-        width: 100%;
+        max-width: var(--shell);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+        display: grid;
+        grid-template-columns: 1.04fr 0.96fr;
+        gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: center;
       }
-
-      .heroCopy {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .heroPhone {
-        flex-shrink: 0;
-        perspective: 1200px;
-        transform-style: preserve-3d;
-      }
-
-      .eyebrow {
-        display: block;
-        /* Build 631 — eyebrow text flipped from legacy var(--blue)
-           to brand pink. Eyebrows lead every section; they should
-           read on the same color register as the rest of the
-           brand (orbital icon, primary CTA, accent gradients). */
-        color: var(--pink);
-        font-size: 15px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        margin-bottom: 1rem;
-      }
+      .heroCopy { max-width: 36rem; }
 
       .heroTitle {
         margin: 0;
-        font-size: clamp(3rem, 8vw, 72px);
+        font-size: clamp(2.9rem, 7.2vw, 4.7rem);
         font-weight: 500;
-        line-height: 1.05;
-        letter-spacing: -0.02em;
-        color: #121C41;
+        line-height: 0.99;
+        letter-spacing: -0.042em;
+        color: var(--ink);
       }
+      .heroTitle em { display: inline-block; letter-spacing: -0.02em; }
 
-      .heroSub {
-        margin: 1.5rem 0 0;
-        font-size: clamp(22px, 2.1vw, 26px);
-        font-weight: 400;
-        line-height: 1.2;
-        color: #121C41;
+      .heroLead {
+        margin: 28px 0 0;
+        max-width: 44ch;
+        font-size: clamp(1.05rem, 1.45vw, 1.2rem);
+        line-height: 1.6;
+        color: var(--ink-soft);
       }
-
-      /* Phase-rotating subtext */
-      .heroPhases {
-        position: relative;
-        display: grid;
-        margin: 1rem 0 0;
-      }
-
-      .heroPhaseText {
-        grid-area: 1 / 1;
-        margin: 0;
-        font-size: 19px;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #6E6E73;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-      }
-
-      .heroPhaseText.phaseVisible {
-        opacity: 1;
-      }
-
       .heroCtas {
+        margin-top: 34px;
         display: flex;
         flex-wrap: wrap;
-        gap: 0.9rem;
-        margin-top: 2rem;
-        justify-content: flex-start;
-      }
-
-      .heroQr {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-        margin-top: 1.6rem;
-        text-decoration: none;
-        color: var(--text-secondary);
-        font-size: 13px;
-        line-height: 1.35;
-        font-weight: 500;
-      }
-      .heroQr :global(img) {
-        border-radius: 12px;
-        border: 1px solid var(--line);
-        padding: 6px;
-        background: #fff;
-        box-shadow: 0 4px 16px rgba(14, 23, 51, 0.08);
-      }
-
-      .primaryBtn, .secondaryBtn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.85rem 1.6rem;
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 999px;
-        transition: background 0.16s, transform 0.16s;
-        white-space: nowrap;
-      }
-
-      .primaryBtn {
-        color: var(--cta-text);
-        background: linear-gradient(115deg, var(--cta-deep) 0%, var(--cta) 38%, #FF8FA3 50%, var(--cta) 62%, var(--cta-deep) 100%);
-        border: none;
-        box-shadow: 0 10px 30px rgba(236, 78, 114, 0.30);
-        background-size: 220% 220%;
-        background-position: 0% 50%;
-        animation: ctaSheen 5.5s ease-in-out infinite;
-        transition: transform 0.16s, box-shadow 0.3s ease;
-      }
-
-      .primaryBtn:hover {
-        box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
-        box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
-      }
-      .primaryBtn:active, .secondaryBtn:active { transform: scale(0.98); }
-
-      .secondaryBtn {
-        color: var(--blue);
-        background: transparent;
-        border: 1px solid rgba(219, 72, 144, 0.28);
-      }
-
-      .secondaryBtn:hover { background: rgba(219, 72, 144, 0.07); }
-
-      /* ââ Sections ââ */
-
-      .section {
-        padding: 8rem 1.5rem;
-        position: relative;
-        perspective: 1200px;
-      }
-
-      .section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 10%;
-        right: 10%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(18, 28, 65, 0.15) 20%, rgba(199, 75, 246, 0.2) 50%, rgba(255, 107, 138, 0.2) 80%, transparent);
-      }
-
-      .sectionSurface {
-        background: linear-gradient(180deg, #F5F5F7 0%, #EEEEF3 100%);
-      }
-
-      .sectionMagic {
-        position: relative;
-        overflow: hidden;
-      }
-
-      .magicOrb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(80px);
-        opacity: 0.4;
-        animation: orbFloat 8s ease-in-out infinite;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .magicOrb1 {
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(219, 72, 144, 0.35) 0%, rgba(219, 72, 144, 0) 70%);
-        top: -50px;
-        right: -80px;
-        animation-delay: 0s;
-      }
-
-      .magicOrb2 {
-        width: 250px;
-        height: 250px;
-        background: radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0) 70%);
-        bottom: -30px;
-        left: -60px;
-        animation-delay: -3s;
-        animation-duration: 10s;
-      }
-
-      .magicOrb3 {
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(circle, rgba(255, 107, 138, 0.25) 0%, rgba(255, 107, 138, 0) 70%);
-        top: 40%;
-        left: 50%;
-        transform: translateX(-50%);
-        animation-delay: -5s;
-        animation-duration: 12s;
-      }
-
-      @keyframes orbFloat {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        25% { transform: translate(20px, -30px) scale(1.1); }
-        50% { transform: translate(-10px, 20px) scale(0.95); }
-        75% { transform: translate(15px, 10px) scale(1.05); }
-      }
-
-      .magicAurora {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background:
-          linear-gradient(135deg,
-            rgba(219, 72, 144, 0.03) 0%,
-            transparent 30%,
-            rgba(168, 85, 247, 0.03) 50%,
-            transparent 70%,
-            rgba(255, 179, 71, 0.02) 100%
-          );
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .sectionShell {
-        max-width: 980px;
-        margin: 0 auto;
-      }
-
-      .sectionShell.narrow {
-        max-width: 780px;
-      }
-
-      .sectionHeading {
-        text-align: center;
-        margin-bottom: 3rem;
-      }
-
-      .sectionTitle {
-        margin: 0;
-        font-size: clamp(2rem, 5vw, 48px);
-        font-weight: 500;
-        line-height: 1.1;
-        letter-spacing: -0.01em;
-        color: #121C41;
-        text-wrap: balance;
-        transform: translateY(var(--parallax-offset, 0px));
-        transition: transform 0.1s linear;
-      }
-
-      .sectionTitle.center { text-align: center; }
-      .sectionTitle.left { text-align: left; }
-
-      /* Registered so the hover-tilt angles and the ambient-float offsets can
-         each animate independently inside one transform without fighting a
-         transform-level transition. */
-      @property --mx { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-      @property --my { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-      @property --floatY { syntax: '<length>'; inherits: false; initial-value: 0px; }
-      @property --floatR { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-
-      [data-tilt] {
-        transform: perspective(1200px)
-          translateY(var(--floatY, 0px)) rotate(var(--floatR, 0deg))
-          rotateX(var(--my, 0deg)) rotateY(var(--mx, 0deg));
-        /* Transition the tilt ANGLES (not transform) so the always-on float
-           keyframe animating --floatY/--floatR is never re-smoothed/fought. */
-        transition: --mx 0.3s ease, --my 0.3s ease, box-shadow 0.3s ease;
-        animation: cardFloat 8s ease-in-out infinite;
-        will-change: transform;
-      }
-
-      /* Gentle, calm ambient drift — a few px of lift and a hair of rotation.
-         Cards are staggered via inline animation-delay (set in use3DEffects)
-         so they don't bob in unison. */
-      @keyframes cardFloat {
-        0%, 100% { --floatY: 0px;  --floatR: -0.5deg; }
-        50%      { --floatY: -7px; --floatR:  0.5deg; }
-      }
-
-      .bodyText {
-        margin: 1.2rem 0 0;
-        font-size: 19px;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #6E6E73;
-      }
-
-      .bodyText.center { text-align: center; }
-
-      .bodyAccent {
-        margin: 2rem 0 0;
-        font-size: 20px;
-        font-weight: 500;
-        color: var(--blue);
-        letter-spacing: -0.01em;
-      }
-
-      .caption {
-        margin: 1.5rem 0 0;
-        font-size: 15px;
-        font-weight: 400;
-        color: rgba(29, 29, 31, 0.4);
-        letter-spacing: 0.01em;
-      }
-
-      /* ââ Split Grid ââ */
-
-      .splitGrid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
-      }
-
-      .splitGrid.reverse .splitCopy { order: 2; }
-      .splitGrid.reverse .splitVisual { order: 1; }
-
-      /* ââ Arrive Card ââ */
-
-      .arriveCard {
-        padding: 2rem;
-        border-radius: 1.5rem;
-        background: #FFFFFF;
-        border: 1px solid rgba(14, 23, 51, 0.08);
-        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .arriveCard:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(219, 72, 144, 0.12);
-      }
-
-      .sectionSurface .arriveCard {
-        background: #FFFFFF;
-      }
-
-      .arriveHeader {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .arriveLabel {
-        font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: rgba(29, 29, 31, 0.4);
-      }
-
-      .arriveDot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #34D399;
-        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
-        animation: dotPulse 2s ease-in-out infinite;
-      }
-
-      @keyframes dotPulse {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
-        50% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
-      }
-
-      .arrivePlace {
-        margin-top: 0.8rem;
-        font-size: clamp(1.8rem, 4vw, 2.4rem);
-        font-weight: 700;
-        letter-spacing: -0.03em;
-        color: #121C41;
-      }
-
-      .arriveSubline {
-        margin: 0.3rem 0 1rem;
-        font-size: 15px;
-        color: #6E6E73;
-      }
-
-      .arriveTasks {
-        display: grid;
-        gap: 0.6rem;
-      }
-
-      /* ââ TaskRow ââ */
-
-      .taskRow {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.8rem 1rem;
-        border-radius: 0.8rem;
-        background: #F5F5F7;
-        border: 1px solid rgba(14, 23, 51, 0.06);
-        transition: background 0.22s, border-color 0.22s;
-      }
-
-      .taskCheck {
-        display: inline-flex;
-        width: 1.3rem;
-        height: 1.3rem;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        border: 1.5px solid rgba(14, 23, 51, 0.15);
-        font-size: 0.75rem;
-        font-weight: 800;
-        color: transparent;
-        background: transparent;
-        transition: all 0.22s;
-      }
-
-      .taskText {
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #121C41;
-        transition: all 0.22s;
-      }
-
-      .checkOne, .checkTwo, .checkThree {
-        animation: taskGlowLoop 6.8s ease-in-out infinite;
-      }
-      .checkOne .taskCheck, .checkTwo .taskCheck, .checkThree .taskCheck {
-        animation: boxTickLoop 6.8s ease-in-out infinite;
-      }
-      .checkOne .taskText, .checkTwo .taskText, .checkThree .taskText {
-        animation: textTickLoop 6.8s ease-in-out infinite;
-      }
-
-      .checkOne, .checkOne .taskCheck, .checkOne .taskText { animation-delay: 0s; }
-      .checkTwo, .checkTwo .taskCheck, .checkTwo .taskText { animation-delay: 2.05s; }
-      .checkThree, .checkThree .taskCheck, .checkThree .taskText { animation-delay: 4.1s; }
-
-      @keyframes boxTickLoop {
-        0%, 22% {
-          color: transparent;
-          background: transparent;
-          border-color: rgba(14, 23, 51, 0.15);
-          transform: scale(1);
-        }
-        30%, 74% {
-          color: white;
-          background: var(--blue);
-          border-color: transparent;
-          transform: scale(1.04);
-        }
-        84%, 100% {
-          color: transparent;
-          background: transparent;
-          border-color: rgba(14, 23, 51, 0.15);
-          transform: scale(1);
-        }
-      }
-
-      @keyframes textTickLoop {
-        0%, 22% {
-          color: #121C41;
-          opacity: 1;
-          text-decoration: none;
-        }
-        30%, 74% {
-          color: rgba(29, 29, 31, 0.35);
-          opacity: 0.8;
-          text-decoration: line-through;
-        }
-        84%, 100% {
-          color: #121C41;
-          opacity: 1;
-          text-decoration: none;
-        }
-      }
-
-      @keyframes taskGlowLoop {
-        0%, 22%, 84%, 100% {
-          background: #F5F5F7;
-          border-color: rgba(14, 23, 51, 0.06);
-        }
-        30%, 74% {
-          background: rgba(219, 72, 144, 0.04);
-          border-color: rgba(219, 72, 144, 0.12);
-        }
-      }
-
-      /* ââ Passing-By Ambient Notification ââ */
-
-      .passingByVisual {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 220px;
-        padding: 2rem;
-      }
-
-      .passingByGlow {
-        position: absolute;
-        width: 260px;
-        height: 260px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(219, 72, 144, 0.35) 0%, rgba(123, 92, 255, 0.15) 40%, transparent 70%);
-        filter: blur(40px);
-        animation: glowPulse 4s ease-in-out infinite;
-      }
-
-      .passingByGlow2 {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(199, 75, 246, 0.25) 0%, rgba(255, 107, 138, 0.1) 40%, transparent 70%);
-        filter: blur(30px);
-        animation: glowPulse2 5s ease-in-out infinite 1s;
-        transform: translate(30px, -20px);
-      }
-
-      @keyframes glowPulse {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.15); opacity: 1; }
-      }
-
-      @keyframes glowPulse2 {
-        0%, 100% { transform: translate(30px, -20px) scale(1); opacity: 0.6; }
-        50% { transform: translate(30px, -20px) scale(1.2); opacity: 0.9; }
-      }
-
-      .passingByNotif {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: flex-start;
         gap: 12px;
-        padding: 14px 16px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: saturate(180%) blur(20px);
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        box-shadow:
-          0 2px 12px rgba(219, 72, 144, 0.15),
-          0 8px 32px rgba(123, 92, 255, 0.1),
-          0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
-        max-width: 340px;
-        width: 100%;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: notifFloat 6s ease-in-out infinite;
       }
+      .heroPhone { display: flex; justify-content: center; }
 
-      @keyframes notifFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-6px); }
+      /* ── Proof ─────────────────────────────────────────────── */
+
+      .proof {
+        padding: clamp(56px, 8vw, 92px) 0 clamp(12px, 3vw, 32px);
       }
-
-      .passingByNotif:hover {
-        transform: translateY(-4px) scale(1.02);
-        box-shadow:
-          0 4px 20px rgba(236, 78, 114, 0.30),
-          0 12px 48px rgba(123, 92, 255, 0.15),
-          0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
-      }
-
-      .passingByIcon {
-        flex-shrink: 0;
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: #FAF7F2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .passingByNotifBody {
-        flex: 1;
-        min-width: 0;
-      }
-
-      .passingByLabel {
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--text-secondary);
-        letter-spacing: 0.01em;
-      }
-
-      .passingByTitle {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--foreground);
-        letter-spacing: -0.01em;
-        margin-top: 1px;
-      }
-
-      .passingByItems {
-        font-size: 13px;
-        color: var(--text-secondary);
-        margin-top: 2px;
-      }
-
-      /* ââ Ecosystem Grid ââ */
-
-      .ecoGrid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-        max-width: 920px;
+      .proofInner {
+        max-width: 780px;
         margin: 0 auto;
-      }
-
-      .ecoCard {
-        padding: 2rem 1.5rem;
-        border-radius: 1.25rem;
-        background: linear-gradient(#F5F5F7, #F5F5F7) padding-box, linear-gradient(135deg, rgba(219, 72, 144, 0.15), rgba(168, 85, 247, 0.15)) border-box;
-        border: 2px solid transparent;
+        padding: 0 var(--gutter);
         text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-        position: relative;
-        overflow: hidden;
       }
-
-      .ecoCard::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: 1.25rem 1.25rem 0 0;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .ecoCard:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(219, 72, 144, 0.12);
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
-      }
-
-      .ecoCard:hover::before {
-        opacity: 1;
-      }
-
-      .ecoCard0::before { background: linear-gradient(90deg, var(--pink), #C44850); }
-      .ecoCard1::before { background: linear-gradient(90deg, #FF6B8A, #FF9B6B); }
-      .ecoCard2::before { background: linear-gradient(90deg, #34D399, #2F6DFF); }
-      .ecoCard3::before { background: linear-gradient(90deg, #C74BF6, #FF6B8A); }
-
-      .ecoIcon {
-        font-size: 2rem;
-        display: block;
-        margin-bottom: 1rem;
-      }
-
-      .ecoCard h3 {
+      .proofQuote {
         margin: 0;
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #121C41;
+        font-size: clamp(1.3rem, 2.9vw, 1.95rem);
+        font-weight: 400;
+        line-height: 1.38;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        text-wrap: balance;
+      }
+      .proofName {
+        display: block;
+        margin-top: 20px;
+        font-style: normal;
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
       }
 
-      .ecoCard p {
-        margin: 0.5rem 0 0;
-        font-size: 15px;
-        color: #6E6E73;
-        line-height: 1.4;
+      /* ── Cards, shared ─────────────────────────────────────── */
+
+      .arriveCard,
+      .placesCard,
+      .captureCard,
+      .mealWeekCard,
+      .driveNotif,
+      /* ── Arrival ───────────────────────────────────────────── */
+
+      /* ── Passing by ────────────────────────────────────────── */
+
+      @keyframes driftUp {
+        from { transform: translateY(0); }
+        to   { transform: translateY(-9px); }
       }
+      /* ── Places ────────────────────────────────────────────── */
 
-      /* ââ Places Card ââ */
-
-      .placesCard {
-        position: relative;
-        padding: 1.5rem;
-        border-radius: 1.5rem;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #2F6DFF, #A855F7) border-box;
-        border: 2px solid transparent;
-        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: grid;
-        gap: 0;
+      .placeGlyph {
+        width: 9px; height: 9px; border-radius: 50%;
+        flex: 0 0 9px;
       }
+      .placeGlyph--grocery  { background: #4C7A5A; }
+      .placeGlyph--errand   { background: var(--accent-lit); }
+      .placeGlyph--home     { background: var(--gold); }
+      .placeGlyph--pharmacy { background: #4A6FB5; }
+      /* ── Capture ───────────────────────────────────────────── */
 
-      .placeRow {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        padding: 1rem 0.5rem;
-        border-bottom: 1px solid rgba(14, 23, 51, 0.06);
-      }
-
-      .placeRow:last-child { border-bottom: none; }
-
-      .placeEmoji { font-size: 1.3rem; }
-
-      .placeName {
-        flex: 1;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #121C41;
-      }
-
-      .placeCount {
-        font-size: 0.85rem;
-        color: #6E6E73;
-      }
-
-      /* ââ Input Card ââ */
-
-      .inputCard {
-        padding: 2rem;
-        border-radius: 1.5rem;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #34D399, #2F6DFF) border-box;
-        border: 2px solid transparent;
-        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .inputCard:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(219, 72, 144, 0.12);
-      }
-
-      .inputField {
-        padding: 0.9rem 1rem;
-        border-radius: 0.8rem;
-        background: #F5F5F7;
-        border: 1px solid rgba(14, 23, 51, 0.08);
-        font-size: 1rem;
-        font-weight: 500;
-        color: #121C41;
-      }
-
-      .inputSuggestions {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
-      }
-
-      .inputLabel {
-        font-size: 13px;
-        font-weight: 600;
-        color: #6E6E73;
-        margin-right: 0.25rem;
-      }
-
-      .inputChip {
-        padding: 0.4rem 0.8rem;
-        border-radius: 999px;
-        background: #F5F5F7;
-        border: 1px solid rgba(14, 23, 51, 0.08);
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: #121C41;
-      }
-
-      .inputChip.chipActive {
-        background: var(--blue);
-        color: white;
-        border-color: transparent;
-      }
-
-      .inputVoice {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        margin-top: 1.25rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(14, 23, 51, 0.06);
-      }
-
-      .voiceIcon { font-size: 1.1rem; }
-
-      .voiceText {
-        font-size: 15px;
-        font-style: italic;
-        color: #6E6E73;
-      }
-
-      /* ââ Household Visual ââ */
+      /* ── Household ─────────────────────────────────────────── */
 
       .householdVisual {
         position: relative;
+        width: min(420px, 100%);
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        min-height: 280px;
-        padding: 2rem;
+        gap: 36px;
       }
-
-      .householdGlow {
-        position: absolute;
-        width: 240px;
-        height: 240px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 107, 138, 0.3) 0%, rgba(199, 75, 246, 0.12) 40%, transparent 70%);
-        filter: blur(40px);
-        animation: hhGlow1 5s ease-in-out infinite;
-      }
-
-      .householdGlow2 {
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(123, 92, 255, 0.25) 0%, rgba(219, 72, 144, 0.1) 40%, transparent 70%);
-        filter: blur(30px);
-        animation: hhGlow2 6s ease-in-out infinite 1.5s;
-        transform: translate(-20px, 20px);
-      }
-
-      @keyframes hhGlow1 {
-        0%, 100% { transform: scale(1); opacity: 0.7; }
-        50% { transform: scale(1.18); opacity: 1; }
-      }
-
-      @keyframes hhGlow2 {
-        0%, 100% { transform: translate(-20px, 20px) scale(1); opacity: 0.5; }
-        50% { transform: translate(-20px, 20px) scale(1.22); opacity: 0.85; }
-      }
-
-      .householdOrbit {
-        position: absolute;
-        width: 160px;
-        height: 160px;
-      }
-
+      .householdOrbit { position: relative; width: 226px; height: 226px; flex: 0 0 auto; }
       .householdRing {
-        position: absolute;
-        inset: 0;
+        position: absolute; inset: 0;
         border-radius: 50%;
-        border: 1.5px solid rgba(199, 75, 246, 0.15);
-        animation: hhRingSpin 20s linear infinite;
+        border: 1px solid rgba(255, 244, 228, 0.14);
+        animation: ringSpin 34s linear infinite;
       }
-
       .householdRing2 {
-        inset: -20px;
-        border-color: rgba(255, 107, 138, 0.1);
-        animation-duration: 28s;
+        inset: 34px;
+        border-color: rgba(212, 168, 67, 0.22);
+        animation-duration: 24s;
         animation-direction: reverse;
       }
-
-      @keyframes hhRingSpin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-
+      @keyframes ringSpin { to { transform: rotate(360deg); } }
       .householdAvatar {
         position: absolute;
-        width: 48px;
-        height: 48px;
+        width: 62px; height: 62px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        box-shadow: 0 4px 20px rgba(14, 23, 51, 0.08);
-        z-index: 2;
+        display: grid; place-items: center;
+        font-size: 1.2rem; font-weight: 500;
+        color: #FFF4E4;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
       }
-
-      .householdInitial {
-        font-size: 17px;
-        font-weight: 700;
-        color: rgba(42, 10, 22, 0.72);
-        letter-spacing: 0;
-      }
-
       .householdAvatar1 {
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, #ffe0ec 0%, #ffd6e8 100%);
-        animation: hhFloat1 5s ease-in-out infinite;
+        top: 6px; left: 50%; margin-left: -31px;
+        background: linear-gradient(150deg, #C44850, #8B2A4A);
       }
-
       .householdAvatar2 {
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, #e0e8ff 0%, #d6deff 100%);
-        animation: hhFloat2 5s ease-in-out infinite 1s;
+        bottom: 6px; left: 50%; margin-left: -31px;
+        background: linear-gradient(150deg, #F08246, #C4942F);
       }
-
-      @keyframes hhFloat1 {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(-8px); }
-      }
-
-      @keyframes hhFloat2 {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(8px); }
-      }
-
       .householdNotif {
         position: relative;
-        z-index: 3;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px 14px;
+        display: flex; gap: 12px; align-items: flex-start;
+        width: min(330px, 100%);
+        padding: 15px 17px;
         border-radius: 18px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: saturate(180%) blur(20px);
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        box-shadow:
-          0 2px 12px rgba(199, 75, 246, 0.12),
-          0 8px 32px rgba(255, 107, 138, 0.08),
-          0 0 0 0.5px rgba(255, 255, 255, 0.6) inset;
-        max-width: 280px;
-        width: 100%;
-        animation: hhNotifFloat 6s ease-in-out infinite;
+        background: rgba(255, 244, 228, 0.07);
+        border: 1px solid var(--on-night-hair);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
+        animation: driftUp 8s var(--ease-soft) infinite alternate;
       }
-
-      @keyframes hhNotifFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-      }
-
-      .householdNotif:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow:
-          0 4px 20px rgba(199, 75, 246, 0.2),
-          0 12px 48px rgba(255, 107, 138, 0.12),
-          0 0 0 0.5px rgba(255, 255, 255, 0.7) inset;
-      }
-
-      .householdNotifIcon {
-        flex-shrink: 0;
-        width: 34px;
-        height: 34px;
-        border-radius: 9px;
-        background: linear-gradient(135deg, #ffe0ec 0%, #f0eaff 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .householdNotifBody { flex: 1; min-width: 0; }
-
+      .householdNotifIcon :global(img) { border-radius: 7px; display: block; }
       .householdNotifLabel {
-        font-size: 11px;
-        font-weight: 500;
-        color: var(--text-secondary);
+        font-size: 0.68rem; letter-spacing: 0.13em; text-transform: uppercase;
+        color: var(--on-night-faint);
       }
+      .householdNotifTitle { margin-top: 4px; font-size: 0.98rem; font-weight: 500; color: var(--on-night); }
+      .householdNotifSub { margin-top: 2px; font-size: 0.85rem; color: var(--on-night-soft); }
 
-      .householdNotifTitle {
-        font-size: 14px;
-        font-weight: 600;
-        color: var(--foreground);
-        letter-spacing: -0.01em;
-        margin-top: 1px;
+      /* ── Dayparts ──────────────────────────────────────────── */
+
+      /* ── Meal plan ─────────────────────────────────────────── */
+
+      /* ── Ecosystem ─────────────────────────────────────────── */
+
+      .ecoCard {
+        padding: 34px 28px 30px;
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-hair-soft);
+        box-shadow: 0 16px 44px rgba(20, 24, 58, 0.06);
       }
+      /* ── Pills ─────────────────────────────────────────────── */
 
-      .householdNotifSub {
-        font-size: 12px;
-        color: var(--text-secondary);
-        margin-top: 1px;
+      .pillRow {
+        margin-top: 36px;
+        display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
       }
-
-      /* ââ Maps Card ââ */
-
-      .mapsCard {
-        display: flex;
-        align-items: center;
-        gap: 1.2rem;
-        padding: 1.5rem 2rem;
-        border-radius: 1.5rem;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, #FF6B8A, #C74BF6) border-box;
-        border: 2px solid transparent;
-        box-shadow: 0 20px 60px rgba(14, 23, 51, 0.06);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .mapsCard:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 24px 64px rgba(219, 72, 144, 0.12);
-      }
-
-      .mapsPin { font-size: 2rem; }
-
-      .mapsName {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #121C41;
-      }
-
-      .mapsTask {
-        font-size: 0.95rem;
-        color: #6E6E73;
-        margin-top: 0.15rem;
-      }
-
-      /* ââ Privacy Visual ââ */
-
-      .privacyVisual {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 120px;
-        height: 120px;
-        margin: 0 auto 2rem;
-      }
-
-      .privacyGlow {
-        position: absolute;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(236, 78, 114, 0.30) 0%, rgba(123, 92, 255, 0.1) 40%, transparent 70%);
-        filter: blur(25px);
-        animation: privGlow 4s ease-in-out infinite;
-      }
-
-      @keyframes privGlow {
-        0%, 100% { transform: scale(1); opacity: 0.7; }
-        50% { transform: scale(1.15); opacity: 1; }
-      }
-
-      .privacyIcon {
-        position: relative;
-        z-index: 2;
-        width: 80px;
-        height: 80px;
-        border-radius: 24px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow:
-          0 4px 20px rgba(219, 72, 144, 0.12),
-          0 0 0 0.5px rgba(255, 255, 255, 0.5) inset;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation: privFloat 5s ease-in-out infinite;
-      }
-
-      @keyframes privFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-6px); }
-      }
-
-      .privacyRing {
-        position: absolute;
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        border: 1.5px dashed rgba(219, 72, 144, 0.15);
-        animation: hhRingSpin 25s linear infinite;
-      }
-
-            .privacyOrbitRing {
-        position: absolute;
-        border-radius: 50%;
-        border: 1px solid rgba(219, 72, 144, 0.08);
-      }
-
-      .privacyOrbit1 {
-        width: 100px;
-        height: 100px;
-        animation: privOrbit1 10s linear infinite;
-      }
-
-      .privacyOrbit2 {
-        width: 130px;
-        height: 130px;
-        animation: privOrbit2 15s linear infinite;
-      }
-
-      .privacyOrbit3 {
-        width: 160px;
-        height: 160px;
-        border: 1px dashed rgba(123, 92, 255, 0.08);
-        animation: privOrbit3 20s linear infinite;
-      }
-
-      .privacyOrbitParticle {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-      }
-
-      .privacyParticle1 {
-        top: -3px;
-        left: 50%;
-        margin-left: -3px;
-        background: #2F6DFF;
-        box-shadow: 0 0 8px rgba(219, 72, 144, 0.6);
-      }
-
-      .privacyParticle2 {
-        bottom: -3px;
-        left: 50%;
-        margin-left: -3px;
-        background: #7B5CFF;
-        box-shadow: 0 0 8px rgba(123, 92, 255, 0.6);
-      }
-
-      .privacyParticle3 {
-        top: 50%;
-        right: -3px;
-        margin-top: -3px;
-        background: #C74BF6;
-        box-shadow: 0 0 8px rgba(199, 75, 246, 0.6);
-        width: 4px;
-        height: 4px;
-      }
-
-      @keyframes privOrbit1 {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-
-      @keyframes privOrbit2 {
-        from { transform: rotate(120deg); }
-        to { transform: rotate(480deg); }
-      }
-
-      @keyframes privOrbit3 {
-        from { transform: rotate(240deg); }
-        to { transform: rotate(600deg); }
-      }
-
-      /* ââ Philosophy Visual ââ */
-
-      .philVisual {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 120px;
-        height: 130px;
-        margin: 0 auto 2rem;
-      }
-
-      .philGlow {
-        position: absolute;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 179, 71, 0.3) 0%, rgba(255, 107, 138, 0.12) 40%, transparent 70%);
-        filter: blur(30px);
-        animation: philGlowAnim 5s ease-in-out infinite;
-      }
-
-      .philGlow2 {
-        position: absolute;
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(199, 75, 246, 0.2) 0%, transparent 60%);
-        filter: blur(20px);
-        animation: philGlowAnim2 6s ease-in-out infinite 1s;
-        transform: translate(10px, -10px);
-      }
-
-      @keyframes philGlowAnim {
-        0%, 100% { transform: scale(1); opacity: 0.7; }
-        50% { transform: scale(1.2); opacity: 1; }
-      }
-
-      @keyframes philGlowAnim2 {
-        0%, 100% { transform: translate(10px, -10px) scale(1); opacity: 0.5; }
-        50% { transform: translate(10px, -10px) scale(1.15); opacity: 0.8; }
-      }
-
-      .philIcon {
-        position: relative;
-        z-index: 2;
-        animation: philFloat 5s ease-in-out infinite;
-      }
-
-      @keyframes philFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-8px); }
-      }
-
-      .philSparkle {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: rgba(255, 179, 71, 0.8);
-        z-index: 3;
-      }
-
-      .philSparkle1 {
-        top: 10px;
-        right: 5px;
-        animation: sparkle 3s ease-in-out infinite;
-      }
-
-      .philSparkle2 {
-        top: 20px;
-        left: 0;
-        width: 4px;
-        height: 4px;
-        background: rgba(199, 75, 246, 0.7);
-        animation: sparkle 3s ease-in-out infinite 1s;
-      }
-
-      .philSparkle3 {
-        bottom: 30px;
-        right: 0;
-        width: 5px;
-        height: 5px;
-        background: rgba(255, 107, 138, 0.7);
-        animation: sparkle 3s ease-in-out infinite 2s;
-      }
-
-      @keyframes sparkle {
-        0%, 100% { opacity: 0; transform: scale(0.5); }
-        50% { opacity: 1; transform: scale(1.2); }
-      }
-      .philSparkle4 {
-        top: 40px;
-        left: 15px;
-        width: 3px;
-        height: 3px;
-        background: rgba(255, 179, 71, 0.6);
-        animation: sparkle 3s ease-in-out infinite 0.5s;
-      }
-
-      .philSparkle5 {
-        bottom: 40px;
-        left: 20px;
-        width: 5px;
-        height: 5px;
-        background: rgba(123, 92, 255, 0.7);
-        animation: sparkle 3s ease-in-out infinite 1.5s;
-      }
-
-      .philPulseRing {
-        position: absolute;
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        border: 1.5px solid rgba(255, 179, 71, 0.15);
-        animation: philPulse 3s ease-in-out infinite;
-      }
-
-      @keyframes philPulse {
-        0%, 100% { transform: scale(1); opacity: 0.4; }
-        50% { transform: scale(1.3); opacity: 0; }
-      }
-
-
-      /* ââ Pills ââ */
-
-      .pillGrid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-top: 2rem;
-        justify-content: center;
-      }
-
       .pill {
-        padding: 0.65rem 1.25rem;
+        padding: 10px 20px;
         border-radius: 999px;
-        background: #FFFFFF;
-        background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgba(236, 78, 114, 0.30), rgba(168, 85, 247, 0.25)) border-box;
-        border: 1.5px solid transparent;
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #121C41;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        border: 1px solid var(--ink-hair);
+        background: var(--paper-raised);
+        font-size: 0.88rem;
+        color: var(--ink-soft);
+        transition: transform 0.5s var(--ease), border-color 0.3s var(--ease-soft);
       }
+      .pill:hover { transform: translateY(-2px); border-color: rgba(196, 148, 47, 0.5); }
 
-      .pill:hover {
-        transform: translateY(-3px) scale(1.02);
-        box-shadow: 0 8px 24px rgba(219, 72, 144, 0.18);
-        border-color: rgba(219, 72, 144, 0.5);
-        background: linear-gradient(135deg, rgba(219, 72, 144, 0.06), rgba(168, 85, 247, 0.06));
+      .privacyMark {
+        width: 72px; height: 72px;
+        margin: 0 auto 30px;
+        display: grid; place-items: center;
+        border-radius: 50%;
+        border: 1px solid var(--ink-hair);
+        background: var(--paper-raised);
+        color: var(--gold);
+        box-shadow: 0 18px 44px rgba(20, 24, 58, 0.08);
       }
+      .privacyMark :global(svg) { width: 34px; height: 34px; }
 
-      .sectionSurface .pill {
-        background: #FFFFFF;
-      }
+      /* ── FAQ ───────────────────────────────────────────────── */
 
-      /* ââ Example List ââ */
-
-      /* AI Feature Cards */
-
-      .aiFeatureCards {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        margin: 2rem 0 0;
-      }
-
-      .aiFeatureCard {
-        border-radius: 22px;
-        padding: 28px 22px;
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow:
-          0 2px 4px rgba(14, 23, 51, 0.04),
-          0 12px 32px rgba(219, 72, 144, 0.1),
-          0 24px 64px rgba(14, 23, 51, 0.05),
-          inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
-        position: relative;
-        overflow: hidden;
-        transform-style: preserve-3d;
-      }
-
-      /* Uniform clean cards (color lives in the icon tiles, not the boxes) */
-      .aiFeatureCard:nth-child(1),
-      .aiFeatureCard:nth-child(2),
-      .aiFeatureCard:nth-child(3) {
-        background: #FFFFFF;
-      }
-
-      .aiFeatureCard::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        border-radius: 22px 22px 0 0;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-      .aiFeatureCard:nth-child(1)::before {
-        background: linear-gradient(90deg, #101B3E, #FDCF7F);
-      }
-      .aiFeatureCard:nth-child(2)::before {
-        background: linear-gradient(90deg, #101B3E, #DB4890);
-      }
-      .aiFeatureCard:nth-child(3)::before {
-        background: linear-gradient(90deg, #101B3E, #7A25A2);
-      }
-
-      .aiFeatureCard:hover {
-        transform: translateY(-8px) scale(1.03) translateZ(10px);
-        box-shadow:
-          0 4px 8px rgba(14, 23, 51, 0.06),
-          0 20px 48px rgba(219, 72, 144, 0.18),
-          0 32px 80px rgba(14, 23, 51, 0.08);
-      }
-
-      .aiFeatureCard:nth-child(1):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(253, 207, 127, 0.28), 0 32px 80px rgba(14, 23, 51, 0.08);
-      }
-      .aiFeatureCard:nth-child(2):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(219, 72, 144, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
-      }
-      .aiFeatureCard:nth-child(3):hover {
-        box-shadow: 0 4px 8px rgba(14, 23, 51, 0.06), 0 20px 48px rgba(122, 37, 162, 0.22), 0 32px 80px rgba(14, 23, 51, 0.08);
-      }
-
-      .aiFeatureCard:hover::before {
-        opacity: 1;
-      }
-
-      .aiFeatureIcon {
-        width: 52px;
-        height: 52px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, rgba(219, 72, 144, 0.1), rgba(199, 75, 246, 0.1));
-        box-shadow: 0 4px 12px rgba(219, 72, 144, 0.08);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 16px;
-      }
-
-      /* Sunset — navy field, gold mark */
-      .aiFeatureCard:nth-child(1) .aiFeatureIcon {
-        background: radial-gradient(circle at 50% 45%, #1B2A52 0%, #101B3E 72%);
-        box-shadow: 0 6px 18px rgba(253, 207, 127, 0.28);
-      }
-      /* Sunset — navy field, pink mark */
-      .aiFeatureCard:nth-child(2) .aiFeatureIcon {
-        background: radial-gradient(circle at 50% 45%, #2A1A52 0%, #101B3E 72%);
-        box-shadow: 0 6px 18px rgba(219, 72, 144, 0.26);
-      }
-      /* Sunset — navy field, purple mark */
-      .aiFeatureCard:nth-child(3) .aiFeatureIcon {
-        background: radial-gradient(circle at 50% 45%, #2A1456 0%, #101B3E 72%);
-        box-shadow: 0 6px 18px rgba(122, 37, 162, 0.26);
-      }
-
-      .aiFeatureLabel {
-        font-size: 16px;
-        font-weight: 500;
-        color: #121C41;
-        margin-bottom: 6px;
-        letter-spacing: -0.01em;
-      }
-
-      .aiFeatureDesc {
-        font-size: 14px;
-        font-weight: 400;
-        color: #6E6E73;
-        line-height: 1.45;
-      }
-
-      @media (max-width: 768px) {
-        .aiFeatureCards {
-          grid-template-columns: 1fr;
-          gap: 12px;
-        }
-        .aiFeatureCard {
-          padding: 20px 18px;
-        }
-      }
-
-      .center { text-align: center; }
-
-      /* ââ FAQ ââ */
-
-      .faqList {
-        margin-top: 2.5rem;
-        display: grid;
-        gap: 0;
-      }
-
-      .faqItem {
-        border-bottom: 1px solid rgba(14, 23, 51, 0.08);
-        border-left: 3px solid transparent;
-        padding-left: 0.75rem;
-        transition: border-color 0.3s ease, background 0.3s ease;
-      }
-
-      .faqItem:hover {
-        border-left-color: #2F6DFF;
-        background: linear-gradient(90deg, rgba(219, 72, 144, 0.03), transparent);
-      }
-
-      .faqItem:first-child {
-        border-top: 1px solid rgba(14, 23, 51, 0.08);
-      }
-
+      .faqList { border-top: 1px solid var(--ink-hair-soft); }
+      .faqItem { border-bottom: 1px solid var(--ink-hair-soft); }
       .faqQ {
-        padding: 1.25rem 0;
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: #121C41;
-        cursor: pointer;
+        position: relative;
         list-style: none;
+        cursor: pointer;
+        padding: 24px 44px 24px 0;
+        font-size: 1.06rem;
+        font-weight: 500;
+        letter-spacing: -0.012em;
+        color: var(--ink);
       }
-
       .faqQ::-webkit-details-marker { display: none; }
-
       .faqQ::after {
-        content: '+';
-        float: right;
-        font-size: 1.3rem;
-        font-weight: 300;
-        color: #6E6E73;
-        transition: transform 0.2s;
+        content: "";
+        position: absolute;
+        right: 6px; top: 50%;
+        width: 11px; height: 11px;
+        border-right: 1.5px solid var(--ink-faint);
+        border-bottom: 1.5px solid var(--ink-faint);
+        transform: translateY(-70%) rotate(45deg);
+        transition: transform 0.45s var(--ease);
       }
-
-      .faqItem[open] .faqQ::after {
-        content: 'â';
-      }
-
+      .faqItem[open] .faqQ::after { transform: translateY(-25%) rotate(225deg); }
       .faqA {
-        margin: 0 0 1.25rem;
-        font-size: 17px;
-        line-height: 1.5;
-        color: #6E6E73;
+        margin: 0;
+        padding: 0 48px 26px 0;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--ink-soft);
       }
 
-      /* ââ Final CTA ââ */
+      /* ── Final CTA ─────────────────────────────────────────── */
 
       .finalCta {
-        padding: 4rem 1.5rem 6rem;
-      }
-
-      .finalShell {
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 5rem 2rem 4rem;
-        border-radius: 2.5rem;
-        text-align: center;
-        background: linear-gradient(145deg, #121C41 0%, #1A2547 34%, #0E1733 68%, #0A1228 100%);
-        color: white;
+        position: relative;
+        padding: clamp(104px, 15vw, 190px) var(--gutter);
+        background: var(--night-deep);
+        color: var(--on-night);
         overflow: hidden;
-        position: relative;
-        border: 1px solid rgba(120, 204, 255, 0.24);
-        box-shadow:
-          0 0 0 1px rgba(120, 204, 255, 0.08),
-          0 32px 100px rgba(0, 62, 105, 0.34),
-          0 0 80px rgba(219, 72, 144, 0.16),
-          inset 0 1px 0 rgba(255, 255, 255, 0.12);
-        transform: perspective(1200px) rotateX(1deg);
-        transform-style: preserve-3d;
+        isolation: isolate;
       }
-
-      .finalOrb {
-        position: absolute;
-        border-radius: 50%;
-        pointer-events: none;
-        filter: blur(60px);
+      .finalSky {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(70% 60% at 50% -10%, rgba(46, 24, 56, 0.95), transparent 68%),
+          radial-gradient(46% 40% at 20% 100%, rgba(139, 42, 74, 0.4), transparent 70%),
+          radial-gradient(40% 36% at 82% 92%, rgba(212, 168, 67, 0.18), transparent 70%);
+        z-index: -1;
       }
-
-      .finalOrb1 {
-        width: 500px;
-        height: 500px;
-        top: -120px;
-        right: -100px;
-        background: radial-gradient(circle, rgba(253, 170, 95, 0.42) 0%, transparent 70%);
-        animation: orbFloat1 8s ease-in-out infinite;
-      }
-
-      .finalOrb2 {
-        width: 450px;
-        height: 450px;
-        bottom: -100px;
-        left: -80px;
-        background: radial-gradient(circle, rgba(236, 78, 114, 0.45) 0%, transparent 70%);
-        animation: orbFloat2 10s ease-in-out infinite;
-      }
-
-      @keyframes orbFloat1 {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(-30px, 20px) scale(1.1); }
-      }
-
-      @keyframes orbFloat2 {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(20px, -30px) scale(1.15); }
-      }
-
-      .finalOrb3 {
-        width: 350px;
-        height: 350px;
-        top: 50%;
-        left: 50%;
-        margin-top: -125px;
-        margin-left: -125px;
-        background: radial-gradient(circle, rgba(140, 60, 195, 0.26) 0%, transparent 70%);
-        animation: orbFloat3 12s ease-in-out infinite;
-      }
-
-      @keyframes orbFloat3 {
-        0%, 100% { transform: translate(0, 0) scale(1); }
-        33% { transform: translate(40px, -30px) scale(1.1); }
-        66% { transform: translate(-30px, 40px) scale(0.95); }
-      }
-
-      .finalParticle {
-        position: absolute;
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .finalP1 {
-        width: 4px; height: 4px;
-        background: rgba(126, 218, 255, 0.6);
-        top: 20%; left: 15%;
-        animation: finalFloat 6s ease-in-out infinite;
-      }
-
-      .finalP2 {
-        width: 3px; height: 3px;
-        background: rgba(219, 72, 144, 0.5);
-        top: 30%; right: 20%;
-        animation: finalFloat 8s ease-in-out infinite 1s;
-      }
-
-      .finalP3 {
-        width: 5px; height: 5px;
-        background: rgba(118, 196, 255, 0.42);
-        bottom: 25%; left: 25%;
-        animation: finalFloat 7s ease-in-out infinite 2s;
-      }
-
-      .finalP4 {
-        width: 3px; height: 3px;
-        background: rgba(173, 230, 255, 0.5);
-        bottom: 35%; right: 15%;
-        animation: finalFloat 9s ease-in-out infinite 0.5s;
-      }
-
-      .finalP5 {
-        width: 4px; height: 4px;
-        background: rgba(225, 248, 255, 0.45);
-        top: 60%; left: 10%;
-        animation: finalFloat 5s ease-in-out infinite 3s;
-      }
-
-      @keyframes finalFloat {
-        0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-        50% { transform: translateY(-20px) scale(1.5); opacity: 0.8; }
-      }
-
+      .finalInner { max-width: 760px; margin: 0 auto; text-align: center; }
       .finalTitle {
-        margin: 0 auto;
-        font-size: clamp(2.2rem, 5.5vw, 52px);
+        margin: 0;
+        font-size: clamp(2.4rem, 6.4vw, 4.4rem);
         font-weight: 500;
-        line-height: 1.08;
-        letter-spacing: -0.02em;
-        max-width: 16ch;
-        position: relative;
-        z-index: 2;
-        text-shadow: 0 2px 20px rgba(123, 92, 255, 0.3);
+        line-height: 1.03;
+        letter-spacing: -0.035em;
+        color: var(--on-night);
       }
-
-      .finalSub {
-        margin: 1.2rem auto 0;
-        font-size: 18px;
+      .finalTitle em {
+        font-family: var(--font-serif);
+        font-style: italic;
         font-weight: 400;
-        color: rgba(255, 255, 255, 0.55);
-        max-width: 480px;
-        position: relative;
-        z-index: 2;
-        line-height: 1.5;
+        color: #FFE9BD;
+      }
+      .finalSub {
+        margin: 24px auto 38px;
+        max-width: 42ch;
+        font-size: 1.06rem;
+        line-height: 1.6;
+        color: var(--on-night-soft);
       }
 
-      .finalBtn {
-        margin-top: 2rem;
-        position: relative;
-        z-index: 2;
-        box-shadow: 0 4px 20px rgba(219, 72, 144, 0.4), 0 0 40px rgba(219, 72, 144, 0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* ── Footer ────────────────────────────────────────────── */
+
+      .footer {
+        background: var(--night-deep);
+        color: var(--on-night-soft);
+        padding: clamp(52px, 7vw, 76px) var(--gutter) 34px;
+        border-top: 1px solid rgba(255, 244, 228, 0.08);
       }
-
-      .finalBtn:hover {
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 6px 30px rgba(219, 72, 144, 0.5), 0 0 60px rgba(18, 28, 65, 0.15);
-      }
-      /* Star field */
-      .finalStars {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      .finalStar {
-        position: absolute;
-        border-radius: 50%;
-        background: white;
-        animation: starTwinkle 3s ease-in-out infinite;
-      }
-
-      .finalStar1 { width: 2px; height: 2px; top: 12%; left: 8%; animation-delay: 0s; }
-      .finalStar2 { width: 1.5px; height: 1.5px; top: 25%; right: 12%; animation-delay: 0.8s; }
-      .finalStar3 { width: 2px; height: 2px; top: 18%; left: 35%; animation-delay: 1.5s; }
-      .finalStar4 { width: 1px; height: 1px; top: 8%; right: 30%; animation-delay: 2.2s; }
-      .finalStar5 { width: 1.5px; height: 1.5px; bottom: 20%; left: 15%; animation-delay: 0.5s; }
-      .finalStar6 { width: 2px; height: 2px; bottom: 30%; right: 20%; animation-delay: 1.8s; }
-
-      @keyframes starTwinkle {
-        0%, 100% { opacity: 0.15; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.5); }
-      }
-
-      /* ââ Footer ââ */
-
-      .siteFooter {
-        border-top: 1px solid rgba(14, 23, 51, 0.08);
-        padding: 2rem 1.5rem;
-        background: #FFFFFF;
-      }
-
-      .footerInner {
-        max-width: 980px;
+      .footerTop {
+        max-width: var(--shell);
         margin: 0 auto;
         display: flex;
+        flex-wrap: wrap;
+        gap: clamp(2rem, 6vw, 5rem);
+        justify-content: space-between;
+      }
+      .footerWord {
+        font-size: 1.3rem;
+        font-weight: 500;
+        letter-spacing: -0.025em;
+        color: var(--on-night);
+      }
+      .footerTag {
+        margin: 8px 0 0;
+        font-size: 0.92rem;
+        color: var(--on-night-faint);
+      }
+      .footerTag em { font-family: var(--font-serif); font-style: italic; color: var(--gold-lit); }
+      .footerNav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(2rem, 5vw, 4.5rem);
+      }
+      .footerNav > div { display: flex; flex-direction: column; gap: 11px; }
+      .footerHead {
+        margin: 0 0 4px;
+        font-size: 0.68rem;
+        font-weight: 500;
+        letter-spacing: 0.19em;
+        text-transform: uppercase;
+        color: var(--on-night-faint);
+      }
+      .footerLink {
+        font-size: 0.93rem;
+        color: var(--on-night-soft);
+        transition: color 0.3s var(--ease-soft);
+      }
+      .footerLink:hover { color: var(--on-night); }
+      .footerBase {
+        max-width: var(--shell);
+        margin: clamp(44px, 6vw, 64px) auto 0;
+        padding-top: 26px;
+        border-top: 1px solid rgba(255, 244, 228, 0.08);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
         align-items: center;
         justify-content: space-between;
       }
-
-      .footerCopy {
-        font-size: 0.85rem;
-        color: #6E6E73;
+      .footerCta {
+        padding: 12px 22px;
+        background: rgba(255, 244, 228, 0.1);
+        border: 1px solid rgba(255, 244, 228, 0.18);
+        color: var(--on-night);
+        font-size: 0.9rem;
       }
+      .footerCta:hover { background: rgba(255, 244, 228, 0.16); transform: translateY(-1px); }
+      .footerCopy { margin: 0; font-size: 0.82rem; color: var(--on-night-faint); }
 
-      .footerLinks {
-        display: flex;
-        gap: 2rem;
-      }
-
-      .footerLink {
-        font-size: 0.85rem;
-        color: #6E6E73;
-        transition: color 0.2s;
-      }
-
-      .footerLink:hover { color: #121C41; }
-
-      /* ââ Phone Mockup (scroll-driven) ââ */
 
       .phoneMockup {
-        width: 292px;
-        height: 596px;
+        width: 332px;
+        height: 678px;
         border-radius: 44px;
         background: linear-gradient(160deg, #1E2747 0%, #141E3A 28%, #0B1228 55%, #1A2547 100%);
         padding: 6px;
@@ -3722,7 +1898,7 @@ function SiteStyles() {
       }
 
       .lockTimeDisplay {
-        font-size: 56px;
+        font-size: 52px;
         font-weight: 700;
         letter-spacing: -0.02em;
         color: #FFFFFF;
@@ -3747,14 +1923,14 @@ function SiteStyles() {
       .lockProximityCard {
         position: relative;
         z-index: 2;
-        margin-top: 16px;
-        padding: 14px 16px;
-        border-radius: 22px;
+        margin-top: 18px;
+        padding: 18px 19px;
+        border-radius: 26px;
         background: rgba(249, 253, 255, 0.95);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
         border: 1px solid rgba(255, 255, 255, 0.88);
-        width: 90%;
+        width: 93%;
         animation: lockNotifSlide 0.6s ease-out 0.4s both;
         overflow: hidden;
         box-shadow:
@@ -3790,9 +1966,9 @@ function SiteStyles() {
       }
 
       .lockNotifIcon {
-        width: 28px;
-        height: 28px;
-        border-radius: 7px;
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
         flex-shrink: 0;
       }
 
@@ -3802,7 +1978,7 @@ function SiteStyles() {
       }
 
       .lockProximityLabel {
-        font-size: 8px;
+        font-size: 10px;
         font-weight: 700;
         color: rgba(44, 74, 91, 0.5);
         letter-spacing: 0.08em;
@@ -3810,7 +1986,8 @@ function SiteStyles() {
       }
 
       .lockProximityTitle {
-        font-size: 15px;
+        font-size: 22px;
+        letter-spacing: -0.02em;
         font-weight: 700;
         color: #14384D;
         line-height: 1.25;
@@ -3818,7 +1995,7 @@ function SiteStyles() {
       }
 
       .lockProximitySub {
-        font-size: 10px;
+        font-size: 13px;
         color: rgba(44, 74, 91, 0.58);
         margin-top: 1px;
       }
@@ -3836,9 +2013,9 @@ function SiteStyles() {
       .lockTaskItem {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 10px 12px;
-        border-radius: 14px;
+        gap: 12px;
+        padding: 13px 15px;
+        border-radius: 16px;
         background: #FFFFFF;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -3879,7 +2056,7 @@ function SiteStyles() {
 
       .lockTaskText {
         flex: 1;
-        font-size: 14px;
+        font-size: 17px;
         font-weight: 600;
         color: #14384D;
         text-shadow: none;
@@ -4881,138 +3058,192 @@ function SiteStyles() {
         background: rgba(14, 23, 51, 0.22);
       }
 
-      /* ââ Responsive ââ */
 
-      @media (max-width: 1024px) {
-        .heroSplit { gap: 2.5rem; }
 
-        .heroGlow {
-          left: 50%;
-          width: 600px;
-          height: 600px;
-        }
+      /* ── Hero microcopy ────────────────────────────────────── */
 
-        .phoneMockup {
-          width: 230px;
-          height: 470px;
-          border-radius: 40px;
-        }
-
-        .phoneScreen { border-radius: 34px; }
-
-        .phoneDynamic {
-          width: 100px;
-          height: 28px;
-          border-radius: 14px;
-          top: 10px;
-        }
-
-        .heroTitle { font-size: clamp(2.4rem, 6vw, 3.5rem); }
-
-        .splitGrid {
-          grid-template-columns: 1fr;
-          gap: 2.5rem;
-        }
-
-        .splitGrid.reverse .splitCopy { order: 1; }
-        .splitGrid.reverse .splitVisual { order: 2; }
-
-        .ecoGrid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-
-        .sectionTitle.left { text-align: center; }
-        .splitCopy { text-align: center; }
-        .caption { text-align: center; }
+      .heroMicro {
+        margin: 22px 0 0;
+        font-size: 0.86rem;
+        letter-spacing: 0.005em;
+        color: var(--ink-faint);
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .reveal { transition-duration: 0.01ms !important; }
-        [data-tilt] { transform: none !important; transition: none !important; animation: none !important; }
-        .sectionTitle { transform: none !important; }
-        .gradientText { animation: none !important; }
-        .privacyOrbitRing { animation: none !important; }
-        .philPulseRing { animation: none !important; }
-        .finalParticle { animation: none !important; opacity: 0.5 !important; }
-        .finalOrb3 { animation: none !important; }
-        .lockWaterShimmer { animation: none !important; }
-        .lockCloudDrift { animation: none !important; }
-        .lockProximityCard { animation: none !important; opacity: 1 !important; }
-        .magicOrb { animation: none !important; }
-        .lockProximityGlow { animation: none !important; }
-        .lockTaskItem { animation: none !important; }
-        .lockProximityShimmer { animation: none !important; }
-        .radarShimmer { animation: none !important; }
+      /* ── Three beats ───────────────────────────────────────── */
+
+      .beatGrid {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(2rem, 4.5vw, 4rem);
+      }
+      .beat {
+        position: relative;
+        padding-top: 26px;
+        border-top: 1px solid var(--ink-hair);
+      }
+      .beatStep {
+        display: block;
+        margin-bottom: 14px;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        color: var(--gold);
+      }
+      .beatTitle {
+        margin: 0;
+        font-size: clamp(1.35rem, 2.1vw, 1.7rem);
+        font-weight: 500;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+      .beatLine {
+        margin: 18px 0 0;
+        padding: 13px 16px;
+        border-radius: var(--radius-sm);
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-hair-soft);
+        font-size: 0.97rem;
+        color: var(--ink);
+        box-shadow: 0 10px 26px rgba(20, 24, 58, 0.05);
+      }
+      .beat:nth-child(3) .beatLine {
+        background: linear-gradient(120deg, rgba(212, 168, 67, 0.16), rgba(240, 130, 70, 0.09));
+        border-color: rgba(196, 148, 47, 0.34);
+        font-weight: 500;
+      }
+      .beatBody {
+        margin: 16px 0 0;
+        font-size: 0.97rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+
+      /* ── Everyday moments ──────────────────────────────────── */
+
+      .momentList {
+        margin: clamp(2.25rem, 4vw, 3rem) auto 0;
+        padding: 0;
+        list-style: none;
+        max-width: 560px;
+        text-align: left;
+        border-top: 1px solid var(--ink-hair-soft);
+      }
+      .moment {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 4px;
+        font-size: clamp(1rem, 1.35vw, 1.12rem);
+        color: var(--ink);
+        border-bottom: 1px solid var(--ink-hair-soft);
+      }
+
+      /* ── FAQ heading, quieter than a chapter title ─────────── */
+
+      .chapterTight { padding: clamp(56px, 8vw, 92px) 0; }
+      .h3Quiet {
+        margin: 0 0 28px;
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.19em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      /* ── Closing QR ────────────────────────────────────────── */
+
+      .finalQr {
+        margin: 44px auto 0;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        text-align: left;
+        color: var(--on-night-faint);
+      }
+      .finalQr :global(img) {
+        border-radius: 10px;
+        background: #fff;
+        padding: 5px;
+      }
+
+      /* ── Responsive ────────────────────────────────────────── */
+
+      @media (max-width: 1024px) {
+        .heroInner {
+          grid-template-columns: 1fr;
+          gap: clamp(2.5rem, 6vw, 3.5rem);
+          text-align: center;
+          justify-items: center;
+        }
+        .heroCopy { max-width: 34rem; }
+        .heroTitle { font-size: clamp(2.7rem, 6.2vw, 3.9rem); }
+        .heroLead { margin-left: auto; margin-right: auto; max-width: 40ch; }
+        .heroCtas { justify-content: center; }
+        .heroMicro { text-align: center; }
+
+        .phoneMockup { width: 268px; height: 547px; border-radius: 40px; }
+        .phoneScreen { border-radius: 34px; }
+        .phoneDynamic { width: 100px; height: 28px; border-radius: 14px; top: 10px; }
+        .lockTimeDisplay { font-size: 42px; }
+        .lockNotifIcon { width: 32px; height: 32px; border-radius: 8px; }
+        .lockProximityCard { padding: 14px 15px; }
+        .lockProximityTitle { font-size: 17px; }
+        .lockProximitySub { font-size: 11px; }
+        .lockTaskItem { padding: 10px 12px; gap: 10px; }
+        .lockTaskText { font-size: 13.5px; }
+
+        .split {
+          grid-template-columns: 1fr;
+          gap: clamp(2.5rem, 6vw, 3.5rem);
+          text-align: center;
+          justify-items: center;
+        }
+        .splitReverse .splitCopy { order: 1; }
+        .splitReverse .splitVisual { order: 2; }
+        .splitCopy { max-width: 34rem; }
+
+      }
+
+      @media (max-width: 860px) {
+        .beatGrid { grid-template-columns: 1fr; gap: 2.25rem; }
       }
 
       @media (max-width: 720px) {
-        .hideOnMobile { display: none; }
+        .beatGrid { grid-template-columns: 1fr; gap: 2.25rem; }
+        .beat { padding-top: 24px; }
+        .momentList { text-align: left; }
+        .moment { font-size: 1rem; padding: 17px 2px; }
+        .finalQr { display: none; }
+        .proofQuote { font-size: clamp(1.2rem, 5.8vw, 1.6rem); }
+        .hideOnMobile { display: none !important; }
+        .hamburger { display: flex; }
 
-        .hamburger {
-          display: flex;
-        }
+        .hero { padding: 26px 0 56px; }
+        .heroTitle { font-size: clamp(2.2rem, 10.8vw, 3rem); letter-spacing: -0.035em; }
+        .heroLead { font-size: 1.02rem; }
+        .heroCtas { width: 100%; flex-direction: column; }
+        .btnPrimary, .btnGhost { width: 100%; }
 
-        .mobileMenuOverlay {
-          display: block;
-        }
+        .chapter { padding: clamp(64px, 14vw, 92px) 0; }
+        .h2 { font-size: clamp(1.85rem, 8.4vw, 2.4rem); }
+        .finalTitle { font-size: clamp(2.1rem, 10vw, 2.8rem); }
 
-        .mobileMenu {
-          display: flex;
-        }
+        .householdOrbit { width: 196px; height: 196px; }
 
-
-        .hero {
-          min-height: auto;
-          padding: 116px 0.5rem 2rem;
-        }
-
-        .heroSplit {
-          flex-direction: column;
-          text-align: center;
-          gap: 2rem;
-        }
-
-        .heroPhone { order: 2; }
-
-        .heroCopy { text-align: center; order: 1; }
-
-        .heroPhases { margin-left: auto; margin-right: auto; max-width: 320px; }
-
-        .heroCtas { justify-content: center; }
-
-        .section { padding: 5rem 1rem; }
-
-        .eyebrow { font-size: 12px; margin-bottom: 0.4rem; }
-
-        .heroTitle {
-          font-size: clamp(2rem, 9vw, 3rem);
-        }
-
-        .heroSub { font-size: 17px; margin-top: 0.5rem; }
-
-        .heroPhaseText { font-size: 15px; line-height: 1.45; }
-        .heroPhases { margin-top: 0.5rem; }
-
-        .sectionTitle {
-          font-size: clamp(1.8rem, 7vw, 2.4rem);
-        }
-
-        .heroCtas {
-          flex-direction: column;
-          align-items: stretch;
-          margin-top: 1.25rem;
-        }
-
-        .primaryBtn, .secondaryBtn {
-          justify-content: center;
-          text-align: center;
-          padding: 0.75rem 1.4rem;
-          font-size: 0.9rem;
-        }
+        .footerTop { flex-direction: column; gap: 2.5rem; }
+        .footerNav { gap: 2rem; }
+        .footerBase { flex-direction: column; align-items: flex-start; }
+        .footerCta { width: 100%; }
 
         .phoneMockup {
-          width: 220px;
-          height: 450px;
+          width: 266px;
+          height: 543px;
           border-radius: 36px;
           padding: 5px;
           transform: translateZ(0);
@@ -5038,11 +3269,15 @@ function SiteStyles() {
         .phoneNearIcon { top: 42px; left: 11px; width: 24px; height: 24px; }
         .phoneNearIconImg { width: 24px; height: 24px; border-radius: 5px; }
         .phoneContent { top: 68px; bottom: 0; padding: 0 12px 58px; }
-        .lockTimeDisplay { font-size: 46px; }
+        .lockTimeDisplay { font-size: 42px; }
         .lockDateDisplay { font-size: 12px; }
         .phoneLockOverlay { padding-top: 58px; }
-        .lockProximityCard { padding: 11px 13px; margin-top: 14px; }
-        .lockNotifIcon { width: 24px; height: 24px; }
+        .lockProximityCard { padding: 14px 15px; margin-top: 14px; }
+        .lockProximityTitle { font-size: 17px; }
+        .lockProximitySub { font-size: 11px; }
+        .lockTaskItem { padding: 10px 12px; gap: 10px; }
+        .lockTaskText { font-size: 13.5px; }
+        .lockNotifIcon { width: 32px; height: 32px; }
         .phoneGreeting { font-size: 12px; }
         .phoneHomeTitle { font-size: 20px; }
         .phoneHomeSub { font-size: 12px; }
@@ -5114,276 +3349,25 @@ function SiteStyles() {
 
         .phoneSignal { width: 14px; height: 10px; }
         .phoneWifi { width: 13px; height: 11px; }
-
-        .heroGlow {
-          width: 400px;
-          height: 400px;
-        }
-
-        .ecoGrid {
-          grid-template-columns: 1fr;
-        }
-
-        .pillGrid {
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .brandFullLogo { height: 28px; width: auto; }
-
-        .finalShell { padding: 3rem 1.5rem; }
-
-        .footerInner {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
       }
 
-    
-      /* ── Phases Section ── */
-      .phasesSection {
-        background: var(--cream, #FAF6F1);
-        color: var(--plum-text, #2A0A16);
-        padding: 120px 24px;
-        text-align: center;
-      }
-      .phasesIntro { max-width: 640px; margin: 0 auto 64px; }
-      .phasesHeadline {
-        font-size: 48px;
-        font-weight: 500;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-        margin: 0 0 20px;
-      }
-      .phasesSub { font-size: 17px; line-height: 1.55; opacity: 0.7; }
-      .phasesGrid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 32px;
-        max-width: 960px;
-        margin: 0 auto;
-      }
-      .phaseItem { margin: 0; }
-      .phaseIconWrap {
-        border-radius: 24px;
-        overflow: visible;
-        background: transparent;
-        display: block;
-        aspect-ratio: 1;
-        width: 100%;
-        filter: drop-shadow(0 18px 34px rgba(12, 8, 21, 0.14));
-      }
-      .phaseIconWrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        border-radius: 24px;
-      }
-      .phaseIconWrap.dayIcon {
-        background: transparent;
-      }
-      .phaseItem figcaption {
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        margin-top: 16px;
-        opacity: 0.6;
-      }
-      @media (max-width: 720px) {
-        .phasesGrid { grid-template-columns: repeat(2, 1fr); }
-        .phasesHeadline { font-size: 32px; }
-      }
+      /* ── Reduced motion ────────────────────────────────────── */
 
-      /* ── Meal Plan Section ── */
-      .mealplanSection {
-        background: var(--cream, #FAF6F1);
-        color: var(--plum-text, #2A0A16);
-        padding: 120px 24px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 64px;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
+      @media (prefers-reduced-motion: reduce) {
+        .reveal,
+        .reveal [data-stagger] { transition-duration: 0.01ms !important; opacity: 1 !important; transform: none !important; }
+        .householdNotif,
+        .householdRing,
+        .micHalo,
+        .heroDawn { animation: none !important; }
+        .lockWaterShimmer,
+        .lockCloudDrift,
+        .lockProximityGlow,
+        .lockProximityShimmer,
+        .lockTaskItem,
+        .radarShimmer { animation: none !important; }
+        .lockProximityCard { animation: none !important; opacity: 1 !important; }
       }
-      .mealplanHeadline {
-        font-size: 44px;
-        font-weight: 500;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-        margin: 0 0 20px;
-      }
-      .mealplanBody { font-size: 17px; line-height: 1.55; opacity: 0.78; margin: 0 0 32px; }
-      .mealplanBullets { list-style: none; padding: 0; margin: 0; }
-      .mealplanBullets li {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 0;
-        font-size: 15px;
-        line-height: 1.4;
-      }
-      .mealDot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--gold, #D4A843);
-        flex-shrink: 0;
-        display: inline-block;
-      }
-      .mealWeek { display: flex; flex-direction: column; gap: 8px; }
-      .mealDay {
-        display: flex;
-        align-items: baseline;
-        gap: 16px;
-        padding: 16px 20px;
-        background: white;
-        border-radius: 14px;
-        border: 1px solid rgba(26,14,31,0.06);
-      }
-      .mealDayToday {
-        background: var(--plum-base, #14213F);
-        color: var(--cream-text, #FFF0DB);
-        border-color: var(--plum-base, #14213F);
-      }
-      .mealDayLabel {
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-        min-width: 110px;
-        opacity: 0.6;
-      }
-      .mealDayToday .mealDayLabel { color: var(--gold, #D4A843); opacity: 1; }
-      .mealDayMeal { font-size: 15px; font-weight: 500; line-height: 1.3; }
-      @media (max-width: 720px) {
-        .mealplanSection { grid-template-columns: 1fr; padding: 64px 20px; }
-        .mealplanHeadline { font-size: 32px; }
-      }
-
-      /* ── Voice Mic (Natural Input update) ── */
-      .addMock {
-        background: var(--plum-base, #14213F);
-        color: var(--cream-text, #FFF0DB);
-        padding: 32px;
-        border-radius: 24px;
-        text-align: center;
-      }
-      .micBtn {
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-        background: transparent;
-        border: 0;
-        position: relative;
-        margin: 24px auto;
-        display: block;
-        cursor: pointer;
-      }
-      .micHalo {
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: radial-gradient(circle, var(--gold, #D4A843) 0%, transparent 70%);
-        opacity: 0.5;
-        filter: blur(6px);
-        animation: micPulse 2.4s ease-in-out infinite;
-      }
-      .micCore {
-        position: absolute;
-        inset: 28px;
-        border-radius: 50%;
-        background: var(--gold, #D4A843);
-      }
-      @keyframes micPulse {
-        0%, 100% { transform: scale(1); opacity: 0.5; }
-        50% { transform: scale(1.1); opacity: 0.7; }
-      }
-      .micTranscript {
-        font-size: 18px;
-        line-height: 1.5;
-        font-style: italic;
-        color: var(--cream-warm, #FFEFD4);
-        margin: 16px 0 24px;
-      }
-      .micChips { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
-      .micCaption { font-size: 14px; line-height: 1.5; opacity: 0.6; margin: 0; }
-
-      /* ── Philosophy italic ── */
-      .philItalic em {
-        font-family: var(--font-serif, Georgia, serif);
-        font-style: italic;
-      }
-
-    
-      /* ── New Footer ── */
-      .newFooter {
-        background: var(--plum-deep, #0B1228);
-        color: var(--cream-text, #FFF0DB);
-        padding: 80px 24px 48px;
-      }
-      .newFooterInner {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 64px;
-        margin-bottom: 48px;
-      }
-      .newFooterBrand img { display: block; margin-bottom: 16px; }
-      .newFooterTag { font-size: 16px; line-height: 1.4; opacity: 0.7; margin: 0; }
-      .newFooterNav {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-      }
-      .newFooterNavHead {
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--gold, #D4A843);
-        margin: 0 0 16px;
-      }
-      .newFooterLink {
-        display: block;
-        font-size: 14px;
-        line-height: 1.8;
-        color: var(--cream-text, #FFF0DB);
-        text-decoration: none;
-        opacity: 0.78;
-      }
-      .newFooterLink:hover { opacity: 1; }
-      .newFooterApp {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding-top: 32px;
-        border-top: 1px solid rgba(255,240,219,0.08);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .newFooterCta {
-        display: inline-flex;
-        align-items: center;
-        padding: 14px 24px;
-        background: var(--cta, #F4C7CF);
-        color: var(--cta-text);
-        border-radius: 28px;
-        font-size: 14px;
-        font-weight: 500;
-        text-decoration: none;
-      }
-      .newFooterCta:hover { background: var(--cta-deep, #B23A63); }
-      .newFooterCopy { font-size: 13px; opacity: 0.5; margin: 0; }
-      @media (max-width: 720px) {
-        .newFooterInner { grid-template-columns: 1fr; gap: 40px; }
-        .newFooterNav { grid-template-columns: repeat(2, 1fr); }
-        .newFooterApp { flex-direction: column; gap: 24px; }
-      }
-
     `}</style>
   )
 }

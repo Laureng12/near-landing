@@ -14,7 +14,7 @@ export function PhoneShowcase() {
       </div>
 
       <div className="inner">
-        {/* LEFT — Home / Arrival */}
+        {/* LEFT - Home / Arrival */}
         <div className="phone left" aria-label="Arrival reminder preview">
           <div className="device dawn-glow">
             <div className="arrivalOrb orbOne" aria-hidden="true" />
@@ -35,7 +35,7 @@ export function PhoneShowcase() {
           </div>
         </div>
 
-        {/* CENTER — Places / Nudge */}
+        {/* CENTER - Places / Nudge */}
         <div className="phone center" aria-label="Drive-by reminder preview">
           <div className="device night-glow">
             <div className="bezel">
@@ -50,7 +50,7 @@ export function PhoneShowcase() {
           </div>
         </div>
 
-        {/* RIGHT — Household */}
+        {/* RIGHT - Household */}
         <div className="phone right" aria-label="Household sync preview">
           <div className="device dusk-glow">
             <div className="bezel">
