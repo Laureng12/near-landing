@@ -4,7 +4,7 @@ import "./globals.css"
 import ConsentBanner from "./ConsentBanner"
 
 // Self-hosted at build time (next/font downloads + serves the fonts from our own
-// origin) — no runtime request to fonts.googleapis.com, so no visitor IP is sent
+// origin) - no runtime request to fonts.googleapis.com, so no visitor IP is sent
 // to Google just by loading the page.
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -23,10 +23,10 @@ const instrumentSerif = Instrument_Serif({
 const SITE_URL = "https://www.nearesttask.com"
 const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const DEFAULT_DESCRIPTION =
-  "Near helps busy people remember errands, groceries, and home things by surfacing them at the place they matter. Use it solo or share it with your household."
+  "Near remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
 
 export const metadata: Metadata = {
-  title: "Near | The right task. At the right place.",
+  title: "Near - Never forget anything again | Location reminders for iPhone",
   description: DEFAULT_DESCRIPTION,
   keywords: [
     "location reminders",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Near | The right task. At the right place.",
+    title: "Near - Never forget anything again | Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
     siteName: "Near",
@@ -67,13 +67,13 @@ export const metadata: Metadata = {
         url: "/near-og.png",
         width: 1200,
         height: 630,
-        alt: "Near — location-based reminders for iPhone",
+        alt: "Near - location reminders for iPhone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Near | The right task. At the right place.",
+    title: "Near - Never forget anything again | Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
     images: ["/near-og.png"],
   },
@@ -105,11 +105,11 @@ const organizationJsonLd = {
   logo: `${SITE_URL}/assets/brand/Near-Logo-Blue.png`,
   image: `${SITE_URL}/near-og.png`,
   email: "hello@nearesttask.com",
-  description: "Location-based reminders for iPhone. The right task, at the right place.",
+  description: "Location reminders for iPhone. Your list finds you.",
   brand: {
     "@type": "Brand",
     name: "Near",
-    slogan: "The right task. At the right place.",
+    slogan: "Your list finds you.",
   },
 }
 

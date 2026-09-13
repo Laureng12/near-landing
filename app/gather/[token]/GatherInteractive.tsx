@@ -57,7 +57,7 @@ export default function GatherInteractive({
         track("viewed")
       }
     } catch {
-      /* sessionStorage unavailable — skip */
+      /* sessionStorage unavailable - skip */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [!!event, token])
@@ -164,7 +164,7 @@ export default function GatherInteractive({
         <div style={styles.card}>
           <p style={styles.sectionLabel}>WILL YOU BE THERE?</p>
           {rsvpSent ? (
-            <p style={styles.success}>Thanks{name ? `, ${name.split(" ")[0]}` : ""} — your RSVP is in. ✓</p>
+            <p style={styles.success}>Thanks{name ? `, ${name.split(" ")[0]}` : ""} - your RSVP is in. ✓</p>
           ) : (
             <>
               <input style={styles.input} placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -234,7 +234,7 @@ export default function GatherInteractive({
             {event.hostName ? `${event.hostName} planned this with Near.` : "This gathering was planned with Near."}
           </p>
           <p style={styles.ctaTitle}>Host your own, free.</p>
-          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place — Near does the remembering.</p>
+          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place - Near does the remembering.</p>
           <span style={styles.ctaBtn}>Get Near</span>
         </a>
 

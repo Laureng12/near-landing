@@ -7,291 +7,309 @@ import Link from "next/link"
 const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 
-export default function PricingPage() {
-  const [billing, setBilling] = useState<"annual" | "monthly">("annual")
+type Billing = "annual" | "monthly"
 
-  const prices = {
-    pro: billing === "annual" ? { amount: "$109", period: "/year" } : { amount: "$12.99", period: "/month" },
-  }
+const tiers = [
+  {
+    name: "Free",
+    tag: "Everything you need to stop forgetting.",
+    annual: { big: "$0", unit: "", note: "Free forever." },
+    monthly: { big: "$0", unit: "", note: "Free forever." },
+    features: [
+      "Reminders that wait at the place",
+      "Lock Screen alerts when you arrive",
+      "Grocery lists grouped by department",
+      "Add anything by text",
+      "Share with one person",
+    ],
+    cta: "Download Near",
+    style: "ghost" as const,
+  },
+  {
+    name: "Near Pro",
+    tag: "Your household, one step ahead.",
+    annual: { big: "$6.67", unit: "/month", note: "$79.99 billed annually · Save 33%" },
+    monthly: { big: "$9.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
+    features: [
+      "Everything in Free",
+      "Meal plans built from what you actually cook",
+      "Recipes that fill the grocery list for you",
+      "Learns the routines you repeat",
+      "Add anything by voice",
+      "Unlimited household sharing",
+    ],
+    cta: "Try Pro free for 7 days",
+    style: "primary" as const,
+    featured: true,
+  },
+  {
+    name: "Near Pro+",
+    tag: "Down to the aisle.",
+    annual: { big: "$9.08", unit: "/month", note: "$109 billed annually · Save 30%" },
+    monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
+    features: [
+      "Everything in Pro",
+      "Grocery lists in aisle order",
+      "Price check before you reach the register",
+      "A pantry that stays current",
+      "Shared household pantry",
+      "Priority support",
+    ],
+    cta: "Choose Pro+",
+    style: "ghost" as const,
+  },
+]
+
+export default function PricingPage() {
+  const [billing, setBilling] = useState<Billing>("annual")
 
   return (
     <>
       <style jsx global>{`
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: var(--font-sans, "DM Sans", sans-serif); }
+        a { color: inherit; text-decoration: none; }
 
-        /* ── Nav (matches main site) ── */
-        .pricingNav {
-          position: sticky; top: 0; z-index: 100;
-          background: rgba(250,247,242,0.88);
-          backdrop-filter: blur(12px);
-          border-bottom: 1px solid rgba(26,14,31,0.06);
-        }
-        .pricingNavInner {
-          max-width: 1200px; margin: 0 auto;
-          padding: 12px 24px;
-          display: flex; align-items: center; justify-content: space-between;
-        }
-        .pricingNavBrand {
-          display: flex; align-items: center; gap: 10px;
-          text-decoration: none; color: var(--plum-text, #2A0A16);
-        }
-        .pricingNavLogoFull {
-          height: 30px; width: auto; object-fit: contain; display: block;
-        }
-        .pricingNavLinks {
-          display: flex; align-items: center; gap: 28px;
-        }
-        .pricingNavLink {
-          font-size: 14px; font-weight: 500; color: var(--plum-text, #2A0A16);
-          text-decoration: none; opacity: 0.7;
-        }
-        .pricingNavLink:hover { opacity: 1; }
-        .pricingNavLink.current { opacity: 1; }
-        .pricingNavCta {
-          display: inline-flex; align-items: center;
-          padding: 10px 20px;
-          background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
-          background-size: 200% 200%;
-          background-position: 0% 50%;
-          color: var(--cta-text, #121C41);
-          border-radius: 28px;
-          font-size: 13px; font-weight: 600;
-          text-decoration: none;
-          box-shadow: 0 10px 30px rgba(236, 78, 114, 0.30);
-          transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
-        }
-        .pricingNavCta:hover {
-          background-position: 100% 50%;
-          box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
-        }
-
-        /* ── Page ── */
-        .pricingPage {
+        .pricePage {
           min-height: 100vh;
-          background: var(--cream, #FAF6F1);
-          font-family: var(--font-sans, "DM Sans", sans-serif);
+          background: var(--paper);
+          color: var(--ink);
+          font-family: var(--font-sans);
         }
-        .pricingContainer {
-          max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+
+        /* ── Nav ── */
+        .priceNav {
+          position: sticky; top: 0; z-index: 60;
+          background: rgba(251, 248, 243, 0.82);
+          backdrop-filter: saturate(180%) blur(22px);
+          -webkit-backdrop-filter: saturate(180%) blur(22px);
+          border-bottom: 1px solid var(--ink-hair-soft);
         }
-        .pricingHeader { text-align: center; margin-bottom: 64px; }
-        .pricingEyebrow {
-          font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
-          text-transform: uppercase; color: var(--gold, #D4A843);
-          margin: 0 0 16px; display: block;
+        .priceNavInner {
+          max-width: var(--shell); margin: 0 auto;
+          padding: 14px var(--gutter);
+          display: flex; align-items: center; justify-content: space-between; gap: 20px;
         }
-        .pricingTitle {
-          font-size: 48px; font-weight: 500; line-height: 1.1;
-          letter-spacing: -0.02em; color: var(--plum-text, #2A0A16);
-          margin: 0 0 16px;
+        .priceNavLogo { height: 28px; width: auto; display: block; }
+        .priceNavLinks { display: flex; align-items: center; gap: 30px; }
+        .priceNavLink {
+          font-size: 0.93rem; color: var(--ink-soft);
+          transition: color 0.3s var(--ease-soft);
         }
-        .pricingTitle em {
-          font-family: var(--font-serif, "Instrument Serif", Georgia, serif);
-          font-style: italic;
+        .priceNavLink:hover, .priceNavLink.current { color: var(--ink); }
+        .priceNavCta {
+          display: inline-flex; align-items: center;
+          padding: 10px 20px; border-radius: 999px;
+          background: var(--night-soft); color: #FFF6E8;
+          font-size: 0.9rem; font-weight: 500;
+          transition: background 0.3s var(--ease-soft), transform 0.45s var(--ease);
         }
-        .pricingSub {
-          font-size: 17px; line-height: 1.55;
-          color: var(--plum-text, #2A0A16); opacity: 0.7;
-          max-width: 56ch; margin: 0 auto 32px;
+        .priceNavCta:hover { background: #1B2C53; transform: translateY(-1px); }
+
+        /* ── Header ── */
+        .priceShell { max-width: var(--shell); margin: 0 auto; padding: clamp(64px, 9vw, 108px) var(--gutter) clamp(72px, 10vw, 120px); }
+        .priceHead { text-align: center; margin-bottom: clamp(3rem, 6vw, 4.5rem); }
+        .priceEyebrow {
+          margin: 0 0 20px;
+          font-size: 0.72rem; font-weight: 500; letter-spacing: 0.19em;
+          text-transform: uppercase; color: var(--gold);
+        }
+        .priceTitle {
+          margin: 0;
+          font-size: clamp(2.1rem, 5vw, 3.4rem);
+          font-weight: 500; line-height: 1.06; letter-spacing: -0.03em;
+          color: var(--ink); text-wrap: balance;
+        }
+        .priceTitle em {
+          font-family: var(--font-serif); font-style: italic; font-weight: 400;
+          letter-spacing: -0.01em;
+        }
+        .priceSub {
+          margin: 24px auto 36px; max-width: 52ch;
+          font-size: clamp(1rem, 1.3vw, 1.12rem); line-height: 1.62;
+          color: var(--ink-soft);
         }
 
         /* ── Toggle ── */
-        .pricingToggle {
-          display: inline-flex;
-          background: rgba(26,14,31,0.06);
-          border-radius: 999px; padding: 4px;
+        .priceToggle {
+          display: inline-flex; padding: 4px;
+          background: var(--paper-sunk);
+          border: 1px solid var(--ink-hair-soft);
+          border-radius: 999px;
         }
         .toggleBtn {
-          padding: 10px 24px; border-radius: 999px; border: 0;
-          background: transparent; font-size: 14px; font-weight: 500;
-          cursor: pointer; color: var(--plum-text, #2A0A16);
-          font-family: var(--font-sans, "DM Sans", sans-serif);
-          transition: background 0.15s;
+          padding: 10px 24px; border: 0; border-radius: 999px;
+          background: transparent; cursor: pointer;
+          font-family: inherit; font-size: 0.9rem; font-weight: 500;
+          color: var(--ink-soft);
+          transition: background 0.3s var(--ease-soft), color 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft);
         }
-        .toggleBtn.active { background: white; }
+        .toggleBtn.active {
+          background: var(--paper-raised); color: var(--ink);
+          box-shadow: 0 2px 8px rgba(20, 24, 58, 0.08);
+        }
 
         /* ── Tiers ── */
-        .tiersGrid {
-          display: grid; grid-template-columns: repeat(2, 1fr);
-          gap: 24px; align-items: start;
-          max-width: 760px; margin: 0 auto;
+        .tiers {
+          display: grid; grid-template-columns: repeat(3, 1fr);
+          gap: clamp(16px, 2vw, 24px); align-items: start;
         }
-        .tierCard {
-          background: white; border-radius: 24px; padding: 40px 32px;
-          border: 1px solid rgba(26,14,31,0.06);
-          color: var(--plum-text, #2A0A16); position: relative;
+        .tier {
+          position: relative;
+          padding: 40px 32px 34px;
+          border-radius: var(--radius);
+          background: var(--paper-raised);
+          border: 1px solid var(--ink-hair-soft);
+          box-shadow: 0 16px 44px rgba(20, 24, 58, 0.06);
         }
-        .tierCard.featured {
-          background: var(--plum-base, #14213F);
-          color: var(--cream-text, #FFF0DB);
-          border-color: var(--plum-base, #14213F);
-          transform: translateY(-8px);
+        .tier.featured {
+          background: var(--night-soft);
+          border-color: var(--night-soft);
+          color: var(--on-night);
+          box-shadow: 0 28px 70px rgba(20, 33, 63, 0.3);
         }
         .tierBadge {
-          position: absolute; top: -14px; left: 50%;
-          transform: translateX(-50%);
-          background: var(--gold, #D4A843); color: var(--plum-base, #14213F);
-          font-size: 11px; font-weight: 500;
-          padding: 6px 14px; border-radius: 999px;
-          letter-spacing: 0.08em; text-transform: uppercase;
-          white-space: nowrap;
+          position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+          padding: 6px 15px; border-radius: 999px;
+          background: var(--gold-lit); color: #14213F;
+          font-size: 0.66rem; font-weight: 500;
+          letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
         }
-        .tierName { font-size: 20px; font-weight: 500; margin: 0 0 12px; }
-        .tierPrice {
-          font-size: 14px; margin: 0 0 8px; opacity: 0.6;
-          display: flex; align-items: baseline; gap: 4px;
+        .tierName {
+          margin: 0 0 10px;
+          font-size: 1.1rem; font-weight: 500; letter-spacing: -0.015em;
         }
-        .tierPrice strong { font-size: 36px; font-weight: 500; opacity: 1; }
         .tierTag {
-          font-size: 14px; line-height: 1.4; font-style: italic;
-          font-family: var(--font-serif, "Instrument Serif", Georgia, serif);
-          margin: 0 0 24px; opacity: 0.78;
+          margin: 0 0 26px;
+          font-size: 1.08rem; line-height: 1.35; letter-spacing: -0.02em;
+          color: var(--ink);
         }
-        .tierList { list-style: none; padding: 0; margin: 0 0 32px; }
+        .featured .tierTag { color: var(--on-night); }
+        .tierPrice { display: flex; align-items: baseline; gap: 5px; margin: 0; }
+        .tierPrice strong {
+          font-size: 2.6rem; font-weight: 500; letter-spacing: -0.035em; line-height: 1;
+        }
+        .tierPrice span { font-size: 0.92rem; color: var(--ink-faint); }
+        .featured .tierPrice span { color: var(--on-night-faint); }
+        .tierNote {
+          margin: 10px 0 28px; min-height: 1.4em;
+          font-size: 0.84rem; color: var(--ink-faint);
+        }
+        .featured .tierNote { color: var(--on-night-faint); }
+        .tierList { list-style: none; padding: 0; margin: 0 0 30px; }
         .tierList li {
-          padding: 8px 0; font-size: 14px; line-height: 1.4;
-          border-bottom: 1px solid rgba(26,14,31,0.06);
+          padding: 11px 0;
+          font-size: 0.94rem; line-height: 1.45;
+          color: var(--ink-soft);
+          border-bottom: 1px solid var(--ink-hair-soft);
         }
-        .featured .tierList li { border-color: rgba(255,240,219,0.08); }
+        .tierList li:last-child { border-bottom: none; }
+        .featured .tierList li {
+          color: var(--on-night-soft);
+          border-color: rgba(255, 244, 228, 0.1);
+        }
         .tierCta {
           display: flex; align-items: center; justify-content: center;
-          width: 100%; padding: 16px 28px; border-radius: 28px;
-          font-size: 15px; font-weight: 500; text-decoration: none;
-          font-family: var(--font-sans, "DM Sans", sans-serif);
-          text-align: center; box-sizing: border-box; cursor: pointer;
+          width: 100%; padding: 15px 24px; border-radius: 999px;
+          font-size: 0.95rem; font-weight: 500; text-align: center;
+          border: 1px solid transparent;
+          transition: background 0.3s var(--ease-soft), transform 0.45s var(--ease), border-color 0.3s var(--ease-soft);
         }
-        .tierCta.primary {
-          background: linear-gradient(135deg, var(--cta) 0%, var(--cta-deep) 100%);
-          background-size: 200% 200%;
-          background-position: 0% 50%;
-          color: var(--cta-text, #121C41); border: none;
-          font-weight: 600;
-          box-shadow: 0 10px 30px rgba(236, 78, 114, 0.30);
-          transition: background-position 0.4s ease, transform 0.16s, box-shadow 0.3s ease;
-        }
-        .tierCta.primary:hover {
-          background-position: 100% 50%;
-          box-shadow: 0 14px 36px rgba(236, 78, 114, 0.42);
-        }
-        .tierCta.ghost {
-          background: transparent; color: var(--blue, #121C41);
-          border: 1px solid rgba(236, 78, 114, 0.30);
-        }
-        .tierCta.ghost:hover { background: rgba(236, 78, 114, 0.06); }
-        .featured .tierCta.ghost {
-          color: var(--cream-text, #FFF0DB);
-          border-color: rgba(255,240,219,0.3);
-        }
-        .pricingFootnote {
-          text-align: center; font-size: 13px; line-height: 1.6;
-          color: var(--plum-text, #2A0A16); opacity: 0.5; margin: 48px 0 0;
-        }
+        .tierCta.ghost { border-color: var(--ink-hair); color: var(--ink); }
+        .tierCta.ghost:hover { border-color: rgba(20, 24, 58, 0.28); transform: translateY(-2px); }
+        .tierCta.primary { background: var(--on-night); color: #14183A; }
+        .tierCta.primary:hover { transform: translateY(-2px); }
 
+        .priceFoot {
+          margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+          text-align: center; font-size: 0.84rem; line-height: 1.7;
+          color: var(--ink-faint);
+        }
+        .priceBack {
+          margin-top: 14px; text-align: center;
+          font-size: 0.88rem; color: var(--ink-soft);
+        }
+        .priceBack a { border-bottom: 1px solid var(--ink-hair); }
+
+        @media (max-width: 860px) {
+          .tiers { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+        }
         @media (max-width: 720px) {
-          .tiersGrid { grid-template-columns: 1fr; }
-          .tierCard.featured { transform: none; }
-          .pricingTitle { font-size: 32px; }
-          .pricingNavLinks { display: none; }
+          .priceNavLinks .priceNavLink { display: none; }
         }
       `}</style>
 
-      <div className="pricingPage">
-
-        {/* ── Nav matching main site ── */}
-        <nav className="pricingNav">
-          <div className="pricingNavInner">
-            <Link href="/" className="pricingNavBrand">
-              <Image
-                src={BRAND_WORDMARK}
-                alt="Near"
-                width={1185}
-                height={500}
-                className="pricingNavLogoFull"
-              />
+      <div className="pricePage">
+        <nav className="priceNav">
+          <div className="priceNavInner">
+            <Link href="/" aria-label="Near, home">
+              <Image src={BRAND_WORDMARK} alt="Near" width={1185} height={500} className="priceNavLogo" />
             </Link>
-            <div className="pricingNavLinks">
-              <Link href="/#how-it-works" className="pricingNavLink">How it works</Link>
-              <Link href="/pricing" className="pricingNavLink current">Pricing</Link>
-              <Link href="/#household" className="pricingNavLink">Household</Link>
-              <Link href={APP_STORE_URL} className="pricingNavCta">Download</Link>
+            <div className="priceNavLinks">
+              <Link href="/#how-it-works" className="priceNavLink">How it works</Link>
+              <Link href="/#household" className="priceNavLink">For households</Link>
+              <Link href="/pricing" className="priceNavLink current">Pricing</Link>
+              <a href={APP_STORE_URL} className="priceNavCta">Download</a>
             </div>
           </div>
         </nav>
 
-        <div className="pricingContainer">
-          <header className="pricingHeader">
-            <span className="pricingEyebrow">Pricing</span>
-            <h1 className="pricingTitle">
+        <div className="priceShell">
+          <header className="priceHead">
+            <p className="priceEyebrow">Pricing</p>
+            <h1 className="priceTitle">
               The location magic is free. <em>Always.</em>
             </h1>
-            <p className="pricingSub">
-              Pro adds intelligence on top &mdash; meal plans, AI recipes, and
-              lists that restock themselves. Cancel anytime.
+            <p className="priceSub">
+              The part that finds you never costs anything. Pro adds the thinking -
+              meal plans, the routines Near learns, and a grocery list that fills itself.
             </p>
-            <div className="pricingToggle">
+            <div className="priceToggle" role="group" aria-label="Billing period">
               <button
                 className={`toggleBtn ${billing === "annual" ? "active" : ""}`}
                 onClick={() => setBilling("annual")}
+                aria-pressed={billing === "annual"}
               >
                 Annual
               </button>
               <button
                 className={`toggleBtn ${billing === "monthly" ? "active" : ""}`}
                 onClick={() => setBilling("monthly")}
+                aria-pressed={billing === "monthly"}
               >
                 Monthly
               </button>
             </div>
           </header>
 
-          <div className="tiersGrid">
-
-            {/* Free */}
-            <article className="tierCard">
-              <h2 className="tierName">Free</h2>
-              <p className="tierPrice"><strong>$0</strong></p>
-              <p className="tierTag">The core promise.</p>
-              <ul className="tierList">
-                <li>Location-aware reminders</li>
-                <li>Lock Screen widget</li>
-                <li>Voice &amp; manual task entry</li>
-                <li>Grocery list with department grouping</li>
-                <li>Household sync (1 partner)</li>
-              </ul>
-              <Link href={APP_STORE_URL} className="tierCta ghost">Get Near</Link>
-            </article>
-
-            {/* Pro */}
-            <article className="tierCard featured">
-              <span className="tierBadge">Most popular</span>
-              <h2 className="tierName">Pro</h2>
-              <p className="tierPrice">
-                <strong>{prices.pro.amount}</strong>
-                <span>{prices.pro.period}</span>
-              </p>
-              <p className="tierTag">The intelligence layer.</p>
-              <ul className="tierList">
-                <li>Everything in Free</li>
-                <li>Unlimited AI meal plans</li>
-                <li>AI recipe Discover</li>
-                <li>Smart Observations (10 rules)</li>
-                <li>Predictive restock lists</li>
-                <li>Annual Wrapped</li>
-              </ul>
-              <Link href={APP_STORE_URL} className="tierCta primary">Start 7-day free trial</Link>
-            </article>
-
+          <div className="tiers">
+            {tiers.map((t) => {
+              const price = billing === "annual" ? t.annual : t.monthly
+              return (
+                <article className={`tier ${t.featured ? "featured" : ""}`} key={t.name}>
+                  {t.featured && <span className="tierBadge">Most popular</span>}
+                  <h2 className="tierName">{t.name}</h2>
+                  <p className="tierTag">{t.tag}</p>
+                  <p className="tierPrice">
+                    <strong>{price.big}</strong>
+                    {price.unit && <span>{price.unit}</span>}
+                  </p>
+                  <p className="tierNote">{price.note}</p>
+                  <ul className="tierList">
+                    {t.features.map((f) => (
+                      <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                  <a href={APP_STORE_URL} className={`tierCta ${t.style}`}>{t.cta}</a>
+                </article>
+              )
+            })}
           </div>
 
-          <p className="pricingFootnote">
-            Pro is $12.99/month or $109/year, and starts with a 7-day free trial.
-            Subscriptions auto-renew unless canceled at least 24 hours before the end of
-            the period; manage or cancel anytime in Settings &rarr; Apple ID.
-            See our{" "}
-            <Link href="/terms" style={{ textDecoration: "underline", color: "inherit" }}>Terms</Link>
-            {" "}and{" "}
-            <Link href="/privacy" style={{ textDecoration: "underline", color: "inherit" }}>Privacy Policy</Link>.
+          <p className="priceFoot">
+            Seven days free on any annual plan. Cancel anytime in Settings &rarr; Apple ID.
+          </p>
+          <p className="priceBack">
+            <Link href="/">Back to Near</Link>
           </p>
         </div>
       </div>

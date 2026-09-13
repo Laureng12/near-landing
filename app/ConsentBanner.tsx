@@ -8,13 +8,13 @@ import Link from "next/link"
  *
  * The site ships with NO third-party trackers today. This banner records the
  * visitor's choice so that any analytics added later only loads AFTER explicit
- * consent — the default state is "no consent → no tracking."
+ * consent - the default state is "no consent → no tracking."
  *
  * To add a consent-gated tracker later:
  *   import { hasAnalyticsConsent } from "./ConsentBanner"
  *   // only mount/load the tracker when hasAnalyticsConsent() is true, and
  *   // listen for the "near-consent" window event to react to a fresh "accept".
- * Never load a pixel/analytics script unconditionally — that's the CIPA risk.
+ * Never load a pixel/analytics script unconditionally - that's the CIPA risk.
  */
 
 export const CONSENT_KEY = "near_consent_v1"
@@ -37,7 +37,7 @@ export default function ConsentBanner() {
     try {
       if (!window.localStorage.getItem(CONSENT_KEY)) setVisible(true)
     } catch {
-      // localStorage blocked (private mode / strict settings) — don't block the page
+      // localStorage blocked (private mode / strict settings) - don't block the page
     }
   }, [])
 

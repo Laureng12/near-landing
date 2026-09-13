@@ -51,7 +51,7 @@ export default function SupportPage() {
             <h3>Why does Near need &quot;Always&quot; location access?</h3>
             <p>
               Near monitors geofences in the background so it can notify you the moment you
-              arrive at a saved place — even if the app isn&apos;t open. &quot;When In
+              arrive at a saved place - even if the app isn&apos;t open. &quot;When In
               Use&quot; only works while the app is in the foreground, which defeats the
               purpose of automatic reminders.
             </p>
