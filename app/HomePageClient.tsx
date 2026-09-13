@@ -14,21 +14,30 @@ const beats = [
   {
     step: "01",
     title: "Say it.",
-    line: "“Paper towels at Target.”",
+    visual: "voice" as const,
     body: "Type it or speak it. That is the entire capture step.",
   },
   {
     step: "02",
     title: "Near places it.",
-    line: "Target · Household",
+    visual: "sphere" as const,
     body: "No folders, no tags, no organizing. It goes where it gets done.",
   },
   {
     step: "03",
     title: "It appears when you arrive.",
-    line: "You’re at Target",
+    visual: "arrive" as const,
     body: "Before you can forget it again.",
   },
+]
+
+/* The shared list Brian is about to see. */
+const sharedList = [
+  { item: "Milk", done: true },
+  { item: "Eggs", done: true },
+  { item: "Bananas", done: false },
+  { item: "Bread", done: false },
+  { item: "Olive oil", done: false },
 ]
 
 /* Recognizable moments, not another description of geofencing. */
@@ -682,11 +691,14 @@ function ThreeBeats() {
           <h2 className="h2 h2Center">Three steps. Then never again.</h2>
         </div>
         <ol className="beatGrid">
-          {beats.map((b) => (
+          {beats.map((b, i) => (
             <li className="beat" key={b.step} data-stagger>
               <span className="beatStep">{b.step}</span>
               <h3 className="beatTitle">{b.title}</h3>
-              <p className="beatLine">{b.line}</p>
+              <div className="beatVisual">
+                <BeatVisual kind={b.visual} />
+                {i < beats.length - 1 && <span className="beatLink" aria-hidden="true" />}
+              </div>
               <p className="beatBody">{b.body}</p>
             </li>
           ))}
@@ -697,6 +709,60 @@ function ThreeBeats() {
 }
 
 /* ── Household ─────────────────────────────────────────────────── */
+
+/* Beat visuals: spoken words, then the mark, then the Lock Screen.
+   Gold is Near's own voice, so it carries the whole sequence. */
+
+const WAVE_BARS = [34, 58, 86, 52, 100, 70, 44, 78, 38, 62, 30]
+
+function BeatVisual({ kind }: { kind: "voice" | "sphere" | "arrive" }) {
+  if (kind === "voice") {
+    return (
+      <div className="vizVoice">
+        <div className="vizVoiceRow">
+        <span className="vizMic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </span>
+        <span className="vizWave" aria-hidden="true">
+          {WAVE_BARS.map((h, i) => (
+            <i key={i} style={{ height: h + "%", animationDelay: i * 90 + "ms" }} />
+          ))}
+        </span>
+        </div>
+        <p className="vizQuote">&ldquo;Paper towels at Target.&rdquo;</p>
+      </div>
+    )
+  }
+
+  if (kind === "sphere") {
+    return (
+      <div className="vizSphere" aria-hidden="true">
+        <span className="vizRing vizRing1" />
+        <span className="vizRing vizRing2" />
+        <span className="vizRing vizRing3" />
+        <span className="vizCore" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="vizArrive">
+      <div className="vizNotif">
+        <div className="vizNotifIcon">
+          <Image src={BRAND_ICON} alt="" width={24} height={24} />
+        </div>
+        <div>
+          <div className="vizNotifLabel">Near &middot; now</div>
+          <div className="vizNotifTitle">You&rsquo;re at Target</div>
+          <div className="vizNotifSub">Paper towels</div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function HouseholdChapter() {
   return (
@@ -717,21 +783,50 @@ function HouseholdChapter() {
           <p className="caption">Start on your own. Better together.</p>
         </div>
         <div className="splitVisual">
-          <div className="householdVisual">
-            <div className="householdOrbit" aria-hidden="true">
-              <div className="householdRing" />
-              <div className="householdRing householdRing2" />
-              <div className="householdAvatar householdAvatar1"><span>L</span></div>
-              <div className="householdAvatar householdAvatar2"><span>B</span></div>
+          <div className="threadVisual">
+            <div className="threadList">
+              <div className="threadListHead">
+                <span className="threadListIcon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.5" />
+                    <circle cx="16.5" cy="9.5" r="2.4" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M3.5 18.5c0-2.8 2.5-4.6 5.5-4.6s5.5 1.8 5.5 4.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M16.2 14.2c2.4.2 4.3 1.9 4.3 4.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </span>
+                <div>
+                  <div className="threadListTitle">Shared grocery list</div>
+                  <div className="threadListSub">Shared with Brian</div>
+                </div>
+              </div>
+              <ul className="threadItems">
+                {sharedList.map((row) => (
+                  <li key={row.item} className={row.done ? "threadDone" : ""}>
+                    <span className="threadCheck" aria-hidden="true">
+                      {row.done && (
+                        <svg viewBox="0 0 16 16" fill="none">
+                          <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </span>
+                    {row.item}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="householdNotif">
-              <div className="householdNotifIcon">
+
+            <div className="threadLine" aria-hidden="true">
+              <span className="threadSpark" />
+            </div>
+
+            <div className="threadNotif">
+              <div className="threadNotifIcon">
                 <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </div>
               <div>
-                <div className="householdNotifLabel">Near &middot; now</div>
-                <div className="householdNotifTitle">Brian is at Kroger</div>
-                <div className="householdNotifSub">Your shared list is ready</div>
+                <div className="threadNotifLabel">Near &middot; now</div>
+                <div className="threadNotifTitle">Brian is at Kroger</div>
+                <div className="threadNotifSub">Your shared list is ready</div>
               </div>
             </div>
           </div>
@@ -3093,6 +3188,7 @@ function SiteStyles() {
       }
       .beatTitle {
         margin: 0;
+        min-height: 2.3em;
         font-size: clamp(1.35rem, 2.1vw, 1.7rem);
         font-weight: 500;
         letter-spacing: -0.025em;
@@ -3172,6 +3268,255 @@ function SiteStyles() {
         padding: 5px;
       }
 
+
+      /* ── Beat visuals ──────────────────────────────────────── */
+
+      .beatVisual {
+        position: relative;
+        margin-top: 20px;
+        height: 116px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* the dotted hand-off between beats */
+      .beatLink {
+        position: absolute;
+        top: 50%;
+        left: calc(100% + 8px);
+        width: clamp(1.4rem, 3.4vw, 3rem);
+        height: 1px;
+        background: linear-gradient(90deg, rgba(196, 148, 47, 0.55) 0 4px, transparent 4px 9px) repeat-x;
+        background-size: 9px 1px;
+      }
+      .beatLink::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 5px;
+        height: 5px;
+        border-top: 1.2px solid rgba(196, 148, 47, 0.75);
+        border-right: 1.2px solid rgba(196, 148, 47, 0.75);
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      /* 01 - the spoken thing */
+      .vizVoice { text-align: left; display: flex; flex-direction: column; gap: 14px; width: 100%; }
+      .vizVoiceRow { display: flex; align-items: center; gap: 12px; }
+      .vizMic {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-hair);
+        color: var(--ink-soft);
+      }
+      .vizMic svg { width: 15px; height: 15px; }
+      .vizWave {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 36px;
+        flex: 1;
+      }
+      .vizWave i {
+        display: block;
+        flex: 1;
+        max-width: 4px;
+        min-height: 3px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, var(--gold) 0%, rgba(196, 148, 47, 0.4) 100%);
+        transform-origin: center;
+        animation: waveFlex 1.8s var(--ease-soft) infinite;
+      }
+      @keyframes waveFlex {
+        0%, 100% { transform: scaleY(0.32); opacity: 0.55; }
+        45%      { transform: scaleY(1);    opacity: 1; }
+      }
+      .vizQuote {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--ink);
+      }
+
+      /* 02 - the mark takes it */
+      .vizSphere {
+        position: relative;
+        width: 104px;
+        height: 104px;
+        display: grid;
+        place-items: center;
+      }
+      .vizRing {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(196, 148, 47, 0.45);
+        animation: ringBreathe 4.4s var(--ease-soft) infinite;
+      }
+      .vizRing1 { inset: 0; animation-delay: 0s; }
+      .vizRing2 { inset: 15px; animation-delay: 0.45s; }
+      .vizRing3 { inset: 30px; animation-delay: 0.9s; }
+      @keyframes ringBreathe {
+        0%, 100% { transform: scale(0.94); opacity: 0.4; }
+        50%      { transform: scale(1.04); opacity: 1; }
+      }
+      .vizCore {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 36% 32%, #FFE6AF 0%, var(--gold-lit) 48%, #A97C1F 100%);
+        box-shadow: 0 0 26px rgba(212, 168, 67, 0.6), 0 0 60px rgba(212, 168, 67, 0.28);
+        animation: coreGlow 4.4s var(--ease-soft) infinite;
+      }
+      @keyframes coreGlow {
+        0%, 100% { box-shadow: 0 0 18px rgba(212, 168, 67, 0.42), 0 0 44px rgba(212, 168, 67, 0.18); }
+        50%      { box-shadow: 0 0 30px rgba(212, 168, 67, 0.68), 0 0 72px rgba(212, 168, 67, 0.34); }
+      }
+
+      /* 03 - it lands on the Lock Screen */
+      .vizArrive { width: 100%; }
+      .vizNotif {
+        text-align: left;
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+        padding: 13px 14px;
+        border-radius: var(--radius-sm);
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-hair-soft);
+        box-shadow: 0 12px 30px rgba(20, 24, 58, 0.08);
+      }
+      .vizNotifIcon :global(img) { border-radius: 6px; display: block; }
+      .vizNotifLabel {
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+      .vizNotifTitle { margin-top: 3px; font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+      .vizNotifSub { margin-top: 1px; font-size: 0.85rem; color: var(--ink-soft); }
+
+      /* ── Household: the golden thread ──────────────────────── */
+
+      .threadVisual {
+        width: min(360px, 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .threadList {
+        text-align: left;
+        padding: 16px 16px 8px;
+        border-radius: var(--radius);
+        background: rgba(255, 248, 238, 0.96);
+        border: 1px solid rgba(255, 244, 228, 0.3);
+        box-shadow: 0 26px 60px rgba(0, 0, 0, 0.34);
+      }
+      .threadListHead {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding-bottom: 13px;
+        border-bottom: 1px solid rgba(20, 24, 58, 0.08);
+      }
+      .threadListIcon {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        background: rgba(20, 24, 58, 0.05);
+        color: var(--ink-soft);
+        flex: 0 0 32px;
+      }
+      .threadListIcon svg { width: 18px; height: 18px; }
+      .threadListTitle { font-size: 0.94rem; font-weight: 500; color: var(--ink); }
+      .threadListSub { margin-top: 1px; font-size: 0.78rem; color: var(--ink-faint); }
+
+      .threadItems { list-style: none; margin: 0; padding: 0; }
+      .threadItems li {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 0;
+        font-size: 0.92rem;
+        color: var(--ink);
+        border-bottom: 1px solid rgba(20, 24, 58, 0.06);
+      }
+      .threadItems li:last-child { border-bottom: none; }
+      .threadCheck {
+        display: grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        border-radius: 50%;
+        border: 1.4px solid rgba(20, 24, 58, 0.2);
+        color: transparent;
+      }
+      .threadCheck svg { width: 11px; height: 11px; }
+      .threadDone .threadCheck {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: #FFF8EE;
+      }
+      .threadDone { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: rgba(20, 24, 58, 0.25); }
+
+      /* the thread itself */
+      .threadLine {
+        position: relative;
+        align-self: center;
+        width: 2px;
+        height: 74px;
+        background: linear-gradient(180deg, rgba(212, 168, 67, 0) 0%, rgba(212, 168, 67, 0.75) 22%, rgba(212, 168, 67, 0.75) 78%, rgba(212, 168, 67, 0) 100%);
+      }
+      .threadSpark {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 13px;
+        height: 13px;
+        margin-left: -6.5px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 36% 32%, #FFE6AF 0%, var(--gold-lit) 50%, #A97C1F 100%);
+        box-shadow: 0 0 16px rgba(212, 168, 67, 0.85), 0 0 38px rgba(212, 168, 67, 0.4);
+        animation: threadTravel 3.6s var(--ease-soft) infinite;
+      }
+      @keyframes threadTravel {
+        0%        { transform: translateY(-6px) scale(0.6); opacity: 0; }
+        14%       { opacity: 1; }
+        84%       { opacity: 1; }
+        100%      { transform: translateY(68px) scale(0.6); opacity: 0; }
+      }
+
+      .threadNotif {
+        text-align: left;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 15px 17px;
+        border-radius: 18px;
+        background: rgba(255, 244, 228, 0.07);
+        border: 1px solid var(--on-night-hair);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
+      }
+      .threadNotifIcon :global(img) { border-radius: 7px; display: block; }
+      .threadNotifLabel {
+        font-size: 0.68rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--on-night-faint);
+      }
+      .threadNotifTitle { margin-top: 4px; font-size: 0.98rem; font-weight: 500; color: var(--on-night); }
+      .threadNotifSub { margin-top: 2px; font-size: 0.85rem; color: var(--on-night-soft); }
+
       /* ── Responsive ────────────────────────────────────────── */
 
       @media (max-width: 1024px) {
@@ -3211,10 +3556,17 @@ function SiteStyles() {
       }
 
       @media (max-width: 860px) {
+        .beatLink { display: none; }
+        .beatVisual { height: auto; min-height: 96px; }
         .beatGrid { grid-template-columns: 1fr; gap: 2.25rem; }
       }
 
       @media (max-width: 720px) {
+        .beatVisual { height: auto; min-height: 96px; margin-top: 18px; }
+        .beatTitle { min-height: 0; }
+        .beatLink { display: none; }
+        .threadVisual { width: 100%; max-width: 360px; margin: 0 auto; }
+        .vizSphere { width: 92px; height: 92px; }
         .beatGrid { grid-template-columns: 1fr; gap: 2.25rem; }
         .beat { padding-top: 24px; }
         .momentList { text-align: left; }
@@ -3359,7 +3711,13 @@ function SiteStyles() {
         .householdNotif,
         .householdRing,
         .micHalo,
-        .heroDawn { animation: none !important; }
+        .heroDawn,
+        .vizWave i,
+        .vizRing,
+        .vizCore,
+        .threadSpark { animation: none !important; }
+        .vizWave i { transform: scaleY(0.7); opacity: 0.85; }
+        .threadSpark { transform: translateY(30px); opacity: 1; }
         .lockWaterShimmer,
         .lockCloudDrift,
         .lockProximityGlow,
