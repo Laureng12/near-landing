@@ -175,6 +175,25 @@ function TopNav() {
 function Hero() {
   const heroRef = useRef<HTMLElement>(null)
 
+  /* The screen sits quiet for a beat, then the notification lands. Replays
+     whenever the hero comes back into view, so the magic is never missed. */
+  const [arrived, setArrived] = useState(false)
+  useEffect(() => {
+    const el = heroRef.current
+    if (!el) return
+    let t: ReturnType<typeof setTimeout> | undefined
+    const play = () => {
+      setArrived(false)
+      t = setTimeout(() => setArrived(true), 900)
+    }
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) play() }),
+      { threshold: 0.45 }
+    )
+    io.observe(el)
+    return () => { io.disconnect(); if (t) clearTimeout(t) }
+  }, [])
+
   const posRef = useRef({ x: 0, y: 0 })
   const rafRef = useRef<number | null>(null)
   const onHeroMove = (e: ReactMouseEvent<HTMLElement>) => {
@@ -215,7 +234,10 @@ function Hero() {
           <p className="heroMicro">Free for iPhone. No ads. Private by design.</p>
         </div>
         <div className="heroPhone">
-          <PhoneMockup phase={1} />
+          <div className={`arrivalRipple ${arrived ? "rippleOn" : ""}`} aria-hidden="true">
+            <span /><span /><span />
+          </div>
+          <PhoneMockup phase={1} arrived={arrived} />
         </div>
       </div>
     </section>
@@ -233,12 +255,12 @@ const notifData = [
   null, // household screen
 ]
 
-function PhoneMockup({ phase }: { phase: number }) {
+function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boolean }) {
   const activeTab = PHASE_ACTIVE_TAB[phase]
   const isLocked = phase === 1
 
   return (
-    <div className="phoneMockup">
+    <div className={`phoneMockup ${arrived ? "hasArrived" : ""}`}>
       <div className="phoneDynamic" />
       <div className="phoneScreen">
         {/* Status bar */}
@@ -992,9 +1014,14 @@ function SiteStyles() {
 
       /* ── Reveal ────────────────────────────────────────────── */
 
+      @keyframes washDrift {
+        from { transform: translate3d(0, 0, 0) scale(1); }
+        to   { transform: translate3d(-2.5%, 2%, 0) scale(1.07); }
+      }
+
       .reveal {
         opacity: 0;
-        transform: translate3d(0, 26px, 0);
+        transform: translate3d(0, 30px, 0);
         transition: opacity 1s var(--ease), transform 1s var(--ease);
       }
       .reveal.revealed { opacity: 1; transform: none; }
@@ -1005,6 +1032,7 @@ function SiteStyles() {
         transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
       }
       .reveal.revealed [data-stagger] { opacity: 1; transform: none; }
+      .reveal.revealed [data-stagger] .placeGlyph { transition-delay: inherit; }
 
       /* ── Type ──────────────────────────────────────────────── */
 
@@ -1074,6 +1102,7 @@ function SiteStyles() {
       .chapterQuiet { padding: clamp(104px, 14vw, 180px) 0; }
 
       .skyWash {
+        animation: washDrift 34s ease-in-out infinite alternate;
         position: absolute;
         inset: -30% -10% auto -10%;
         height: 130%;
@@ -1084,6 +1113,8 @@ function SiteStyles() {
         z-index: 0;
       }
       .skyWashWarm {
+        animation-duration: 28s;
+        animation-direction: alternate-reverse;
         background:
           radial-gradient(58% 52% at 76% 16%, rgba(240, 130, 70, 0.18), transparent 62%),
           radial-gradient(60% 55% at 16% 84%, rgba(139, 42, 74, 0.26), transparent 66%);
@@ -1354,7 +1385,8 @@ function SiteStyles() {
         flex-wrap: wrap;
         gap: 12px;
       }
-      .heroPhone { display: flex; justify-content: center; }
+      .heroPhone { position: relative; display: flex; justify-content: center; }
+      .heroPhone .phoneMockup { position: relative; z-index: 1; }
 
       /* ── Proof ─────────────────────────────────────────────── */
 
@@ -1562,6 +1594,7 @@ function SiteStyles() {
         isolation: isolate;
       }
       .finalSky {
+        animation: washDrift 40s ease-in-out infinite alternate;
         position: absolute; inset: 0;
         background:
           radial-gradient(70% 60% at 50% -10%, rgba(46, 24, 56, 0.95), transparent 68%),
@@ -2028,7 +2061,8 @@ function SiteStyles() {
         -webkit-backdrop-filter: none;
         border: 1px solid rgba(255, 255, 255, 0.88);
         width: 93%;
-        animation: lockNotifSlide 0.6s ease-out 0.4s both;
+        opacity: 0;
+        transform: translateY(-16px) scale(.965);
         overflow: hidden;
         box-shadow:
           0 18px 42px rgba(27, 105, 145, 0.18),
@@ -2052,8 +2086,47 @@ function SiteStyles() {
       }
 
       @keyframes lockNotifSlide {
-        0% { opacity: 0; transform: translateY(-10px); }
-        100% { opacity: 1; transform: translateY(0); }
+        0%   { opacity: 0; transform: translateY(-16px) scale(.965); }
+        60%  { opacity: 1; transform: translateY(2px)   scale(1.006); }
+        100% { opacity: 1; transform: translateY(0)     scale(1); }
+      }
+      .hasArrived .lockProximityCard {
+        animation: lockNotifSlide .72s var(--ease) both;
+      }
+      @keyframes lockRowIn {
+        from { opacity: 0; transform: translateY(9px); }
+        to   { opacity: 1; transform: none; }
+      }
+      .lockTaskItem { opacity: 0; }
+      .hasArrived .lockTaskItem { animation: lockRowIn .5s var(--ease) both; }
+      .hasArrived .lockTaskItem1 { animation-delay: .40s; }
+      .hasArrived .lockTaskItem2 { animation-delay: .52s; }
+
+      /* the geofence closing around you */
+      .arrivalRipple {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        width: 0; height: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .arrivalRipple span {
+        position: absolute;
+        left: 50%; top: 50%;
+        width: 300px; height: 300px;
+        margin: -150px 0 0 -150px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(212, 168, 67, .55);
+        opacity: 0;
+      }
+      .rippleOn span { animation: arrivalOut 2.1s var(--ease) forwards; }
+      .rippleOn span:nth-child(2) { animation-delay: .16s; }
+      .rippleOn span:nth-child(3) { animation-delay: .32s; }
+      @keyframes arrivalOut {
+        0%   { opacity: 0;   transform: scale(.35); }
+        18%  { opacity: .85; }
+        100% { opacity: 0;   transform: scale(3.4); }
       }
 
       .lockProximityHeader {
@@ -3229,10 +3302,34 @@ function SiteStyles() {
         text-align: left;
         border-top: 1px solid var(--ink-hair-soft);
       }
+      .momentList { position: relative; overflow: hidden; }
+      .momentList::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; top: 0;
+        height: 120px;
+        pointer-events: none;
+        background: linear-gradient(180deg, transparent, rgba(212,168,67,.16), transparent);
+        opacity: 0;
+      }
+      .reveal.revealed .momentList::after { animation: momentSweep 1.9s var(--ease) .15s both; }
+      @keyframes momentSweep {
+        0%   { opacity: 0; transform: translateY(-120px); }
+        22%  { opacity: 1; }
+        100% { opacity: 0; transform: translateY(520px); }
+      }
+      .reveal .moment { transform: translate3d(-14px, 0, 0); }
+      .reveal.revealed .moment { transform: none; }
+      .reveal .moment .placeGlyph { transform: scale(.2); opacity: 0; }
+      .reveal.revealed .moment .placeGlyph {
+        transform: none; opacity: 1;
+        transition: transform .55s var(--ease), opacity .55s var(--ease);
+      }
       .moment {
         display: flex;
         align-items: center;
         gap: 16px;
+        transition: transform .8s var(--ease), opacity .8s var(--ease);
         padding: 20px 4px;
         font-size: clamp(1rem, 1.35vw, 1.12rem);
         color: var(--ink);
@@ -3717,7 +3814,17 @@ function SiteStyles() {
         .vizWave i,
         .vizRing,
         .vizCore,
-        .threadSpark { animation: none !important; }
+        .threadSpark,
+        .skyWash,
+        .finalSky,
+        .arrivalRipple span,
+        .momentList::after { animation: none !important; }
+        .arrivalRipple span, .momentList::after { opacity: 0 !important; }
+        .lockTaskItem, .hasArrived .lockTaskItem { opacity: 1 !important; animation: none !important; }
+        .lockProximityCard, .hasArrived .lockProximityCard {
+          opacity: 1 !important; transform: none !important; animation: none !important;
+        }
+        .reveal .moment, .reveal .moment .placeGlyph { transform: none !important; opacity: 1 !important; }
         .vizWave i { transform: scaleY(0.7); opacity: 0.85; }
         .threadSpark { transform: translateY(30px); opacity: 1; }
         .lockWaterShimmer,
