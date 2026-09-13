@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
+import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent as ReactMouseEvent } from "react"
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
@@ -40,13 +40,65 @@ const sharedList = [
   { item: "Olive oil", done: false },
 ]
 
-/* Recognizable moments, not another description of geofencing. */
-const moments = [
-  { tone: "grocery", text: "Groceries when you walk into the store" },
-  { tone: "errand", text: "Returns before you pass the drop-off" },
-  { tone: "pharmacy", text: "Prescriptions when you reach the pharmacy" },
-  { tone: "ask", text: "The question for the doctor when you\u2019re finally in the room" },
-  { tone: "home", text: "Home things the moment you come through the door" },
+/* Recognizable moments. Each one is a real arrival, so each one carries the
+   Lock Screen it would actually produce - and the hour it would happen at.
+   The five run dawn to night, the way the icon set does. */
+const momentScenes = [
+  {
+    id: "grocery",
+    tone: "grocery",
+    sky: "dawn",
+    line: "Groceries when you walk into the store",
+    clock: "7:42",
+    day: "Tuesday, March 17",
+    title: "You\u2019re at Harris Teeter",
+    sub: "3 things you needed",
+    items: ["Milk", "Eggs", "Bananas"],
+  },
+  {
+    id: "errand",
+    tone: "errand",
+    sky: "day",
+    line: "Returns before you pass the drop-off",
+    clock: "10:15",
+    day: "Tuesday, March 17",
+    title: "You\u2019re at the UPS Store",
+    sub: "1 thing waiting",
+    items: ["Return the blue jacket"],
+  },
+  {
+    id: "pharmacy",
+    tone: "pharmacy",
+    sky: "day",
+    line: "Prescriptions when you reach the pharmacy",
+    clock: "1:04",
+    day: "Tuesday, March 17",
+    title: "You\u2019re at Walgreens",
+    sub: "1 thing waiting",
+    items: ["Pick up the prescription"],
+  },
+  {
+    id: "ask",
+    tone: "ask",
+    sky: "dusk",
+    line: "The question for the doctor when you\u2019re finally in the room",
+    clock: "4:20",
+    day: "Tuesday, March 17",
+    title: "You\u2019re at Dr. Vaughn\u2019s office",
+    sub: "1 thing to ask",
+    items: ["Ask about the referral"],
+  },
+  {
+    id: "home",
+    tone: "home",
+    sky: "night",
+    line: "Home things the moment you come through the door",
+    clock: "6:38",
+    day: "Tuesday, March 17",
+    title: "You\u2019re home",
+    sub: "2 things waiting",
+    items: ["Water the plants", "Take out recycling"],
+  },
 ]
 
 const faqItems = [
@@ -89,6 +141,105 @@ function useReveal() {
     els.forEach((el) => io.observe(el))
     return () => io.disconnect()
   }, [])
+}
+
+/* ── In view, once ───────────────────────────────── */
+
+function useInView<T extends HTMLElement>(threshold = 0.34) {
+  const ref = useRef<T | null>(null)
+  const [inView, setInView] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          io.disconnect()
+        }
+      },
+      { threshold }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [threshold])
+
+  return [ref, inView] as const
+}
+
+/* Anything sequenced on a timer has to land instantly instead. Read through
+   useSyncExternalStore so the answer is known during render, not one frame
+   late, and so the server always renders the motion-on markup. */
+const REDUCED_QUERY = "(prefers-reduced-motion: reduce)"
+
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(REDUCED_QUERY)
+      mq.addEventListener("change", onChange)
+      return () => mq.removeEventListener("change", onChange)
+    },
+    () => window.matchMedia(REDUCED_QUERY).matches,
+    () => false
+  )
+}
+
+/* ── The arrival, as a phone ─────────────────────────── */
+
+type Scene = (typeof momentScenes)[number]
+
+/* One small phone, one arrival. Keyed on the scene id by its caller so the
+   card remounts and performs the arrival again whenever the scene changes. */
+function ArrivalPhone({ scene, live }: { scene: Scene; live: boolean }) {
+  return (
+    <div className={`arrPhone arrPhone--${scene.sky} ${live ? "arrPhoneLive" : ""}`}>
+      <div className="arrShell">
+        <div className="arrScreen">
+          <div className="arrSkyStack" aria-hidden="true">
+            {["dawn", "day", "dusk", "night"].map((s) => (
+              <span key={s} className={`arrSkyLayer arrSkyLayer--${s}`} />
+            ))}
+          </div>
+          <div className="arrStatus" aria-hidden="true">
+            <span>{scene.clock}</span>
+            <span className="arrStatusRight">
+              <span className="arrBars" />
+              <span className="arrBatt" />
+            </span>
+          </div>
+
+          <div className="arrClock">
+            <div className="arrClockTime">{scene.clock}</div>
+            <div className="arrClockDay">{scene.day}</div>
+          </div>
+
+          <div className="arrCard" key={scene.id}>
+            <span className="arrRipple" aria-hidden="true" />
+            <div className="arrCardHead">
+              <span className="arrCardIcon">
+                <Image src={BRAND_ICON} alt="" width={26} height={26} />
+              </span>
+              <div className="arrCardHeadText">
+                <div className="arrCardLabel">NEAR &middot; now</div>
+                <div className="arrCardTitle">{scene.title}</div>
+                <div className="arrCardSub">{scene.sub}</div>
+              </div>
+            </div>
+            <ul className="arrCardItems">
+              {scene.items.map((item, i) => (
+                <li key={item} style={{ animationDelay: `${0.42 + i * 0.13}s` }}>
+                  <span className="arrCardDot" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <span className="arrCardSheen" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 /* ── Page ──────────────────────────────────────────────────────── */
@@ -788,10 +939,32 @@ function BeatVisual({ kind }: { kind: "voice" | "sphere" | "arrive" }) {
 }
 
 function HouseholdChapter() {
+  const [ref, inView] = useInView<HTMLDivElement>(0.28)
+  const reduced = usePrefersReducedMotion()
+  const [crossed, setCrossed] = useState(0)
+  const [landed, setLanded] = useState(false)
+
+  /* Brian works down the list while you watch, then Near tells you.
+     Reduced motion gets the same end state without the performance. */
+  useEffect(() => {
+    if (!inView || reduced) return
+    const timers = [
+      window.setTimeout(() => setCrossed(1), 620),
+      window.setTimeout(() => setCrossed(2), 1280),
+      window.setTimeout(() => setCrossed(3), 2020),
+      window.setTimeout(() => setLanded(true), 2680),
+    ]
+    return () => timers.forEach(window.clearTimeout)
+  }, [inView, reduced])
+
+  /* Reduced motion skips the performance and shows the finished list. */
+  const done = reduced ? 3 : crossed
+  const arrived = reduced ? true : landed
+
   return (
     <section className="chapter chapterNight" id="household">
       <div className="skyWash skyWashWarm" aria-hidden="true" />
-      <div className="reveal shell split">
+      <div className="reveal shell split" ref={ref}>
         <div className="splitCopy">
           <p className="eyebrow">For households</p>
           <h2 className="h2">
@@ -821,18 +994,20 @@ function HouseholdChapter() {
                   <div className="threadListTitle">Shared grocery list</div>
                   <div className="threadListSub">Shared with Brian</div>
                 </div>
+                <span className={`threadLive ${done > 0 ? "threadLiveOn" : ""}`}>
+                  <span className="threadLiveDot" aria-hidden="true" />
+                  Brian is here
+                </span>
               </div>
               <ul className="threadItems">
-                {sharedList.map((row) => (
-                  <li key={row.item} className={row.done ? "threadDone" : ""}>
+                {sharedList.map((row, i) => (
+                  <li key={row.item} className={i < done ? "threadDone" : ""}>
                     <span className="threadCheck" aria-hidden="true">
-                      {row.done && (
-                        <svg viewBox="0 0 16 16" fill="none">
-                          <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      )}
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </span>
-                    {row.item}
+                    <span className="threadItemText">{row.item}</span>
                   </li>
                 ))}
               </ul>
@@ -842,7 +1017,7 @@ function HouseholdChapter() {
               <span className="threadSpark" />
             </div>
 
-            <div className="threadNotif">
+            <div className={`threadNotif ${arrived ? "threadNotifIn" : ""}`}>
               <div className="threadNotifIcon">
                 <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </div>
@@ -862,19 +1037,78 @@ function HouseholdChapter() {
 /* ── Everyday moments ──────────────────────────────────────────── */
 
 function MomentsSection() {
+  const [active, setActive] = useState(0)
+  const rows = useRef<Array<HTMLLIElement | null>>([])
+
+  /* A band across the middle of the viewport decides which moment is live.
+     Whichever row is crossing it owns the phone. */
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return
+          const i = rows.current.indexOf(entry.target as HTMLLIElement)
+          if (i >= 0) setActive(i)
+        })
+      },
+      { rootMargin: "-48% 0px -48% 0px", threshold: 0 }
+    )
+    rows.current.forEach((el) => el && io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  const scene = momentScenes[active]
+
   return (
-    <section className="chapter">
-      <div className="reveal shell narrow center">
-        <p className="eyebrow">Every day</p>
-        <h2 className="h2 h2Center">The little things stop slipping through.</h2>
-        <ul className="momentList">
-          {moments.map((m) => (
-            <li className="moment" key={m.text} data-stagger>
-              <span className={`placeGlyph placeGlyph--${m.tone}`} aria-hidden="true" />
-              {m.text}
-            </li>
-          ))}
-        </ul>
+    <section className={`chapter everyday everyday--${scene.sky}`} id="everyday">
+      <div className="everydayTint" aria-hidden="true" />
+      <div className="shell everydayShell">
+        <div className="everydayMain">
+          <div className="everydayCopy reveal">
+            <p className="eyebrow">Every day</p>
+            <h2 className="h2">The little things stop slipping through.</h2>
+          </div>
+
+          <ol className="everydayList">
+            {momentScenes.map((m, i) => (
+              <li
+                key={m.id}
+                ref={(el) => {
+                  rows.current[i] = el
+                }}
+                className={`everydayRow ${i === active ? "everydayRowOn" : ""}`}
+              >
+                <span className="everydayRule" aria-hidden="true" />
+                <span className={`placeGlyph placeGlyph--${m.tone}`} aria-hidden="true" />
+                <span className="everydayLine">{m.line}</span>
+                <span className="everydayHour">{m.clock}</span>
+
+                {/* The phone does not fit beside a phone, so small screens
+                    get the arrival inline instead. */}
+                <span className="momentMini" aria-hidden="true">
+                  <span className="momentMiniIcon">
+                    <Image src={BRAND_ICON} alt="" width={20} height={20} />
+                  </span>
+                  <span className="momentMiniText">
+                    <span className="momentMiniTitle">{m.title}</span>
+                    <span className="momentMiniSub">{m.items.join(", ")}</span>
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="everydayPhoneCol" aria-hidden="true">
+          <div className="everydayPhoneStick">
+            <ArrivalPhone scene={scene} live />
+            <div className="everydayDots">
+              {momentScenes.map((m, i) => (
+                <span key={m.id} className={i === active ? "everydayDotOn" : ""} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -883,30 +1117,67 @@ function MomentsSection() {
 /* ── Quiet and private ─────────────────────────────────────────── */
 
 function QuietSection() {
+  const [ref, inView] = useInView<HTMLDivElement>(0.3)
+
+  const pledges = ["No ads", "No data brokers", "No productivity guilt"]
+
   return (
     <section className="chapter chapterSunk">
-      <div className="reveal shell narrow center">
-        <div className="privacyMark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="13" y="22" width="22" height="17" rx="5" stroke="currentColor" strokeWidth="1.6" />
-            <path d="M18.5 22v-5.5a5.5 5.5 0 0 1 11 0V22" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            <circle cx="24" cy="30.5" r="2" fill="currentColor" />
-          </svg>
+      <div className="shell split splitReverse" ref={ref}>
+        <div className="splitVisual">
+          <div className={`quietPhone ${inView ? "quietPhoneOn" : ""}`}>
+            <span className="quietHalo" aria-hidden="true" />
+            <div className="arrShell">
+              <div className="arrScreen arrScreenQuiet">
+                <div className="arrSky" aria-hidden="true" />
+                <div className="arrStatus" aria-hidden="true">
+                  <span>9:41</span>
+                  <span className="arrStatusRight">
+                    <span className="arrBars" />
+                    <span className="arrBatt" />
+                  </span>
+                </div>
+
+                <div className="quietLock" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <rect x="13" y="22" width="22" height="17" rx="5" stroke="currentColor" strokeWidth="1.6" />
+                    <path d="M18.5 22v-5.5a5.5 5.5 0 0 1 11 0V22" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    <circle cx="24" cy="30.5" r="2" fill="currentColor" />
+                  </svg>
+                </div>
+
+                <div className="quietCard">
+                  <div className="quietCardLabel">Location stays on this iPhone</div>
+                  <ul className="quietPledges">
+                    {pledges.map((p, i) => (
+                      <li key={p} style={{ animationDelay: `${0.35 + i * 0.22}s` }}>
+                        <span className="quietTick" aria-hidden="true">
+                          <svg viewBox="0 0 16 16" fill="none">
+                            <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="eyebrow">Quiet by design</p>
-        <h2 className="h2 h2Center">
-          Helpful when it matters.
-          <br />
-          Invisible when it doesn&rsquo;t.
-        </h2>
-        <p className="lead leadCenter">
-          Near uses location to deliver your reminders - not to sell ads,
-          build a profile, or follow your day.
-        </p>
-        <div className="pillRow">
-          <span className="pill" data-stagger>No ads</span>
-          <span className="pill" data-stagger>No data brokers</span>
-          <span className="pill" data-stagger>No productivity guilt</span>
+
+        <div className="splitCopy reveal">
+          <p className="eyebrow">Quiet by design</p>
+          <h2 className="h2">
+            Helpful when it matters.
+            <br />
+            <em>Invisible when it doesn&rsquo;t.</em>
+          </h2>
+          <p className="lead">
+            Near uses location to deliver your reminders - not to sell ads,
+            build a profile, or follow your day.
+          </p>
+          <p className="caption">Geofences run on your iPhone. Delete everything, any time.</p>
         </div>
       </div>
     </section>
@@ -936,10 +1207,25 @@ function FAQSection() {
 /* ── Close ─────────────────────────────────────────────────────── */
 
 function FinalCTA() {
+  const [ref, inView] = useInView<HTMLDivElement>(0.4)
+
   return (
-    <section className="finalCta">
+    <section className="finalCta" ref={ref}>
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
+        <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
+          <span className="finalArrivalRing" />
+          <div className="finalArrivalCard">
+            <span className="finalArrivalIcon">
+              <Image src={BRAND_ICON} alt="" width={22} height={22} />
+            </span>
+            <div>
+              <div className="finalArrivalLabel">Near &middot; now</div>
+              <div className="finalArrivalTitle">You&rsquo;re at Target</div>
+            </div>
+          </div>
+        </div>
+
         <h2 className="finalTitle">
           Your brain has
           <br />
@@ -3802,6 +4088,589 @@ function SiteStyles() {
         .phoneWifi { width: 13px; height: 11px; }
       }
 
+
+      /* ── The arrival phone, small enough to sit beside a list ─────── */
+
+      .arrPhone { position: relative; }
+
+      .arrShell {
+        width: 300px;
+        height: 612px;
+        border-radius: 42px;
+        padding: 6px;
+        position: relative;
+        background: linear-gradient(160deg, #1E2747 0%, #141E3A 28%, #0B1228 55%, #1A2547 100%);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.14),
+          0 0 0 2px #141E3A,
+          0 0 0 4px #1E2747,
+          0 30px 70px rgba(14, 23, 51, 0.28),
+          0 14px 28px rgba(14, 23, 51, 0.18);
+      }
+      .arrShell::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 42px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.04) 100%);
+        pointer-events: none;
+        z-index: 6;
+      }
+
+      .arrScreen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 36px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        color: #FFF4E4;
+      }
+
+      /* Four skies, cross-faded, so the hour of the day carries the scroll. */
+      .arrSkyStack { position: absolute; inset: 0; }
+      .arrSkyLayer {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1.05s var(--ease-soft);
+      }
+      .arrSkyLayer--dawn {
+        background:
+          radial-gradient(circle at 74% 14%, rgba(255, 236, 200, 0.9) 0 9%, transparent 34%),
+          linear-gradient(180deg, #F7C68A 0%, #E9A07C 32%, #B4718B 66%, #5E4A7E 100%);
+      }
+      .arrSkyLayer--day {
+        background:
+          radial-gradient(circle at 78% 12%, rgba(255, 255, 255, 0.92) 0 8%, transparent 30%),
+          linear-gradient(180deg, #9FD3F0 0%, #BFE3F3 38%, #E4F1F0 72%, #F4EFE7 100%);
+        color: #14183A;
+      }
+      .arrSkyLayer--dusk {
+        background:
+          radial-gradient(circle at 24% 18%, rgba(255, 214, 170, 0.5) 0 12%, transparent 40%),
+          linear-gradient(180deg, #46538C 0%, #7A5B93 34%, #C07E86 68%, #E8A77A 100%);
+      }
+      .arrSkyLayer--night {
+        background:
+          radial-gradient(circle at 76% 16%, rgba(196, 214, 255, 0.32) 0 7%, transparent 28%),
+          linear-gradient(180deg, #070C1C 0%, #14213F 42%, #2E1838 78%, #3E2340 100%);
+      }
+      .arrPhone--dawn  .arrSkyLayer--dawn,
+      .arrPhone--day   .arrSkyLayer--day,
+      .arrPhone--dusk  .arrSkyLayer--dusk,
+      .arrPhone--night .arrSkyLayer--night { opacity: 1; }
+
+      /* Day is the one bright sky, so the type flips with it. */
+      .arrPhone--day .arrScreen { color: #14183A; }
+
+      .arrStatus {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 26px 0;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+      .arrStatusRight { display: flex; align-items: center; gap: 6px; }
+      .arrBars, .arrBatt {
+        display: block;
+        background: currentColor;
+        opacity: 0.85;
+        border-radius: 2px;
+      }
+      .arrBars { width: 16px; height: 9px; clip-path: polygon(0 70%,18% 70%,18% 100%,0 100%,0 70%,27% 45%,45% 45%,45% 100%,27% 100%,27% 45%,55% 22%,73% 22%,73% 100%,55% 100%,55% 22%,82% 0,100% 0,100% 100%,82% 100%); }
+      .arrBatt { width: 22px; height: 10px; border-radius: 3px; opacity: 0.7; }
+
+      .arrClock {
+        position: relative;
+        text-align: center;
+        margin-top: clamp(18px, 4vh, 30px);
+      }
+      .arrClockTime {
+        font-size: 3.9rem;
+        font-weight: 300;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        text-shadow: 0 2px 22px rgba(0, 0, 0, 0.16);
+      }
+      .arrClockDay {
+        margin-top: 4px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        opacity: 0.72;
+      }
+
+      /* The card is keyed on the scene, so it performs the arrival again
+         every time the scroll hands it a new one. */
+      .arrCard {
+        position: relative;
+        margin: auto 14px 22px;
+        padding: 14px 15px;
+        border-radius: 21px;
+        background: rgba(255, 255, 255, 0.17);
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        backdrop-filter: blur(22px) saturate(150%);
+        -webkit-backdrop-filter: blur(22px) saturate(150%);
+        box-shadow: 0 18px 44px rgba(6, 10, 26, 0.3);
+        overflow: hidden;
+        animation: arrCardIn 0.86s var(--ease) both;
+      }
+      .arrPhone--day .arrCard {
+        background: rgba(255, 255, 255, 0.62);
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 18px 44px rgba(20, 24, 58, 0.16);
+      }
+      @keyframes arrCardIn {
+        0%   { opacity: 0; transform: translate3d(0, 26px, 0) scale(0.96); filter: blur(6px); }
+        60%  { opacity: 1; filter: blur(0); }
+        100% { opacity: 1; transform: none; filter: blur(0); }
+      }
+
+      .arrRipple {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 120px;
+        height: 120px;
+        margin: -60px 0 0 -60px;
+        border-radius: 50%;
+        border: 1px solid rgba(212, 168, 67, 0.8);
+        pointer-events: none;
+        animation: arrRippleOut 1.5s var(--ease) 0.06s both;
+      }
+      @keyframes arrRippleOut {
+        0%   { opacity: 0.75; transform: scale(0.2); }
+        100% { opacity: 0; transform: scale(4.2); }
+      }
+
+      .arrCardHead { position: relative; display: flex; gap: 11px; align-items: flex-start; }
+      .arrCardIcon :global(img) { border-radius: 7px; display: block; }
+      .arrCardLabel {
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.62;
+      }
+      .arrCardTitle { margin-top: 3px; font-size: 0.97rem; font-weight: 600; letter-spacing: -0.01em; }
+      .arrCardSub { margin-top: 1px; font-size: 0.8rem; opacity: 0.72; }
+
+      .arrCardItems { list-style: none; margin: 11px 0 0; padding: 10px 0 0; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+      .arrPhone--day .arrCardItems { border-top-color: rgba(20, 24, 58, 0.12); }
+      .arrCardItems li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 4px 0;
+        font-size: 0.86rem;
+        animation: arrRowIn 0.5s var(--ease) both;
+      }
+      .arrCardDot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold-lit);
+        box-shadow: 0 0 10px rgba(212, 168, 67, 0.7);
+        flex: none;
+      }
+      @keyframes arrRowIn {
+        from { opacity: 0; transform: translate3d(0, 8px, 0); }
+        to   { opacity: 1; transform: none; }
+      }
+
+      .arrCardSheen {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(105deg, transparent 30%, rgba(255, 244, 228, 0.36) 50%, transparent 70%);
+        transform: translateX(-100%);
+        animation: arrSheen 1.7s var(--ease) 0.5s both;
+      }
+      @keyframes arrSheen {
+        to { transform: translateX(100%); }
+      }
+
+      /* ── Every day: the list scrolls, the phone holds ─────────── */
+
+      .everyday { position: relative; overflow: clip; }
+      .everydayTint {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          radial-gradient(760px 620px at 78% 18%, rgba(240, 130, 70, 0.16), transparent 68%),
+          radial-gradient(620px 520px at 12% 82%, rgba(212, 168, 67, 0.12), transparent 70%);
+        transition: filter 1.1s var(--ease-soft), opacity 1.1s var(--ease-soft);
+      }
+      .everyday--dawn  .everydayTint { filter: none; opacity: 1; }
+      .everyday--day   .everydayTint { filter: hue-rotate(38deg) saturate(0.72); opacity: 0.78; }
+      .everyday--dusk  .everydayTint { filter: hue-rotate(-34deg) saturate(1.1); opacity: 0.94; }
+      .everyday--night .everydayTint { filter: hue-rotate(-72deg) saturate(1.25); opacity: 1; }
+
+      /* No align-items here on purpose: the phone column has to stretch to
+         the full height of the row, or position: sticky has nothing to
+         travel inside and the phone scrolls away with the first moment. */
+      .everydayShell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: clamp(2rem, 6vw, 5rem);
+      }
+      .everydayPhoneCol { position: relative; }
+      .everydayCopy { max-width: 34rem; }
+      /* Runway under the last moment, so the sticky phone stays pinned while
+         the fifth row is still crossing the middle of the screen. */
+      .everydayList {
+        margin-top: clamp(2.2rem, 4.5vw, 3.4rem);
+        padding-bottom: clamp(90px, 20vh, 220px);
+      }
+
+      .everydayList { list-style: none; padding-left: 0; padding-right: 0; padding-top: 0; }
+      .everydayRow {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px;
+        min-height: 25vh;
+        padding: clamp(22px, 3.4vh, 38px) 0 clamp(22px, 3.4vh, 38px) 22px;
+        border-bottom: 1px solid var(--ink-hair-soft);
+        opacity: 0.34;
+        filter: blur(0.4px);
+        transform: translate3d(-6px, 0, 0);
+        transition: opacity 0.65s var(--ease), transform 0.65s var(--ease), filter 0.65s var(--ease);
+      }
+      .everydayRow:first-child { border-top: 1px solid var(--ink-hair-soft); }
+      .everydayRowOn { opacity: 1; filter: none; transform: none; }
+
+      .everydayRule {
+        position: absolute;
+        left: 0;
+        top: 12%;
+        bottom: 12%;
+        width: 2px;
+        border-radius: 2px;
+        background: linear-gradient(180deg, rgba(212, 168, 67, 0), var(--gold), rgba(212, 168, 67, 0));
+        transform: scaleY(0);
+        transform-origin: 50% 50%;
+        transition: transform 0.6s var(--ease);
+      }
+      .everydayRowOn .everydayRule { transform: scaleY(1); }
+
+      .everydayLine {
+        font-size: clamp(1.05rem, 1.75vw, 1.42rem);
+        line-height: 1.34;
+        letter-spacing: -0.014em;
+        color: var(--ink);
+        text-wrap: balance;
+      }
+      .everydayHour {
+        font-size: 0.74rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        font-variant-numeric: tabular-nums;
+        color: var(--ink-faint);
+        transition: color 0.5s var(--ease);
+      }
+      .everydayRowOn .everydayHour { color: var(--gold); }
+
+      .everydayPhoneStick {
+        position: sticky;
+        top: max(90px, calc(50vh - 306px));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+      .everydayDots { display: flex; gap: 7px; }
+      .everydayDots span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--ink-hair);
+        transition: background 0.5s var(--ease), transform 0.5s var(--ease);
+      }
+      .everydayDots .everydayDotOn { background: var(--gold); transform: scale(1.3); }
+
+      /* The inline arrival, for screens with no room for a phone. */
+      .momentMini { display: none; }
+
+      /* ── Quiet by design, said by the Lock Screen ───────────── */
+
+      .quietPhone { position: relative; }
+      .quietHalo {
+        position: absolute;
+        inset: -14% -18%;
+        z-index: -1;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(212, 168, 67, 0.18), transparent 66%);
+        opacity: 0;
+        transition: opacity 1.2s var(--ease);
+      }
+      .quietPhoneOn .quietHalo { opacity: 1; }
+
+      .arrScreenQuiet {
+        background:
+          radial-gradient(circle at 74% 14%, rgba(196, 214, 255, 0.3) 0 7%, transparent 30%),
+          linear-gradient(180deg, #070C1C 0%, #14213F 44%, #2E1838 80%, #3E2340 100%);
+      }
+      .arrScreenQuiet .arrSky { position: absolute; inset: 0; }
+
+      .quietLock {
+        position: relative;
+        width: 62px;
+        height: 62px;
+        margin: clamp(26px, 6vh, 44px) auto 0;
+        color: var(--gold-lit);
+        opacity: 0;
+        transform: scale(0.82);
+        transition: opacity 0.9s var(--ease) 0.1s, transform 0.9s var(--ease) 0.1s;
+      }
+      .quietLock svg { width: 100%; height: 100%; }
+      .quietPhoneOn .quietLock { opacity: 1; transform: none; }
+
+      .quietCard {
+        position: relative;
+        margin: auto 14px 26px;
+        padding: 16px 17px;
+        border-radius: 21px;
+        background: rgba(255, 244, 228, 0.09);
+        border: 1px solid rgba(255, 244, 228, 0.18);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+        transition: opacity 0.8s var(--ease) 0.18s, transform 0.8s var(--ease) 0.18s;
+      }
+      .quietPhoneOn .quietCard { opacity: 1; transform: none; }
+
+      .quietCardLabel {
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255, 244, 228, 0.55);
+      }
+      .quietPledges { list-style: none; margin: 12px 0 0; padding: 0; }
+      .quietPledges li {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 9px 0;
+        font-size: 0.93rem;
+        color: var(--on-night);
+        border-top: 1px solid rgba(255, 244, 228, 0.1);
+        opacity: 0;
+      }
+      .quietPledges li:first-child { border-top: 0; }
+      .quietPhoneOn .quietPledges li { animation: quietRowIn 0.62s var(--ease) both; }
+      @keyframes quietRowIn {
+        from { opacity: 0; transform: translate3d(-10px, 0, 0); }
+        to   { opacity: 1; transform: none; }
+      }
+      .quietTick {
+        flex: none;
+        width: 21px;
+        height: 21px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--gold);
+        color: #14183A;
+      }
+      .quietTick svg { width: 13px; height: 13px; }
+
+      /* ── Household: the list crosses itself off ─────────────── */
+
+      .threadLive {
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 0.66rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gold);
+        background: rgba(212, 168, 67, 0.12);
+        opacity: 0;
+        transform: translate3d(0, -4px, 0);
+        transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+      }
+      .threadLiveOn { opacity: 1; transform: none; }
+      .threadLiveDot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
+        animation: threadPulse 1.9s var(--ease-soft) infinite;
+      }
+      @keyframes threadPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%      { opacity: 0.35; transform: scale(0.72); }
+      }
+
+      /* Replaces the flat line-through so the strike can be drawn. */
+      .threadItems li { text-decoration: none !important; }
+      .threadItemText { position: relative; transition: color 0.5s var(--ease); }
+      .threadItemText::after {
+        content: "";
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        top: 52%;
+        height: 1.5px;
+        border-radius: 2px;
+        background: rgba(20, 24, 58, 0.3);
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        transition: transform 0.5s var(--ease);
+      }
+      .threadDone .threadItemText { color: var(--ink-faint); }
+      .threadDone .threadItemText::after { transform: scaleX(1); }
+      .threadCheck svg { opacity: 0; transform: scale(0.5); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); }
+      .threadDone .threadCheck svg { opacity: 1; transform: none; }
+
+      .threadNotif {
+        opacity: 0;
+        transform: translate3d(0, 16px, 0) scale(0.97);
+        transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+      }
+      .threadNotifIn { opacity: 1; transform: none; }
+
+      /* ── FAQ ────────────────────── */
+
+      /* The chevron already turns; open just gives it Near's colour. */
+      .faqQ::after { transition: transform 0.45s var(--ease), border-color 0.45s var(--ease); }
+      .faqItem[open] .faqQ::after { border-right-color: var(--gold); border-bottom-color: var(--gold); }
+      .faqQ:hover::after { border-right-color: var(--ink); border-bottom-color: var(--ink); }
+
+      /* ── The close: the arrival, one last time ─────────────── */
+
+      .finalArrival {
+        position: relative;
+        width: fit-content;
+        margin: 0 auto clamp(26px, 4vw, 40px);
+        opacity: 0;
+        transform: translate3d(0, 18px, 0) scale(0.97);
+        transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+      }
+      .finalArrivalIn { opacity: 1; transform: none; }
+      .finalArrivalCard {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 17px 11px 13px;
+        border-radius: 17px;
+        background: rgba(255, 244, 228, 0.08);
+        border: 1px solid var(--on-night-hair);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        text-align: left;
+      }
+      .finalArrivalIcon :global(img) { border-radius: 6px; display: block; }
+      .finalArrivalLabel {
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--on-night-faint);
+      }
+      .finalArrivalTitle { margin-top: 2px; font-size: 0.93rem; font-weight: 500; color: var(--on-night); }
+      .finalArrivalRing {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 90px;
+        height: 90px;
+        margin: -45px 0 0 -45px;
+        border-radius: 50%;
+        border: 1px solid rgba(212, 168, 67, 0.6);
+        opacity: 0;
+      }
+      .finalArrivalIn .finalArrivalRing { animation: arrRippleOut 1.8s var(--ease) 0.2s both; }
+
+      /* ── Bottom half, narrow ──────────────────── */
+
+      @media (max-width: 1080px) {
+        .everydayShell { grid-template-columns: minmax(0, 1fr) 260px; }
+        .arrShell { width: 262px; height: 534px; border-radius: 38px; }
+        .arrScreen { border-radius: 32px; }
+        .arrClockTime { font-size: 3.2rem; }
+        .everydayPhoneStick { top: max(88px, calc(50vh - 267px)); }
+      }
+
+      @media (max-width: 900px) {
+        .everydayShell { grid-template-columns: minmax(0, 1fr); }
+        .everydayPhoneCol { display: none; }
+        .everydayRow {
+          min-height: 0;
+          grid-template-columns: auto minmax(0, 1fr);
+          padding-left: 18px;
+          opacity: 1;
+          filter: none;
+          transform: none;
+        }
+        .everydayHour { display: none; }
+        .everydayList { padding-bottom: 0; }
+        .everydayRule { top: 18%; bottom: 18%; }
+
+        /* Collapsed to nothing until its row is live, so an inactive row
+           does not leave a card-shaped hole behind. */
+        .momentMini {
+          grid-column: 1 / -1;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 0;
+          padding: 0 13px;
+          max-height: 0;
+          overflow: hidden;
+          border-radius: 15px;
+          background: var(--paper-raised);
+          border: 1px solid transparent;
+          box-shadow: 0 10px 26px rgba(20, 24, 58, 0);
+          opacity: 0;
+          transform: translate3d(0, 8px, 0);
+          transition:
+            max-height 0.55s var(--ease),
+            margin-top 0.55s var(--ease),
+            padding 0.55s var(--ease),
+            opacity 0.5s var(--ease),
+            transform 0.5s var(--ease),
+            box-shadow 0.5s var(--ease),
+            border-color 0.5s var(--ease);
+        }
+        .everydayRowOn .momentMini {
+          opacity: 1;
+          transform: none;
+          max-height: 120px;
+          margin-top: 14px;
+          padding: 11px 13px;
+          border-color: var(--ink-hair-soft);
+          box-shadow: 0 10px 26px rgba(20, 24, 58, 0.06);
+        }
+        .momentMiniIcon :global(img) { border-radius: 6px; display: block; }
+        .momentMiniText { display: flex; flex-direction: column; }
+        .momentMiniTitle { font-size: 0.87rem; font-weight: 500; color: var(--ink); }
+        .momentMiniSub { margin-top: 1px; font-size: 0.79rem; color: var(--ink-faint); }
+
+        .quietPhone { transform: scale(0.92); transform-origin: 50% 0; }
+      }
+
+      @media (max-width: 720px) {
+        .arrShell { width: 244px; height: 498px; }
+        .quietPhone { transform: scale(1); }
+        .everydayRow { gap: 14px; }
+      }
+
       /* ── Reduced motion ────────────────────────────────────── */
 
       @media (prefers-reduced-motion: reduce) {
@@ -3834,6 +4703,44 @@ function SiteStyles() {
         .lockTaskItem,
         .radarShimmer { animation: none !important; }
         .lockProximityCard { animation: none !important; opacity: 1 !important; }
+
+        /* Bottom half: every sequenced beat lands in its finished state. */
+        .arrCard,
+        .arrCardItems li,
+        .arrCardSheen,
+        .arrRipple,
+        .finalArrivalRing,
+        .threadLiveDot,
+        .quietPledges li,
+        .quietPhoneOn .quietPledges li { animation: none !important; }
+        .arrRipple,
+        .arrCardSheen,
+        .finalArrivalRing { opacity: 0 !important; }
+        .arrCard,
+        .arrCardItems li,
+        .quietPledges li,
+        .quietCard,
+        .quietLock,
+        .threadNotif,
+        .finalArrival,
+        .everydayRow {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+        }
+        .momentMini {
+          opacity: 1 !important;
+          transform: none !important;
+          max-height: 120px !important;
+          margin-top: 14px !important;
+          padding: 11px 13px !important;
+          border-color: var(--ink-hair-soft) !important;
+        }
+        .arrSkyLayer,
+        .everydayTint,
+        .everydayRule,
+        .threadItemText::after,
+        .threadLive { transition-duration: 0.01ms !important; }
       }
     `}</style>
   )
