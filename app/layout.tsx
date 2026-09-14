@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { DM_Sans, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import ConsentBanner from "./ConsentBanner"
+import { APP_IS_LIVE, APP_STORE_URL } from "./site/launch"
 
 // Self-hosted at build time (next/font downloads + serves the fonts from our own
 // origin) - no runtime request to fonts.googleapis.com, so no visitor IP is sent
@@ -21,7 +22,6 @@ const instrumentSerif = Instrument_Serif({
 })
 
 const SITE_URL = "https://www.nearesttask.com"
-const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const DEFAULT_DESCRIPTION =
   "Near remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
 
@@ -121,8 +121,9 @@ const mobileAppJsonLd = {
   operatingSystem: "iOS",
   applicationCategory: "ProductivityApplication",
   url: SITE_URL,
-  downloadUrl: APP_STORE_URL,
-  installUrl: APP_STORE_URL,
+  /* Telling search engines the app can be installed at a URL that 404s is
+     worse than saying nothing. These come back when the listing is live. */
+  ...(APP_IS_LIVE ? { downloadUrl: APP_STORE_URL, installUrl: APP_STORE_URL } : {}),
   image: `${SITE_URL}/near-og.png`,
   isAccessibleForFree: true,
   description: DEFAULT_DESCRIPTION,

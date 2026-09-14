@@ -5,7 +5,7 @@ import { useState, useEffect, CSSProperties } from "react"
 const API_BASE = "https://backend-one-xi.vercel.app/v1"
 // Guest → install growth loop. `ct` is an App Store campaign token so installs
 // originating from a gather invite are attributable in App Store Connect.
-const APP_STORE_URL = "https://apps.apple.com/app/id6759834610?ct=guest_gather"
+import { APP_IS_LIVE, APP_STORE_URL } from "../../site/launch"
 
 type MenuCourse = { course?: string | null; title: string }
 type RSVP = { name: string; status: string; partySize: number; note?: string | null }
@@ -229,13 +229,17 @@ export default function GatherInteractive({
         {/* Guest → install loop: host-attributed conversion CTA. The invite
             already puts a household's coordination in front of the guest; this
             turns that moment into a recruit ("host your own, free"). */}
-        <a href={APP_STORE_URL} style={styles.ctaCard} onClick={() => track("install_click")}>
+        <a
+          href={APP_IS_LIVE ? APP_STORE_URL : "https://www.nearesttask.com/"}
+          style={styles.ctaCard}
+          onClick={() => track("install_click")}
+        >
           <p style={styles.ctaEyebrow}>
             {event.hostName ? `${event.hostName} planned this with Near.` : "This gathering was planned with Near."}
           </p>
           <p style={styles.ctaTitle}>Host your own, free.</p>
           <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place - Near does the remembering.</p>
-          <span style={styles.ctaBtn}>Get Near</span>
+          <span style={styles.ctaBtn}>{APP_IS_LIVE ? "Get Near" : "Get notified"}</span>
         </a>
 
         <p style={styles.footer}>Planned with Near</p>
