@@ -6,7 +6,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState, type FormEvent } from "react"
+import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react"
 
 import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
 
@@ -350,6 +350,205 @@ export function SiteFooter() {
         <p className="footerCopy">&copy; 2026 Near</p>
       </div>
     </footer>
+  )
+}
+
+/* Anything sequenced on a timer has to land instantly instead. Read through
+   useSyncExternalStore so the answer is known during render, not one frame
+   late, and so the server always renders the motion-on markup. */
+const REDUCED_QUERY = "(prefers-reduced-motion: reduce)"
+
+export function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(REDUCED_QUERY)
+      mq.addEventListener("change", onChange)
+      return () => mq.removeEventListener("change", onChange)
+    },
+    () => window.matchMedia(REDUCED_QUERY).matches,
+    () => false
+  )
+}
+
+/* ── The arrival, as a phone ─────────────────────────── */
+
+export type Scene = {
+  id: string
+  sky: "dawn" | "day" | "dusk" | "night"
+  clock: string
+  day: string
+  title: string
+  sub: string
+  items: readonly string[]
+}
+
+/* One small phone, one arrival. Keyed on the scene id by its caller so the
+   card remounts and performs the arrival again whenever the scene changes. */
+export function ArrivalPhone({ scene, live }: { scene: Scene; live: boolean }) {
+  return (
+    <div className={`arrPhone arrPhone--${scene.sky} ${live ? "arrPhoneLive" : ""}`}>
+      <div className="arrShell">
+        <div className="arrScreen">
+          <div className="arrSkyStack" aria-hidden="true">
+            {["dawn", "day", "dusk", "night"].map((s) => (
+              <span key={s} className={`arrSkyLayer arrSkyLayer--${s}`} />
+            ))}
+          </div>
+          <div className="arrStatus" aria-hidden="true">
+            <span>{scene.clock}</span>
+            <span className="arrStatusRight">
+              <span className="arrBars" />
+              <span className="arrBatt" />
+            </span>
+          </div>
+
+          <div className="arrClock">
+            <div className="arrClockTime">{scene.clock}</div>
+            <div className="arrClockDay">{scene.day}</div>
+          </div>
+
+          <div className="arrCard" key={scene.id}>
+            <span className="arrRipple" aria-hidden="true" />
+            <div className="arrCardHead">
+              <span className="arrCardIcon">
+                <Image src={BRAND_ICON} alt="" width={26} height={26} />
+              </span>
+              <div className="arrCardHeadText">
+                <div className="arrCardLabel">NEAR &middot; now</div>
+                <div className="arrCardTitle">{scene.title}</div>
+                <div className="arrCardSub">{scene.sub}</div>
+              </div>
+            </div>
+            <ul className="arrCardItems">
+              {scene.items.map((item, i) => (
+                <li key={item} style={{ animationDelay: `${0.42 + i * 0.13}s` }}>
+                  <span className="arrCardDot" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <span className="arrCardSheen" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── Spoken capture ────────────────────── */
+
+const WAVE_BARS = [34, 58, 86, 52, 100, 70, 44, 78, 38, 62, 30]
+
+export function VoiceWave({ quote }: { quote: string }) {
+  return (
+    <div className="vizVoice">
+      <div className="vizVoiceRow">
+        <span className="vizMic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </span>
+        <span className="vizWave" aria-hidden="true">
+          {WAVE_BARS.map((h, i) => (
+            <i key={i} style={{ height: h + "%", animationDelay: i * 90 + "ms" }} />
+          ))}
+        </span>
+      </div>
+      <p className="vizQuote">&ldquo;{quote}&rdquo;</p>
+    </div>
+  )
+}
+
+/* ── The household thread ────────────────── */
+
+/* Someone else works down the list while you watch, then Near tells you.
+   Owns its own sequence so any page can drop it in; reduced motion gets the
+   same end state without the performance. */
+export function HouseholdThread({
+  items,
+  sharedWith,
+  arrivalTitle,
+  arrivalSub,
+  crossCount = 3,
+}: {
+  items: readonly string[]
+  sharedWith: string
+  arrivalTitle: string
+  arrivalSub: string
+  crossCount?: number
+}) {
+  const [ref, inView] = useInView<HTMLDivElement>(0.28)
+  const reduced = usePrefersReducedMotion()
+  const [crossed, setCrossed] = useState(0)
+  const [landed, setLanded] = useState(false)
+
+  useEffect(() => {
+    if (!inView || reduced) return
+    const timers = [
+      ...Array.from({ length: crossCount }, (_, i) =>
+        window.setTimeout(() => setCrossed(i + 1), 620 + i * 680)
+      ),
+      window.setTimeout(() => setLanded(true), 620 + crossCount * 680),
+    ]
+    return () => timers.forEach(window.clearTimeout)
+  }, [inView, reduced, crossCount])
+
+  const done = reduced ? crossCount : crossed
+  const arrived = reduced ? true : landed
+
+  return (
+    <div ref={ref}>
+          <div className="threadVisual">
+            <div className="threadList">
+              <div className="threadListHead">
+                <span className="threadListIcon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.5" />
+                    <circle cx="16.5" cy="9.5" r="2.4" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M3.5 18.5c0-2.8 2.5-4.6 5.5-4.6s5.5 1.8 5.5 4.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M16.2 14.2c2.4.2 4.3 1.9 4.3 4.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </span>
+                <div>
+                  <div className="threadListTitle">Shared grocery list</div>
+                  <div className="threadListSub">{sharedWith}</div>
+                </div>
+                <span className={`threadLive ${done > 0 ? "threadLiveOn" : ""}`}>
+                  <span className="threadLiveDot" aria-hidden="true" />
+                  Someone is here
+                </span>
+              </div>
+              <ul className="threadItems">
+                {items.map((item, i) => (
+                  <li key={item} className={i < done ? "threadDone" : ""}>
+                    <span className="threadCheck" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" fill="none">
+                        <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                    <span className="threadItemText">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="threadLine" aria-hidden="true">
+              <span className="threadSpark" />
+            </div>
+
+            <div className={`threadNotif ${arrived ? "threadNotifIn" : ""}`}>
+              <div className="threadNotifIcon">
+                <Image src={BRAND_ICON} alt="" width={26} height={26} />
+              </div>
+              <div>
+                <div className="threadNotifLabel">Near &middot; now</div>
+                <div className="threadNotifTitle">{arrivalTitle}</div>
+                <div className="threadNotifSub">{arrivalSub}</div>
+              </div>
+            </div>
+          </div>
+    </div>
   )
 }
 
@@ -3563,6 +3762,7 @@ export function SiteStyles() {
 
       .threadLive {
         margin-left: auto;
+        white-space: nowrap;
         display: inline-flex;
         align-items: center;
         gap: 6px;
