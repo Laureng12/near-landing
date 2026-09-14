@@ -95,7 +95,7 @@ export default function JoinPage() {
             <p style={styles.button}>Coming to the App Store</p>
 
             <div style={styles.steps}>
-              <p style={styles.step}><span style={styles.stepNum}>1</span> Near is in review with Apple right now</p>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Near is coming to the App Store shortly</p>
               <p style={styles.step}><span style={styles.stepNum}>2</span> Keep this link - your code stays valid</p>
               <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once Near is out to join the household</p>
             </div>

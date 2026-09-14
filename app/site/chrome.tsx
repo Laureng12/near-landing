@@ -182,11 +182,11 @@ function NotifyDialog() {
         ) : (
           <>
             <h2 className="notifyTitle">
-              Near is in review.
+              Near is almost here.
             </h2>
             <p className="notifyLead">
-              Apple is looking at it now. Leave your email and you will hear from
-              us the day it lands, and never for anything else.
+              Leave your email and you will hear from us the day it lands on the
+              App Store, and never for anything else.
             </p>
             <form className="notifyForm" onSubmit={submit}>
               <input

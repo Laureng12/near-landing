@@ -1,8 +1,12 @@
 /* Whether Near is actually on the App Store.
    ------------------------------------------------------------------
-   Apple has not approved the listing yet, so apps.apple.com returns a
-   404 for our ID and the iTunes lookup API returns no result. Every
-   download button on the site pointed at that dead page.
+   The listing is not public yet, so apps.apple.com returns a 404 for
+   our ID and the iTunes lookup API returns no result. Every download
+   button on the site pointed at that dead page.
+
+   The site does not say why - visitors are told Near is almost here
+   and offered the list. It just never claims to be downloadable when
+   it is not.
 
    While this is false, each CTA collects an email instead. Flip it to
    true the moment the listing goes live and every button on every page
