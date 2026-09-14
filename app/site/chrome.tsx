@@ -96,9 +96,11 @@ export function DownloadCta({
   )
 }
 
-/* Rendered once, from the nav, so it is present on every page that uses the
-   shared chrome. */
-function NotifyDialog() {
+/* Mounted once in the root layout, so it is present on every page whether or
+   not that page uses the shared chrome. /pricing has its own nav, which is
+   how four of its CTAs ended up dispatching to a listener that was not
+   there. */
+export function NotifyDialog() {
   const [open, setOpen] = useState(false)
   const [source, setSource] = useState("site")
   const [email, setEmail] = useState("")
@@ -258,8 +260,6 @@ export function TopNav({ home = false }: { home?: boolean }) {
           </button>
         </nav>
       </div>
-
-      <NotifyDialog />
 
       <div className={`mobileMenuOverlay ${open ? "mobileMenuVisible" : ""}`} onClick={() => setOpen(false)} />
       <div className={`mobileMenu ${open ? "mobileMenuVisible" : ""}`} inert={!open}>
