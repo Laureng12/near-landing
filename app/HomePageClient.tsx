@@ -329,15 +329,15 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
           <span className="phoneTime">1:03</span>
           <div className="phoneStatusRight">
             <svg className="phoneSignal" width="17" height="11" viewBox="0 0 17 11" fill="none">
-              <rect x="0" y="8" width="3" height="3" rx="0.5" fill="#121C41"/>
-              <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.5" fill="#121C41"/>
-              <rect x="9" y="3" width="3" height="8" rx="0.5" fill="#121C41" opacity="0.3"/>
-              <rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="#121C41" opacity="0.3"/>
+              <rect x="0" y="8" width="3" height="3" rx="0.5" fill="var(--ink)"/>
+              <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.5" fill="var(--ink)"/>
+              <rect x="9" y="3" width="3" height="8" rx="0.5" fill="var(--ink)" opacity="0.3"/>
+              <rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="var(--ink)" opacity="0.3"/>
             </svg>
             <svg className="phoneWifi" width="15" height="12" viewBox="0 0 15 12" fill="none">
-              <path d="M7.5 10.5C8.33 10.5 9 11.17 9 12C9 12.83 8.33 13.5 7.5 13.5C6.67 13.5 6 12.83 6 12C6 11.17 6.67 10.5 7.5 10.5Z" fill="#121C41" transform="translate(0,-2)"/>
-              <path d="M4.23 8.27C5.12 7.38 6.31 6.93 7.5 6.93C8.69 6.93 9.88 7.38 10.77 8.27" stroke="#121C41" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
-              <path d="M1.76 5.8C3.34 4.22 5.42 3.43 7.5 3.43C9.58 3.43 11.66 4.22 13.24 5.8" stroke="#121C41" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
+              <path d="M7.5 10.5C8.33 10.5 9 11.17 9 12C9 12.83 8.33 13.5 7.5 13.5C6.67 13.5 6 12.83 6 12C6 11.17 6.67 10.5 7.5 10.5Z" fill="var(--ink)" transform="translate(0,-2)"/>
+              <path d="M4.23 8.27C5.12 7.38 6.31 6.93 7.5 6.93C8.69 6.93 9.88 7.38 10.77 8.27" stroke="var(--ink)" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
+              <path d="M1.76 5.8C3.34 4.22 5.42 3.43 7.5 3.43C9.58 3.43 11.66 4.22 13.24 5.8" stroke="var(--ink)" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
             </svg>
             <div className="phoneBatt">
               <div className="phoneBattFill" />
@@ -726,7 +726,7 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
           <div className="phoneTab phoneTabAdd">
             <div className="phoneAddBtn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M12 5v14M5 12h14" stroke="#121C41" strokeWidth="2.5" strokeLinecap="round"/>
+                <path d="M12 5v14M5 12h14" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round"/>
               </svg>
             </div>
           </div>

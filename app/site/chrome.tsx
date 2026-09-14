@@ -535,11 +535,11 @@ export function SiteStyles() {
       .btnPrimary {
         padding: 15px 27px;
         background: var(--night-soft);
-        color: #FFF6E8;
+        color: var(--on-night);
         box-shadow: 0 10px 28px rgba(20, 33, 63, 0.22);
       }
       .btnPrimary:hover {
-        background: #1B2C53;
+        background: var(--blue-hover);
         transform: translateY(-2px);
         box-shadow: 0 16px 38px rgba(20, 33, 63, 0.28);
       }
@@ -612,10 +612,10 @@ export function SiteStyles() {
       .navCta {
         padding: 10px 20px;
         background: var(--night-soft);
-        color: #FFF6E8;
+        color: var(--on-night);
         font-size: 0.9rem;
       }
-      .navCta:hover { background: #1B2C53; transform: translateY(-1px); }
+      .navCta:hover { background: var(--blue-hover); transform: translateY(-1px); }
 
       .hamburger {
         display: none;
@@ -672,7 +672,7 @@ export function SiteStyles() {
         margin-top: 26px;
         padding: 15px 22px;
         background: var(--night-soft);
-        color: #FFF6E8;
+        color: var(--on-night);
       }
 
       /* ── Hero ──────────────────────────────────────────────── */
@@ -1156,7 +1156,7 @@ export function SiteStyles() {
       .phoneTime {
         font-size: 13px;
         font-weight: 700;
-        color: #121C41;
+        color: var(--ink);
         letter-spacing: 0.01em;
       }
 
@@ -1169,7 +1169,7 @@ export function SiteStyles() {
       .phoneBatt {
         width: 22px;
         height: 10px;
-        border: 1.5px solid #121C41;
+        border: 1.5px solid var(--ink);
         border-radius: 3px;
         padding: 1.5px;
         position: relative;
@@ -1184,14 +1184,14 @@ export function SiteStyles() {
         width: 2px;
         height: 5px;
         border-radius: 0 1px 1px 0;
-        background: #121C41;
+        background: var(--ink);
       }
 
       .phoneBattFill {
         width: 75%;
         height: 100%;
         border-radius: 1px;
-        background: #121C41;
+        background: var(--ink);
       }
 
       /* Notification banner */
@@ -1237,13 +1237,13 @@ export function SiteStyles() {
       .phoneNotifTitle {
         font-size: 13px;
         font-weight: 600;
-        color: #121C41;
+        color: var(--ink);
         line-height: 1.2;
       }
 
       .phoneNotifBody {
         font-size: 12px;
-        color: #6E6E73;
+        color: #8E8E93;
         margin-top: 1px;
       }
 
@@ -1756,7 +1756,7 @@ export function SiteStyles() {
       .phoneQuickAddText {
         font-size: 11px;
         font-weight: 500;
-        color: #1a2a4a;
+        color: var(--ink);
       }
 
       .phoneQuickAddMic {
@@ -1916,7 +1916,7 @@ export function SiteStyles() {
 
       .phoneGroupTask {
         font-size: 13px;
-        color: #6E6E73;
+        color: #8E8E93;
         margin-top: 4px;
         padding-left: 24px;
       }
@@ -2032,7 +2032,7 @@ export function SiteStyles() {
       .phoneHomeTitle {
         font-size: 18px;
         font-weight: 700;
-        color: #1a2a4a;
+        color: var(--ink);
         letter-spacing: -0.02em;
         line-height: 1.15;
       }
@@ -2096,7 +2096,7 @@ export function SiteStyles() {
         width: 34px;
         height: 34px;
         border-radius: 10px;
-        background: linear-gradient(135deg, #121C41, #DB4890);
+        background: linear-gradient(135deg, var(--blue), var(--accent-lit));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2115,7 +2115,7 @@ export function SiteStyles() {
       .phoneGamePlanTitle {
         font-size: 13px;
         font-weight: 600;
-        color: #1a2a4a;
+        color: var(--ink);
       }
       .phoneGamePlanSub {
         font-size: 10px;
@@ -2163,7 +2163,7 @@ export function SiteStyles() {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #121C41, #DB4890);
+        background: linear-gradient(135deg, var(--blue), var(--accent-lit));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2176,7 +2176,7 @@ export function SiteStyles() {
       .hhProfileName {
         font-size: 16px;
         font-weight: 700;
-        color: #1a2a4a;
+        color: var(--ink);
         line-height: 1.15;
       }
       .hhProfileSub {
@@ -2199,7 +2199,7 @@ export function SiteStyles() {
         width: 28px;
         height: 28px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #121C41, #DB4890);
+        background: linear-gradient(135deg, var(--blue), var(--accent-lit));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2215,7 +2215,7 @@ export function SiteStyles() {
       .hhNearTitle {
         font-size: 12px;
         font-weight: 600;
-        color: #1a2a4a;
+        color: var(--ink);
         line-height: 1.2;
       }
       .hhNearSub {
@@ -2257,7 +2257,7 @@ export function SiteStyles() {
       .hhPlaceInfo strong {
         font-size: 12px;
         font-weight: 600;
-        color: #1a2a4a;
+        color: var(--ink);
       }
       .hhPlaceTasksText {
         font-size: 9px;
@@ -2280,7 +2280,7 @@ export function SiteStyles() {
         line-height: 1.3;
       }
       .hhActivityText strong {
-        color: #1a2a4a;
+        color: var(--ink);
         font-weight: 600;
       }
 
@@ -2370,13 +2370,13 @@ export function SiteStyles() {
       .phoneAppTitle {
         font-size: 28px;
         font-weight: 700;
-        color: #121C41;
+        color: var(--ink);
         letter-spacing: -0.02em;
       }
 
       .phoneAppCount {
         font-size: 14px;
-        color: #6E6E73;
+        color: #8E8E93;
         margin-top: 2px;
       }
 
@@ -2416,7 +2416,7 @@ export function SiteStyles() {
       .phoneTaskText {
         font-size: 15px;
         font-weight: 400;
-        color: #121C41;
+        color: var(--ink);
         flex: 1;
       }
 

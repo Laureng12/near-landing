@@ -75,11 +75,11 @@ export default function PricingPage() {
         .priceNavCta {
           display: inline-flex; align-items: center;
           padding: 10px 20px; border-radius: 999px;
-          background: var(--night-soft); color: #FFF6E8;
+          background: var(--night-soft); color: var(--on-night);
           font-size: 0.9rem; font-weight: 500;
           transition: background 0.3s var(--ease-soft), transform 0.45s var(--ease);
         }
-        .priceNavCta:hover { background: #1B2C53; transform: translateY(-1px); }
+        .priceNavCta:hover { background: var(--blue-hover); transform: translateY(-1px); }
 
         /* ── Header ── */
         .priceShell { max-width: var(--shell); margin: 0 auto; padding: clamp(64px, 9vw, 108px) var(--gutter) clamp(72px, 10vw, 120px); }
