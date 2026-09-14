@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { DM_Sans, Instrument_Serif } from "next/font/google"
 import "./globals.css"
+import "./site/chrome.css"
 import ConsentBanner from "./ConsentBanner"
 import { NotifyDialog } from "./site/chrome"
 import { APP_IS_LIVE, APP_STORE_URL } from "./site/launch"
