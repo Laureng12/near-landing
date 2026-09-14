@@ -92,16 +92,18 @@ const ICON_VARIANTS = [
   { name: "Night", src: "/assets/brand/Near-Icon-Orbital-Night-1024.png" },
 ] as const
 
-/* The arrival the section is describing, so the page shows it instead of
-   only claiming it. */
+/* The arrival this page's own example produces. The capture section hears
+   "Grab dog food and drop the rug off"; two sentences later the reader
+   arrives at Petco and the dog food is waiting. One example, start to
+   finish - it used to say dog food and then show diapers. */
 const arrivalScene: Scene = {
   id: "features-arrival",
   sky: "day",
   clock: "5:12",
   day: "Tuesday, March 17",
-  title: "You\u2019re at Target",
-  sub: "2 things you needed",
-  items: ["Diapers", "Paper towels"],
+  title: "You\u2019re at Petco",
+  sub: "1 of the two things you said",
+  items: ["Dog food"],
 }
 
 const surfaces = [

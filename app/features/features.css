@@ -85,7 +85,9 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.022em;
-  color: var(--accent);
+  /* Inherits --ink from .ftOpenTitle. It was var(--accent), which made this
+     the only burgundy serif on the site while every other serif moment is
+     ink. That was drift, not direction. */
 }
 
 /* ── Definition rows ─────────────────────────────────── */

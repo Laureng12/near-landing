@@ -153,19 +153,32 @@ export default function HomePageClient() {
 function Hero() {
   const heroRef = useRef<HTMLElement>(null)
 
-  /* The screen sits quiet for a beat, then the notification lands. Replays
-     whenever the hero comes back into view, so the magic is never missed. */
-  const [arrived, setArrived] = useState(false)
+  /* The notification is on the phone in the served HTML, before any
+     JavaScript runs - a visitor's first frame has to show the product doing
+     the thing, not an empty screen that fills in later.
+
+     The arrival animation is therefore a replay, not an entrance: it runs
+     when the hero comes back into view after being scrolled away, so the
+     magic is available again without ever being withheld. */
+  const [replaying, setReplaying] = useState(false)
+  const armed = useRef(false)
+
   useEffect(() => {
     const el = heroRef.current
     if (!el) return
     let t: ReturnType<typeof setTimeout> | undefined
-    const play = () => {
-      setArrived(false)
-      t = setTimeout(() => setArrived(true), 900)
-    }
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) play() }),
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) {
+            armed.current = true
+            return
+          }
+          if (!armed.current) return
+          armed.current = false
+          setReplaying(false)
+          t = setTimeout(() => setReplaying(true), 60)
+        }),
       { threshold: 0.45 }
     )
     io.observe(el)
@@ -216,10 +229,10 @@ function Hero() {
           </p>
         </div>
         <div className="heroPhone">
-          <div className={`arrivalRipple ${arrived ? "rippleOn" : ""}`} aria-hidden="true">
+          <div className={`arrivalRipple ${replaying ? "rippleOn" : ""}`} aria-hidden="true">
             <span /><span /><span />
           </div>
-          <PhoneMockup phase={1} arrived={arrived} />
+          <PhoneMockup phase={1} arrived={replaying} />
         </div>
       </div>
     </section>
@@ -900,7 +913,7 @@ function QuietSection() {
                 </div>
 
                 <div className="quietCard">
-                  <div className="quietCardLabel">Location stays on this iPhone</div>
+                  <div className="quietCardLabel">Arrival detection runs on your iPhone</div>
                   <ul className="quietPledges">
                     {pledges.map((p, i) => (
                       <li key={p} style={{ animationDelay: `${0.35 + i * 0.22}s` }}>
