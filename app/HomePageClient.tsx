@@ -1,19 +1,22 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent as ReactMouseEvent } from "react"
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 import { APP_IS_LIVE } from "./site/launch"
 import { isLive } from "./site/features"
 import {
+  ArrivalPhone,
   BRAND_ICON,
   DownloadCta,
+  HouseholdThread,
   FinalCTA,
   SiteFooter,
   SiteStyles,
   TopNav,
   useInView,
   useReveal,
+  VoiceWave,
 } from "./site/chrome"
 
 /* The product story, in three beats. This replaces the six overlapping
@@ -40,13 +43,7 @@ const beats = [
 ]
 
 /* The shared list Brian is about to see. */
-const sharedList = [
-  { item: "Milk", done: true },
-  { item: "Eggs", done: true },
-  { item: "Bananas", done: false },
-  { item: "Bread", done: false },
-  { item: "Olive oil", done: false },
-]
+const sharedList = ["Milk", "Eggs", "Bananas", "Bread", "Olive oil"] as const
 
 /* Recognizable moments. Each one is a real arrival, so each one carries the
    Lock Screen it would actually produce - and the hour it would happen at.
@@ -107,7 +104,7 @@ const momentScenes = [
     sub: "2 things waiting",
     items: ["Water the plants", "Take out recycling"],
   },
-]
+] as const
 
 const faqItems = [
   {
@@ -127,80 +124,6 @@ const faqItems = [
     a: "Near uses location to surface a task at the moment it matters, and never for advertising. Geofences run on your iPhone. Saved places, tasks, and arrival events sync so reminders and household sharing work, and you can delete all of it at any time.",
   },
 ]
-
-/* Anything sequenced on a timer has to land instantly instead. Read through
-   useSyncExternalStore so the answer is known during render, not one frame
-   late, and so the server always renders the motion-on markup. */
-const REDUCED_QUERY = "(prefers-reduced-motion: reduce)"
-
-function usePrefersReducedMotion() {
-  return useSyncExternalStore(
-    (onChange) => {
-      const mq = window.matchMedia(REDUCED_QUERY)
-      mq.addEventListener("change", onChange)
-      return () => mq.removeEventListener("change", onChange)
-    },
-    () => window.matchMedia(REDUCED_QUERY).matches,
-    () => false
-  )
-}
-
-/* ── The arrival, as a phone ─────────────────────────── */
-
-type Scene = (typeof momentScenes)[number]
-
-/* One small phone, one arrival. Keyed on the scene id by its caller so the
-   card remounts and performs the arrival again whenever the scene changes. */
-function ArrivalPhone({ scene, live }: { scene: Scene; live: boolean }) {
-  return (
-    <div className={`arrPhone arrPhone--${scene.sky} ${live ? "arrPhoneLive" : ""}`}>
-      <div className="arrShell">
-        <div className="arrScreen">
-          <div className="arrSkyStack" aria-hidden="true">
-            {["dawn", "day", "dusk", "night"].map((s) => (
-              <span key={s} className={`arrSkyLayer arrSkyLayer--${s}`} />
-            ))}
-          </div>
-          <div className="arrStatus" aria-hidden="true">
-            <span>{scene.clock}</span>
-            <span className="arrStatusRight">
-              <span className="arrBars" />
-              <span className="arrBatt" />
-            </span>
-          </div>
-
-          <div className="arrClock">
-            <div className="arrClockTime">{scene.clock}</div>
-            <div className="arrClockDay">{scene.day}</div>
-          </div>
-
-          <div className="arrCard" key={scene.id}>
-            <span className="arrRipple" aria-hidden="true" />
-            <div className="arrCardHead">
-              <span className="arrCardIcon">
-                <Image src={BRAND_ICON} alt="" width={26} height={26} />
-              </span>
-              <div className="arrCardHeadText">
-                <div className="arrCardLabel">NEAR &middot; now</div>
-                <div className="arrCardTitle">{scene.title}</div>
-                <div className="arrCardSub">{scene.sub}</div>
-              </div>
-            </div>
-            <ul className="arrCardItems">
-              {scene.items.map((item, i) => (
-                <li key={item} style={{ animationDelay: `${0.42 + i * 0.13}s` }}>
-                  <span className="arrCardDot" aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <span className="arrCardSheen" aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 /* ── Page ──────────────────────────────────────────────────────── */
 
@@ -803,28 +726,9 @@ function ThreeBeats() {
 /* Beat visuals: spoken words, then the mark, then the Lock Screen.
    Gold is Near's own voice, so it carries the whole sequence. */
 
-const WAVE_BARS = [34, 58, 86, 52, 100, 70, 44, 78, 38, 62, 30]
-
 function BeatVisual({ kind }: { kind: "voice" | "sphere" | "arrive" }) {
   if (kind === "voice") {
-    return (
-      <div className="vizVoice">
-        <div className="vizVoiceRow">
-        <span className="vizMic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </span>
-        <span className="vizWave" aria-hidden="true">
-          {WAVE_BARS.map((h, i) => (
-            <i key={i} style={{ height: h + "%", animationDelay: i * 90 + "ms" }} />
-          ))}
-        </span>
-        </div>
-        <p className="vizQuote">&ldquo;Paper towels at Target.&rdquo;</p>
-      </div>
-    )
+    return <VoiceWave quote="Paper towels at Target." />
   }
 
   if (kind === "sphere") {
@@ -855,32 +759,10 @@ function BeatVisual({ kind }: { kind: "voice" | "sphere" | "arrive" }) {
 }
 
 function HouseholdChapter() {
-  const [ref, inView] = useInView<HTMLDivElement>(0.28)
-  const reduced = usePrefersReducedMotion()
-  const [crossed, setCrossed] = useState(0)
-  const [landed, setLanded] = useState(false)
-
-  /* Brian works down the list while you watch, then Near tells you.
-     Reduced motion gets the same end state without the performance. */
-  useEffect(() => {
-    if (!inView || reduced) return
-    const timers = [
-      window.setTimeout(() => setCrossed(1), 620),
-      window.setTimeout(() => setCrossed(2), 1280),
-      window.setTimeout(() => setCrossed(3), 2020),
-      window.setTimeout(() => setLanded(true), 2680),
-    ]
-    return () => timers.forEach(window.clearTimeout)
-  }, [inView, reduced])
-
-  /* Reduced motion skips the performance and shows the finished list. */
-  const done = reduced ? 3 : crossed
-  const arrived = reduced ? true : landed
-
   return (
     <section className="chapter chapterNight" id="household">
       <div className="skyWash skyWashWarm" aria-hidden="true" />
-      <div className="reveal shell split" ref={ref}>
+      <div className="reveal shell split">
         <div className="splitCopy">
           <p className="eyebrow">For households</p>
           <h2 className="h2">
@@ -895,55 +777,12 @@ function HouseholdChapter() {
           <p className="caption">Start on your own. Better together.</p>
         </div>
         <div className="splitVisual">
-          <div className="threadVisual">
-            <div className="threadList">
-              <div className="threadListHead">
-                <span className="threadListIcon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.5" />
-                    <circle cx="16.5" cy="9.5" r="2.4" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M3.5 18.5c0-2.8 2.5-4.6 5.5-4.6s5.5 1.8 5.5 4.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M16.2 14.2c2.4.2 4.3 1.9 4.3 4.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </span>
-                <div>
-                  <div className="threadListTitle">Shared grocery list</div>
-                  <div className="threadListSub">Shared with Brian</div>
-                </div>
-                <span className={`threadLive ${done > 0 ? "threadLiveOn" : ""}`}>
-                  <span className="threadLiveDot" aria-hidden="true" />
-                  Brian is here
-                </span>
-              </div>
-              <ul className="threadItems">
-                {sharedList.map((row, i) => (
-                  <li key={row.item} className={i < done ? "threadDone" : ""}>
-                    <span className="threadCheck" aria-hidden="true">
-                      <svg viewBox="0 0 16 16" fill="none">
-                        <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <span className="threadItemText">{row.item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="threadLine" aria-hidden="true">
-              <span className="threadSpark" />
-            </div>
-
-            <div className={`threadNotif ${arrived ? "threadNotifIn" : ""}`}>
-              <div className="threadNotifIcon">
-                <Image src={BRAND_ICON} alt="" width={26} height={26} />
-              </div>
-              <div>
-                <div className="threadNotifLabel">Near &middot; now</div>
-                <div className="threadNotifTitle">Brian is at Kroger</div>
-                <div className="threadNotifSub">Your shared list is ready</div>
-              </div>
-            </div>
-          </div>
+          <HouseholdThread
+            items={sharedList}
+            sharedWith="Shared with Brian"
+            arrivalTitle="Brian is at Kroger"
+            arrivalSub="Your shared list is ready"
+          />
         </div>
       </div>
     </section>

@@ -11,11 +11,15 @@ import Link from "next/link"
 
 import { planPill } from "../site/features"
 import {
+  ArrivalPhone,
   FinalCTA,
+  HouseholdThread,
   SiteFooter,
   SiteStyles,
   TopNav,
   useReveal,
+  VoiceWave,
+  type Scene,
 } from "../site/chrome"
 
 /* Capture and arrival: the two halves of the only loop Near has. */
@@ -87,11 +91,61 @@ const ICON_VARIANTS = [
   { name: "Night", src: "/assets/brand/Near-Icon-Orbital-Night-1024.png" },
 ] as const
 
+/* The arrival the section is describing, so the page shows it instead of
+   only claiming it. */
+const arrivalScene: Scene = {
+  id: "features-arrival",
+  sky: "day",
+  clock: "5:12",
+  day: "Tuesday, March 17",
+  title: "You\u2019re at Target",
+  sub: "2 things you needed",
+  items: ["Diapers", "Paper towels"],
+}
+
 const surfaces = [
-  { name: "iPhone", note: "The Lock Screen, the widget, the app." },
-  { name: "Apple Watch", note: "A glance at the wrist when your hands are full." },
-  { name: "Siri", note: "Add it out loud, driving, mid-sentence." },
+  { name: "iPhone", glyph: "phone" as const, note: "The Lock Screen, the widget, the app." },
+  { name: "Apple Watch", glyph: "watch" as const, note: "A glance at the wrist when your hands are full." },
+  { name: "Siri", glyph: "voice" as const, note: "Add it out loud, driving, mid-sentence." },
 ]
+
+function SurfaceGlyph({ kind }: { kind: "phone" | "watch" | "voice" }) {
+  if (kind === "phone") {
+    return (
+      <span className="ftGlyph" aria-hidden="true">
+        <svg viewBox="0 0 40 56" fill="none">
+          <rect x="1" y="1" width="38" height="54" rx="8" stroke="currentColor" strokeWidth="1.4" />
+          <rect x="14" y="4" width="12" height="2.4" rx="1.2" fill="currentColor" opacity="0.45" />
+          <rect x="6" y="26" width="28" height="12" rx="4" fill="currentColor" opacity="0.16" />
+          <circle cx="11" cy="32" r="2.4" fill="currentColor" opacity="0.5" />
+          <rect x="16" y="29" width="14" height="2" rx="1" fill="currentColor" opacity="0.45" />
+          <rect x="16" y="33" width="9" height="2" rx="1" fill="currentColor" opacity="0.3" />
+        </svg>
+      </span>
+    )
+  }
+  if (kind === "watch") {
+    return (
+      <span className="ftGlyph" aria-hidden="true">
+        <svg viewBox="0 0 40 56" fill="none">
+          <path d="M13 10V5.5A2.5 2.5 0 0 1 15.5 3h9A2.5 2.5 0 0 1 27 5.5V10M13 46v4.5A2.5 2.5 0 0 0 15.5 53h9a2.5 2.5 0 0 0 2.5-2.5V46" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          <rect x="8" y="10" width="24" height="36" rx="8" stroke="currentColor" strokeWidth="1.4" />
+          <circle cx="20" cy="28" r="6" fill="currentColor" opacity="0.16" />
+          <circle cx="20" cy="28" r="2" fill="currentColor" opacity="0.55" />
+        </svg>
+      </span>
+    )
+  }
+  return (
+    <span className="ftGlyph" aria-hidden="true">
+      <svg viewBox="0 0 40 56" fill="none">
+        <rect x="15" y="12" width="10" height="19" rx="5" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M9 27a11 11 0 0 0 22 0M20 38v6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M5 24v6M35 24v6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" opacity="0.4" />
+      </svg>
+    </span>
+  )
+}
 
 export default function FeaturesPage() {
   useReveal()
@@ -121,7 +175,8 @@ export default function FeaturesPage() {
       {/* ── Capture ───────────────────────────────────────────── */}
 
       <section className="chapter chapterTight" id="capture">
-        <div className="reveal shell">
+        <div className="reveal shell split">
+          <div className="splitCopy">
           <p className="eyebrow">When it occurs to you</p>
           <h2 className="h2">Two seconds, then you forget it on purpose.</h2>
           <dl className="ftRows">
@@ -132,13 +187,21 @@ export default function FeaturesPage() {
               </div>
             ))}
           </dl>
+          </div>
+          <div className="splitVisual ftVisual">
+            <VoiceWave quote="Grab dog food and drop the rug off." />
+          </div>
         </div>
       </section>
 
       {/* ── Arrival ───────────────────────────────────────────── */}
 
       <section className="chapter chapterSunk" id="arrival">
-        <div className="reveal shell">
+        <div className="reveal shell split splitReverse">
+          <div className="splitVisual ftVisual">
+            <ArrivalPhone scene={arrivalScene} live />
+          </div>
+          <div className="splitCopy">
           <p className="eyebrow">When you get there</p>
           <h2 className="h2">
             You never open Near.
@@ -153,13 +216,16 @@ export default function FeaturesPage() {
               </div>
             ))}
           </dl>
+          </div>
         </div>
       </section>
 
       {/* ── Household ─────────────────────────────────────────── */}
 
-      <section className="chapter" id="household">
-        <div className="reveal shell narrow">
+      <section className="chapter chapterNight" id="household">
+        <div className="skyWash skyWashWarm" aria-hidden="true" />
+        <div className="reveal shell split">
+          <div className="splitCopy">
           <p className="eyebrow">For households</p>
           <h2 className="h2">
             Nobody has to be
@@ -178,6 +244,15 @@ export default function FeaturesPage() {
               </li>
             ))}
           </ul>
+          </div>
+          <div className="splitVisual ftVisual">
+            <HouseholdThread
+              items={["Dog food", "Rug to the cleaners", "Milk", "Bread", "Olive oil"]}
+              sharedWith="Shared with your house"
+              arrivalTitle="Someone is at the store"
+              arrivalSub="Your shared list is ready"
+            />
+          </div>
         </div>
       </section>
 
@@ -234,6 +309,7 @@ export default function FeaturesPage() {
           <div className="ftSurfaces">
             {surfaces.map((s) => (
               <div className="ftSurface" key={s.name} data-stagger>
+                <SurfaceGlyph kind={s.glyph} />
                 <h3 className="ftSurfaceName">{s.name}</h3>
                 <p className="ftSurfaceNote">{s.note}</p>
               </div>
@@ -317,6 +393,55 @@ function FeatureStyles() {
       .ftOpen { padding-top: clamp(140px, 18vh, 220px); }
 
       .ftOpen .lead { max-width: 34rem; }
+
+      /* The page shows the moments it describes now, so the split columns
+         need to breathe and the visuals need to scale down with them. */
+      .ftVisual { align-items: center; }
+
+      /* The household section sits on night ground now, so its list has to
+         read against it. */
+      #household .ftListItem { color: var(--on-night-soft); }
+      #household .ftBullet { background: var(--gold); }
+
+      /* Beside a phone there is no room for a 16rem key column, so the rows
+         stack instead of sitting side by side. */
+      #capture .ftRow,
+      #arrival .ftRow {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 6px;
+        padding: clamp(18px, 2.4vw, 24px) 0;
+      }
+      #capture .ftRowK,
+      #arrival .ftRowK { font-size: clamp(17px, 1.5vw, 19px); }
+      #capture .ftRowV,
+      #arrival .ftRowV { font-size: clamp(15px, 1.3vw, 17px); max-width: 34rem; }
+
+      /* The copy column carries the rows, so it needs the width. */
+      #capture .split,
+      #arrival .split { grid-template-columns: 1.12fr 0.88fr; align-items: center; }
+      .ftVisual .arrShell { transform: scale(0.92); transform-origin: 50% 50%; }
+      .ftVisual .vizVoice { width: 100%; max-width: 340px; }
+      .ftVisual .vizQuote { font-size: 1.05rem; }
+      #capture .ftRows, #arrival .ftRows { margin-top: clamp(1.6rem, 3vw, 2.2rem); }
+
+      /* Device glyphs on the surfaces cards. */
+      .ftGlyph {
+        display: block;
+        width: 34px;
+        height: 48px;
+        margin-bottom: 18px;
+        color: var(--gold);
+        opacity: 0;
+        transform: translate3d(0, 8px, 0);
+        transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      }
+      .ftGlyph svg { width: 100%; height: 100%; display: block; }
+      .reveal.revealed .ftGlyph { opacity: 1; transform: none; }
+
+      @media (max-width: 900px) {
+        .ftVisual { margin-top: clamp(2rem, 6vw, 3rem); }
+        .ftVisual .arrShell { transform: scale(0.84); }
+      }
 
       /* Says which plan a capability belongs to, so /features and /pricing
          cannot tell a visitor two different stories. */
