@@ -12,7 +12,6 @@ import {
   HouseholdThread,
   FinalCTA,
   SiteFooter,
-  SiteStyles,
   TopNav,
   useInView,
   useReveal,
@@ -142,7 +141,6 @@ export default function HomePageClient() {
       <FAQSection />
       <FinalCTA />
       <SiteFooter />
-      <SiteStyles />
     </main>
   )
 }

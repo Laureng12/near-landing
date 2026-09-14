@@ -1,0 +1,134 @@
+/* Extracted from a styled-jsx <style jsx global> block.
+   styled-jsx inside a client component is injected by JavaScript after
+   hydration, so every first paint was unstyled - the h1 rendered at 16px
+   until the bundle arrived. As a real stylesheet this is in the served
+   HTML and the page is styled on the first frame. */
+
+.legalHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 1.5rem;
+}
+.legalLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 14px 0;
+}
+.legalLogoFull {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+.legalMain {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+.legalTitle {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+.legalUpdated {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin: 0.75rem 0 0;
+}
+.legalSection {
+  margin-top: 2.5rem;
+}
+.legalSection h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.legalSection h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 1.5rem 0 0.4rem;
+}
+.legalSection p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0.6rem 0 0;
+}
+.legalSection ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.25rem;
+}
+.legalSection li {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+}
+.legalSection li strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.legalLink {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.legalLink:hover {
+  text-decoration: underline;
+}
+.legalFooter {
+  border-top: 1px solid var(--line);
+  padding: 2rem 1.5rem;
+}
+.legalFooterInner {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.legalFooterCopy {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.legalFooterLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+.legalFooterLink {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.legalFooterLink:hover {
+  color: var(--blue);
+}
+@media (max-width: 600px) {
+  .legalTitle {
+    font-size: 30px;
+  }
+  .legalMain {
+    padding: 2rem 1rem 3rem;
+  }
+  .legalFooterInner {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}
