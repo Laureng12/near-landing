@@ -335,8 +335,9 @@ export default function FeaturesPage() {
             Reminding you.
           </h2>
           <p className="lead leadCenter">
-            Near uses location to deliver your reminders - not to sell ads,
-            build a profile, or follow your day.
+            Your live route never leaves your iPhone. What syncs is what makes a
+            reminder work: your places, your tasks, and the arrivals that fire
+            them. Near sells none of it, and never uses it for ads.
           </p>
           <div className="pillRow">
             <span className="pill" data-stagger>No ads</span>

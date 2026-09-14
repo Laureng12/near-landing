@@ -88,6 +88,65 @@ export default function PricingPage() {
             </div>
           </header>
 
+          {/* What Pro actually does, before anyone is asked what it costs.
+              One week, one store, and the step that is the whole point: the
+              ingredients collapse into one list instead of three. */}
+          <section className="proProof" aria-label="What Near Pro does">
+            <p className="proProofHead">
+              A week of meals, and one list at the end of it.
+            </p>
+            <ol className="proSteps">
+              <li className="proStep">
+                <span className="proStepNum">1</span>
+                <h3 className="proStepTitle">Pick the week</h3>
+                <div className="proChips">
+                  <span>Sheet-pan chicken</span>
+                  <span>Black bean tacos</span>
+                  <span>Pasta e fagioli</span>
+                </div>
+                <p className="proStepBody">
+                  Three dinners, chosen or suggested. Free gets three plans a
+                  month; Pro takes the cap off.
+                </p>
+              </li>
+              <li className="proStep">
+                <span className="proStepNum">2</span>
+                <h3 className="proStepTitle">The ingredients collapse</h3>
+                <ul className="proMerge">
+                  <li>
+                    <span className="proMergeFrom">Onion &times;3</span>
+                    <span className="proMergeTo">3 onions</span>
+                  </li>
+                  <li>
+                    <span className="proMergeFrom">Olive oil &times;3</span>
+                    <span className="proMergeTo">Olive oil</span>
+                  </li>
+                  <li>
+                    <span className="proMergeFrom">Cumin &times;2</span>
+                    <span className="proMergeTo">Cumin</span>
+                  </li>
+                </ul>
+                <p className="proStepBody">
+                  Three recipes become one list, in aisle order, with Kroger
+                  prices where you have an account.
+                </p>
+              </li>
+              <li className="proStep">
+                <span className="proStepNum">3</span>
+                <h3 className="proStepTitle">It is waiting at the store</h3>
+                <div className="proNotif">
+                  <div className="proNotifLabel">Near &middot; now</div>
+                  <div className="proNotifTitle">You&rsquo;re at Kroger</div>
+                  <div className="proNotifSub">11 things for this week</div>
+                </div>
+                <p className="proStepBody">
+                  Same arrival as every other reminder. You did the thinking
+                  once, on a Sunday.
+                </p>
+              </li>
+            </ol>
+          </section>
+
           <div className="tiers">
             {tiers.map((t) => {
               const price = billing === "annual" ? t.annual : t.monthly
@@ -115,6 +174,15 @@ export default function PricingPage() {
 
           <p className="priceFoot">
             Seven days free when you start Pro. Cancel anytime in Settings &rarr; Apple ID.
+          </p>
+          {/* Asked in every audit and never answered on the page. The backend
+              resolves entitlement by userId alone, with no household lookup,
+              so the honest answer today is no. Seat sharing exists in the code
+              as Near Together and is not sellable. */}
+          <p className="priceFoot priceFootQuiet">
+            Pro covers one person. Sharing a household is free and everyone&rsquo;s
+            lists stay in sync, but Pro&rsquo;s planning and prediction apply to the
+            account that subscribes.
           </p>
           <p className="priceBack">
             <Link href="/">Back to Near</Link>

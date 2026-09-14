@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 import { APP_IS_LIVE } from "./site/launch"
@@ -14,6 +15,7 @@ import {
   SiteFooter,
   TopNav,
   useInView,
+  usePrefersReducedMotion,
   useReveal,
   VoiceWave,
 } from "./site/chrome"
@@ -134,6 +136,7 @@ export default function HomePageClient() {
       <TopNav home />
       <Hero />
       <ProofLine />
+      <ProductDemo />
       <ThreeBeats />
       <HouseholdChapter />
       <MomentsSection />
@@ -220,7 +223,7 @@ function Hero() {
           </p>
           <div className="heroCtas">
             <DownloadCta className="btnPrimary" source="hero">Download Near</DownloadCta>
-            <a className="btnGhost" href="#how-it-works">Watch it work</a>
+            <a className="btnGhost" href="#demo">Watch it work</a>
           </div>
           <p className="heroMicro">
             {APP_IS_LIVE
@@ -883,6 +886,213 @@ function MomentsSection() {
   )
 }
 
+/* ── The demo ──────────────────────────────────────────────────────
+
+   "Watch it work" used to scroll to a section that explained how it works,
+   which is a button that lies. This is the thing it promised.
+
+   One item and one store the whole way through: milk, Harris Teeter. Four
+   beats, about nine seconds, and the last one is the payoff.
+
+   The resting beat is the LAST one, so the served HTML already contains the
+   proof - the Lock Screen with the milk on it. Playing is a replay, the same
+   rule the hero follows. The rail below spells all four steps out in text, so
+   the sequence reads even if nothing ever moves. */
+
+const DEMO_BEATS = [
+  {
+    id: "say",
+    label: "Say it",
+    caption: "Say it or type it, while it is still in your head.",
+    hold: 2400,
+  },
+  {
+    id: "place",
+    label: "Place it",
+    caption: "Near attaches it to Harris Teeter. Change the place if it guessed wrong.",
+    hold: 2600,
+  },
+  {
+    id: "keep",
+    label: "Forget it",
+    caption: "Then you get on with your week.",
+    hold: 1800,
+  },
+  {
+    id: "arrive",
+    label: "Get it there",
+    caption: "You walk in, and it is already on your Lock Screen.",
+    hold: 0,
+  },
+] as const
+
+const LAST_BEAT = DEMO_BEATS.length - 1
+
+function ProductDemo() {
+  const reduced = usePrefersReducedMotion()
+  const [beat, setBeat] = useState(LAST_BEAT)
+  const [playing, setPlaying] = useState(false)
+  const started = useRef(false)
+  const sectionRef = useRef<HTMLElement | null>(null)
+
+  /* Plays itself once, the first time it is looked at. After that it is
+     whatever the visitor last left it on. */
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || reduced) return
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting || started.current) return
+        started.current = true
+        setBeat(0)
+        setPlaying(true)
+        io.disconnect()
+      },
+      { threshold: 0.4 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [reduced])
+
+  /* Derived rather than stored, so reaching the last beat never has to call
+     setState from inside the effect that advanced it. */
+  const running = playing && beat < LAST_BEAT
+
+  useEffect(() => {
+    if (!running) return
+    const t = window.setTimeout(() => setBeat((b) => b + 1), DEMO_BEATS[beat].hold)
+    return () => window.clearTimeout(t)
+  }, [running, beat])
+
+  const replay = () => {
+    started.current = true
+    setBeat(0)
+    setPlaying(true)
+  }
+
+  const current = DEMO_BEATS[beat]
+
+  return (
+    <section className="chapter chapterTight" id="demo" ref={sectionRef}>
+      <div className="reveal shell">
+        <div className="centeredHead">
+          <p className="eyebrow">Watch it work</p>
+          <h2 className="h2 h2Center">Milk, and a store you were going to anyway.</h2>
+        </div>
+
+        <div className="dmStage">
+          <div className="dmPhone">
+            <div className="pairDevice">
+              <span className="pairIsland" aria-hidden="true" />
+              <div className={`pairScreen dmScreen dmScreen--${current.id}`}>
+                <div className={`pairStatus ${beat >= 2 ? "pairStatusNight" : ""}`}>
+                  <span>{beat >= 2 ? "5:12" : "9:41"}</span>
+                  <span className="pairBatt" aria-hidden="true" />
+                </div>
+
+                {/* Beat 0 - the capture sheet */}
+                <div className="dmPane dmPaneSay" aria-hidden={beat !== 0}>
+                  <div className="dmMic">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.6" />
+                      <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                  <div className="dmWave" aria-hidden="true">
+                    {[38, 64, 92, 56, 100, 74, 46, 82, 40, 66].map((h, i) => (
+                      <i key={i} style={{ height: h + "%", animationDelay: i * 80 + "ms" }} />
+                    ))}
+                  </div>
+                  <p className="dmHeard">&ldquo;Milk at Harris Teeter&rdquo;</p>
+                </div>
+
+                {/* Beat 1 - where it landed, and how to change it */}
+                <div className="dmPane dmPanePlace" aria-hidden={beat !== 1}>
+                  <p className="dmAdded">Added</p>
+                  <div className="dmTask">
+                    <span className="dmTaskCheck" aria-hidden="true" />
+                    <span className="dmTaskName">Milk</span>
+                  </div>
+                  <div className="dmPlaceRow">
+                    <span className="dmPin" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" strokeWidth="1.6" />
+                        <circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.6" />
+                      </svg>
+                    </span>
+                    <span className="dmPlaceName">
+                      Harris Teeter
+                      <i>0.8 mi</i>
+                    </span>
+                    <span className="dmChange">Change</span>
+                  </div>
+                </div>
+
+                {/* Beats 2 and 3 - the same Lock Screen, one with the arrival */}
+                <div className="dmPane dmPaneLock" aria-hidden={beat < 2}>
+                  <div className="dmLockDate">Thursday, March 20</div>
+                  <div className="dmLockTime">5:12</div>
+                  <div className={`dmNotif ${beat === LAST_BEAT ? "dmNotifIn" : ""}`}>
+                    <div className="dmNotifIcon">
+                      <Image src={BRAND_ICON} alt="" width={26} height={26} />
+                    </div>
+                    <div className="dmNotifBody">
+                      <div className="dmNotifLabel">Near &middot; now</div>
+                      <div className="dmNotifTitle">You&rsquo;re at Harris Teeter</div>
+                      <div className="dmNotifSub">Milk</div>
+                    </div>
+                  </div>
+                </div>
+
+                <span className={`pairHomeBar ${beat >= 2 ? "pairHomeBarNight" : ""}`} aria-hidden="true" />
+              </div>
+            </div>
+          </div>
+
+          <div className="dmSide">
+            <ol className="dmRail">
+              {DEMO_BEATS.map((b, i) => (
+                <li key={b.id}>
+                  <button
+                    type="button"
+                    className={`dmRailBtn ${i === beat ? "dmRailOn" : ""} ${i < beat ? "dmRailDone" : ""}`}
+                    onClick={() => {
+                      started.current = true
+                      setPlaying(false)
+                      setBeat(i)
+                    }}
+                    aria-current={i === beat ? "step" : undefined}
+                  >
+                    <span className="dmRailNum">{i + 1}</span>
+                    <span className="dmRailText">
+                      <span className="dmRailLabel">{b.label}</span>
+                      <span className="dmRailCaption">{b.caption}</span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+
+            <div className="dmControls">
+              <button type="button" className="dmCtrl" onClick={replay}>
+                Replay
+              </button>
+              <button
+                type="button"
+                className="dmCtrl"
+                onClick={() => setPlaying((p) => !p)}
+                disabled={beat >= LAST_BEAT}
+              >
+                {running ? "Pause" : "Play"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 /* ── Quiet and private ─────────────────────────────────────────── */
 
 function QuietSection() {
@@ -942,11 +1152,22 @@ function QuietSection() {
             <br />
             <em>Invisible when it doesn&rsquo;t.</em>
           </h2>
+          {/* The old line said Near does not "build a profile, or follow your
+              day". The privacy policy says arrival events are stored on the
+              server to track visit history, and that location history feeds
+              personalization. Both cannot be true. The specific claim below is
+              the one the policy supports, and it is the stronger one. */}
           <p className="lead">
-            Near uses location to deliver your reminders - not to sell ads,
-            build a profile, or follow your day.
+            Your live route never leaves your iPhone. What syncs is what makes a
+            reminder work: your places, your tasks, and the arrivals that fire
+            them. Near sells none of it, and never uses it for ads.
           </p>
-          <p className="caption">Geofences run on your iPhone. Delete everything, any time.</p>
+          <p className="caption">
+            Delete everything, any time.{" "}
+            <Link href="/privacy" className="quietLink">
+              How Near uses your data
+            </Link>
+          </p>
         </div>
       </div>
     </section>
