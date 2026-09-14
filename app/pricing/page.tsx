@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { DownloadCta } from "../site/chrome"
+import { featuresFor } from "../site/features"
 
 const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 
@@ -15,13 +16,7 @@ const tiers = [
     tag: "Everything you need to stop forgetting.",
     annual: { big: "$0", unit: "", note: "Free forever." },
     monthly: { big: "$0", unit: "", note: "Free forever." },
-    features: [
-      "Reminders that wait at the place",
-      "Lock Screen alerts when you arrive",
-      "Grocery lists grouped by department",
-      "Add anything by text",
-      "Share with one person",
-    ],
+    features: featuresFor("free"),
     cta: "Download Near",
     style: "ghost" as const,
   },
@@ -30,14 +25,7 @@ const tiers = [
     tag: "Your household, one step ahead.",
     annual: { big: "$6.67", unit: "/month", note: "$79.99 billed annually · Save 33%" },
     monthly: { big: "$9.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
-    features: [
-      "Everything in Free",
-      "Meal plans built from what you actually cook",
-      "Recipes that fill the grocery list for you",
-      "Learns the routines you repeat",
-      "Add anything by voice",
-      "Unlimited household sharing",
-    ],
+    features: ["Everything in Free", ...featuresFor("pro")],
     cta: "Try Pro free for 7 days",
     style: "primary" as const,
     featured: true,
@@ -47,14 +35,7 @@ const tiers = [
     tag: "Down to the aisle.",
     annual: { big: "$9.08", unit: "/month", note: "$109 billed annually · Save 30%" },
     monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
-    features: [
-      "Everything in Pro",
-      "Grocery lists in aisle order",
-      "Price check before you reach the register",
-      "A pantry that stays current",
-      "Shared household pantry",
-      "Priority support",
-    ],
+    features: ["Everything in Pro", ...featuresFor("pro-plus")],
     cta: "Choose Pro+",
     style: "ghost" as const,
   },
