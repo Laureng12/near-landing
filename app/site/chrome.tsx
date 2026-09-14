@@ -460,95 +460,140 @@ export function VoiceWave({ quote }: { quote: string }) {
   )
 }
 
-/* ── The household thread ────────────────── */
 
-/* Someone else works down the list while you watch, then Near tells you.
-   Owns its own sequence so any page can drop it in; reduced motion gets the
-   same end state without the performance. */
-export function HouseholdThread({
+/* ── The household pair ──────────────────────────────────────── */
+
+/* Two phones and the thread between them. The left one is yours: the shared
+   list, already crossed off by someone else. The right one belongs to whoever
+   you live with, standing in the store, being told what you needed. You see
+   both ends of one event, which is the whole argument for sharing.
+
+   Nobody is told where anybody is. Your phone shows the list getting done;
+   their phone shows their own arrival. That is the product, and it is also
+   the only version of this that agrees with the privacy claim.
+
+   Both phones are complete in the first painted frame. The sequence is a
+   replay that runs when the section returns to view, never the only way to
+   see it. */
+export function HouseholdPair({
   items,
+  listTitle = "Shared grocery list",
   sharedWith,
   arrivalTitle,
   arrivalSub,
   crossCount = 3,
+  ownerLabel = "Your iPhone",
+  peerLabel,
 }: {
   items: readonly string[]
+  listTitle?: string
   sharedWith: string
   arrivalTitle: string
   arrivalSub: string
   crossCount?: number
+  ownerLabel?: string
+  peerLabel: string
 }) {
-  const [ref, inView] = useInView<HTMLDivElement>(0.28)
+  const ref = useRef<HTMLDivElement | null>(null)
+  const armed = useRef(false)
+  const [replaying, setReplaying] = useState(false)
   const reduced = usePrefersReducedMotion()
-  const [crossed, setCrossed] = useState(0)
-  const [landed, setLanded] = useState(false)
 
   useEffect(() => {
-    if (!inView || reduced) return
-    const timers = [
-      ...Array.from({ length: crossCount }, (_, i) =>
-        window.setTimeout(() => setCrossed(i + 1), 620 + i * 680)
-      ),
-      window.setTimeout(() => setLanded(true), 620 + crossCount * 680),
-    ]
-    return () => timers.forEach(window.clearTimeout)
-  }, [inView, reduced, crossCount])
-
-  const done = reduced ? crossCount : crossed
-  const arrived = reduced ? true : landed
+    const el = ref.current
+    if (!el || reduced) return
+    let t: ReturnType<typeof setTimeout> | undefined
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) {
+            armed.current = true
+            return
+          }
+          if (!armed.current) return
+          armed.current = false
+          setReplaying(false)
+          t = window.setTimeout(() => setReplaying(true), 60) as unknown as ReturnType<typeof setTimeout>
+        }),
+      { threshold: 0.4 }
+    )
+    io.observe(el)
+    return () => {
+      io.disconnect()
+      if (t) clearTimeout(t)
+    }
+  }, [reduced])
 
   return (
-    <div ref={ref}>
-          <div className="threadVisual">
-            <div className="threadList">
-              <div className="threadListHead">
-                <span className="threadListIcon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.5" />
-                    <circle cx="16.5" cy="9.5" r="2.4" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M3.5 18.5c0-2.8 2.5-4.6 5.5-4.6s5.5 1.8 5.5 4.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M16.2 14.2c2.4.2 4.3 1.9 4.3 4.3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </span>
-                <div>
-                  <div className="threadListTitle">Shared grocery list</div>
-                  <div className="threadListSub">{sharedWith}</div>
-                </div>
-                <span className={`threadLive ${done > 0 ? "threadLiveOn" : ""}`}>
-                  <span className="threadLiveDot" aria-hidden="true" />
-                  Someone is here
-                </span>
-              </div>
-              <ul className="threadItems">
-                {items.map((item, i) => (
-                  <li key={item} className={i < done ? "threadDone" : ""}>
-                    <span className="threadCheck" aria-hidden="true">
-                      <svg viewBox="0 0 16 16" fill="none">
-                        <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <span className="threadItemText">{item}</span>
-                  </li>
-                ))}
-              </ul>
+    <div ref={ref} className={`pairVisual ${replaying ? "pairReplay" : ""}`}>
+      <figure className="pairPhone">
+        <div className="pairDevice">
+          <span className="pairIsland" aria-hidden="true" />
+          <div className="pairScreen pairScreenDay">
+            <div className="pairStatus">
+              <span>9:41</span>
+              <span className="pairBatt" aria-hidden="true" />
             </div>
-
-            <div className="threadLine" aria-hidden="true">
-              <span className="threadSpark" />
+            <div className="pairListHead">
+              <div className="pairListTitle">{listTitle}</div>
+              <div className="pairListSub">{sharedWith}</div>
             </div>
+            <ul className="pairItems">
+              {items.map((item, i) => (
+                <li
+                  key={item}
+                  className={`pairItem pairItem${i + 1} ${i < crossCount ? "pairItemDone" : ""}`}
+                >
+                  <span className="pairCheck" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" fill="none">
+                      <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <span className="pairItemText">
+                    {item}
+                    <i className="pairStrike" aria-hidden="true" />
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <span className="pairHomeBar" aria-hidden="true" />
+          </div>
+        </div>
+        <figcaption className="pairCaption">{ownerLabel}</figcaption>
+      </figure>
 
-            <div className={`threadNotif ${arrived ? "threadNotifIn" : ""}`}>
-              <div className="threadNotifIcon">
+      <div className="pairThread" aria-hidden="true">
+        <span className="pairThreadLine" />
+        <span className="pairSpark" />
+      </div>
+
+      <figure className="pairPhone">
+        <div className="pairDevice">
+          <span className="pairIsland" aria-hidden="true" />
+          <div className="pairScreen pairScreenNight">
+            <div className="pairStatus pairStatusNight">
+              <span>9:41</span>
+              <span className="pairBatt" aria-hidden="true" />
+            </div>
+            <div className="pairLockClock">
+              <div className="pairLockDate">Saturday, March 15</div>
+              <div className="pairLockTime">9:41</div>
+            </div>
+            <div className="pairNotif">
+              <div className="pairNotifIcon">
                 <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </div>
-              <div>
-                <div className="threadNotifLabel">Near &middot; now</div>
-                <div className="threadNotifTitle">{arrivalTitle}</div>
-                <div className="threadNotifSub">{arrivalSub}</div>
+              <div className="pairNotifBody">
+                <div className="pairNotifLabel">Near &middot; now</div>
+                <div className="pairNotifTitle">{arrivalTitle}</div>
+                <div className="pairNotifSub">{arrivalSub}</div>
               </div>
             </div>
+            <span className="pairHomeBar pairHomeBarNight" aria-hidden="true" />
           </div>
+        </div>
+        <figcaption className="pairCaption">{peerLabel}</figcaption>
+      </figure>
     </div>
   )
 }
-

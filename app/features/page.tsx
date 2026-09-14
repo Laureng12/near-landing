@@ -15,7 +15,7 @@ import { planPill } from "../site/features"
 import {
   ArrivalPhone,
   FinalCTA,
-  HouseholdThread,
+  HouseholdPair,
   SiteFooter,
   TopNav,
   useReveal,
@@ -249,11 +249,14 @@ export default function FeaturesPage() {
           </ul>
           </div>
           <div className="splitVisual ftVisual">
-            <HouseholdThread
+            <HouseholdPair
               items={["Dog food", "Rug to the cleaners", "Milk", "Bread", "Olive oil"]}
+              listTitle="House list"
               sharedWith="Shared with your house"
-              arrivalTitle="Someone is at the store"
-              arrivalSub="Your shared list is ready"
+              arrivalTitle="You’re at the store"
+              arrivalSub="3 things on the house list"
+              ownerLabel="Your iPhone"
+              peerLabel="Anyone in the house"
             />
           </div>
         </div>

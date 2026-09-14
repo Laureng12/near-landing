@@ -216,6 +216,18 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* .reveal starts at opacity 0 and is un-hidden by an IntersectionObserver.
+            Without JavaScript that observer never runs, so every section below the
+            hero stays invisible. Same failure the hero had before PR #19: the proof
+            of the product must not depend on script. */}
+        <noscript>
+          <style
+            dangerouslySetInnerHTML={{
+              __html:
+                ".reveal,.reveal [data-stagger]{opacity:1!important;transform:none!important}",
+            }}
+          />
+        </noscript>
         {children}
         <ConsentBanner />
         <NotifyDialog />

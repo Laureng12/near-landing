@@ -9,7 +9,7 @@ import {
   ArrivalPhone,
   BRAND_ICON,
   DownloadCta,
-  HouseholdThread,
+  HouseholdPair,
   FinalCTA,
   SiteFooter,
   TopNav,
@@ -788,11 +788,14 @@ function HouseholdChapter() {
           <p className="caption">Start on your own. Better together.</p>
         </div>
         <div className="splitVisual">
-          <HouseholdThread
+          <HouseholdPair
             items={sharedList}
+            listTitle="Weekend list"
             sharedWith="Shared with Brian"
-            arrivalTitle="Brian is at Kroger"
-            arrivalSub="Your shared list is ready"
+            arrivalTitle="You’re at Kroger"
+            arrivalSub="3 things on the shared list"
+            ownerLabel="Your iPhone"
+            peerLabel="Brian’s iPhone"
           />
         </div>
       </div>
