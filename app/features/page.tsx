@@ -61,7 +61,7 @@ const householdRows = [
   "One list, live on everybody’s phone.",
   "Someone adds it at home. Someone else gets it at the store.",
   "Checked off once and it is gone for everyone.",
-  "Nobody is assigned anything. Whoever gets there first, gets it.",
+  "Nothing has to be assigned. Whoever gets there first can just take it.",
 ]
 
 const week = [
@@ -121,7 +121,7 @@ export default function FeaturesPage() {
 
       <section className="chapter chapterTight" id="capture">
         <div className="reveal shell">
-          <p className="eyebrow">Getting it in</p>
+          <p className="eyebrow">When it occurs to you</p>
           <h2 className="h2">Two seconds, then you forget it on purpose.</h2>
           <dl className="ftRows">
             {captureRows.map((r) => (
@@ -141,7 +141,7 @@ export default function FeaturesPage() {
 
       <section className="chapter chapterSunk" id="arrival">
         <div className="reveal shell">
-          <p className="eyebrow">Getting it out</p>
+          <p className="eyebrow">When you get there</p>
           <h2 className="h2">
             You never open Near.
             <br />
@@ -163,7 +163,11 @@ export default function FeaturesPage() {
       <section className="chapter" id="household">
         <div className="reveal shell narrow">
           <p className="eyebrow">For households</p>
-          <h2 className="h2">The memory everybody shares.</h2>
+          <h2 className="h2">
+            Nobody has to be
+            <br />
+            the one who remembers.
+          </h2>
           <p className="lead">
             Start solo. Share with one person on Free, or the whole house on Pro,
             when it needs one memory instead of four.
@@ -190,7 +194,7 @@ export default function FeaturesPage() {
           <h2 className="h2">
             Decide it on Sunday.
             <br />
-            <em>Shop without thinking.</em>
+            Shop without thinking.
           </h2>
           <p className="lead">
             Plan the week from what your household actually cooks. The
@@ -228,7 +232,7 @@ export default function FeaturesPage() {
       <section className="chapter chapterTight" id="surfaces">
         <div className="reveal shell">
           <p className="eyebrow">Where it reaches you</p>
-          <h2 className="h2">Wherever you already look.</h2>
+          <h2 className="h2">No new place to check.</h2>
           <div className="ftSurfaces">
             {surfaces.map((s) => (
               <div className="ftSurface" key={s.name} data-stagger>
@@ -240,15 +244,41 @@ export default function FeaturesPage() {
         </div>
       </section>
 
+      {/* ── Quiet ─────────────────────────────────────────────── */}
+
+      <section className="chapter chapterSunk" id="privacy">
+        <div className="reveal shell narrow center">
+          <p className="eyebrow">Quiet by design</p>
+          <h2 className="h2 h2Center">
+            Your location has one job.
+            <br />
+            Reminding you.
+          </h2>
+          <p className="lead leadCenter">
+            Near uses location to deliver your reminders - not to sell ads,
+            build a profile, or follow your day.
+          </p>
+          <div className="pillRow">
+            <span className="pill" data-stagger>No ads</span>
+            <span className="pill" data-stagger>No data brokers</span>
+            <span className="pill" data-stagger>Delete it all, anytime</span>
+          </div>
+          <p className="ftFootNote">
+            The full detail is in the <Link href="/privacy" className="ftLink">privacy policy</Link>,
+            and what&rsquo;s free versus paid is on <Link href="/pricing" className="ftLink">pricing</Link>.
+          </p>
+        </div>
+      </section>
+
       {/* ── The mark ──────────────────────────────────────────── */}
 
-      <section className="chapter chapterSunk" id="the-mark">
+      <section className="chapter chapterTight" id="the-mark">
         <div className="reveal shell narrow center">
           <p className="eyebrow">The mark</p>
           <h2 className="h2 h2Center">
             One icon.
             <br />
-            <em>Four times of day.</em>
+            Four times of day.
           </h2>
           <p className="lead leadCenter">
             Near&rsquo;s icon moves through dawn, day, dusk and night, because
@@ -268,32 +298,6 @@ export default function FeaturesPage() {
               </figure>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Quiet ─────────────────────────────────────────────── */}
-
-      <section className="chapter" id="privacy">
-        <div className="reveal shell narrow center">
-          <p className="eyebrow">Quiet by design</p>
-          <h2 className="h2 h2Center">
-            Your location has one job.
-            <br />
-            <em>Reminding you.</em>
-          </h2>
-          <p className="lead leadCenter">
-            Near uses location to deliver your reminders - not to sell ads,
-            build a profile, or follow your day.
-          </p>
-          <div className="pillRow">
-            <span className="pill" data-stagger>No ads</span>
-            <span className="pill" data-stagger>No data brokers</span>
-            <span className="pill" data-stagger>Delete it all, anytime</span>
-          </div>
-          <p className="ftFootNote">
-            The full detail is in the <Link href="/privacy" className="ftLink">privacy policy</Link>,
-            and what&rsquo;s free versus paid is on <Link href="/pricing" className="ftLink">pricing</Link>.
-          </p>
         </div>
       </section>
 
