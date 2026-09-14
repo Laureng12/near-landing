@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent as ReactMouseEvent } from "react"
 
 import { APP_IS_LIVE } from "./site/launch"
+import { isLive } from "./site/features"
 import {
   BRAND_ICON,
   DownloadCta,
@@ -486,22 +487,28 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
             <span className="phoneChip">Home</span>
             <span className="phoneChip">Other</span>
           </div>
-          <div className="phoneGamePlan">
-            <div className="phoneGamePlanIcon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+          {/* The mock is the site's proof, so it only shows what is
+              confirmed. See app/site/features.ts - flip this capability to
+              live and the card comes back. */}
+          {isLive("game-plan") && (
+            <div className="phoneGamePlan">
+              <div className="phoneGamePlanIcon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="phoneGamePlanInfo">
+                <span className="phoneGamePlanTitle">Game plan</span>
+                <span className="phoneGamePlanSub">Optimal route for 3 stops</span>
+              </div>
+              <div className="phoneGamePlanArrow">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
-            <div className="phoneGamePlanInfo">
-              <span className="phoneGamePlanTitle">Game plan</span>
-              <span className="phoneGamePlanSub">Optimal route for 3 stops</span>
-            </div>
-            <div className="phoneGamePlanArrow">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12h14M12 5l7 7-7 7" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-          </div>
+          )}
+
           <div className="phoneSectionLabel">MY PLACES</div>
           <div className="phoneGroupList">
             <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">

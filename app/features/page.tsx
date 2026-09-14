@@ -9,6 +9,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { planPill } from "../site/features"
 import {
   FinalCTA,
   SiteFooter,
@@ -21,7 +22,7 @@ import {
 const captureRows = [
   {
     k: "Say it",
-    plan: "Near Pro",
+    plan: planPill("voice-capture"),
     v: "“Grab dog food and drop the rug off.” Two things, two places, one sentence.",
   },
   {
@@ -189,7 +190,7 @@ export default function FeaturesPage() {
         <div className="shell ftSplit">
         <div className="reveal ftSplitCopy">
           <p className="eyebrow">
-            Meal Plan<span className="ftPlan">Near Pro</span>
+            Meal Plan<span className="ftPlan">{planPill("meal-plan")}</span>
           </p>
           <h2 className="h2">
             Decide it on Sunday.
