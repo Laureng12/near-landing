@@ -10,6 +10,10 @@ const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 
 type Billing = "annual" | "monthly"
 
+/* Two tiers, because two tiers is what exists. The site had been selling a
+   middle Pro at $79.99 that is not a real product, and had the price of the
+   real one wrong. Near Together is built but not purchasable, so it is not
+   here at all - see app/site/features.ts. */
 const tiers = [
   {
     name: "Free",
@@ -22,22 +26,13 @@ const tiers = [
   },
   {
     name: "Near Pro",
-    tag: "Your household, one step ahead.",
-    annual: { big: "$6.67", unit: "/month", note: "$79.99 billed annually · Save 33%" },
-    monthly: { big: "$9.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
+    tag: "The part that thinks ahead.",
+    annual: { big: "$9.08", unit: "/month", note: "$109 billed annually \u00b7 Save 30%" },
+    monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
     features: ["Everything in Free", ...featuresFor("pro")],
     cta: "Try Pro free for 7 days",
     style: "primary" as const,
     featured: true,
-  },
-  {
-    name: "Near Pro+",
-    tag: "Down to the aisle.",
-    annual: { big: "$9.08", unit: "/month", note: "$109 billed annually · Save 30%" },
-    monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
-    features: ["Everything in Pro", ...featuresFor("pro-plus")],
-    cta: "Choose Pro+",
-    style: "ghost" as const,
   },
 ]
 
@@ -241,8 +236,9 @@ export default function PricingPage() {
               The location magic is free. <em>Always.</em>
             </h1>
             <p className="priceSub">
-              The part that finds you never costs anything. Pro adds the thinking -
-              meal plans, the routines Near learns, and a grocery list that fills itself.
+              The part that finds you never costs anything, and neither does the
+              grocery list. Pro is the thinking on top - plans without a limit,
+              and Near learning what you run out of before you do.
             </p>
             <div className="priceToggle" role="group" aria-label="Billing period">
               <button
@@ -267,7 +263,6 @@ export default function PricingPage() {
               const price = billing === "annual" ? t.annual : t.monthly
               return (
                 <article className={`tier ${t.featured ? "featured" : ""}`} key={t.name}>
-                  {t.featured && <span className="tierBadge">Most popular</span>}
                   <h2 className="tierName">{t.name}</h2>
                   <p className="tierTag">{t.tag}</p>
                   <p className="tierPrice">
@@ -289,7 +284,7 @@ export default function PricingPage() {
           </div>
 
           <p className="priceFoot">
-            Seven days free on any annual plan. Cancel anytime in Settings &rarr; Apple ID.
+            Seven days free when you start Pro. Cancel anytime in Settings &rarr; Apple ID.
           </p>
           <p className="priceBack">
             <Link href="/">Back to Near</Link>

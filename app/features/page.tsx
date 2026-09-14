@@ -22,7 +22,6 @@ import {
 const captureRows = [
   {
     k: "Say it",
-    plan: planPill("voice-capture"),
     v: "“Grab dog food and drop the rug off.” Two things, two places, one sentence.",
   },
   {
@@ -74,6 +73,7 @@ const week = [
 ]
 
 const mealNotes = [
+  "Three AI plans a month are free. Pro removes the limit",
   "A week you can drag into shape",
   "Recipes fill the grocery list for you",
   "Last week’s hits carry over",
@@ -127,10 +127,7 @@ export default function FeaturesPage() {
           <dl className="ftRows">
             {captureRows.map((r) => (
               <div className="ftRow" key={r.k} data-stagger>
-                <dt className="ftRowK">
-                  {r.k}
-                  {"plan" in r && r.plan ? <span className="ftPlan">{r.plan}</span> : null}
-                </dt>
+                <dt className="ftRowK">{r.k}</dt>
                 <dd className="ftRowV">{r.v}</dd>
               </div>
             ))}
@@ -170,8 +167,8 @@ export default function FeaturesPage() {
             the one who remembers.
           </h2>
           <p className="lead">
-            Start solo. Share with one person on Free, or the whole house on Pro,
-            when it needs one memory instead of four.
+            Start solo. Share it with the people you live with when the house
+            needs one memory instead of four. Sharing is free.
           </p>
           <ul className="ftList">
             {householdRows.map((t) => (
@@ -190,7 +187,7 @@ export default function FeaturesPage() {
         <div className="shell ftSplit">
         <div className="reveal ftSplitCopy">
           <p className="eyebrow">
-            Meal Plan<span className="ftPlan">{planPill("meal-plan")}</span>
+            Meal Plan<span className="ftPlan">{planPill("meal-plan-unlimited")}</span>
           </p>
           <h2 className="h2">
             Decide it on Sunday.
