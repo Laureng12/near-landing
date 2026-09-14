@@ -139,6 +139,8 @@ const mobileAppJsonLd = {
     "Apple Watch support",
     "AI-powered meal plans and suggestions on paid plans",
   ],
+  /* Nothing can be bought until the listing is public, so the offers say
+     PreOrder rather than InStock while APP_IS_LIVE is false. */
   offers: [
     {
       "@type": "Offer",
@@ -146,14 +148,18 @@ const mobileAppJsonLd = {
       price: "0",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
-      availability: "https://schema.org/InStock",
+      availability: APP_IS_LIVE
+        ? "https://schema.org/InStock"
+        : "https://schema.org/PreOrder",
     },
     {
       "@type": "Offer",
       name: "Near Pro",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
-      availability: "https://schema.org/InStock",
+      availability: APP_IS_LIVE
+        ? "https://schema.org/InStock"
+        : "https://schema.org/PreOrder",
       priceSpecification: {
         "@type": "UnitPriceSpecification",
         price: "12.99",
