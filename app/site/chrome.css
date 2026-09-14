@@ -2509,123 +2509,6 @@ a { color: inherit; text-decoration: none; }
 .vizNotifTitle { margin-top: 3px; font-size: 0.95rem; font-weight: 500; color: var(--ink); }
 .vizNotifSub { margin-top: 1px; font-size: 0.85rem; color: var(--ink-soft); }
 
-/* ── Household: the golden thread ──────────────────────── */
-
-.threadVisual {
-  width: min(360px, 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.threadList {
-  text-align: left;
-  padding: 16px 16px 8px;
-  border-radius: var(--radius);
-  background: rgba(255, 248, 238, 0.96);
-  border: 1px solid rgba(255, 244, 228, 0.3);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.34);
-}
-.threadListHead {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding-bottom: 13px;
-  border-bottom: 1px solid rgba(20, 24, 58, 0.08);
-}
-.threadListIcon {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: rgba(20, 24, 58, 0.05);
-  color: var(--ink-soft);
-  flex: 0 0 32px;
-}
-.threadListIcon svg { width: 18px; height: 18px; }
-.threadListTitle { font-size: 0.94rem; font-weight: 500; color: var(--ink); }
-.threadListSub { margin-top: 1px; font-size: 0.78rem; color: var(--ink-faint); }
-
-.threadItems { list-style: none; margin: 0; padding: 0; }
-.threadItems li {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 10px 0;
-  font-size: 0.92rem;
-  color: var(--ink);
-  border-bottom: 1px solid rgba(20, 24, 58, 0.06);
-}
-.threadItems li:last-child { border-bottom: none; }
-.threadCheck {
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
-  border-radius: 50%;
-  border: 1.4px solid rgba(20, 24, 58, 0.2);
-  color: transparent;
-}
-.threadCheck svg { width: 11px; height: 11px; }
-.threadDone .threadCheck {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: #FFF8EE;
-}
-.threadDone { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: rgba(20, 24, 58, 0.25); }
-
-/* the thread itself */
-.threadLine {
-  position: relative;
-  align-self: center;
-  width: 2px;
-  height: 74px;
-  background: linear-gradient(180deg, rgba(212, 168, 67, 0) 0%, rgba(212, 168, 67, 0.75) 22%, rgba(212, 168, 67, 0.75) 78%, rgba(212, 168, 67, 0) 100%);
-}
-.threadSpark {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 13px;
-  height: 13px;
-  margin-left: -6.5px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 36% 32%, #FFE6AF 0%, var(--gold-lit) 50%, #A97C1F 100%);
-  box-shadow: 0 0 16px rgba(212, 168, 67, 0.85), 0 0 38px rgba(212, 168, 67, 0.4);
-  animation: threadTravel 3.6s var(--ease-soft) infinite;
-}
-@keyframes threadTravel {
-  0%        { transform: translateY(-6px) scale(0.6); opacity: 0; }
-  14%       { opacity: 1; }
-  84%       { opacity: 1; }
-  100%      { transform: translateY(68px) scale(0.6); opacity: 0; }
-}
-
-.threadNotif {
-  text-align: left;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 15px 17px;
-  border-radius: 18px;
-  background: rgba(255, 244, 228, 0.07);
-  border: 1px solid var(--on-night-hair);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
-}
-.threadNotifIcon img { border-radius: 7px; display: block; }
-.threadNotifLabel {
-  font-size: 0.68rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--on-night-faint);
-}
-.threadNotifTitle { margin-top: 4px; font-size: 0.98rem; font-weight: 500; color: var(--on-night); }
-.threadNotifSub { margin-top: 2px; font-size: 0.85rem; color: var(--on-night-soft); }
-
 /* ── Responsive ────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
@@ -2674,7 +2557,6 @@ a { color: inherit; text-decoration: none; }
   .beatVisual { height: auto; min-height: 96px; margin-top: 18px; }
   .beatTitle { min-height: 0; }
   .beatLink { display: none; }
-  .threadVisual { width: 100%; max-width: 360px; margin: 0 auto; }
   .vizSphere { width: 92px; height: 92px; }
   .beatGrid { grid-template-columns: 1fr; gap: 2.25rem; }
   .beat { padding-top: 24px; }
@@ -3207,67 +3089,6 @@ a { color: inherit; text-decoration: none; }
 }
 .quietTick svg { width: 13px; height: 13px; }
 
-/* ── Household: the list crosses itself off ─────────────── */
-
-.threadLive {
-  margin-left: auto;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 9px;
-  border-radius: 999px;
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(212, 168, 67, 0.12);
-  opacity: 0;
-  transform: translate3d(0, -4px, 0);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-}
-.threadLiveOn { opacity: 1; transform: none; }
-.threadLiveDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  animation: threadPulse 1.9s var(--ease-soft) infinite;
-}
-@keyframes threadPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.35; transform: scale(0.72); }
-}
-
-/* Replaces the flat line-through so the strike can be drawn. */
-.threadItems li { text-decoration: none !important; }
-.threadItemText { position: relative; transition: color 0.5s var(--ease); }
-.threadItemText::after {
-  content: "";
-  position: absolute;
-  left: -2px;
-  right: -2px;
-  top: 52%;
-  height: 1.5px;
-  border-radius: 2px;
-  background: rgba(20, 24, 58, 0.3);
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  transition: transform 0.5s var(--ease);
-}
-.threadDone .threadItemText { color: var(--ink-faint); }
-.threadDone .threadItemText::after { transform: scaleX(1); }
-.threadCheck svg { opacity: 0; transform: scale(0.5); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); }
-.threadDone .threadCheck svg { opacity: 1; transform: none; }
-
-.threadNotif {
-  opacity: 0;
-  transform: translate3d(0, 16px, 0) scale(0.97);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-}
-.threadNotifIn { opacity: 1; transform: none; }
-
 /* ── FAQ ────────────────────── */
 
 /* The chevron already turns; open just gives it Near's colour. */
@@ -3526,7 +3347,6 @@ button.tierCta, button.priceNavCta {
   .vizWave i,
   .vizRing,
   .vizCore,
-  .threadSpark,
   .skyWash,
   .finalSky,
   .arrivalRipple span,
@@ -3538,7 +3358,6 @@ button.tierCta, button.priceNavCta {
   }
   .reveal .moment, .reveal .moment .placeGlyph { transform: none !important; opacity: 1 !important; }
   .vizWave i { transform: scaleY(0.7); opacity: 0.85; }
-  .threadSpark { transform: translateY(30px); opacity: 1; }
   .lockWaterShimmer,
   .lockCloudDrift,
   .lockProximityGlow,
@@ -3554,7 +3373,6 @@ button.tierCta, button.priceNavCta {
   .arrCardSheen,
   .arrRipple,
   .finalArrivalRing,
-  .threadLiveDot,
   .quietPledges li,
   .quietPhoneOn .quietPledges li { animation: none !important; }
   .arrRipple,
@@ -3565,7 +3383,6 @@ button.tierCta, button.priceNavCta {
   .quietPledges li,
   .quietCard,
   .quietLock,
-  .threadNotif,
   .finalArrival,
   .everydayRow {
     opacity: 1 !important;
@@ -3582,7 +3399,367 @@ button.tierCta, button.priceNavCta {
   }
   .arrSkyLayer,
   .everydayTint,
-  .everydayRule,
-  .threadItemText::after,
-  .threadLive { transition-duration: 0.01ms !important; }
+  .everydayRule { transition-duration: 0.01ms !important; }
+}
+
+/* ── Household: the two phones and the thread ─────────────────── */
+
+/* Everything inside a phone is sized in em against .pairDevice's font-size,
+   which tracks the phone's own width. One clamp scales the whole device.
+   The px value below is the fallback where container units are unsupported. */
+
+/* Below 1024 the split grid switches to justify-items: center, so .splitVisual
+   stops stretching and a percentage width inside it has nothing definite to
+   resolve against. Give it the column back. The definite flex-basis below is
+   the belt to that suspenders: the phones still have a size if :has() is not
+   understood. */
+.splitVisual:has(.pairVisual) { width: 100%; }
+
+.pairVisual {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2.6vw, 26px);
+  width: 100%;
+  max-width: 500px;
+}
+
+.pairPhone {
+  flex: 1 1 186px;
+  min-width: 0;
+  max-width: 202px;
+  margin: 0;
+  container-type: inline-size;
+}
+
+.pairDevice {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 202 / 412;
+  padding: 0.95em;
+  border-radius: 3.3em;
+  background: linear-gradient(160deg, #2C3350 0%, #11152F 46%, #080B1C 100%);
+  box-shadow:
+    0 1.9em 4.4em rgba(0, 0, 0, 0.42),
+    inset 0 0 0 0.11em rgba(255, 244, 228, 0.16);
+  font-size: 9px;
+  font-size: clamp(6.6px, 5.1cqi, 10px);
+}
+
+.pairIsland {
+  position: absolute;
+  top: 1.5em;
+  left: 50%;
+  width: 6.4em;
+  height: 1.85em;
+  margin-left: -3.2em;
+  border-radius: 1em;
+  background: #05070F;
+  z-index: 3;
+}
+
+.pairScreen {
+  position: relative;
+  height: 100%;
+  border-radius: 2.5em;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1em 1.25em 1.1em;
+}
+.pairScreenDay { background: #FFF8EE; color: var(--ink); }
+.pairScreenNight {
+  background: linear-gradient(172deg, #3A2547 0%, #1B2146 44%, #0B1228 100%);
+  color: var(--on-night);
+}
+
+.pairStatus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.3em;
+  padding: 0 0.5em;
+  font-size: 1.15em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.pairStatusNight { color: var(--on-night); }
+.pairBatt {
+  width: 1.7em;
+  height: 0.85em;
+  border-radius: 0.25em;
+  border: 0.09em solid currentColor;
+  opacity: 0.55;
+  background:
+    linear-gradient(to right, currentColor 72%, transparent 72%) no-repeat
+    0.1em center / 1.3em 0.5em;
+}
+
+/* Left phone: the shared list */
+
+.pairListHead {
+  padding: 1.5em 0.3em 0.9em;
+  border-bottom: 0.1em solid rgba(20, 24, 58, 0.08);
+}
+.pairListTitle {
+  font-size: 1.35em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.pairListSub {
+  margin-top: 0.25em;
+  font-size: 1.02em;
+  color: var(--ink-faint);
+}
+
+.pairItems {
+  list-style: none;
+  margin: 0;
+  padding: 0.5em 0.3em 0;
+}
+.pairItem {
+  display: flex;
+  align-items: center;
+  gap: 0.95em;
+  padding: 0.85em 0;
+  font-size: 1.18em;
+  color: var(--ink);
+  border-bottom: 0.08em solid rgba(20, 24, 58, 0.06);
+}
+.pairItem:last-child { border-bottom: none; }
+
+.pairCheck {
+  display: grid;
+  place-items: center;
+  flex: 0 0 1.3em;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+  border: 0.11em solid rgba(20, 24, 58, 0.22);
+  color: transparent;
+  background: transparent;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.pairCheck svg { width: 0.8em; height: 0.8em; }
+.pairItemDone .pairCheck {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #FFF8EE;
+}
+
+.pairItemText { position: relative; }
+.pairItemDone .pairItemText { color: var(--ink-faint); }
+.pairStrike {
+  position: absolute;
+  left: -0.12em;
+  right: -0.12em;
+  top: 52%;
+  height: 0.11em;
+  border-radius: 0.1em;
+  background: rgba(20, 24, 58, 0.34);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+.pairItemDone .pairStrike { transform: scaleX(1); }
+
+.pairHomeBar {
+  margin-top: auto;
+  align-self: center;
+  width: 7.5em;
+  height: 0.38em;
+  border-radius: 0.2em;
+  background: rgba(20, 24, 58, 0.26);
+}
+.pairHomeBarNight { background: rgba(255, 244, 228, 0.34); }
+
+/* Right phone: their arrival, on their own Lock Screen */
+
+.pairLockClock { padding: 1.9em 0 0; text-align: center; }
+.pairLockDate {
+  font-size: 1.05em;
+  font-weight: 500;
+  color: var(--on-night-soft);
+}
+.pairLockTime {
+  margin-top: 0.05em;
+  font-size: 4.6em;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  color: var(--on-night);
+}
+
+.pairNotif {
+  display: flex;
+  gap: 0.9em;
+  align-items: flex-start;
+  margin-top: 2.1em;
+  padding: 1.05em 1.1em;
+  border-radius: 1.7em;
+  text-align: left;
+  background: rgba(255, 244, 228, 0.1);
+  border: 0.09em solid var(--on-night-hair);
+  backdrop-filter: blur(1.4em);
+  -webkit-backdrop-filter: blur(1.4em);
+  box-shadow: 0 1.2em 2.6em rgba(0, 0, 0, 0.32);
+}
+.pairNotifIcon {
+  flex: 0 0 2.6em;
+  width: 2.6em;
+  height: 2.6em;
+}
+.pairNotifIcon img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.65em;
+  display: block;
+}
+.pairNotifBody { min-width: 0; }
+.pairNotifLabel {
+  font-size: 0.86em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-night-faint);
+}
+.pairNotifTitle {
+  margin-top: 0.3em;
+  font-size: 1.26em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--on-night);
+}
+.pairNotifSub {
+  margin-top: 0.15em;
+  font-size: 1.06em;
+  line-height: 1.32;
+  color: var(--on-night-soft);
+}
+
+/* Inherits the section's own text colour so the pair can sit on night or
+   paper without the caption having to be told which. */
+.pairCaption {
+  margin-top: 13px;
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.46;
+}
+
+/* The thread. Ambient: it runs whether or not anything is replaying, because
+   the connection is the point and it is never the proof of anything. */
+
+.pairThread {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(30px, 9vw, 70px);
+  height: 2px;
+  align-self: center;
+  margin-bottom: 26px;
+}
+/* A soft halo under the line, so the connection reads at a glance instead of
+   looking like a stray rule between two phones. */
+.pairThread::before {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 50%;
+  height: 20px;
+  margin-top: -10px;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 67, 0.3) 0%, rgba(212, 168, 67, 0) 72%);
+}
+.pairThreadLine {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(196, 148, 47, 0) 0%,
+    rgba(196, 148, 47, 0.7) 26%,
+    rgba(196, 148, 47, 0.7) 74%,
+    rgba(196, 148, 47, 0) 100%
+  );
+}
+.pairSpark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 32%, #FFE6AF 0%, var(--gold-lit) 52%, #A97C1F 100%);
+  box-shadow: 0 0 12px rgba(212, 168, 67, 0.85), 0 0 28px rgba(212, 168, 67, 0.38);
+  animation: pairTravel 3.4s var(--ease-soft) infinite;
+}
+@keyframes pairTravel {
+  0%   { left: 0;    transform: scale(0.55); opacity: 0; }
+  16%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { left: 100%; transform: scale(0.55); opacity: 0; }
+}
+
+/* ── The replay ───────────────────────────────────────────────────
+   Every resting state above is the finished state, so these keyframes
+   only ever animate from something to what is already on the screen.
+   `backwards` holds the from-state during the delay. */
+
+.pairReplay .pairItemDone .pairStrike {
+  animation: pairStrikeIn 0.52s var(--ease) backwards;
+}
+.pairReplay .pairItemDone .pairCheck {
+  animation: pairCheckIn 0.52s var(--ease) backwards;
+}
+.pairReplay .pairItem1 .pairStrike,
+.pairReplay .pairItem1 .pairCheck { animation-delay: 1.25s; }
+.pairReplay .pairItem2 .pairStrike,
+.pairReplay .pairItem2 .pairCheck { animation-delay: 1.85s; }
+.pairReplay .pairItem3 .pairStrike,
+.pairReplay .pairItem3 .pairCheck { animation-delay: 2.45s; }
+.pairReplay .pairItem4 .pairStrike,
+.pairReplay .pairItem4 .pairCheck { animation-delay: 3.05s; }
+.pairReplay .pairItem5 .pairStrike,
+.pairReplay .pairItem5 .pairCheck { animation-delay: 3.65s; }
+
+@keyframes pairStrikeIn {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes pairCheckIn {
+  from { background: transparent; border-color: rgba(20, 24, 58, 0.22); color: transparent; }
+  to   { background: var(--gold); border-color: var(--gold); color: #FFF8EE; }
+}
+
+/* The arrival lands first, because that is the causal order: they reach the
+   store, Near tells them, and only then does your list finish itself. */
+.pairReplay .pairNotif {
+  animation: pairNotifIn 0.78s var(--ease) backwards;
+  animation-delay: 0.4s;
+}
+@keyframes pairNotifIn {
+  from { opacity: 0; transform: translate3d(0, 1.4em, 0) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  .pairVisual { max-width: 400px; gap: 8px; }
+  .pairPhone { flex: 1 1 144px; max-width: 168px; }
+  .pairThread { width: clamp(22px, 7vw, 40px); margin-bottom: 21px; }
+  .pairCaption { margin-top: 10px; font-size: 0.64rem; letter-spacing: 0.08em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pairSpark { animation: none; opacity: 0.9; left: 50%; }
+  .pairCheck { transition: none; }
+  .pairReplay .pairItemDone .pairStrike,
+  .pairReplay .pairItemDone .pairCheck,
+  .pairReplay .pairNotif { animation: none !important; }
 }
