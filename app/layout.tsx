@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { DM_Sans, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import ConsentBanner from "./ConsentBanner"
+import { NotifyDialog } from "./site/chrome"
 import { APP_IS_LIVE, APP_STORE_URL } from "./site/launch"
 
 // Self-hosted at build time (next/font downloads + serves the fonts from our own
@@ -210,6 +211,7 @@ export default function RootLayout({
       <body>
         {children}
         <ConsentBanner />
+        <NotifyDialog />
       </body>
     </html>
   )
