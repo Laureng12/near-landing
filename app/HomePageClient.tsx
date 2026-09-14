@@ -3,9 +3,10 @@
 import Image from "next/image"
 import { useEffect, useRef, useState, useSyncExternalStore, type MouseEvent as ReactMouseEvent } from "react"
 
+import { APP_IS_LIVE } from "./site/launch"
 import {
-  APP_STORE_URL,
   BRAND_ICON,
+  DownloadCta,
   FinalCTA,
   SiteFooter,
   SiteStyles,
@@ -283,10 +284,14 @@ function Hero() {
             on your Lock Screen the moment you arrive.
           </p>
           <div className="heroCtas">
-            <a className="btnPrimary" href={APP_STORE_URL}>Download Near</a>
+            <DownloadCta className="btnPrimary" source="hero">Download Near</DownloadCta>
             <a className="btnGhost" href="#how-it-works">Watch it work</a>
           </div>
-          <p className="heroMicro">Free for iPhone. No ads. Private by design.</p>
+          <p className="heroMicro">
+            {APP_IS_LIVE
+              ? "Free for iPhone. No ads. Private by design."
+              : "Coming to iPhone. Free, with no ads and no data brokers."}
+          </p>
         </div>
         <div className="heroPhone">
           <div className={`arrivalRipple ${arrived ? "rippleOn" : ""}`} aria-hidden="true">

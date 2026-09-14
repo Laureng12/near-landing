@@ -21,6 +21,7 @@ import {
 const captureRows = [
   {
     k: "Say it",
+    plan: "Near Pro",
     v: "“Grab dog food and drop the rug off.” Two things, two places, one sentence.",
   },
   {
@@ -104,14 +105,14 @@ export default function FeaturesPage() {
         <div className="reveal shell">
           <p className="eyebrow">Everything Near does</p>
           <h1 className="ftOpenTitle">
-            One idea,
+            Nothing here asks you
             <br />
-            <em>applied carefully.</em>
+            <em>to organize anything.</em>
           </h1>
           <p className="lead">
-            A reminder should find you where it gets done. Everything below is a
-            place that one idea shows up - and nothing below asks you to
-            organize anything.
+            Near does one thing. It remembers what you need and hands it to you
+            at the place you need it. Everything below is that same thing,
+            somewhere else in your day.
           </p>
         </div>
       </section>
@@ -125,7 +126,10 @@ export default function FeaturesPage() {
           <dl className="ftRows">
             {captureRows.map((r) => (
               <div className="ftRow" key={r.k} data-stagger>
-                <dt className="ftRowK">{r.k}</dt>
+                <dt className="ftRowK">
+                  {r.k}
+                  {"plan" in r && r.plan ? <span className="ftPlan">{r.plan}</span> : null}
+                </dt>
                 <dd className="ftRowV">{r.v}</dd>
               </div>
             ))}
@@ -139,7 +143,7 @@ export default function FeaturesPage() {
         <div className="reveal shell">
           <p className="eyebrow">Getting it out</p>
           <h2 className="h2">
-            You do not open Near.
+            You never open Near.
             <br />
             <em>Near opens for you.</em>
           </h2>
@@ -161,8 +165,8 @@ export default function FeaturesPage() {
           <p className="eyebrow">For households</p>
           <h2 className="h2">The memory everybody shares.</h2>
           <p className="lead">
-            Start solo. Add your people when the house needs one memory instead
-            of four.
+            Start solo. Share with one person on Free, or the whole house on Pro,
+            when it needs one memory instead of four.
           </p>
           <ul className="ftList">
             {householdRows.map((t) => (
@@ -180,7 +184,9 @@ export default function FeaturesPage() {
       <section className="chapter chapterSunk" id="meal-plan">
         <div className="shell ftSplit">
         <div className="reveal ftSplitCopy">
-          <p className="eyebrow">Meal Plan</p>
+          <p className="eyebrow">
+            Meal Plan<span className="ftPlan">Near Pro</span>
+          </p>
           <h2 className="h2">
             Decide it on Sunday.
             <br />
@@ -271,9 +277,9 @@ export default function FeaturesPage() {
         <div className="reveal shell narrow center">
           <p className="eyebrow">Quiet by design</p>
           <h2 className="h2 h2Center">
-            It knows where you are.
+            Your location has one job.
             <br />
-            <em>Nobody else does.</em>
+            <em>Reminding you.</em>
           </h2>
           <p className="lead leadCenter">
             Near uses location to deliver your reminders - not to sell ads,
@@ -309,6 +315,22 @@ function FeatureStyles() {
       .ftOpen { padding-top: clamp(140px, 18vh, 220px); }
 
       .ftOpen .lead { max-width: 34rem; }
+
+      /* Says which plan a capability belongs to, so /features and /pricing
+         cannot tell a visitor two different stories. */
+      .ftPlan {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(196, 148, 47, 0.14);
+        color: var(--gold);
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
 
       .ftOpenTitle {
         font-size: clamp(52px, 8.4vw, 108px);

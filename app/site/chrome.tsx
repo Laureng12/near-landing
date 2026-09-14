@@ -6,9 +6,11 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type FormEvent } from "react"
 
-export const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
+import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
+
+export { APP_STORE_URL }
 export const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
 export const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 
@@ -58,6 +60,158 @@ export function useInView<T extends HTMLElement>(threshold = 0.34) {
   return [ref, inView] as const
 }
 
+/* ── Download, or the honest version of it ─────────────── */
+
+/* Every download button on the site goes through here, so the App Store is
+   linked in exactly one place and the pre-launch state cannot drift out of
+   sync across five files again. */
+export function DownloadCta({
+  className,
+  children,
+  source,
+  ariaLabel,
+}: {
+  className: string
+  children: React.ReactNode
+  source: string
+  ariaLabel?: string
+}) {
+  if (APP_IS_LIVE) {
+    return (
+      <a className={className} href={APP_STORE_URL} aria-label={ariaLabel}>
+        {children}
+      </a>
+    )
+  }
+
+  return (
+    <button
+      type="button"
+      className={className}
+      onClick={() => openNotify(source)}
+      aria-label={ariaLabel}
+    >
+      Get notified
+    </button>
+  )
+}
+
+/* Rendered once, from the nav, so it is present on every page that uses the
+   shared chrome. */
+function NotifyDialog() {
+  const [open, setOpen] = useState(false)
+  const [source, setSource] = useState("site")
+  const [email, setEmail] = useState("")
+  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle")
+  const [message, setMessage] = useState("")
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    const onAsk = (e: Event) => {
+      const detail = (e as CustomEvent<{ source?: string }>).detail
+      setSource(detail?.source || "site")
+      setState("idle")
+      setMessage("")
+      setOpen(true)
+    }
+    window.addEventListener(NOTIFY_EVENT, onAsk)
+    return () => window.removeEventListener(NOTIFY_EVENT, onAsk)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    inputRef.current?.focus()
+    return () => window.removeEventListener("keydown", onKey)
+  }, [open])
+
+  async function submit(e: FormEvent) {
+    e.preventDefault()
+    if (state === "sending") return
+    setState("sending")
+    try {
+      const res = await fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setState("error")
+        setMessage(data?.error || "Could not save that. Try again in a moment.")
+        return
+      }
+      setState("done")
+      setMessage(data?.already ? "You are already on the list." : "You are on the list.")
+    } catch {
+      setState("error")
+      setMessage("Could not save that. Try again in a moment.")
+    }
+  }
+
+  return (
+    <>
+      <div
+        className={`notifyScrim ${open ? "notifyOpen" : ""}`}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
+      <div
+        className={`notifyCard ${open ? "notifyOpen" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Get notified when Near launches"
+        inert={!open}
+      >
+        <button type="button" className="notifyClose" onClick={() => setOpen(false)} aria-label="Close">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </button>
+
+        {state === "done" ? (
+          <>
+            <h2 className="notifyTitle">
+              That is all we needed.
+            </h2>
+            <p className="notifyLead">{message} We will email you the day Near reaches the App Store, and not for anything else.</p>
+          </>
+        ) : (
+          <>
+            <h2 className="notifyTitle">
+              Near is in review.
+            </h2>
+            <p className="notifyLead">
+              Apple is looking at it now. Leave your email and you will hear from
+              us the day it lands, and never for anything else.
+            </p>
+            <form className="notifyForm" onSubmit={submit}>
+              <input
+                ref={inputRef}
+                className="notifyInput"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                aria-label="Email address"
+              />
+              <button className="notifySubmit" type="submit" disabled={state === "sending"}>
+                {state === "sending" ? "Sending" : "Tell me when it is out"}
+              </button>
+            </form>
+            {state === "error" && <p className="notifyError">{message}</p>}
+          </>
+        )}
+      </div>
+    </>
+  )
+}
+
 /* ── Nav ───────────────────────────────────────────────────────── */
 
 export function TopNav({ home = false }: { home?: boolean }) {
@@ -92,7 +246,7 @@ export function TopNav({ home = false }: { home?: boolean }) {
           <a className="navLink hideOnMobile" href={at("#household")}>For households</a>
           <Link className="navLink hideOnMobile" href="/features">Features</Link>
           <Link className="navLink hideOnMobile" href="/pricing">Pricing</Link>
-          <a className="navCta hideOnMobile" href={APP_STORE_URL}>Download</a>
+          <DownloadCta className="navCta hideOnMobile" source="nav">Download</DownloadCta>
           <button
             className="hamburger"
             onClick={() => setOpen(!open)}
@@ -105,13 +259,15 @@ export function TopNav({ home = false }: { home?: boolean }) {
         </nav>
       </div>
 
+      <NotifyDialog />
+
       <div className={`mobileMenuOverlay ${open ? "mobileMenuVisible" : ""}`} onClick={() => setOpen(false)} />
-      <div className={`mobileMenu ${open ? "mobileMenuVisible" : ""}`}>
+      <div className={`mobileMenu ${open ? "mobileMenuVisible" : ""}`} inert={!open}>
         <a className="mobileMenuLink" href={at("#how-it-works")} onClick={() => setOpen(false)}>How it works</a>
         <a className="mobileMenuLink" href={at("#household")} onClick={() => setOpen(false)}>For households</a>
         <Link className="mobileMenuLink" href="/features" onClick={() => setOpen(false)}>Features</Link>
         <Link className="mobileMenuLink" href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
-        <a className="mobileMenuCta" href={APP_STORE_URL}>Download Near</a>
+        <DownloadCta className="mobileMenuCta" source="mobile-nav">Download Near</DownloadCta>
       </div>
     </header>
   )
@@ -147,11 +303,13 @@ export function FinalCTA() {
         <p className="finalSub">
           Near remembers the small things - right where they matter.
         </p>
-        <a className="btnCream" href={APP_STORE_URL}>Download Near</a>
-        <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download Near on the App Store">
-          <Image src="/app-store-qr.png" alt="QR code linking to Near on the App Store" width={72} height={72} />
-          <span>Or scan to open it<br />on your iPhone</span>
-        </a>
+        <DownloadCta className="btnCream" source="closing">Download Near</DownloadCta>
+        {APP_IS_LIVE && (
+          <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download Near on the App Store">
+            <Image src="/app-store-qr.png" alt="QR code linking to Near on the App Store" width={72} height={72} />
+            <span>Or scan to open it<br />on your iPhone</span>
+          </a>
+        )}
       </div>
     </section>
   )
@@ -188,7 +346,7 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="footerBase">
-        <a href={APP_STORE_URL} className="footerCta">Download Near</a>
+        <DownloadCta className="footerCta" source="footer">Download Near</DownloadCta>
         <p className="footerCopy">&copy; 2026 Near</p>
       </div>
     </footer>
@@ -493,11 +651,16 @@ export function SiteStyles() {
         padding: 92px 30px 34px;
         display: flex; flex-direction: column; gap: 4px;
         transform: translateX(100%);
-        transition: transform 0.55s var(--ease);
+        visibility: hidden;
+        transition: transform 0.55s var(--ease), visibility 0s linear 0.55s;
         z-index: 80;
         box-shadow: -24px 0 60px rgba(20, 24, 58, 0.16);
       }
-      .mobileMenu.mobileMenuVisible { transform: none; }
+      .mobileMenu.mobileMenuVisible {
+        transform: none;
+        visibility: visible;
+        transition: transform 0.55s var(--ease), visibility 0s;
+      }
       .mobileMenuLink {
         padding: 15px 0;
         font-size: 1.12rem;
@@ -3583,6 +3746,125 @@ export function SiteStyles() {
         .everydayRow { gap: 14px; }
       }
 
+
+      /* ── Launch notify ────────────────────── */
+
+      .notifyScrim {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        background: rgba(11, 18, 40, 0.42);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s var(--ease-soft);
+      }
+      .notifyScrim.notifyOpen { opacity: 1; pointer-events: auto; }
+
+      .notifyCard {
+        position: fixed;
+        z-index: 130;
+        left: 50%;
+        top: 50%;
+        width: min(430px, calc(100vw - 32px));
+        padding: 30px 30px 32px;
+        border-radius: var(--radius);
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-hair-soft);
+        box-shadow: 0 40px 90px rgba(20, 24, 58, 0.26);
+        transform: translate3d(-50%, calc(-50% + 14px), 0) scale(0.97);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.4s var(--ease),
+          transform 0.4s var(--ease),
+          visibility 0s linear 0.4s;
+      }
+      .notifyCard.notifyOpen {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(-50%, -50%, 0) scale(1);
+        transition:
+          opacity 0.4s var(--ease),
+          transform 0.4s var(--ease),
+          visibility 0s;
+      }
+
+      .notifyClose {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        background: none;
+        color: var(--ink-faint);
+        cursor: pointer;
+        transition: color 0.3s var(--ease), background 0.3s var(--ease);
+      }
+      .notifyClose:hover { color: var(--ink); background: var(--paper-sunk); }
+      .notifyClose svg { width: 15px; height: 15px; }
+
+      .notifyTitle {
+        margin: 0;
+        padding-right: 28px;
+        font-size: 1.45rem;
+        font-weight: 500;
+        letter-spacing: -0.022em;
+        color: var(--ink);
+      }
+      .notifyLead {
+        margin: 12px 0 0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+
+      .notifyForm { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+      .notifyInput {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--ink-hair);
+        background: var(--paper);
+        font-family: inherit;
+        font-size: 1rem;
+        color: var(--ink);
+        transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+      }
+      .notifyInput:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px var(--gold-glow);
+      }
+      .notifySubmit {
+        padding: 14px 20px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--night-soft);
+        color: var(--on-night);
+        font-family: inherit;
+        font-size: 0.98rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s var(--ease), opacity 0.3s var(--ease);
+      }
+      .notifySubmit:hover { background: var(--night); }
+      .notifySubmit:disabled { opacity: 0.6; cursor: default; }
+      .notifyError { margin: 12px 0 0; font-size: 0.88rem; color: var(--accent); }
+
+      /* A button standing in for a link keeps the link's shape. */
+      button.navCta, button.mobileMenuCta, button.btnCream, button.footerCta, button.btnPrimary,
+      button.tierCta, button.priceNavCta {
+        font-family: inherit;
+        cursor: pointer;
+        border-width: 0;
+      }
+
       /* ── Reduced motion ────────────────────────────────────── */
 
       @media (prefers-reduced-motion: reduce) {
@@ -3615,6 +3897,7 @@ export function SiteStyles() {
         .lockTaskItem,
         .radarShimmer { animation: none !important; }
         .lockProximityCard { animation: none !important; opacity: 1 !important; }
+        .notifyCard, .notifyScrim { transition-duration: 0.01ms !important; }
 
         /* Bottom half: every sequenced beat lands in its finished state. */
         .arrCard,

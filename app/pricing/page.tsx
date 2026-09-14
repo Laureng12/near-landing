@@ -3,8 +3,8 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { DownloadCta } from "../site/chrome"
 
-const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
 const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
 
 type Billing = "annual" | "monthly"
@@ -248,7 +248,7 @@ export default function PricingPage() {
               <Link href="/#how-it-works" className="priceNavLink">How it works</Link>
               <Link href="/#household" className="priceNavLink">For households</Link>
               <Link href="/pricing" className="priceNavLink current">Pricing</Link>
-              <a href={APP_STORE_URL} className="priceNavCta">Download</a>
+              <DownloadCta className="priceNavCta" source="pricing-nav">Download</DownloadCta>
             </div>
           </div>
         </nav>
@@ -299,7 +299,9 @@ export default function PricingPage() {
                       <li key={f}>{f}</li>
                     ))}
                   </ul>
-                  <a href={APP_STORE_URL} className={`tierCta ${t.style}`}>{t.cta}</a>
+                  <DownloadCta className={`tierCta ${t.style}`} source={`pricing-${t.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                    {t.cta}
+                  </DownloadCta>
                 </article>
               )
             })}

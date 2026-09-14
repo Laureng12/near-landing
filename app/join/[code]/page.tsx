@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 
-const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
+import { APP_IS_LIVE, APP_STORE_URL } from "../../site/launch"
 const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
 
 export default function JoinPage() {
@@ -78,15 +78,29 @@ export default function JoinPage() {
           <p style={styles.codeValue}>{code}</p>
         </div>
 
-        <a href={APP_STORE_URL} style={styles.button}>
-          Download Near - It&apos;s Free
-        </a>
+        {APP_IS_LIVE ? (
+          <>
+            <a href={APP_STORE_URL} style={styles.button}>
+              Download Near - It&apos;s Free
+            </a>
 
-        <div style={styles.steps}>
-          <p style={styles.step}><span style={styles.stepNum}>1</span> Download Near from the App Store</p>
-          <p style={styles.step}><span style={styles.stepNum}>2</span> Open this link again after installing</p>
-          <p style={styles.step}><span style={styles.stepNum}>3</span> You&apos;ll automatically join the household</p>
-        </div>
+            <div style={styles.steps}>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Download Near from the App Store</p>
+              <p style={styles.step}><span style={styles.stepNum}>2</span> Open this link again after installing</p>
+              <p style={styles.step}><span style={styles.stepNum}>3</span> You&apos;ll automatically join the household</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <p style={styles.button}>Coming to the App Store</p>
+
+            <div style={styles.steps}>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Near is in review with Apple right now</p>
+              <p style={styles.step}><span style={styles.stepNum}>2</span> Keep this link - your code stays valid</p>
+              <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once Near is out to join the household</p>
+            </div>
+          </>
+        )}
 
         <p style={styles.hint}>
           Already have Near? Open the app - it will detect this invite automatically.
