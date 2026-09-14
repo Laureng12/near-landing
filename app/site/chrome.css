@@ -3775,3 +3775,292 @@ button.tierCta, button.priceNavCta {
   transition: color 0.3s var(--ease);
 }
 .quietLink:hover { color: var(--gold); }
+
+/* ── The demo ──────────────────────────────────────────────────── */
+
+.dmStage {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dmPhone {
+  width: 100%;
+  max-width: 264px;
+  justify-self: center;
+  container-type: inline-size;
+}
+/* A bigger cap than the paired phones, so a 264px device is not drawn with
+   180px internals. Same ratio, ~0.05 of the device width. */
+.dmPhone .pairDevice {
+  font-size: 12px;
+  font-size: clamp(8px, 4.9cqi, 13px);
+}
+
+.dmScreen {
+  transition: background 0.7s var(--ease);
+  background: #FFF8EE;
+  color: var(--ink);
+}
+.dmScreen--keep,
+.dmScreen--arrive {
+  background: linear-gradient(172deg, #3A2547 0%, #1B2146 44%, #0B1228 100%);
+  color: var(--on-night);
+}
+.dmScreen .pairStatus { transition: color 0.7s var(--ease); }
+
+.dmPane {
+  position: absolute;
+  inset: 2.7em 1.25em 1.9em;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease), visibility 0.45s;
+}
+.dmPane[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Beat 0 — the capture sheet */
+
+.dmPaneSay { align-items: center; justify-content: center; gap: 1.5em; }
+.dmMic {
+  display: grid;
+  place-items: center;
+  width: 4.6em;
+  height: 4.6em;
+  border-radius: 50%;
+  background: rgba(196, 148, 47, 0.14);
+  color: var(--gold);
+}
+.dmMic svg { width: 2.3em; height: 2.3em; }
+.dmWave {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  height: 2.6em;
+}
+.dmWave i {
+  display: block;
+  width: 0.26em;
+  border-radius: 0.2em;
+  background: var(--gold);
+  opacity: 0.85;
+  animation: dmWave 1.05s var(--ease-soft) infinite;
+}
+@keyframes dmWave {
+  0%, 100% { transform: scaleY(0.35); }
+  50%      { transform: scaleY(1); }
+}
+.dmHeard {
+  margin: 0;
+  text-align: center;
+  font-size: 1.28em;
+  line-height: 1.35;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Beat 1 — where it landed, and how to change it */
+
+.dmPanePlace { justify-content: center; gap: 1.1em; }
+.dmAdded {
+  margin: 0;
+  font-size: 0.88em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.dmTask {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  padding: 1em 1.1em;
+  border-radius: 1.2em;
+  background: rgba(20, 24, 58, 0.04);
+}
+.dmTaskCheck {
+  width: 1.35em;
+  height: 1.35em;
+  flex: 0 0 1.35em;
+  border-radius: 50%;
+  border: 0.12em solid rgba(20, 24, 58, 0.22);
+}
+.dmTaskName { font-size: 1.32em; font-weight: 500; color: var(--ink); }
+
+.dmPlaceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.85em 1.1em;
+  border-radius: 1.2em;
+  border: 0.09em solid rgba(196, 148, 47, 0.4);
+  background: rgba(196, 148, 47, 0.07);
+}
+.dmPin { color: var(--gold); display: grid; place-items: center; flex: 0 0 1.5em; }
+.dmPin svg { width: 1.5em; height: 1.5em; }
+.dmPlaceName {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.12em;
+  font-weight: 500;
+  color: var(--ink);
+  min-width: 0;
+}
+.dmPlaceName i {
+  font-style: normal;
+  font-size: 0.78em;
+  font-weight: 400;
+  color: var(--ink-faint);
+}
+.dmChange {
+  margin-left: auto;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* Beats 2 and 3 — the same Lock Screen, one with the arrival on it */
+
+.dmPaneLock { justify-content: flex-start; padding-top: 1.4em; }
+.dmLockDate {
+  text-align: center;
+  font-size: 1.05em;
+  font-weight: 500;
+  color: var(--on-night-soft);
+}
+.dmLockTime {
+  text-align: center;
+  font-size: 4.6em;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  color: var(--on-night);
+}
+.dmNotif {
+  display: flex;
+  gap: 0.9em;
+  align-items: flex-start;
+  margin-top: 1.9em;
+  padding: 1.05em 1.1em;
+  border-radius: 1.7em;
+  background: rgba(255, 244, 228, 0.1);
+  border: 0.09em solid var(--on-night-hair);
+  backdrop-filter: blur(1.4em);
+  -webkit-backdrop-filter: blur(1.4em);
+  box-shadow: 0 1.2em 2.6em rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  transform: translate3d(0, 1.2em, 0) scale(0.97);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.dmNotifIn { opacity: 1; transform: none; }
+.dmNotifIcon { flex: 0 0 2.6em; width: 2.6em; height: 2.6em; }
+.dmNotifIcon img { width: 100%; height: 100%; border-radius: 0.65em; display: block; }
+.dmNotifBody { min-width: 0; }
+.dmNotifLabel {
+  font-size: 0.86em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-night-faint);
+}
+.dmNotifTitle {
+  margin-top: 0.3em;
+  font-size: 1.26em;
+  font-weight: 600;
+  color: var(--on-night);
+}
+.dmNotifSub { margin-top: 0.15em; font-size: 1.08em; color: var(--on-night-soft); }
+
+/* The rail. Every step is readable as text whether or not anything moves. */
+
+.dmRail { list-style: none; margin: 0; padding: 0; }
+.dmRail li + li { margin-top: 6px; }
+.dmRailBtn {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 13px 15px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.dmRailBtn:hover { background: rgba(20, 24, 58, 0.035); }
+.dmRailOn {
+  background: rgba(196, 148, 47, 0.08);
+  border-color: rgba(196, 148, 47, 0.32);
+}
+.dmRailNum {
+  flex: 0 0 24px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink-faint);
+  border: 1px solid var(--ink-hair);
+  transition: background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.dmRailOn .dmRailNum,
+.dmRailDone .dmRailNum {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #FFF8EE;
+}
+.dmRailText { display: block; min-width: 0; }
+.dmRailLabel {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.dmRailCaption {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.dmControls { display: flex; gap: 10px; margin-top: 18px; padding-left: 15px; }
+.dmCtrl {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--ink-hair);
+  background: transparent;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.dmCtrl:hover:not(:disabled) { border-color: var(--gold); color: var(--ink); }
+.dmCtrl:disabled { opacity: 0.4; cursor: default; }
+
+@media (max-width: 860px) {
+  .dmStage { grid-template-columns: 1fr; gap: 2.25rem; }
+  .dmPhone { max-width: 232px; }
+  .dmControls { justify-content: center; padding-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dmWave i { animation: none; transform: scaleY(0.7); }
+  .dmScreen,
+  .dmPane,
+  .dmNotif { transition-duration: 0.01ms !important; }
+}
