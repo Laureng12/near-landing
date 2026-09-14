@@ -1069,8 +1069,10 @@ a { color: inherit; text-decoration: none; }
   -webkit-backdrop-filter: none;
   border: 1px solid rgba(255, 255, 255, 0.88);
   width: 93%;
-  opacity: 0;
-  transform: translateY(-16px) scale(.965);
+  /* Visible at rest. The entry animation below is a replay, so the card is
+     on the phone in the first painted frame instead of arriving later. */
+  opacity: 1;
+  transform: none;
   overflow: hidden;
   box-shadow:
     0 18px 42px rgba(27, 105, 145, 0.18),
@@ -1105,7 +1107,7 @@ a { color: inherit; text-decoration: none; }
   from { opacity: 0; transform: translateY(9px); }
   to   { opacity: 1; transform: none; }
 }
-.lockTaskItem { opacity: 0; }
+.lockTaskItem { opacity: 1; }
 .hasArrived .lockTaskItem { animation: lockRowIn .5s var(--ease) both; }
 .hasArrived .lockTaskItem1 { animation-delay: .40s; }
 .hasArrived .lockTaskItem2 { animation-delay: .52s; }
