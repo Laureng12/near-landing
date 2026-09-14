@@ -3763,3 +3763,15 @@ button.tierCta, button.priceNavCta {
   .pairReplay .pairItemDone .pairCheck,
   .pairReplay .pairNotif { animation: none !important; }
 }
+
+/* Privacy caption link. The claim is specific now, so the detail has to be
+   one click away rather than implied. */
+.quietLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 1px;
+  transition: color 0.3s var(--ease);
+}
+.quietLink:hover { color: var(--gold); }

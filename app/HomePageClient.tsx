@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 import { APP_IS_LIVE } from "./site/launch"
@@ -942,11 +943,22 @@ function QuietSection() {
             <br />
             <em>Invisible when it doesn&rsquo;t.</em>
           </h2>
+          {/* The old line said Near does not "build a profile, or follow your
+              day". The privacy policy says arrival events are stored on the
+              server to track visit history, and that location history feeds
+              personalization. Both cannot be true. The specific claim below is
+              the one the policy supports, and it is the stronger one. */}
           <p className="lead">
-            Near uses location to deliver your reminders - not to sell ads,
-            build a profile, or follow your day.
+            Your live route never leaves your iPhone. What syncs is what makes a
+            reminder work: your places, your tasks, and the arrivals that fire
+            them. Near sells none of it, and never uses it for ads.
           </p>
-          <p className="caption">Geofences run on your iPhone. Delete everything, any time.</p>
+          <p className="caption">
+            Delete everything, any time.{" "}
+            <Link href="/privacy" className="quietLink">
+              How Near uses your data
+            </Link>
+          </p>
         </div>
       </div>
     </section>
