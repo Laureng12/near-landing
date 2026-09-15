@@ -148,59 +148,7 @@
   align-items: center;
 }
 .ftSplitCopy { min-width: 0; }
-.ftSplitMock { min-width: 0; }
-
-.ftWeek {
-  border-radius: 22px;
-  overflow: hidden;
-  background: var(--paper);
-  border: 1px solid var(--ink-hair-soft);
-  box-shadow: 0 28px 70px rgba(20, 24, 58, 0.10);
-}
-.ftDay {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 20px 24px;
-}
-.ftDay + .ftDay { border-top: 1px solid var(--ink-hair-soft); }
-.ftDayLabel {
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--ink-faint);
-  white-space: nowrap;
-}
-.ftDayMeal {
-  font-size: 17px;
-  color: var(--ink-soft);
-  text-align: right;
-}
-.ftDayNow {
-  background: linear-gradient(
-    100deg,
-    rgba(196, 148, 47, 0.12),
-    rgba(240, 130, 70, 0.07)
-  );
-}
-.ftDayNow .ftDayLabel { color: var(--gold-text); }
-.ftDayNow .ftDayMeal { color: var(--ink); font-weight: 500; }
-
-.ftWeekFoot {
-  margin-top: 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  color: var(--ink-faint);
-}
-.ftWeekDot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 5px rgba(196, 148, 47, 0.14);
-}
+.ftSplitMock { min-width: 0; display: flex; justify-content: center; }
 
 /* ── Surfaces ────────────────────────────────────────── */
 

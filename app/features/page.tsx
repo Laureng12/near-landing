@@ -69,13 +69,6 @@ const householdRows = [
   "Nothing has to be assigned. Whoever gets there first can just take it.",
 ]
 
-const week = [
-  { d: "MON", m: "Salmon · 25 min" },
-  { d: "TUE", m: "Chicken bowls" },
-  { d: "WED · TONIGHT", m: "Pasta + broccoli", today: true },
-  { d: "THU", m: "Carry-over: salmon" },
-  { d: "FRI", m: "Pizza night" },
-]
 
 const mealNotes = [
   "Three AI plans a month are free. Pro removes the limit",
@@ -104,19 +97,6 @@ const arrivalScene: Scene = {
   title: "You\u2019re at Petco",
   sub: "1 of the two things you said",
   items: ["Dog food"],
-}
-
-/* The opening's own arrival. Deliberately a different hour and a different
-   place from the Petco scene further down, so the two read as two moments in
-   a day rather than the same screenshot twice. */
-const openingScene: Scene = {
-  id: "features-open",
-  sky: "night",
-  clock: "6:38",
-  day: "Tuesday, March 17",
-  title: "You\u2019re home",
-  sub: "2 things waiting",
-  items: ["Water the plants", "Take out recycling"],
 }
 
 const surfaces = [
@@ -187,7 +167,11 @@ export default function FeaturesPage() {
           </p>
           </div>
           <div className="splitVisual ftVisual">
-            <ArrivalPhone scene={openingScene} live={false} />
+            <AppShot
+              src="/assets/app/near-home.webp"
+              alt="Near's home screen on iPhone. A large tap-to-speak button reading Tap once. Say it, and a list headed Today's queue: Kroger 0.1 miles away and marked closest, Target, Equinox, each with what is waiting there."
+              caption="The actual app"
+            />
           </div>
         </div>
       </section>
@@ -353,19 +337,12 @@ export default function FeaturesPage() {
             ))}
           </ul>
         </div>
-        <div className="reveal ftSplitMock" aria-hidden="true">
-          <div className="ftWeek">
-            {week.map((d) => (
-              <div className={`ftDay ${d.today ? "ftDayNow" : ""}`} key={d.d}>
-                <span className="ftDayLabel">{d.d}</span>
-                <span className="ftDayMeal">{d.m}</span>
-              </div>
-            ))}
-          </div>
-          <p className="ftWeekFoot">
-            <span className="ftWeekDot" />
-            9 ingredients added to the grocery list
-          </p>
+        <div className="reveal ftSplitMock">
+          <AppShot
+            src="/assets/app/near-meals.webp"
+            alt="Near's meal planning screen on iPhone, headed The kitchen exhales, with a plan-your-week-with-AI card and a tab for the pantry."
+            caption="The actual app"
+          />
         </div>
         </div>
       </section>
