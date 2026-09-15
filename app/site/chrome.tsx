@@ -461,6 +461,42 @@ export function VoiceWave({ quote }: { quote: string }) {
 }
 
 
+/* ── A real screen ─────────────────────────────────────────────────
+
+   Everything else on this site is a hand-built mock, including the App Store
+   screenshots. These are captures of the shipping app, taken from the iOS
+   Simulator at 1206x2622 and served at 620 wide. See
+   `claude/near-app-screens.md` for how to take more.
+
+   The frame is drawn here; the screen is the file. Nothing about the UI
+   inside is ours to restyle, which is the point. */
+
+export function AppShot({
+  src,
+  alt,
+  caption,
+}: {
+  src: string
+  alt: string
+  caption?: string
+}) {
+  return (
+    <figure className="appShot">
+      <div className="appShotDevice">
+        <Image
+          className="appShotImg"
+          src={src}
+          alt={alt}
+          width={620}
+          height={1348}
+          sizes="(max-width: 1024px) 60vw, 300px"
+        />
+      </div>
+      {caption && <figcaption className="appShotCap">{caption}</figcaption>}
+    </figure>
+  )
+}
+
 /* ── The household pair ──────────────────────────────────────── */
 
 /* Two phones and the thread between them. The left one is yours: the shared

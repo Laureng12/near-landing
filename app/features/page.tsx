@@ -19,7 +19,7 @@ import {
   SiteFooter,
   TopNav,
   useReveal,
-  VoiceWave,
+  AppShot,
   type Scene,
 } from "../site/chrome"
 
@@ -209,14 +209,60 @@ export default function FeaturesPage() {
           </dl>
           </div>
           <div className="splitVisual ftVisual">
-            <VoiceWave quote="Grab dog food and drop the rug off." />
+            <AppShot
+              src="/assets/app/near-capture.webp"
+              alt="Near's capture sheet on iPhone. A microphone button labelled Say it, a text field, and a line reading: add the place and Near reminds you when you get there. No place? Near still holds it."
+              caption="The actual app"
+            />
           </div>
         </div>
       </section>
 
       {/* ── Arrival ───────────────────────────────────────────── */}
 
-      <section className="chapter chapterSunk" id="arrival">
+      {/* Places had no section on a page called Everything Near does, which is
+          odd, because organizing around places rather than lists is the whole
+          structure of the product. */}
+      <section className="chapter chapterSunk" id="places">
+        <div className="reveal shell split splitReverse">
+          <div className="splitVisual ftVisual">
+            <AppShot
+              src="/assets/app/near-places.webp"
+              alt="Near's Places screen on iPhone. A map with glowing pins, a game plan card reading you can finish this run by 9:18 AM, and a list of saved places with the items waiting at each."
+              caption="The actual app"
+            />
+          </div>
+          <div className="splitCopy">
+            <p className="eyebrow">Where it all hangs</p>
+            <h2 className="h2">
+              Places are the
+              <br />
+              <em>filing system.</em>
+            </h2>
+            <p className="lead">
+              Every reminder hangs off a place, so there is nothing else to
+              organize. Open Places to see what is waiting where, and how long
+              the whole run would take.
+            </p>
+            <ul className="ftList">
+              <li className="ftListItem" data-stagger>
+                <span className="ftBullet" aria-hidden="true" />
+                What is waiting at each place, before you get there.
+              </li>
+              <li className="ftListItem" data-stagger>
+                <span className="ftBullet" aria-hidden="true" />
+                The stops in the order that makes the shortest trip.
+              </li>
+              <li className="ftListItem" data-stagger>
+                <span className="ftBullet" aria-hidden="true" />
+                Home counts as a place, and so does the office.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="chapter chapterTight" id="arrival">
         <div className="reveal shell split splitReverse">
           <div className="splitVisual ftVisual">
             <ArrivalPhone scene={arrivalScene} live />
