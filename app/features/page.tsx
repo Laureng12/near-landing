@@ -13,6 +13,7 @@ import Link from "next/link"
 
 import { planPill } from "../site/features"
 import {
+  AppDetail,
   ArrivalPhone,
   FinalCTA,
   HouseholdPair,
@@ -59,6 +60,28 @@ const arrivalRows = [
   {
     k: "Before the door locks",
     v: "A heads-up while the place is still open, instead of an apology after.",
+  },
+]
+
+/* What the arrival is for. The ping is the door; this is the room. Every
+   row here is visible in the capture beside it, so nothing is asserted that
+   the screenshot does not already show. */
+const storeRows = [
+  {
+    k: "The list is already open",
+    v: "Kroger, four items, three sections. No searching for the right list while the cart is in the way.",
+  },
+  {
+    k: "In aisle order",
+    v: "Aisles instead of Lists, and the run sorts itself to the store you are standing in.",
+  },
+  {
+    k: "Straight to the cart",
+    v: "Connect a Kroger account and the whole run goes in with one tap, at the prices that store is charging.",
+  },
+  {
+    k: "Free",
+    v: "The entire grocery engine — aisles, prices, cart, sorting — is on the free plan.",
   },
 ]
 
@@ -270,6 +293,42 @@ export default function FeaturesPage() {
         </div>
       </section>
 
+      {/* ── At the store ──────────────────────────────────────── */}
+
+      {/* The site had no picture of the payoff. It showed the ping arriving and
+          then cut away, so a visitor had to take the useful part on faith. This
+          is the real screen, captured from the app. */}
+      <section className="chapter chapterSunk" id="store">
+        <div className="reveal shell split">
+          <div className="splitVisual ftVisual">
+            <AppShot
+              src="/assets/app/near-storemode.webp"
+              alt="Near open at Kroger: one of four items done, three sections, a Lists and Aisles switch, and the grocery run listed with an Add to cart button."
+              caption="Store mode, at Kroger"
+            />
+          </div>
+          <div className="splitCopy">
+            <p className="eyebrow">
+              Inside the store
+              {planPill("kroger") && <span className="ftPlan">{planPill("kroger")}</span>}
+            </p>
+            <h2 className="h2">
+              Then the list
+              <br />
+              <em>opens itself.</em>
+            </h2>
+            <dl className="ftRows">
+              {storeRows.map((r) => (
+                <div className="ftRow" key={r.k} data-stagger>
+                  <dt className="ftRowK">{r.k}</dt>
+                  <dd className="ftRowV">{r.v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
       {/* ── Household ─────────────────────────────────────────── */}
 
       <section className="chapter chapterNight" id="household">
@@ -367,28 +426,55 @@ export default function FeaturesPage() {
 
       {/* ── Quiet ─────────────────────────────────────────────── */}
 
+      {/* This used to be three pills and a paragraph — all assertion, no
+          evidence. The screenshot is the evidence: the setting is off until
+          you turn it on, and the app says in its own words what it does with
+          the reading. */}
       <section className="chapter chapterSunk" id="privacy">
-        <div className="reveal shell narrow center">
-          <p className="eyebrow">Quiet by design</p>
-          <h2 className="h2 h2Center">
-            Your location has one job.
-            <br />
-            Reminding you.
-          </h2>
-          <p className="lead leadCenter">
-            Your live route never leaves your iPhone. What syncs is what makes a
-            reminder work: your places, your tasks, and the arrivals that fire
-            them. Near sells none of it, and never uses it for ads.
-          </p>
-          <div className="pillRow">
-            <span className="pill" data-stagger>No ads</span>
-            <span className="pill" data-stagger>No data brokers</span>
-            <span className="pill" data-stagger>Delete it all, anytime</span>
+        <div className="reveal shell split">
+          <div className="splitCopy">
+            <p className="eyebrow">Quiet by design</p>
+            <h2 className="h2">
+              Your location
+              <br />
+              <em>has one job.</em>
+            </h2>
+            <p className="lead">
+              Your live route never leaves your iPhone. What syncs is what makes
+              a reminder work: your places, your tasks, and the arrivals that
+              fire them. Near sells none of it, and never uses it for ads.
+            </p>
+            <ul className="ftList">
+              <li className="ftListItem" data-stagger>
+                <span className="ftBullet" aria-hidden="true" />
+                Finding who&rsquo;s closest is a switch you own. Near ships it
+                off and never turns it on for you.
+              </li>
+              <li className="ftListItem" data-stagger>
+                <span className="ftBullet" aria-hidden="true" />
+                When it runs, your location is read once, used once, and never
+                stored.
+              </li>
+              <li className="ftListItem" data-stagger>
+                <span className="ftBullet" aria-hidden="true" />
+                No ads, no data brokers, and you can delete all of it whenever
+                you want.
+              </li>
+            </ul>
+            <p className="ftFootNote">
+              The full detail is in the <Link href="/privacy" className="ftLink">privacy policy</Link>,
+              and what&rsquo;s free versus paid is on <Link href="/pricing" className="ftLink">pricing</Link>.
+            </p>
           </div>
-          <p className="ftFootNote">
-            The full detail is in the <Link href="/privacy" className="ftLink">privacy policy</Link>,
-            and what&rsquo;s free versus paid is on <Link href="/pricing" className="ftLink">pricing</Link>.
-          </p>
+          <div className="splitVisual ftVisual">
+            <AppDetail
+              src="/assets/app/near-household.webp"
+              alt="Near's Household settings: an invite row, and a Find who's closest switch with the note that location is read once, used once, and never stored."
+              caption="Household settings, in the app"
+              width={760}
+              height={756}
+            />
+          </div>
         </div>
       </section>
 

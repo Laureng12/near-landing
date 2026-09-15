@@ -179,8 +179,18 @@ a { color: inherit; text-decoration: none; }
 
 .proProof {
   margin: 0 auto clamp(3rem, 6vw, 4.5rem);
-  max-width: 980px;
+  max-width: 1040px;
 }
+
+/* Phone beside the argument. The steps stack into a column here, which is
+   also what they are: one, then two, then three. */
+.proProofBody {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: center;
+}
+.proProofShot { min-width: 0; display: flex; justify-content: center; }
 .proProofHead {
   margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
   text-align: center;
@@ -195,9 +205,10 @@ a { color: inherit; text-decoration: none; }
   list-style: none;
   margin: 0;
   padding: 0;
+  min-width: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 2.4vw, 1.75rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.8vw, 1.15rem);
 }
 .proStep {
   position: relative;
@@ -293,5 +304,25 @@ a { color: inherit; text-decoration: none; }
 .priceFootQuiet { color: var(--ink-faint); }
 
 @media (max-width: 860px) {
+  .proProofBody { grid-template-columns: minmax(0, 1fr); }
+  .proProofShot { order: -1; }
   .proSteps { grid-template-columns: 1fr; }
 }
+
+/* Stacked steps read better as rows than as tall cards: the number sits in
+   its own gutter and the title lines up with it, so three steps beside a
+   phone stay the same height as the phone instead of overrunning it. */
+.proSteps .proStep {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr);
+  column-gap: 14px;
+  row-gap: 0;
+  align-items: start;
+  padding: 18px 20px 17px;
+}
+.proSteps .proStepNum { grid-row: 1; grid-column: 1; margin-top: 1px; }
+.proSteps .proStepTitle { grid-row: 1; grid-column: 2; margin: 0 0 10px; }
+.proSteps .proChips,
+.proSteps .proMerge,
+.proSteps .proNotif,
+.proSteps .proStepBody { grid-column: 2; }

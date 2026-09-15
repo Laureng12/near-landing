@@ -5,7 +5,7 @@ import "./pricing.css"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { DownloadCta } from "../site/chrome"
+import { AppShot, DownloadCta } from "../site/chrome"
 import { featuresFor } from "../site/features"
 
 const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
@@ -95,6 +95,18 @@ export default function PricingPage() {
             <p className="proProofHead">
               A week of meals, and one list at the end of it.
             </p>
+            {/* The three steps used to run across the page on their own, which
+                made the whole argument for Pro a drawing. The phone is the real
+                Plan tab, captured from the app: the week, the dinners that still
+                need deciding, and the way in. */}
+            <div className="proProofBody">
+              <div className="proProofShot">
+                <AppShot
+                  src="/assets/app/near-week.webp"
+                  alt="Near's Plan tab on iPhone: a week strip with today selected, a card reading Today, Tomorrow and 3 more need dinner, and Tuesday's errands listed under the places they belong to."
+                  caption="The week, in the app"
+                />
+              </div>
             <ol className="proSteps">
               <li className="proStep">
                 <span className="proStepNum">1</span>
@@ -145,6 +157,7 @@ export default function PricingPage() {
                 </p>
               </li>
             </ol>
+            </div>
           </section>
 
           <div className="tiers">
