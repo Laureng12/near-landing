@@ -727,13 +727,19 @@ function HouseholdChapter() {
           {/* Every clause checked against the backend before it was written.
               Arrivals count pending tasks household-wide, so whoever walks in
               gets them; tasks are fetched where:{householdId}, so a check-off
-              is one row and both people see it. */}
+              is one row everyone sees.
+
+              "Your partner" narrowed this to couples. Near is for roommates
+              and families too, and "whoever gets there" is also the accurate
+              description - Near does not pick a person, it answers an arrival.
+              Same words as the FAQ now. */}
           <p className="lead">
-            You add milk at home. Your partner gets the reminder at the store.
-            When either of you checks it off, the shared list updates for both.
+            You add milk at home. Whoever gets to the store is the one Near
+            reminds. When they check it off, everyone sees it is done.
           </p>
           <p className="caption">
-            Start on your own. Share with your household whenever you&rsquo;re ready.
+            Because remembering everything should not be one person&rsquo;s job.
+            Start on your own, and share whenever you&rsquo;re ready.
           </p>
         </div>
         <div className="splitVisual">
