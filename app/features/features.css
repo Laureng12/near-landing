@@ -64,8 +64,10 @@
   margin-left: 10px;
   padding: 3px 9px;
   border-radius: 999px;
-  background: rgba(196, 148, 47, 0.14);
-  color: var(--gold);
+  /* Lighter tint than the other gold chips: the label sits ON it, so the
+     chip's own darkness was eating the text's contrast. */
+  background: rgba(196, 148, 47, 0.08);
+  color: var(--gold-text);
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -183,7 +185,7 @@
     rgba(240, 130, 70, 0.07)
   );
 }
-.ftDayNow .ftDayLabel { color: var(--gold); }
+.ftDayNow .ftDayLabel { color: var(--gold-text); }
 .ftDayNow .ftDayMeal { color: var(--ink); font-weight: 500; }
 
 .ftWeekFoot {

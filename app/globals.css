@@ -20,13 +20,13 @@ html {
   /* ── Ink ──────────────────────────────────────────────── */
   --ink:           #14183A;
   --ink-soft:      #4A4E68;
-  --ink-faint:     #7C7F92;
+  --ink-faint:     #696B7E;
   --ink-hair:      rgba(20, 24, 58, 0.10);
   --ink-hair-soft: rgba(20, 24, 58, 0.06);
 
   --on-night:          #FFF4E4;
   --on-night-soft:     rgba(255, 244, 228, 0.68);
-  --on-night-faint:    rgba(255, 244, 228, 0.42);
+  --on-night-faint:    rgba(255, 244, 228, 0.56);
   --on-night-hair:     rgba(255, 244, 228, 0.14);
 
   /* ── Gold - Near's voice. Discovery, AI, the arrival moment.
@@ -34,6 +34,13 @@ html {
   --gold:          #C4942F;
   --gold-lit:      #D4A843;
   --gold-glow:     rgba(212, 168, 67, 0.22);
+
+  /* --gold is Near's voice, and at 2.6:1 on paper it is a graphic colour, not
+     a reading colour. Small gold LABELS use --gold-text, which is the same hue
+     dark enough to clear 4.5:1. Dark sections redefine it back to the lit gold,
+     so a rule can say var(--gold-text) once and be right on either ground.
+     Fills, icons, borders, checks and the spark stay --gold. */
+  --gold-text:     #81611F;
 
   /* ── Accent - the user's move.                                 */
   --accent:        #A8264A;
