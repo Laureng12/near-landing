@@ -20,23 +20,28 @@
 /* Beside a phone there is no room for a 16rem key column, so the rows
    stack instead of sitting side by side. */
 #capture .ftRow,
-#arrival .ftRow {
+#arrival .ftRow,
+#store .ftRow {
   grid-template-columns: minmax(0, 1fr);
   gap: 6px;
   padding: clamp(18px, 2.4vw, 24px) 0;
 }
 #capture .ftRowK,
-#arrival .ftRowK { font-size: clamp(17px, 1.5vw, 19px); }
+#arrival .ftRowK,
+#store .ftRowK { font-size: clamp(17px, 1.5vw, 19px); }
 #capture .ftRowV,
-#arrival .ftRowV { font-size: clamp(15px, 1.3vw, 17px); max-width: 34rem; }
+#arrival .ftRowV,
+#store .ftRowV { font-size: clamp(15px, 1.3vw, 17px); max-width: 34rem; }
 
 /* The copy column carries the rows, so it needs the width. */
 #capture .split,
 #arrival .split { grid-template-columns: 1.12fr 0.88fr; align-items: center; }
+/* Phone first, copy second, so the visual column is the narrow one. */
+#store .split { grid-template-columns: 0.88fr 1.12fr; align-items: center; }
 .ftVisual .arrShell { transform: scale(0.92); transform-origin: 50% 50%; }
 .ftVisual .vizVoice { width: 100%; max-width: 340px; }
 .ftVisual .vizQuote { font-size: 1.05rem; }
-#capture .ftRows, #arrival .ftRows { margin-top: clamp(1.6rem, 3vw, 2.2rem); }
+#capture .ftRows, #arrival .ftRows, #store .ftRows { margin-top: clamp(1.6rem, 3vw, 2.2rem); }
 
 /* Device glyphs on the surfaces cards. */
 .ftGlyph {
@@ -239,4 +244,21 @@
 @media (max-width: 1024px) {
   .ftOpenSplit .ftOpenTitle { font-size: clamp(46px, 8.4vw, 84px); }
   .ftOpenSplit .lead { margin-left: auto; margin-right: auto; }
+}
+
+/* The privacy section is a split now, not a centred column: the claim on the
+   left, the screen that proves it on the right. */
+#privacy .split { grid-template-columns: 1.12fr 0.88fr; align-items: center; }
+#privacy .ftList { margin-top: 26px; }
+#privacy .ftListItem { font-size: clamp(16px, 1.5vw, 18px); }
+
+/* Both new splits are column overrides with higher specificity than the shared
+   `.split` collapse at 1024px, so they have to collapse on their own or they
+   stay two columns at phone width. */
+@media (max-width: 1024px) {
+  #store .split,
+  #privacy .split { grid-template-columns: minmax(0, 1fr); }
+  #store .ftRowV,
+  #privacy .ftList { margin-left: auto; margin-right: auto; }
+  #privacy .ftListItem { text-align: left; }
 }

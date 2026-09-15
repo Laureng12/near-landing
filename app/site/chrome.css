@@ -4160,3 +4160,15 @@ button.tierCta, button.priceNavCta {
 
 /* The privacy footnote, now that the section is centred. */
 .quietFoot { margin-top: 22px; }
+
+/* A cropped screenshot, framed as itself rather than inside a phone. */
+.appDetail { margin: 0; width: 100%; max-width: 420px; }
+.appDetailFrame {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0B0B12;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 1px rgba(255, 244, 228, 0.14);
+}
+.appDetailImg { display: block; width: 100%; height: auto; }

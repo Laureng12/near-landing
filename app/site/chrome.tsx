@@ -471,6 +471,41 @@ export function VoiceWave({ quote }: { quote: string }) {
    The frame is drawn here; the screen is the file. Nothing about the UI
    inside is ours to restyle, which is the point. */
 
+/* A screenshot that is a region of a screen rather than a whole one. Some
+   real screens are mostly empty - a settings sheet with two rows on it - and
+   inside a phone frame that emptiness reads as a page that failed to load.
+   Cropped to its own content and given a plain frame, the same pixels read as
+   what they are: a detail, lifted from the app. */
+export function AppDetail({
+  src,
+  alt,
+  caption,
+  width,
+  height,
+}: {
+  src: string
+  alt: string
+  caption?: string
+  width: number
+  height: number
+}) {
+  return (
+    <figure className="appDetail">
+      <div className="appDetailFrame">
+        <Image
+          className="appDetailImg"
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes="(max-width: 1024px) 88vw, 420px"
+        />
+      </div>
+      {caption && <figcaption className="appShotCap">{caption}</figcaption>}
+    </figure>
+  )
+}
+
 export function AppShot({
   src,
   alt,
