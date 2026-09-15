@@ -17,31 +17,8 @@ import {
   useInView,
   usePrefersReducedMotion,
   useReveal,
-  VoiceWave,
 } from "./site/chrome"
 
-/* The product story, in three beats. This replaces the six overlapping
-   sections the old site used to explain the same behaviour. */
-const beats = [
-  {
-    step: "01",
-    title: "Say it.",
-    visual: "voice" as const,
-    body: "Type it or speak it. That is the entire capture step.",
-  },
-  {
-    step: "02",
-    title: "Near places it.",
-    visual: "sphere" as const,
-    body: "No folders, no tags, no organizing. It goes where it gets done.",
-  },
-  {
-    step: "03",
-    title: "It appears when you arrive.",
-    visual: "arrive" as const,
-    body: "Before you can forget it again.",
-  },
-]
 
 /* The shared list Brian is about to see. */
 const sharedList = ["Milk", "Eggs", "Bananas", "Bread", "Olive oil"] as const
@@ -54,7 +31,7 @@ const momentScenes = [
     id: "grocery",
     tone: "grocery",
     sky: "dawn",
-    line: "Groceries when you walk into the store",
+    line: "Groceries. Without the second trip.",
     clock: "7:42",
     day: "Tuesday, March 17",
     title: "You\u2019re at Harris Teeter",
@@ -65,7 +42,7 @@ const momentScenes = [
     id: "errand",
     tone: "errand",
     sky: "day",
-    line: "Returns before you pass the drop-off",
+    line: "That return has lived in your car long enough.",
     clock: "10:15",
     day: "Tuesday, March 17",
     title: "You\u2019re at the UPS Store",
@@ -76,7 +53,7 @@ const momentScenes = [
     id: "pharmacy",
     tone: "pharmacy",
     sky: "day",
-    line: "Prescriptions when you reach the pharmacy",
+    line: "The prescription, while you are already standing there.",
     clock: "1:04",
     day: "Tuesday, March 17",
     title: "You\u2019re at Walgreens",
@@ -87,7 +64,7 @@ const momentScenes = [
     id: "ask",
     tone: "ask",
     sky: "dusk",
-    line: "The question for the doctor when you\u2019re finally in the room",
+    line: "The question you always remember in the parking lot.",
     clock: "4:20",
     day: "Tuesday, March 17",
     title: "You\u2019re at Dr. Vaughn\u2019s office",
@@ -98,7 +75,7 @@ const momentScenes = [
     id: "home",
     tone: "home",
     sky: "night",
-    line: "Home things the moment you come through the door",
+    line: "The things you meant to do the second you got in.",
     clock: "6:38",
     day: "Tuesday, March 17",
     title: "You\u2019re home",
@@ -136,8 +113,8 @@ export default function HomePageClient() {
       <TopNav home />
       <Hero />
       <ProofLine />
+      <ProblemSection />
       <ProductDemo />
-      <ThreeBeats />
       <HouseholdChapter />
       <MomentsSection />
       <QuietSection />
@@ -218,8 +195,8 @@ function Hero() {
             <em>Anything Again.</em>
           </h1>
           <p className="heroLead">
-            Near remembers what you need and where you need it - then puts it
-            on your Lock Screen the moment you arrive.
+            Add what you need and where you need it. Near reminds you on your
+            Lock Screen when you arrive.
           </p>
           <div className="heroCtas">
             <DownloadCta className="btnPrimary" source="hero">Download Near</DownloadCta>
@@ -228,7 +205,7 @@ function Hero() {
           <p className="heroMicro">
             {APP_IS_LIVE
               ? "Free for iPhone. No ads. Private by design."
-              : "Coming to iPhone. Free, with no ads and no data brokers."}
+              : "Coming to iPhone. Core reminders are free. No ads."}
           </p>
         </div>
         <div className="heroPhone">
@@ -707,29 +684,43 @@ function ProofLine() {
   )
 }
 
-/* ── The product, in three beats ───────────────────────────────── */
 
-function ThreeBeats() {
+/* ── The problem ────────────────────────────────────────────────────
+
+   The site used to explain the mechanism twice: a four-beat demo, then a
+   three-step section saying the same thing in words. The demo won, and the
+   space the three steps were taking goes here instead.
+
+   The pain Near removes is not a badly organised list. It is remembering at
+   the wrong moment, which is a thing everyone has done this week. */
+
+const tooLate = [
+  { thing: "The milk", when: "after you unpacked the groceries." },
+  { thing: "The return", when: "after you passed the drop-off." },
+  { thing: "The question", when: "after you left the appointment." },
+]
+
+function ProblemSection() {
   return (
-    <section className="chapter chapterSunk" id="how-it-works">
-      <div className="reveal shell">
-        <div className="centeredHead">
-          <p className="eyebrow">How it works</p>
-          <h2 className="h2 h2Center">Three steps. Then never again.</h2>
-        </div>
-        <ol className="beatGrid">
-          {beats.map((b, i) => (
-            <li className="beat" key={b.step} data-stagger>
-              <span className="beatStep">{b.step}</span>
-              <h3 className="beatTitle">{b.title}</h3>
-              <div className="beatVisual">
-                <BeatVisual kind={b.visual} />
-                {i < beats.length - 1 && <span className="beatLink" aria-hidden="true" />}
-              </div>
-              <p className="beatBody">{b.body}</p>
+    <section className="chapter chapterSunk" id="problem">
+      <div className="reveal shell narrow center">
+        <p className="eyebrow">The problem</p>
+        <h2 className="h2 h2Center">
+          You remembered.
+          <br />
+          <em>Just a little too late.</em>
+        </h2>
+        <ul className="lateList">
+          {tooLate.map((t) => (
+            <li className="lateRow" key={t.thing} data-stagger>
+              <span className="lateThing">{t.thing},</span>{" "}
+              <span className="lateWhen">{t.when}</span>
             </li>
           ))}
-        </ol>
+        </ul>
+        <p className="lead leadCenter lateTurn">
+          Near brings up what you saved when you reach the place you need it.
+        </p>
       </div>
     </section>
   )
@@ -737,40 +728,6 @@ function ThreeBeats() {
 
 /* ── Household ─────────────────────────────────────────────────── */
 
-/* Beat visuals: spoken words, then the mark, then the Lock Screen.
-   Gold is Near's own voice, so it carries the whole sequence. */
-
-function BeatVisual({ kind }: { kind: "voice" | "sphere" | "arrive" }) {
-  if (kind === "voice") {
-    return <VoiceWave quote="Paper towels at Target." />
-  }
-
-  if (kind === "sphere") {
-    return (
-      <div className="vizSphere" aria-hidden="true">
-        <span className="vizRing vizRing1" />
-        <span className="vizRing vizRing2" />
-        <span className="vizRing vizRing3" />
-        <span className="vizCore" />
-      </div>
-    )
-  }
-
-  return (
-    <div className="vizArrive">
-      <div className="vizNotif">
-        <div className="vizNotifIcon">
-          <Image src={BRAND_ICON} alt="" width={24} height={24} />
-        </div>
-        <div>
-          <div className="vizNotifLabel">Near &middot; now</div>
-          <div className="vizNotifTitle">You&rsquo;re at Target</div>
-          <div className="vizNotifSub">Paper towels</div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function HouseholdChapter() {
   return (
@@ -780,15 +737,21 @@ function HouseholdChapter() {
         <div className="splitCopy">
           <p className="eyebrow">For households</p>
           <h2 className="h2">
-            One less thing to
+            Share the list.
             <br />
-            <em>remind each other.</em>
+            <em>Skip the follow-up.</em>
           </h2>
+          {/* Every clause checked against the backend before it was written.
+              Arrivals count pending tasks household-wide, so whoever walks in
+              gets them; tasks are fetched where:{householdId}, so a check-off
+              is one row and both people see it. */}
           <p className="lead">
-            Add something once. When the right person reaches the right place,
-            Near handles the rest.
+            You add milk at home. Your partner gets the reminder at the store.
+            When either of you checks it off, the shared list updates for both.
           </p>
-          <p className="caption">Start on your own. Better together.</p>
+          <p className="caption">
+            Start on your own. Share with your household whenever you&rsquo;re ready.
+          </p>
         </div>
         <div className="splitVisual">
           <HouseholdPair
@@ -838,7 +801,7 @@ function MomentsSection() {
         <div className="everydayMain">
           <div className="everydayCopy reveal">
             <p className="eyebrow">Every day</p>
-            <h2 className="h2">The little things stop slipping through.</h2>
+            <h2 className="h2">For all the things you meant to do.</h2>
           </div>
 
           <ol className="everydayList">
@@ -902,26 +865,26 @@ function MomentsSection() {
 const DEMO_BEATS = [
   {
     id: "say",
-    label: "Say it",
-    caption: "Say it or type it, while it is still in your head.",
+    label: "Add it",
+    caption: "Speak it or type it while it is on your mind.",
     hold: 2400,
   },
   {
     id: "place",
-    label: "Place it",
-    caption: "Near attaches it to Harris Teeter. Change the place if it guessed wrong.",
+    label: "Check the place",
+    caption: "Near attaches it to Harris Teeter. Change it if that is the wrong store.",
     hold: 2600,
   },
   {
     id: "keep",
     label: "Forget it",
-    caption: "Then you get on with your week.",
+    caption: "That is the point. You get on with your week.",
     hold: 1800,
   },
   {
     id: "arrive",
-    label: "Get it there",
-    caption: "You walk in, and it is already on your Lock Screen.",
+    label: "Get reminded there",
+    caption: "Your list is waiting when you arrive.",
     hold: 0,
   },
 ] as const
@@ -977,7 +940,12 @@ function ProductDemo() {
       <div className="reveal shell">
         <div className="centeredHead">
           <p className="eyebrow">Watch it work</p>
-          <h2 className="h2 h2Center">Milk, and a store you were going to anyway.</h2>
+          <h2 className="h2 h2Center">The milk shouldn&rsquo;t need a second trip.</h2>
+          <p className="lead leadCenter demoLead">
+            Add &ldquo;Milk at Harris Teeter.&rdquo; Near connects it to a store, and you
+            can change the place if it picked the wrong one. When you arrive,
+            your reminder is on your Lock Screen.
+          </p>
         </div>
 
         <div className="dmStage">
@@ -1147,10 +1115,12 @@ function QuietSection() {
 
         <div className="splitCopy reveal">
           <p className="eyebrow">Quiet by design</p>
+          {/* Deliberately no serif here. The problem section took the page's
+              third serif moment, and a flat statement suits this one. */}
           <h2 className="h2">
-            Helpful when it matters.
+            Your errands are
             <br />
-            <em>Invisible when it doesn&rsquo;t.</em>
+            your business.
           </h2>
           {/* The old line said Near does not "build a profile, or follow your
               day". The privacy policy says arrival events are stored on the

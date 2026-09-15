@@ -19,7 +19,7 @@ type Billing = "annual" | "monthly"
 const tiers = [
   {
     name: "Free",
-    tag: "Everything you need to stop forgetting.",
+    tag: "Everything you need for everyday reminders.",
     annual: { big: "$0", unit: "", note: "Free forever." },
     monthly: { big: "$0", unit: "", note: "Free forever." },
     features: featuresFor("free"),
@@ -28,7 +28,7 @@ const tiers = [
   },
   {
     name: "Near Pro",
-    tag: "The part that thinks ahead.",
+    tag: "More planning help for your everyday life.",
     annual: { big: "$9.08", unit: "/month", note: "$109 billed annually \u00b7 Save 30%" },
     monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
     features: ["Everything in Free", ...featuresFor("pro")],
@@ -63,12 +63,12 @@ export default function PricingPage() {
           <header className="priceHead">
             <p className="priceEyebrow">Pricing</p>
             <h1 className="priceTitle">
-              The location magic is free. <em>Always.</em>
+              Everyday reminders. <em>Free.</em>
             </h1>
             <p className="priceSub">
-              The part that finds you never costs anything, and neither does the
-              grocery list. Pro is the thinking on top - plans without a limit,
-              and Near learning what you run out of before you do.
+              Location reminders, shared lists and voice capture are included.
+              Upgrade to Pro for unlimited AI meal plans, replenishment
+              suggestions, and help breaking goals into steps.
             </p>
             <div className="priceToggle" role="group" aria-label="Billing period">
               <button
