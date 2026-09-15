@@ -1,25 +1,8 @@
 import HomePageClient from "./HomePageClient"
+import { faqItems } from "./site/faq"
 
 const SITE_URL = "https://www.nearesttask.com"
 
-const faqItems = [
-  {
-    q: "What is a location-based reminder?",
-    a: "A task that waits at a place instead of a time. Near holds it quietly until you arrive at the store, the pharmacy, or your own front door, then shows it on your Lock Screen.",
-  },
-  {
-    q: "How does Near know when I arrive somewhere?",
-    a: "iPhone location services tell Near you have reached a place you saved. The geofence is handled by iOS on the device; Near simply surfaces what belongs there.",
-  },
-  {
-    q: "Can Near share grocery lists with family members?",
-    a: "Yes. A household shares one memory. Anyone can add to it, and whoever is closest to the store is the one who gets the reminder.",
-  },
-  {
-    q: "Does Near track my location?",
-    a: "Near uses location to surface a task at the moment it matters, and never for advertising. Geofences run on your iPhone. Saved places, tasks, and arrival events sync so reminders and household sharing work, and you can delete all of it at any time.",
-  },
-]
 
 function HomeStructuredData() {
   const homePageJsonLd = {

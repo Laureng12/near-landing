@@ -90,7 +90,7 @@ export default function PricingPage() {
 
           {/* What Pro actually does, before anyone is asked what it costs.
               One week, one store, and the step that is the whole point: the
-              ingredients collapse into one list instead of three. */}
+              three recipes become one list instead of three. */}
           <section className="proProof" aria-label="What Near Pro does">
             <p className="proProofHead">
               A week of meals, and one list at the end of it.
@@ -111,7 +111,7 @@ export default function PricingPage() {
               </li>
               <li className="proStep">
                 <span className="proStepNum">2</span>
-                <h3 className="proStepTitle">The ingredients collapse</h3>
+                <h3 className="proStepTitle">One combined grocery list</h3>
                 <ul className="proMerge">
                   <li>
                     <span className="proMergeFrom">Onion &times;3</span>
@@ -141,7 +141,7 @@ export default function PricingPage() {
                 </div>
                 <p className="proStepBody">
                   Same arrival as every other reminder. You did the thinking
-                  once, on a Sunday.
+                  once, whenever it suited you.
                 </p>
               </li>
             </ol>
