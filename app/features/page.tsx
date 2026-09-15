@@ -106,6 +106,19 @@ const arrivalScene: Scene = {
   items: ["Dog food"],
 }
 
+/* The opening's own arrival. Deliberately a different hour and a different
+   place from the Petco scene further down, so the two read as two moments in
+   a day rather than the same screenshot twice. */
+const openingScene: Scene = {
+  id: "features-open",
+  sky: "night",
+  clock: "6:38",
+  day: "Tuesday, March 17",
+  title: "You\u2019re home",
+  sub: "2 things waiting",
+  items: ["Water the plants", "Take out recycling"],
+}
+
 const surfaces = [
   { name: "iPhone", glyph: "phone" as const, note: "The Lock Screen, the widget, the app." },
   { name: "Apple Watch", glyph: "watch" as const, note: "A glance at the wrist when your hands are full." },
@@ -160,7 +173,8 @@ export default function FeaturesPage() {
       {/* ── Opening ───────────────────────────────────────────── */}
 
       <section className="chapter ftOpen" id="top">
-        <div className="reveal shell">
+        <div className="reveal shell split ftOpenSplit">
+          <div className="splitCopy">
           <p className="eyebrow">Everything Near does</p>
           <h1 className="ftOpenTitle">
             Less to remember.
@@ -171,6 +185,10 @@ export default function FeaturesPage() {
             Capture what you need, connect it to a place, and share it with your
             household. Near brings up your reminders when you arrive.
           </p>
+          </div>
+          <div className="splitVisual ftVisual">
+            <ArrivalPhone scene={openingScene} live={false} />
+          </div>
         </div>
       </section>
 
