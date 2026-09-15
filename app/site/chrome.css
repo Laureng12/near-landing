@@ -1067,7 +1067,13 @@ a { color: inherit; text-decoration: none; }
 .lockProximityCard {
   position: relative;
   z-index: 2;
-  margin-top: 18px;
+  /* iOS stacks Lock Screen notifications at the BOTTOM, under the clock and
+     above the flashlight/camera row. Three of the site's four phone mocks had
+     the card tucked under the clock instead, which is not where anyone has
+     ever seen one, and left the lower half of the screen empty.
+     ArrivalPhone already did this correctly; the rest now match it. */
+  margin-top: auto;
+  margin-bottom: 68px;
   padding: 18px 19px;
   border-radius: 26px;
   background: rgba(249, 253, 255, 0.95);
@@ -3602,7 +3608,9 @@ button.tierCta, button.priceNavCta {
   display: flex;
   gap: 0.9em;
   align-items: flex-start;
-  margin-top: 2.1em;
+  /* auto pushes it to the bottom of the screen; the clock keeps the top. */
+  margin-top: auto;
+  margin-bottom: 0.4em;
   padding: 1.05em 1.1em;
   border-radius: 1.7em;
   text-align: left;
@@ -3936,6 +3944,8 @@ button.tierCta, button.priceNavCta {
 /* Beats 2 and 3 — the same Lock Screen, one with the arrival on it */
 
 .dmPaneLock { justify-content: flex-start; padding-top: 1.4em; }
+/* Clock at the top, notification at the bottom, the way iOS does it. */
+.dmPaneLock .dmNotif { margin-top: auto; }
 .dmLockDate {
   text-align: center;
   font-size: 1.05em;
@@ -3955,6 +3965,7 @@ button.tierCta, button.priceNavCta {
   gap: 0.9em;
   align-items: flex-start;
   margin-top: 1.9em;
+  margin-bottom: 0.6em;
   padding: 1.05em 1.1em;
   border-radius: 1.7em;
   background: rgba(255, 244, 228, 0.1);
