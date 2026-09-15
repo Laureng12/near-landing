@@ -4077,3 +4077,33 @@ button.tierCta, button.priceNavCta {
   .dmPane,
   .dmNotif { transition-duration: 0.01ms !important; }
 }
+
+/* ── The problem ───────────────────────────────────────────────── */
+
+.lateList {
+  list-style: none;
+  margin: clamp(2rem, 4vw, 2.75rem) auto clamp(2rem, 4vw, 2.75rem);
+  padding: 0;
+  max-width: 34rem;
+  text-align: left;
+}
+.lateRow {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--ink-hair-soft);
+  font-size: clamp(1.02rem, 1.7vw, 1.2rem);
+  line-height: 1.5;
+}
+.lateRow:last-child { border-bottom: none; }
+/* The thing you needed reads first; the moment you remembered it reads as the
+   afterthought it was. */
+.lateThing { color: var(--ink); font-weight: 500; }
+.lateWhen { color: var(--ink-soft); }
+
+.lateTurn { margin: 0 auto; max-width: 30rem; }
+
+.demoLead { margin: clamp(1rem, 2vw, 1.4rem) auto clamp(2.25rem, 4vw, 3rem); max-width: 40rem; }
+
+@media (max-width: 720px) {
+  .lateList { margin-left: 0; margin-right: 0; }
+  .lateRow { padding: 13px 0; }
+}

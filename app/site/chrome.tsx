@@ -91,7 +91,7 @@ export function DownloadCta({
       onClick={() => openNotify(source)}
       aria-label={ariaLabel}
     >
-      Get notified
+      Notify me at launch
     </button>
   )
 }
@@ -165,7 +165,7 @@ export function NotifyDialog() {
         className={`notifyCard ${open ? "notifyOpen" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Get notified when Near launches"
+        aria-label="Be first to know when Near launches"
         inert={!open}
       >
         <button type="button" className="notifyClose" onClick={() => setOpen(false)} aria-label="Close">
@@ -177,18 +177,18 @@ export function NotifyDialog() {
         {state === "done" ? (
           <>
             <h2 className="notifyTitle">
-              That is all we needed.
+              You&rsquo;re on the list.
             </h2>
-            <p className="notifyLead">{message} We will email you the day Near reaches the App Store, and not for anything else.</p>
+            <p className="notifyLead">{message} We&rsquo;ll let you know when Near is ready, and never for anything else.</p>
           </>
         ) : (
           <>
             <h2 className="notifyTitle">
-              Near is almost here.
+              Be first to know.
             </h2>
             <p className="notifyLead">
-              Leave your email and you will hear from us the day it lands on the
-              App Store, and never for anything else.
+              We&rsquo;ll email you when Near is available for iPhone, and never
+              for anything else.
             </p>
             <form className="notifyForm" onSubmit={submit}>
               <input
@@ -203,7 +203,7 @@ export function NotifyDialog() {
                 aria-label="Email address"
               />
               <button className="notifySubmit" type="submit" disabled={state === "sending"}>
-                {state === "sending" ? "Sending" : "Tell me when it is out"}
+                {state === "sending" ? "Sending" : "Notify me at launch"}
               </button>
             </form>
             {state === "error" && <p className="notifyError">{message}</p>}
@@ -301,7 +301,7 @@ export function FinalCTA() {
           <em>better things to do.</em>
         </h2>
         <p className="finalSub">
-          Near remembers the small things - right where they matter.
+          Fewer forgotten items. Fewer extra trips. One less thing on your mind.
         </p>
         <DownloadCta className="btnCream" source="closing">Download Near</DownloadCta>
         {APP_IS_LIVE && (

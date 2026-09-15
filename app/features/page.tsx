@@ -39,7 +39,7 @@ const captureRows = [
   },
   {
     k: "Near places it",
-    v: "It reads the thing and finds the place. You never file anything.",
+    v: "It reads the thing and picks the place, and you can change it.",
   },
 ]
 
@@ -163,14 +163,13 @@ export default function FeaturesPage() {
         <div className="reveal shell">
           <p className="eyebrow">Everything Near does</p>
           <h1 className="ftOpenTitle">
-            Nothing here asks you
+            Less to remember.
             <br />
-            <em>to organize anything.</em>
+            <em>More taken care of.</em>
           </h1>
           <p className="lead">
-            Near does one thing. It remembers what you need and hands it to you
-            at the place you need it. Everything below is that same thing,
-            somewhere else in your day.
+            Capture what you need, connect it to a place, and share it with your
+            household. Near brings up your reminders when you arrive.
           </p>
         </div>
       </section>
@@ -181,7 +180,7 @@ export default function FeaturesPage() {
         <div className="reveal shell split">
           <div className="splitCopy">
           <p className="eyebrow">When it occurs to you</p>
-          <h2 className="h2">Two seconds, then you forget it on purpose.</h2>
+          <h2 className="h2">Catch the thought before it goes.</h2>
           <dl className="ftRows">
             {captureRows.map((r) => (
               <div className="ftRow" key={r.k} data-stagger>
@@ -207,9 +206,9 @@ export default function FeaturesPage() {
           <div className="splitCopy">
           <p className="eyebrow">When you get there</p>
           <h2 className="h2">
-            You never open Near.
+            Your list
             <br />
-            <em>Near opens for you.</em>
+            <em>meets you there.</em>
           </h2>
           <dl className="ftRows">
             {arrivalRows.map((r) => (
@@ -231,13 +230,14 @@ export default function FeaturesPage() {
           <div className="splitCopy">
           <p className="eyebrow">For households</p>
           <h2 className="h2">
-            Nobody has to be
+            Everyone has
             <br />
-            the one who remembers.
+            <em>the list.</em>
           </h2>
           <p className="lead">
-            Start solo. Share it with the people you live with when the house
-            needs one memory instead of four. Sharing is free.
+            Add items, see updates, and check things off together. Start solo
+            and share it with the people you live with whenever you are ready.
+            Sharing is free.
           </p>
           <ul className="ftList">
             {householdRows.map((t) => (
@@ -271,9 +271,9 @@ export default function FeaturesPage() {
             Meal Plan<span className="ftPlan">{planPill("meal-plan-unlimited")}</span>
           </p>
           <h2 className="h2">
-            Decide it on Sunday.
+            Dinner comes with
             <br />
-            Shop without thinking.
+            <em>enough questions.</em>
           </h2>
           <p className="lead">
             Plan the week from what your household actually cooks. The
@@ -311,7 +311,7 @@ export default function FeaturesPage() {
       <section className="chapter chapterTight" id="surfaces">
         <div className="reveal shell">
           <p className="eyebrow">Where it reaches you</p>
-          <h2 className="h2">No new place to check.</h2>
+          <h2 className="h2">A little help, close at hand.</h2>
           <div className="ftSurfaces">
             {surfaces.map((s) => (
               <div className="ftSurface" key={s.name} data-stagger>
