@@ -15,7 +15,6 @@ import {
   FinalCTA,
   SiteFooter,
   TopNav,
-  useInView,
   usePrefersReducedMotion,
   useReveal,
 } from "./site/chrome"
@@ -1053,81 +1052,39 @@ function ProductDemo() {
 /* ── Quiet and private ─────────────────────────────────────────── */
 
 function QuietSection() {
-  const [ref, inView] = useInView<HTMLDivElement>(0.3)
-
   const pledges = ["No ads", "No data brokers", "No productivity guilt"]
 
+  /* This section used to carry a phone: a Lock Screen with the three pledges
+     printed on it. That is a poster, not an arrival - the weakest use of the
+     site's strongest image, and one more invented screen on a page that had
+     six. The claim stands on its own, centred, the way /features says it. */
   return (
     <section className="chapter chapterSunk">
-      <div className="shell split splitReverse" ref={ref}>
-        <div className="splitVisual">
-          <div className={`quietPhone ${inView ? "quietPhoneOn" : ""}`}>
-            <span className="quietHalo" aria-hidden="true" />
-            <div className="arrShell">
-              <div className="arrScreen arrScreenQuiet">
-                <div className="arrSky" aria-hidden="true" />
-                <div className="arrStatus" aria-hidden="true">
-                  <span>9:41</span>
-                  <span className="arrStatusRight">
-                    <span className="arrBars" />
-                    <span className="arrBatt" />
-                  </span>
-                </div>
-
-                <div className="quietLock" aria-hidden="true">
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <rect x="13" y="22" width="22" height="17" rx="5" stroke="currentColor" strokeWidth="1.6" />
-                    <path d="M18.5 22v-5.5a5.5 5.5 0 0 1 11 0V22" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                    <circle cx="24" cy="30.5" r="2" fill="currentColor" />
-                  </svg>
-                </div>
-
-                <div className="quietCard">
-                  <div className="quietCardLabel">Arrival detection runs on your iPhone</div>
-                  <ul className="quietPledges">
-                    {pledges.map((p, i) => (
-                      <li key={p} style={{ animationDelay: `${0.35 + i * 0.22}s` }}>
-                        <span className="quietTick" aria-hidden="true">
-                          <svg viewBox="0 0 16 16" fill="none">
-                            <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </span>
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="reveal shell narrow center">
+        <p className="eyebrow">Quiet by design</p>
+        <h2 className="h2 h2Center">
+          Your errands are
+          <br />
+          your business.
+        </h2>
+        <p className="lead leadCenter">
+          Your live route never leaves your iPhone. What syncs is what makes a
+          reminder work: your places, your tasks, and the arrivals that fire
+          them. Near sells none of it, and never uses it for ads.
+        </p>
+        <div className="pillRow">
+          {pledges.map((p) => (
+            <span className="pill" key={p} data-stagger>
+              {p}
+            </span>
+          ))}
         </div>
-
-        <div className="splitCopy reveal">
-          <p className="eyebrow">Quiet by design</p>
-          {/* Deliberately no serif here. The problem section took the page's
-              third serif moment, and a flat statement suits this one. */}
-          <h2 className="h2">
-            Your errands are
-            <br />
-            your business.
-          </h2>
-          {/* The old line said Near does not "build a profile, or follow your
-              day". The privacy policy says arrival events are stored on the
-              server to track visit history, and that location history feeds
-              personalization. Both cannot be true. The specific claim below is
-              the one the policy supports, and it is the stronger one. */}
-          <p className="lead">
-            Your live route never leaves your iPhone. What syncs is what makes a
-            reminder work: your places, your tasks, and the arrivals that fire
-            them. Near sells none of it, and never uses it for ads.
-          </p>
-          <p className="caption">
-            Delete everything, any time.{" "}
-            <Link href="/privacy" className="quietLink">
-              How Near uses your data
-            </Link>
-          </p>
-        </div>
+        <p className="caption quietFoot">
+          Delete everything, any time.{" "}
+          <Link href="/privacy" className="quietLink">
+            How Near uses your data
+          </Link>
+        </p>
       </div>
     </section>
   )

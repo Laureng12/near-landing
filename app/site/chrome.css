@@ -4118,3 +4118,45 @@ button.tierCta, button.priceNavCta {
   .lateList { margin-left: 0; margin-right: 0; }
   .lateRow { padding: 13px 0; }
 }
+
+/* ── A real screen ─────────────────────────────────────────────── */
+
+.appShot { margin: 0; width: 100%; max-width: 300px; }
+.appShotDevice {
+  position: relative;
+  padding: 10px;
+  border-radius: 48px;
+  background: linear-gradient(160deg, #2C3350 0%, #11152F 46%, #080B1C 100%);
+  box-shadow:
+    0 30px 72px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 1px rgba(255, 244, 228, 0.16);
+}
+.appShotImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 38px;
+}
+/* Says out loud that this one is not a drawing.
+   Tokens rather than an opacity: inherited ink at 46% measures 2.94:1 on
+   paper. --ink-faint is the value tuned to clear AA, with the night ground
+   swapping it the way --gold-text does. */
+.appShotCap {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.chapterNight .appShotCap,
+.finalCta .appShotCap,
+.siteFooter .appShotCap { color: var(--on-night-faint); }
+
+@media (max-width: 720px) {
+  .appShot { max-width: 250px; }
+}
+
+/* The privacy footnote, now that the section is centred. */
+.quietFoot { margin-top: 22px; }
