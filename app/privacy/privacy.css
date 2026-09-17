@@ -92,6 +92,36 @@
 .legalLink:hover {
   text-decoration: underline;
 }
+/* Sub-processor register table (added for the corrected policy revision;
+   inert until the updated privacy page ships). */
+.legalTableWrap {
+  margin: 0.9rem 0 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.legalTable {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 520px;
+  font-size: 14px;
+}
+.legalTable th,
+.legalTable td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.legalTable th {
+  background: var(--background-secondary, rgba(0, 0, 0, 0.03));
+  font-weight: 600;
+  color: var(--foreground);
+}
+.legalTable td {
+  color: var(--text-secondary);
+}
+
 .legalFooter {
   border-top: 1px solid var(--line);
   padding: 2rem 1.5rem;
