@@ -74,6 +74,18 @@ const nextConfig: NextConfig = {
         source: "/clip",
         destination: "https://backend-one-xi.vercel.app/clip",
       },
+      {
+        // Shared-list web preview — nearesttask.com/list/TOKEN renders the
+        // backend's server-side list page for recipients without the app.
+        source: "/list/:token",
+        destination: "https://backend-one-xi.vercel.app/list/:token",
+      },
+      {
+        // The preview page's inline JS posts funnel events + write-back to the
+        // public (token-as-capability) API via same-origin relative paths.
+        source: "/v1/public/list/:path*",
+        destination: "https://backend-one-xi.vercel.app/v1/public/list/:path*",
+      },
     ];
   },
 };
