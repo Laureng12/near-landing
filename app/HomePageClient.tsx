@@ -835,6 +835,74 @@ function BenefitIcon({ id }: { id: (typeof benefits)[number]["id"] }) {
   }
 }
 
+/* Each benefit card shows the moment it describes, as a small live scene.
+   Decorative (aria-hidden): the title and body carry the meaning. */
+function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
+  switch (id) {
+    case "lock":
+      return (
+        <div className="bsLock">
+          <div className="bsLockTime">5:12</div>
+          <div className="bsNotif">
+            <span className="bsNotifIcon"><BoopFace mood="smile" /></span>
+            <span className="bsNotifText">
+              <span className="bsNotifApp">BoopThere &middot; now</span>
+              <span className="bsNotifTitle">You&rsquo;re at Kroger</span>
+              <span className="bsNotifSub">Milk, eggs, coffee</span>
+            </span>
+          </div>
+        </div>
+      )
+    case "voice":
+      return (
+        <div className="bsVoice">
+          <div className="bsWave">
+            {[30, 56, 82, 48, 92, 64, 38, 74, 44, 60, 28].map((h, i) => (
+              <i key={i} style={{ height: h + "%", animationDelay: i * 90 + "ms" }} />
+            ))}
+          </div>
+          <div className="bsSaid">&ldquo;Milk at Harris Teeter&rdquo;</div>
+          <div className="bsFiled">
+            <span className="bsPin" />Filed under <b>Harris Teeter</b>
+          </div>
+        </div>
+      )
+    case "house":
+      return (
+        <div className="bsHouse">
+          <div className="bsRow bsRowDone">
+            <span className="bsCheck" />
+            <span className="bsItem">Eggs</span>
+            <span className="bsWho bsWhoB">Brian</span>
+          </div>
+          <div className="bsRow">
+            <span className="bsCheck bsCheckOpen" />
+            <span className="bsItem">Bananas</span>
+            <span className="bsWho bsWhoY">You</span>
+          </div>
+          <div className="bsToast">Brian got the eggs. Everyone sees it.</div>
+        </div>
+      )
+    case "passing":
+      return (
+        <div className="bsMap">
+          <svg viewBox="0 0 320 150" className="bsRoute" preserveAspectRatio="xMidYMid meet">
+            <path id="bsRoutePath" d="M14 128 C 90 120, 110 40, 190 52 S 290 40, 306 20" />
+            <circle className="bsCarDot" r="7">
+              <animateMotion dur="5s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.7;1" calcMode="linear">
+                <mpath href="#bsRoutePath" />
+              </animateMotion>
+            </circle>
+          </svg>
+          <span className="bsStore">
+            <span className="bsStoreDot" />Home Depot &middot; 0.2 mi
+          </span>
+          <span className="bsHome">Home</span>
+        </div>
+      )
+  }
+}
+
 function BenefitsSection() {
   return (
     <section className="chapter benefits" id="benefits" aria-labelledby="benefitsTitle">
@@ -850,9 +918,14 @@ function BenefitsSection() {
         <ul className="benefitGrid">
           {benefits.map((b) => (
             <li className={`benefitCard benefitCard--${b.id}`} key={b.id} data-stagger>
-              <span className="benefitIcon"><BenefitIcon id={b.id} /></span>
-              <h3 className="benefitTitle">{b.title}</h3>
-              <p className="benefitBody">{b.body}</p>
+              <div className="benefitScene" aria-hidden="true">
+                <BenefitScene id={b.id} />
+              </div>
+              <div className="benefitText">
+                <span className="benefitIcon"><BenefitIcon id={b.id} /></span>
+                <h3 className="benefitTitle">{b.title}</h3>
+                <p className="benefitBody">{b.body}</p>
+              </div>
             </li>
           ))}
         </ul>
