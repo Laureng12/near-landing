@@ -4361,7 +4361,7 @@ button.tierCta, button.priceNavCta {
 .boopBuddy {
   position: absolute;
   z-index: 4;
-  right: calc(100% + 18px);
+  right: calc(100% + 56px);
   bottom: 4%;
   width: 124px;
   padding: 0;
@@ -4460,7 +4460,7 @@ button.tierCta, button.priceNavCta {
 }
 @media (max-width: 860px) {
   /* Phones: Boop bounces under the phone, not on it. */
-  .heroStage { padding-bottom: 130px; }
+  .heroStage { padding-bottom: 170px; }
   .boopBuddy { right: auto; left: 50%; bottom: 20px; width: 92px; margin-left: -46px; }
   .boopBubble { font-size: .9rem; }
 }
@@ -4512,3 +4512,24 @@ button.tierCta, button.priceNavCta {
   100% { filter: hue-rotate(14deg) saturate(1.05); }
 }
 .finalMascot .finalBoopImg { display: block; }
+
+/* Boop's caption: says what is happening on the phone */
+.boopCaption {
+  display: block;
+  width: 172px;
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .98rem;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--ink);
+  animation: captionIn .45s var(--ease) both;
+}
+@keyframes captionIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (max-width: 860px) {
+  .boopCaption { width: 220px; font-size: .95rem; }
+}

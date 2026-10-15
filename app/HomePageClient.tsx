@@ -236,6 +236,16 @@ function Hero() {
    keyboard too. */
 
 
+/* What Boop narrates under himself. The first line is the moment the phone
+   shows; each tap replays the arrival and steps to the next beat. */
+const BOOP_CAPTIONS = [
+  "You just walked into Target.",
+  "Boop! Your list popped up.",
+  "Brian added the paper towels.",
+  "No app to open. It\u2019s just there.",
+  "Whoever gets there, gets the list.",
+] as const
+
 const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function BoopBuddy(
   { onBoop },
   ref
@@ -266,6 +276,9 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
         <BoopFace className="boopImg" mood={thrilled ? "excited" : hover ? "surprised" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
+      <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
+        {hover && hops === 0 ? "Tap me to see it again." : BOOP_CAPTIONS[hops % BOOP_CAPTIONS.length]}
+      </span>
     </button>
   )
 })
