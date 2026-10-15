@@ -332,7 +332,6 @@ export function FinalCTA() {
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
         <div className="finalMascot" aria-hidden="true">
-          <span className="finalBubble">Boop!</span>
 <BoopFace className="finalBoopImg" mood={inView ? undefined : "sleepy"} />
         </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">

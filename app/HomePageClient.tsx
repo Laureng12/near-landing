@@ -235,20 +235,11 @@ function Hero() {
    something, and replay the arrival. A real button, so it works by
    keyboard too. */
 
-const BOOP_LINES = [
-  "Boop! There it is.",
-  "You\u2019re at Target!",
-  "Brian added paper towels.",
-  "Got your list!",
-  "No app to open.",
-  "Boop!",
-] as const
 
 const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function BoopBuddy(
   { onBoop },
   ref
 ) {
-  const [line, setLine] = useState(0)
   const [hops, setHops] = useState(0)
   const [hover, setHover] = useState(false)
   const [thrilled, setThrilled] = useState(false)
@@ -264,7 +255,6 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}
       onClick={() => {
-        setLine((l) => (l + 1) % BOOP_LINES.length)
         setHops((h) => h + 1)
         setThrilled(true)
         clearTimeout(thrillT.current)
@@ -272,7 +262,6 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
         onBoop()
       }}
     >
-      <span className="boopBubble" key={`b${hops}`}>{hops === 0 ? "Tap me!" : BOOP_LINES[line]}</span>
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
         <BoopFace className="boopImg" mood={thrilled ? "excited" : hover ? "surprised" : undefined} />
       </span>
