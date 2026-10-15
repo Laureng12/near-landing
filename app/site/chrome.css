@@ -4361,9 +4361,9 @@ button.tierCta, button.priceNavCta {
 .boopBuddy {
   position: absolute;
   z-index: 4;
-  right: -46px;
-  top: calc(55% - 118px);
-  width: 112px;
+  right: calc(100% + 18px);
+  bottom: 4%;
+  width: 124px;
   padding: 0;
   border: 0;
   background: none;
@@ -4378,8 +4378,8 @@ button.tierCta, button.priceNavCta {
   display: block;
   width: 100%;
   transform-origin: 50% 100%;
-  animation: boopIdle 3.4s ease-in-out infinite;
-  filter: drop-shadow(0 12px 18px rgba(229, 103, 154, .38));
+  animation: boopBounce 1.6s cubic-bezier(.3,.7,.4,1) infinite;
+  filter: drop-shadow(0 12px 18px rgba(229, 103, 154, .32));
   transition: transform .3s cubic-bezier(.3,.7,.4,1.5);
 }
 .boopBody svg { display: block; width: 100%; height: auto; overflow: visible; }
@@ -4398,8 +4398,7 @@ button.tierCta, button.priceNavCta {
   background: #E5679A;
   padding: 6px 13px 7px;
   border-radius: 999px;
-  margin-bottom: 8px;
-  align-self: flex-end;
+  margin-bottom: 10px;
   box-shadow: 0 8px 20px rgba(229, 103, 154, .35);
   animation: bubbleIn .55s cubic-bezier(.3,.7,.4,1.5) both, bubbleBob 3.4s ease-in-out .6s infinite;
   transform-origin: 50% 100%;
@@ -4407,7 +4406,7 @@ button.tierCta, button.priceNavCta {
 .boopBubble::after {
   content: "";
   position: absolute;
-  right: 44px; bottom: -5px;
+  left: 50%; bottom: -5px; margin-left: -6px;
   width: 12px; height: 12px;
   background: inherit; border-radius: 2px;
   transform: rotate(45deg);
@@ -4438,7 +4437,28 @@ button.tierCta, button.priceNavCta {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-3px); }
 }
+.boopShadow {
+  width: 62%;
+  height: 12px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(27, 34, 87, .22), transparent);
+  animation: boopShadowBounce 1.6s cubic-bezier(.3,.7,.4,1) infinite;
+}
+.boopBuddy:hover .boopShadow { animation-play-state: paused; }
+@keyframes boopBounce {
+  0%, 100% { transform: translateY(0) scale(1.08, .92); }
+  12%      { transform: translateY(-6%) scale(.96, 1.05); }
+  50%      { transform: translateY(-34%) scale(1, 1); }
+  88%      { transform: translateY(-4%) scale(.98, 1.03); }
+}
+@keyframes boopShadowBounce {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(.55); opacity: .45; }
+}
 @media (max-width: 860px) {
-  .boopBuddy { right: -10px; width: 86px; top: 12%; }
+  /* Phones: Boop bounces under the phone, not on it. */
+  .heroStage { padding-bottom: 150px; }
+  .boopBuddy { right: auto; left: 50%; bottom: 0; width: 92px; margin-left: -46px; }
   .boopBubble { font-size: .9rem; }
 }

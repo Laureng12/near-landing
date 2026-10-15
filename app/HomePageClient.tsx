@@ -274,6 +274,7 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
           <path className="boopMouth" d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" />
         </svg>
       </span>
+      <span className="boopShadow" aria-hidden="true" />
     </button>
   )
 })
