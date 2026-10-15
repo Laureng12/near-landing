@@ -18,7 +18,7 @@ function HomeStructuredData() {
     },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/boopthere-og.png`,
+      url: `${SITE_URL}/boopthere-og.png?v=2`,
       width: 1200,
       height: 630,
     },

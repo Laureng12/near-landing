@@ -102,10 +102,10 @@ const mealNotes = [
 ]
 
 const ICON_VARIANTS = [
-  { name: "Dawn", src: "/assets/brand/boop/boop-icon-dawn-1024.png" },
-  { name: "Day", src: "/assets/brand/boop/boop-icon-day-1024.png" },
-  { name: "Dusk", src: "/assets/brand/boop/boop-icon-dusk-1024.png" },
-  { name: "Night", src: "/assets/brand/boop/boop-icon-night-1024.png" },
+  { name: "Dawn", src: "/assets/brand/boop/boop-icon-dawn-1024-v2.png" },
+  { name: "Day", src: "/assets/brand/boop/boop-icon-day-1024-v2.png" },
+  { name: "Dusk", src: "/assets/brand/boop/boop-icon-dusk-1024-v2.png" },
+  { name: "Night", src: "/assets/brand/boop/boop-icon-night-1024-v2.png" },
 ] as const
 
 /* The arrival this page's own example produces. The capture section hears

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/boopthere-og.png",
+        url: "/boopthere-og.png?v=2",
         width: 1200,
         height: 630,
         alt: "Everything BoopThere does - location reminders, shared lists and Meal Plan",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Everything BoopThere does | BoopThere",
     description:
       "Capture, placement, arrival - plus shared household lists, Meal Plan, Apple Watch and Siri. Everything BoopThere does, and nothing that asks you to organize it.",
-    images: ["/boopthere-og.png"],
+    images: ["/boopthere-og.png?v=2"],
   },
 }
 

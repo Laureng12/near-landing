@@ -178,8 +178,10 @@ function Hero() {
         const dy = posRef.current.y + hr.top - (br.top + br.height / 2)
         const d = Math.hypot(dx, dy) || 1
         const k = Math.min(1, d / 220)
-        b.style.setProperty("--ex", `${(dx / d) * 4.5 * k}px`)
-        b.style.setProperty("--ey", `${(dy / d) * 4 * k}px`)
+        /* He leans toward the cursor. */
+        b.style.setProperty("--ex", `${(dx / d) * 7 * k}px`)
+        b.style.setProperty("--ey", `${(dy / d) * 5 * k}px`)
+        b.style.setProperty("--tilt", `${(dx / d) * 9 * k}deg`)
       }
     })
   }
@@ -227,8 +229,8 @@ function Hero() {
 }
 
 /* ── Boop, live ─────────────────────────────────────────────────────
-   Sits on the arrival notification. Eyes follow the cursor (set by the
-   hero's mousemove), he squishes on hover, and a tap makes him jump, say
+   Bounces beside the phone. Leans toward the cursor (set by the hero's
+   mousemove), he squishes on hover, and a tap makes him jump, say
    something, and replay the arrival. A real button, so it works by
    keyboard too. */
 
@@ -262,17 +264,15 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
     >
       <span className="boopBubble" key={`b${hops}`}>{hops === 0 ? "Tap me!" : BOOP_LINES[line]}</span>
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <svg viewBox="0 0 160 160" aria-hidden="true">
-          <circle cx="80" cy="84" r="58" fill="#E5679A" />
-          <ellipse cx="60" cy="58" rx="13" ry="8" fill="#FAF6EF" opacity=".5" transform="rotate(-30 60 58)" />
-          <g className="boopEyes">
-            <circle cx="66" cy="82" r="6.5" fill="#1B2257" />
-            <circle cx="94" cy="82" r="6.5" fill="#1B2257" />
-          </g>
-          <ellipse className="boopCheek" cx="52" cy="98" rx="7" ry="4" fill="#F59BBE" />
-          <ellipse className="boopCheek" cx="108" cy="98" rx="7" ry="4" fill="#F59BBE" />
-          <path className="boopMouth" d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" />
-        </svg>
+        <Image
+          src="/assets/brand/boop/boop-512.png"
+          alt=""
+          width={512}
+          height={512}
+          className="boopImg"
+          sizes="(max-width: 860px) 92px, 124px"
+          priority
+        />
       </span>
       <span className="boopShadow" aria-hidden="true" />
     </button>

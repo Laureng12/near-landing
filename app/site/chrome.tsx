@@ -11,8 +11,8 @@ import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } fro
 import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
 
 export { APP_STORE_URL }
-export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256.png"
-export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark.png"
+export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v2.png"
+export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
 
 export function useReveal() {
   useEffect(() => {
@@ -241,7 +241,7 @@ export function TopNav({ home = false }: { home?: boolean }) {
     <header className={`nav ${lifted ? "navLifted" : ""}`}>
       <div className="navInner">
         <Link className="brand" href={home ? "#top" : "/"} aria-label="BoopThere, home">
-          <Image src={BRAND_WORDMARK} alt="BoopThere" className="brandLogo" width={1074} height={202} priority quality={100} />
+          <Image src={BRAND_WORDMARK} alt="BoopThere" className="brandLogo" width={1072} height={216} priority quality={100} />
         </Link>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href={at("#how-it-works")}>How it works</a>
@@ -284,7 +284,7 @@ export function FinalCTA() {
       <div className="reveal finalInner">
         <div className="finalMascot" aria-hidden="true">
           <span className="finalBubble">Boop!</span>
-          <svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="84" r="58" fill="#E5679A" /><ellipse cx="60" cy="58" rx="13" ry="8" fill="#FAF6EF" opacity=".5" transform="rotate(-30 60 58)" /><circle cx="66" cy="82" r="6.5" fill="#1B2257" /><circle cx="94" cy="82" r="6.5" fill="#1B2257" /><path d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" /></svg>
+<Image src="/assets/brand/boop/boop-256.png" alt="" width={96} height={96} className="finalBoopImg" />
         </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />
@@ -326,7 +326,7 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="footerTop">
         <div className="footerBrand">
-          <Image src="/assets/brand/boop/boopthere-wordmark-cream.png" alt="BoopThere" className="footerLogo" width={1074} height={202} />
+          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v2.png" alt="BoopThere" className="footerLogo" width={1072} height={216} />
           <p className="footerTag">Boop! There it is.</p>
         </div>
         <nav className="footerNav" aria-label="Footer">

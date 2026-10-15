@@ -8,7 +8,7 @@ import Link from "next/link"
 import { AppShot, DownloadCta } from "../site/chrome"
 import { featuresFor } from "../site/features"
 
-const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark.png"
+const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
 
 type Billing = "annual" | "monthly"
 
@@ -48,7 +48,7 @@ export default function PricingPage() {
         <nav className="priceNav">
           <div className="priceNavInner">
             <Link href="/" aria-label="BoopThere, home">
-              <Image src={BRAND_WORDMARK} alt="BoopThere" width={1074} height={202} className="priceNavLogo" />
+              <Image src={BRAND_WORDMARK} alt="BoopThere" width={1072} height={216} className="priceNavLogo" />
             </Link>
             <div className="priceNavLinks">
               <Link href="/#how-it-works" className="priceNavLink">How it works</Link>
