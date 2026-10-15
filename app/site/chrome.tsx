@@ -275,6 +275,55 @@ export function TopNav({ home = false }: { home?: boolean }) {
 
 /* ── Close ─────────────────────────────────────────────────────── */
 
+
+/* ── Boop, alive ─────────────────────────────────────────────────────
+   Five drawn faces stacked and swapped in place, so he blinks, winks, gasps
+   and sparkles without a video. `mood` overrides the face (hover, tap);
+   otherwise he idles on a smile with a blink every few seconds and the odd
+   wink. All timers stay off under prefers-reduced-motion. */
+
+export type BoopMood = "smile" | "sleepy" | "wink" | "surprised" | "excited"
+const BOOP_FACES: BoopMood[] = ["smile", "sleepy", "wink", "surprised", "excited"]
+
+export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?: string }) {
+  const [idle, setIdle] = useState<BoopMood>("smile")
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    let alive = true
+    let t: ReturnType<typeof setTimeout>
+    let n = 0
+    const loop = () => {
+      t = setTimeout(() => {
+        if (!alive) return
+        n += 1
+        const face: BoopMood = n % 4 === 0 ? "wink" : "sleepy"
+        setIdle(face)
+        t = setTimeout(() => {
+          if (!alive) return
+          setIdle("smile")
+          loop()
+        }, face === "wink" ? 900 : 150)
+      }, 2400 + Math.random() * 2600)
+    }
+    loop()
+    return () => { alive = false; clearTimeout(t) }
+  }, [])
+
+  const face = mood ?? idle
+  return (
+    <span className={`boopFace ${className}`} aria-hidden="true">
+      {BOOP_FACES.map((f) => (
+        /* Plain <img>: five tiny stacked frames that must swap instantly,
+           so they skip the optimizer and are all loaded up front. */
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={f} src={`/assets/brand/boop/boop-${f}.webp`} alt="" width={320} height={320} className={f === face ? "on" : ""} decoding="async" />
+      ))}
+    </span>
+  )
+}
+
 export function FinalCTA() {
   const [ref, inView] = useInView<HTMLDivElement>(0.4)
 
@@ -284,7 +333,7 @@ export function FinalCTA() {
       <div className="reveal finalInner">
         <div className="finalMascot" aria-hidden="true">
           <span className="finalBubble">Boop!</span>
-<Image src="/assets/brand/boop/boop-256.png" alt="" width={96} height={96} className="finalBoopImg" />
+<BoopFace className="finalBoopImg" mood={inView ? undefined : "sleepy"} />
         </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />

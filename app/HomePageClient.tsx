@@ -9,6 +9,7 @@ import { isLive } from "./site/features"
 import { faqItems } from "./site/faq"
 import {
   ArrivalPhone,
+  BoopFace,
   BRAND_ICON,
   DownloadCta,
   HouseholdPair,
@@ -249,6 +250,10 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
 ) {
   const [line, setLine] = useState(0)
   const [hops, setHops] = useState(0)
+  const [hover, setHover] = useState(false)
+  const [thrilled, setThrilled] = useState(false)
+  const thrillT = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  useEffect(() => () => clearTimeout(thrillT.current), [])
 
   return (
     <button
@@ -256,23 +261,20 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       type="button"
       className="boopBuddy"
       aria-label="Boop! Replay the arrival"
+      onPointerEnter={() => setHover(true)}
+      onPointerLeave={() => setHover(false)}
       onClick={() => {
         setLine((l) => (l + 1) % BOOP_LINES.length)
         setHops((h) => h + 1)
+        setThrilled(true)
+        clearTimeout(thrillT.current)
+        thrillT.current = setTimeout(() => setThrilled(false), 1700)
         onBoop()
       }}
     >
       <span className="boopBubble" key={`b${hops}`}>{hops === 0 ? "Tap me!" : BOOP_LINES[line]}</span>
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <Image
-          src="/assets/brand/boop/boop-512.png"
-          alt=""
-          width={512}
-          height={512}
-          className="boopImg"
-          sizes="(max-width: 860px) 92px, 124px"
-          priority
-        />
+        <BoopFace className="boopImg" mood={thrilled ? "excited" : hover ? "surprised" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
     </button>
