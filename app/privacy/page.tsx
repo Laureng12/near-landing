@@ -5,7 +5,7 @@ import "./privacy.css"
 import Link from "next/link"
 import Image from "next/image"
 
-const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
+const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
 
 export default function PrivacyPage() {
   return (
@@ -14,9 +14,9 @@ export default function PrivacyPage() {
         <Link href="/" className="legalLogo">
           <Image
             src={BRAND_WORDMARK}
-            alt="Near"
-            width={1185}
-            height={500}
+            alt="BoopThere"
+            width={1072}
+            height={216}
             className="legalLogoFull"
           />
         </Link>
@@ -30,10 +30,10 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Introduction</h2>
             <p>
-              Near is operated by Rise-X, Inc. (&quot;we,&quot; &quot;us,&quot; &quot;our,&quot; or &quot;the Company&quot;). Near is a location-based task reminder app for iPhone that surfaces errands, groceries, and household tasks automatically when you arrive at the places where they can be completed.
+              BoopThere is operated by Rise-X, Inc. (&quot;we,&quot; &quot;us,&quot; &quot;our,&quot; or &quot;the Company&quot;). BoopThere is a location-based task reminder app for iPhone that surfaces errands, groceries, and household tasks automatically when you arrive at the places where they can be completed.
             </p>
             <p>
-              This Privacy Policy explains what information Near collects, how it is used, how it may be shared, and the choices you have. Where consent is required, we ask for it separately in the app or through the relevant platform permission prompt.
+              This Privacy Policy explains what information BoopThere collects, how it is used, how it may be shared, and the choices you have. Where consent is required, we ask for it separately in the app or through the relevant platform permission prompt.
             </p>
           </section>
 
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
             <h3>Categories We Collect</h3>
             <ul>
               <li><strong>Identifiers</strong> such as phone number, user ID, Sign in with Apple token, display name, and push notification token.</li>
-              <li><strong>Geolocation data</strong> such as saved place coordinates and arrival or departure events at saved places. Near does not continuously transmit your live route to our servers.</li>
+              <li><strong>Geolocation data</strong> such as saved place coordinates and arrival or departure events at saved places. BoopThere does not continuously transmit your live route to our servers.</li>
               <li><strong>User content</strong> such as tasks, lists, notes, due dates, saved places, addresses, household membership, saved recipes, receipt contents you capture, pantry items, and photos you add.</li>
               <li><strong>Audio data</strong> when you use voice capture - the recorded audio is sent to our speech-to-text provider to transcribe what you said, and the resulting transcript is stored with your account.</li>
               <li><strong>Information you provide about other people</strong>, such as household members, gift recipients, or event guests (see &quot;Information About Other People&quot;).</li>
@@ -57,17 +57,17 @@ export default function PrivacyPage() {
 
             <h3>Purposes</h3>
             <p>
-              We use this information to provide location-based reminders, sync your account, support household sharing, deliver notifications, transcribe and understand what you capture, improve app quality, personalize the Near experience, provide optional integrations you choose to enable, prevent abuse, comply with legal obligations, and respond to support and privacy requests.
+              We use this information to provide location-based reminders, sync your account, support household sharing, deliver notifications, transcribe and understand what you capture, improve app quality, personalize the BoopThere experience, provide optional integrations you choose to enable, prevent abuse, comply with legal obligations, and respond to support and privacy requests.
             </p>
 
             <h3>Sensitive Personal Information</h3>
             <p>
-              Some information we handle may be considered sensitive under certain laws - in particular your <strong>precise geolocation</strong> and any <strong>dietary preferences or allergies</strong> you choose to add (which you may share with your household as a safety constraint). We use this information only to provide and improve the Near features you request, such as saved-place reminders, nearby task sorting, household arrival notifications you enable, meal and grocery suggestions, and related safety or debugging functions. We do not use sensitive personal information to infer characteristics unrelated to Near&apos;s services, and we do not use it for advertising.
+              Some information we handle may be considered sensitive under certain laws - in particular your <strong>precise geolocation</strong> and any <strong>dietary preferences or allergies</strong> you choose to add (which you may share with your household as a safety constraint). We use this information only to provide and improve the BoopThere features you request, such as saved-place reminders, nearby task sorting, household arrival notifications you enable, meal and grocery suggestions, and related safety or debugging functions. We do not use sensitive personal information to infer characteristics unrelated to BoopThere&apos;s services, and we do not use it for advertising.
             </p>
 
             <h3>Sale or Sharing</h3>
             <p>
-              Near does not sell personal information and does not share personal information for cross-context behavioral advertising. We also do not sell or share the personal information of users we know are under 16. If a future optional partner feature requires a use that is considered a &quot;sale&quot; or &quot;sharing&quot; under California law, we will provide notice and a way to opt out before that use begins.
+              BoopThere does not sell personal information and does not share personal information for cross-context behavioral advertising. We also do not sell or share the personal information of users we know are under 16. If a future optional partner feature requires a use that is considered a &quot;sale&quot; or &quot;sharing&quot; under California law, we will provide notice and a way to opt out before that use begins.
             </p>
           </section>
 
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
 
             <h3>Location Data</h3>
             <p>
-              Near uses your device&apos;s location services to detect when you arrive at or depart from saved places. This powers the core reminder experience. We collect:
+              BoopThere uses your device&apos;s location services to detect when you arrive at or depart from saved places. This powers the core reminder experience. We collect:
             </p>
             <ul>
               <li>
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p>
-              Near requests &quot;Always&quot; location permission so it can monitor geofences in the background. You can change this to &quot;When In Use&quot; or disable it entirely in iPhone Settings. The app will still function as a manual task list without location features.
+              BoopThere requests &quot;Always&quot; location permission so it can monitor geofences in the background. You can change this to &quot;When In Use&quot; or disable it entirely in iPhone Settings. The app will still function as a manual task list without location features.
             </p>
 
             <h3>Tasks, Places &amp; Household Data</h3>
@@ -126,7 +126,7 @@ export default function PrivacyPage() {
 
             <h3>Diagnostics</h3>
             <p>
-              To keep Near stable, we collect crash reports and basic performance data through our error-monitoring provider (Sentry). This diagnostic data is used only to detect and fix problems; it is not used to advertise to you and is not sold.
+              To keep BoopThere stable, we collect crash reports and basic performance data through our error-monitoring provider (Sentry). This diagnostic data is used only to detect and fix problems; it is not used to advertise to you and is not sold.
             </p>
 
             <h3>Device Information</h3>
@@ -141,14 +141,14 @@ export default function PrivacyPage() {
 
             <h3>Photos &amp; Images</h3>
             <p>
-              If you add a photo (for example, a meal photo, a saved-memory photo, or a receipt), the image is stored on our servers to provide that feature. Receipts are read on your device to extract text; when you ask Near to identify items from a photo of your pantry or fridge, that image is sent to our AI provider to answer your request and is not retained by that provider after processing. See &quot;Artificial Intelligence &amp; Automated Processing.&quot;
+              If you add a photo (for example, a meal photo, a saved-memory photo, or a receipt), the image is stored on our servers to provide that feature. Receipts are read on your device to extract text; when you ask BoopThere to identify items from a photo of your pantry or fridge, that image is sent to our AI provider to answer your request and is not retained by that provider after processing. See &quot;Artificial Intelligence &amp; Automated Processing.&quot;
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Artificial Intelligence &amp; Automated Processing</h2>
             <p>
-              Near uses artificial-intelligence services to understand what you capture and to power helpful features such as sorting an item onto the right list, suggesting recipes and meal plans, structuring receipts, and surfacing timely reminders. AI features are optional and are enabled through an in-app consent prompt; you can turn them off at any time in the app&apos;s settings, and you can type or enter information manually without them.
+              BoopThere uses artificial-intelligence services to understand what you capture and to power helpful features such as sorting an item onto the right list, suggesting recipes and meal plans, structuring receipts, and surfacing timely reminders. AI features are optional and are enabled through an in-app consent prompt; you can turn them off at any time in the app&apos;s settings, and you can type or enter information manually without them.
             </p>
             <p>
               When you use an AI-powered feature, the specific content needed for that request is sent to our AI providers to process it and returned to you. Depending on the feature, this may include:
@@ -159,19 +159,19 @@ export default function PrivacyPage() {
               <li>A household member&apos;s or a named person&apos;s first name and, for gift suggestions, your relationship to them and their interests</li>
               <li>Dietary preferences and allergies you have provided, so suggestions respect them</li>
               <li>A short summary of relevant calendar events (such as an event title and location) when you use calendar-aware suggestions</li>
-              <li>A photo of your pantry or fridge, only when you ask Near to identify items from it</li>
+              <li>A photo of your pantry or fridge, only when you ask BoopThere to identify items from it</li>
             </ul>
             <p>
               Our AI providers are <strong>Anthropic</strong> (Claude - the primary provider for classification, planning, and image understanding) and <strong>OpenAI</strong> (voice transcription and some recipe generation). We instruct these providers to process your data only to fulfill your request. <strong>Your data is not used to train their AI models.</strong> Provider retention of API data is governed by our agreements with them; we do not direct them to retain your content beyond what is needed to process a request.
             </p>
             <p>
-              Some AI processing is <strong>automated and periodic</strong> rather than triggered by a single tap - for example, when you have enabled calendar-aware suggestions, Near may periodically summarize upcoming calendar events to surface relevant reminders. This processing runs only for features you have enabled, and you can disable it in settings. Near does not make decisions that produce legal or similarly significant effects about you using automated processing alone.
+              Some AI processing is <strong>automated and periodic</strong> rather than triggered by a single tap - for example, when you have enabled calendar-aware suggestions, BoopThere may periodically summarize upcoming calendar events to surface relevant reminders. This processing runs only for features you have enabled, and you can disable it in settings. BoopThere does not make decisions that produce legal or similarly significant effects about you using automated processing alone.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>How We Use Your Information</h2>
-            <p>Near uses the information described above to:</p>
+            <p>BoopThere uses the information described above to:</p>
             <ul>
               <li>Deliver location-triggered task reminders when you arrive at saved places</li>
               <li>Sync your tasks and places across sessions</li>
@@ -188,7 +188,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Personalization</h2>
             <p>
-              Near uses your usage patterns, location history, task behavior, and preferences to personalize the app experience. This includes tailoring suggestions for tasks, places, trip timing, and in-app content. Personalization is designed to make the app more useful to you over time and is not used for third-party advertising.
+              BoopThere uses your usage patterns, location history, task behavior, and preferences to personalize the app experience. This includes tailoring suggestions for tasks, places, trip timing, and in-app content. Personalization is designed to make the app more useful to you over time and is not used for third-party advertising.
             </p>
             <p>
               You can reset personalization data by contacting us at{" "}
@@ -199,7 +199,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Information About Other People</h2>
             <p>
-              Near lets you add information about other people so the app can help you coordinate - for example, household members you invite, a person you&apos;re buying a gift for (their name, your relationship, and their interests), or guests you add when planning an event. Some of this may include details such as a person&apos;s dietary needs.
+              BoopThere lets you add information about other people so the app can help you coordinate - for example, household members you invite, a person you&apos;re buying a gift for (their name, your relationship, and their interests), or guests you add when planning an event. Some of this may include details such as a person&apos;s dietary needs.
             </p>
             <p>
               When you provide information about another person, you are responsible for ensuring you have the right to share it with us for these purposes. We use it only to provide the feature you requested (for example, generating gift ideas or planning a meal that fits a guest&apos;s needs). If you or the other person would like that information corrected or removed, contact us at{" "}
@@ -210,7 +210,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Retail &amp; Grocery Partners</h2>
             <p>
-              Near may partner with retail and grocery providers to enhance your shopping experience. Partner integrations are optional. If you opt in to a retail partner integration (such as Kroger), we may:
+              BoopThere may partner with retail and grocery providers to enhance your shopping experience. Partner integrations are optional. If you opt in to a retail partner integration (such as Kroger), we may:
             </p>
             <ul>
               <li>Share the information needed to operate the integration, such as selected grocery items, linked-account identifiers, task categories, shopping frequency, and place visit patterns</li>
@@ -220,7 +220,7 @@ export default function PrivacyPage() {
               <strong>We will always obtain your explicit consent before sharing personal information with any retail or grocery partner.</strong> We do not share your real-time location route with retail or grocery partners. You can disconnect from any partner integration at any time from your profile settings.
             </p>
             <p>
-              We may also share aggregated, de-identified data with partners that cannot reasonably be used to identify you individually. Before any such data leaves Near, we de-identify it and suppress small groups so that it does not identify an individual household or person.
+              We may also share aggregated, de-identified data with partners that cannot reasonably be used to identify you individually. Before any such data leaves BoopThere, we de-identify it and suppress small groups so that it does not identify an individual household or person.
             </p>
           </section>
 
@@ -246,7 +246,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Service Providers &amp; Sub-processors</h2>
             <p>
-              We use trusted third parties to operate Near. We require them to protect personal information and to use it only to provide services to us. We do not include third-party advertising frameworks or tracking pixels, and we do not share your data with advertising networks or data brokers. The providers that may process personal information on our behalf are:
+              We use trusted third parties to operate BoopThere. We require them to protect personal information and to use it only to provide services to us. We do not include third-party advertising frameworks or tracking pixels, and we do not share your data with advertising networks or data brokers. The providers that may process personal information on our behalf are:
             </p>
             <div className="legalTableWrap">
               <table className="legalTable">
@@ -272,14 +272,14 @@ export default function PrivacyPage() {
               </table>
             </div>
             <p>
-              This list may change as Near evolves; we will update this policy to reflect material changes to our service providers.
+              This list may change as BoopThere evolves; we will update this policy to reflect material changes to our service providers.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Cookies, Consent &amp; Website Analytics</h2>
             <p>
-              Our website (nearesttask.com) does not use advertising cookies, tracking pixels, session-replay tools, or third-party analytics by default. We do not load any third-party tracker when you simply visit the site. Web fonts are served from our own servers, so loading a page does not send your information to a font or content-delivery network.
+              Our website (boopthere.com) does not use advertising cookies, tracking pixels, session-replay tools, or third-party analytics by default. We do not load any third-party tracker when you simply visit the site. Web fonts are served from our own servers, so loading a page does not send your information to a font or content-delivery network.
             </p>
             <p>
               The only thing we store in your browser is a small record of your cookie-consent choice, kept in your browser&apos;s local storage so we don&apos;t ask again. This is strictly necessary for the consent feature itself and is not used to identify or track you.
@@ -299,7 +299,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>International Data Transfers</h2>
             <p>
-              Near is operated from the United States. If you are accessing the app from outside the United States, including from Canada or Australia, please be aware that your information will be transferred to, stored, and processed in the United States, where our servers are located. By using Near, you consent to the transfer of your information to the United States and acknowledge that data protection laws in the United States may differ from those in your country of residence.
+              BoopThere is operated from the United States. If you are accessing the app from outside the United States, including from Canada or Australia, please be aware that your information will be transferred to, stored, and processed in the United States, where our servers are located. By using BoopThere, you consent to the transfer of your information to the United States and acknowledge that data protection laws in the United States may differ from those in your country of residence.
             </p>
             <p>
               We take reasonable steps to ensure that your information receives an adequate level of protection in the jurisdictions in which we process it, including through the use of encryption, access controls, and contractual obligations with service providers.
@@ -315,7 +315,7 @@ export default function PrivacyPage() {
               Task and place data is also cached locally on your device for offline access and shared with app extensions (widget, watch app, share extension) via a secure App Group container.
             </p>
             <p>
-              We use reasonable administrative, technical, and organizational safeguards designed to protect personal information, including access controls, encrypted transport, and platform permission controls, and we limit access to personnel or service providers who need the information to operate Near. No internet or mobile service can be guaranteed completely secure, so please use a strong device passcode and protect access to your account.
+              We use reasonable administrative, technical, and organizational safeguards designed to protect personal information, including access controls, encrypted transport, and platform permission controls, and we limit access to personnel or service providers who need the information to operate BoopThere. No internet or mobile service can be guaranteed completely secure, so please use a strong device passcode and protect access to your account.
             </p>
           </section>
 
@@ -379,10 +379,10 @@ export default function PrivacyPage() {
                 <strong>Opt out of personalization</strong> - contact us to reset personalization data
               </li>
               <li>
-                <strong>Opt out of sale or sharing</strong> - Near does not currently sell personal information or share it for cross-context behavioral advertising, but you may contact us with any opt-out request
+                <strong>Opt out of sale or sharing</strong> - BoopThere does not currently sell personal information or share it for cross-context behavioral advertising, but you may contact us with any opt-out request
               </li>
               <li>
-                <strong>Limit sensitive personal information</strong> - we use sensitive personal information only to provide and improve Near&apos;s requested services, and you can reduce location collection by changing location permissions in iPhone Settings
+                <strong>Limit sensitive personal information</strong> - we use sensitive personal information only to provide and improve BoopThere&apos;s requested services, and you can reduce location collection by changing location permissions in iPhone Settings
               </li>
             </ul>
 
@@ -401,10 +401,10 @@ export default function PrivacyPage() {
                 <strong>Right to Correct:</strong> correction of inaccurate personal information.
               </li>
               <li>
-                <strong>Right to Opt Out of Sale or Sharing:</strong> Near does not sell personal information or share it for cross-context behavioral advertising. If that changes, we will provide legally required notice and an opt-out method before the sale or sharing begins.
+                <strong>Right to Opt Out of Sale or Sharing:</strong> BoopThere does not sell personal information or share it for cross-context behavioral advertising. If that changes, we will provide legally required notice and an opt-out method before the sale or sharing begins.
               </li>
               <li>
-                <strong>Right to Limit Use of Sensitive Personal Information:</strong> we use sensitive personal information, such as precise geolocation and dietary/allergy preferences you provide, only to provide and improve Near&apos;s requested services and for other purposes permitted by law. We do not use it for advertising or to infer unrelated characteristics.
+                <strong>Right to Limit Use of Sensitive Personal Information:</strong> we use sensitive personal information, such as precise geolocation and dietary/allergy preferences you provide, only to provide and improve BoopThere&apos;s requested services and for other purposes permitted by law. We do not use it for advertising or to infer unrelated characteristics.
               </li>
               <li>
                 <strong>Right to Non-Discrimination:</strong> we will not discriminate against you for exercising your CCPA rights.
@@ -438,7 +438,7 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p>
-              We limit the collection of personal information to what is necessary for the purposes identified in this policy. We retain personal information only as long as necessary to fulfill those purposes, subject to any legal requirements. Personal information collected from Canadian users is transferred to and stored in the United States. By using Near, you consent to this transfer. We protect your information using the security measures described in this policy.
+              We limit the collection of personal information to what is necessary for the purposes identified in this policy. We retain personal information only as long as necessary to fulfill those purposes, subject to any legal requirements. Personal information collected from Canadian users is transferred to and stored in the United States. By using BoopThere, you consent to this transfer. We protect your information using the security measures described in this policy.
             </p>
 
             <h3>Australian Residents (Privacy Act 1988)</h3>
@@ -460,7 +460,7 @@ export default function PrivacyPage() {
                 <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
               </li>
               <li>
-                <strong>Cross-Border Disclosure:</strong> your personal information is transferred to and stored in the United States, and is disclosed to the overseas service providers listed in &quot;Service Providers &amp; Sub-processors.&quot; Before disclosing personal information to an overseas recipient, we take reasonable steps to ensure the recipient handles your information consistently with the APPs. By using Near, you consent to this cross-border transfer.
+                <strong>Cross-Border Disclosure:</strong> your personal information is transferred to and stored in the United States, and is disclosed to the overseas service providers listed in &quot;Service Providers &amp; Sub-processors.&quot; Before disclosing personal information to an overseas recipient, we take reasonable steps to ensure the recipient handles your information consistently with the APPs. By using BoopThere, you consent to this cross-border transfer.
               </li>
               <li>
                 <strong>Data Breach Notification:</strong> in the event of an eligible data breach likely to result in serious harm, we will notify you and the Office of the Australian Information Commissioner (OAIC) as required under the Notifiable Data Breaches scheme.
@@ -476,21 +476,21 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Children&apos;s Privacy</h2>
             <p>
-              Near is not directed to children under the age of 13, and we do not knowingly collect personal information directly from children under 13. Near is intended to be used by adults who manage a household. If an adult adds tasks, places, or information relating to a child as part of managing their household, the adult is responsible for that information and should provide only what is necessary. If you believe a child under 13 has provided personal information to us directly, please contact us so we can take appropriate action. Consistent with the &quot;Sale or Sharing&quot; section, we do not sell or share the personal information of users we know are under 16.
+              BoopThere is not directed to children under the age of 13, and we do not knowingly collect personal information directly from children under 13. BoopThere is intended to be used by adults who manage a household. If an adult adds tasks, places, or information relating to a child as part of managing their household, the adult is responsible for that information and should provide only what is necessary. If you believe a child under 13 has provided personal information to us directly, please contact us so we can take appropriate action. Consistent with the &quot;Sale or Sharing&quot; section, we do not sell or share the personal information of users we know are under 16.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Changes to This Policy</h2>
             <p>
-              We may update this Privacy Policy from time to time. If we make material changes, we will notify you through the app or by updating the &quot;Last updated&quot; date at the top of this page. Your continued use of Near after changes are posted constitutes acceptance of the updated policy.
+              We may update this Privacy Policy from time to time. If we make material changes, we will notify you through the app or by updating the &quot;Last updated&quot; date at the top of this page. Your continued use of BoopThere after changes are posted constitutes acceptance of the updated policy.
             </p>
           </section>
 
           <section className="legalSection">
             <h2>Contact</h2>
             <p>
-              If you have questions about this Privacy Policy or how Near handles your data, please contact us at:
+              If you have questions about this Privacy Policy or how BoopThere handles your data, please contact us at:
             </p>
             <p>
               <a href="mailto:hello@nearesttask.com" className="legalLink">
@@ -504,7 +504,7 @@ export default function PrivacyPage() {
 
       <footer className="legalFooter">
         <div className="legalFooterInner">
-          <span className="legalFooterCopy">Near &copy; 2026 Rise-X, Inc. All rights reserved.</span>
+          <span className="legalFooterCopy">BoopThere &copy; 2026 Rise-X, Inc. All rights reserved.</span>
           <nav className="legalFooterLinks">
             <Link href="/terms" className="legalFooterLink">
               Terms &amp; Conditions

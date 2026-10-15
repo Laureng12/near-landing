@@ -2,13 +2,14 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
+import { forwardRef, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 import { APP_IS_LIVE } from "./site/launch"
 import { isLive } from "./site/features"
 import { faqItems } from "./site/faq"
 import {
   ArrivalPhone,
+  BoopFace,
   BRAND_ICON,
   DownloadCta,
   HouseholdPair,
@@ -94,7 +95,9 @@ export default function HomePageClient() {
     <main className="page">
       <TopNav home />
       <Hero />
+      <PlacesTicker />
       <ProofLine />
+      <BenefitsSection />
       <ProblemSection />
       <ProductDemo />
       <HouseholdChapter />
@@ -147,6 +150,12 @@ function Hero() {
     return () => { io.disconnect(); if (t) clearTimeout(t) }
   }, [])
 
+  const boopRef = useRef<HTMLButtonElement>(null)
+  const replayArrival = () => {
+    setReplaying(false)
+    window.setTimeout(() => setReplaying(true), 60)
+  }
+
   const posRef = useRef({ x: 0, y: 0 })
   const rafRef = useRef<number | null>(null)
   const onHeroMove = (e: ReactMouseEvent<HTMLElement>) => {
@@ -161,6 +170,20 @@ function Hero() {
       if (!el2) return
       el2.style.setProperty("--cx", `${posRef.current.x}px`)
       el2.style.setProperty("--cy", `${posRef.current.y}px`)
+      /* Boop's eyes follow the cursor. */
+      const b = boopRef.current
+      if (b) {
+        const br = b.getBoundingClientRect()
+        const hr = el2.getBoundingClientRect()
+        const dx = posRef.current.x + hr.left - (br.left + br.width / 2)
+        const dy = posRef.current.y + hr.top - (br.top + br.height / 2)
+        const d = Math.hypot(dx, dy) || 1
+        const k = Math.min(1, d / 220)
+        /* He leans toward the cursor. */
+        b.style.setProperty("--ex", `${(dx / d) * 7 * k}px`)
+        b.style.setProperty("--ey", `${(dy / d) * 5 * k}px`)
+        b.style.setProperty("--tilt", `${(dx / d) * 9 * k}deg`)
+      }
     })
   }
   useEffect(() => () => { if (rafRef.current != null) cancelAnimationFrame(rafRef.current) }, [])
@@ -172,16 +195,17 @@ function Hero() {
       <div className="heroInner">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Never Forget
+            Walk into the store.
             <br />
-            <em>Anything Again.</em>
+            <span className="heroBoopWord">Boop!</span> <em>There it is.</em>
           </h1>
           <p className="heroLead">
-            Add what you need and where you need it. Near reminds you on your
-            Lock Screen when you arrive.
+            Say it once. The second you walk in, your list pops onto your Lock
+            Screen, with everything your household added too. No app to open.
+            No second trip.
           </p>
           <div className="heroCtas">
-            <DownloadCta className="btnPrimary" source="hero">Download Near</DownloadCta>
+            <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
             <a className="btnGhost" href="#demo">Watch it work</a>
           </div>
           <p className="heroMicro">
@@ -191,24 +215,80 @@ function Hero() {
           </p>
         </div>
         <div className="heroPhone">
-          <div className={`arrivalRipple ${replaying ? "rippleOn" : ""}`} aria-hidden="true">
+          <div className={`arrivalRipple rippleLoop ${replaying ? "rippleOn" : ""}`} aria-hidden="true">
             <span /><span /><span />
           </div>
-          <PhoneMockup phase={1} arrived={replaying} />
+          <div className="heroStage">
+            <PhoneMockup phase={1} arrived={replaying} />
+            <BoopBuddy ref={boopRef} onBoop={replayArrival} />
+          </div>
+
         </div>
       </div>
     </section>
   )
 }
 
+/* ── Boop, live ─────────────────────────────────────────────────────
+   Bounces beside the phone. Leans toward the cursor (set by the hero's
+   mousemove), he squishes on hover, and a tap makes him jump, say
+   something, and replay the arrival. A real button, so it works by
+   keyboard too. */
+
+const BOOP_LINES = [
+  "Boop! There it is.",
+  "You\u2019re at Target!",
+  "Brian added paper towels.",
+  "Got your list!",
+  "No app to open.",
+  "Boop!",
+] as const
+
+const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function BoopBuddy(
+  { onBoop },
+  ref
+) {
+  const [line, setLine] = useState(0)
+  const [hops, setHops] = useState(0)
+  const [hover, setHover] = useState(false)
+  const [thrilled, setThrilled] = useState(false)
+  const thrillT = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  useEffect(() => () => clearTimeout(thrillT.current), [])
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      className="boopBuddy"
+      aria-label="Boop! Replay the arrival"
+      onPointerEnter={() => setHover(true)}
+      onPointerLeave={() => setHover(false)}
+      onClick={() => {
+        setLine((l) => (l + 1) % BOOP_LINES.length)
+        setHops((h) => h + 1)
+        setThrilled(true)
+        clearTimeout(thrillT.current)
+        thrillT.current = setTimeout(() => setThrilled(false), 1700)
+        onBoop()
+      }}
+    >
+      <span className="boopBubble" key={`b${hops}`}>{hops === 0 ? "Tap me!" : BOOP_LINES[line]}</span>
+      <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
+        <BoopFace className="boopImg" mood={thrilled ? "excited" : hover ? "surprised" : undefined} />
+      </span>
+      <span className="boopShadow" aria-hidden="true" />
+    </button>
+  )
+})
+
 /* Which tab is active per phase: 0=Home, 1=lock+notif, 2=Places, 3=lock+notif */
 const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
 
 const notifData = [
   null, // home screen
-  { title: "Near", body: "You’re near Target - 1 item on your list" },
+  { title: "BoopThere", body: "You’re near Target - 1 item on your list" },
   null, // places screen
-  { title: "Near", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
+  { title: "BoopThere", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
   null, // household screen
 ]
 
@@ -558,21 +638,20 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
                 className="lockNotifIcon"
               />
               <div className="lockProximityTitleArea">
-                <div className="lockProximityLabel">NEAR</div>
+                <div className="lockProximityLabel">BOOPTHERE</div>
                 <div className="lockProximityTitle">You’re at Target</div>
-                <div className="lockProximitySub">2 things you needed</div>
+                <div className="lockProximitySub">2 things for the house</div>
               </div>
             </div>
             <div className="lockTaskList">
               <div className="lockTaskItem lockTaskItem1">
                 <div className="lockTaskCheck" />
                 <span className="lockTaskText">Diapers</span>
-                <span className="lockTaskPriority lockTaskPriorityOrange" />
               </div>
               <div className="lockTaskItem lockTaskItem2">
                 <div className="lockTaskCheck" />
                 <span className="lockTaskText">Paper towels</span>
-                <span className="lockTaskPriority lockTaskPriorityRed" />
+                <span className="lockTaskFrom">from Brian</span>
               </div>
             </div>
             <div className="lockProximityShimmer" />
@@ -660,12 +739,125 @@ function ProofLine() {
           &ldquo;The first app that remembers the errand for me.
           I just show up, and it&rsquo;s there.&rdquo;
         </blockquote>
-        <cite className="proofName">Lindsay &middot; Near on iPhone</cite>
+        <cite className="proofName">Lindsay &middot; BoopThere on iPhone</cite>
       </div>
     </section>
   )
 }
 
+
+/* ── Places ticker ────────────────────────────────────────────────
+   A band of everyday places, each one getting its Boop. Pure decoration,
+   so it is aria-hidden; the list is doubled so the loop is seamless. */
+
+const tickerPlaces = [
+  "Kroger", "Target", "Walgreens", "Home Depot", "Trader Joe\u2019s",
+  "the UPS Store", "Costco", "CVS", "the dry cleaner", "Publix", "home",
+] as const
+
+function PlacesTicker() {
+  const row = [...tickerPlaces, ...tickerPlaces]
+  return (
+    <div className="ticker" aria-hidden="true">
+      <div className="tickerTrack">
+        {row.map((p, i) => (
+          <span className="tickerItem" key={i}>
+            <span className="tickerBoop">Boop!</span> at {p}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* ── What changes ──────────────────────────────────────────────────
+   The four benefits, in the order a visitor feels them. Every line maps to a
+   `live` row in app/site/features.ts: lock-screen, voice-capture,
+   household-sharing, passing-by. Nothing here is a promise the app can't keep. */
+
+const benefits = [
+  {
+    id: "lock",
+    title: "Nothing to open!",
+    body: "Your list is on your Lock Screen the moment you walk in. You never have to go looking for it.",
+  },
+  {
+    id: "voice",
+    title: "Say it once.",
+    body: "\u201cMilk at Harris Teeter.\u201d Speak it or type it, and Boop files it under the right place.",
+  },
+  {
+    id: "house",
+    title: "Whoever gets there, gets it.",
+    body: "One shared list for the household. Check something off and everyone sees it\u2019s done. No \u201cdid you remember?\u201d texts.",
+  },
+  {
+    id: "passing",
+    title: "It catches you passing by.",
+    body: "Driving past the hardware store counts. Boop speaks up before you\u2019re home again.",
+  },
+] as const
+
+function BenefitIcon({ id }: { id: (typeof benefits)[number]["id"] }) {
+  const p = { fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const }
+  switch (id) {
+    case "lock":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="6" y="2.5" width="12" height="19" rx="3" {...p} />
+          <path d="M9 11.5h6M9 14.5h4" {...p} />
+        </svg>
+      )
+    case "voice":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="3" width="6" height="11" rx="3" {...p} />
+          <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" {...p} />
+        </svg>
+      )
+    case "house":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="8.5" cy="9" r="3" {...p} />
+          <circle cx="16" cy="9.5" r="2.5" {...p} />
+          <path d="M3.5 19a5 5 0 0 1 10 0M13.5 17.5a4 4 0 0 1 7 1.5" {...p} />
+        </svg>
+      )
+    case "passing":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21s6-5 6-10a6 6 0 1 0-12 0c0 5 6 10 6 10Z" {...p} />
+          <circle cx="12" cy="11" r="2" {...p} />
+        </svg>
+      )
+  }
+}
+
+function BenefitsSection() {
+  return (
+    <section className="chapter benefits" id="benefits" aria-labelledby="benefitsTitle">
+      <div className="reveal shell">
+        <div className="centeredHead">
+          <p className="eyebrow">What changes</p>
+          <h2 className="h2 h2Center" id="benefitsTitle">
+            Your list finds you.
+            <br />
+            <em>You just show up.</em>
+          </h2>
+        </div>
+        <ul className="benefitGrid">
+          {benefits.map((b) => (
+            <li className={`benefitCard benefitCard--${b.id}`} key={b.id} data-stagger>
+              <span className="benefitIcon"><BenefitIcon id={b.id} /></span>
+              <h3 className="benefitTitle">{b.title}</h3>
+              <p className="benefitBody">{b.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
 
 /* ── The problem ────────────────────────────────────────────────────
 
@@ -673,7 +865,7 @@ function ProofLine() {
    three-step section saying the same thing in words. The demo won, and the
    space the three steps were taking goes here instead.
 
-   The pain Near removes is not a badly organised list. It is remembering at
+   The pain BoopThere removes is not a badly organised list. It is remembering at
    the wrong moment, which is a thing everyone has done this week. */
 
 const tooLate = [
@@ -701,7 +893,7 @@ function ProblemSection() {
           ))}
         </ul>
         <p className="lead leadCenter lateTurn">
-          Near brings up what you saved when you reach the place you need it.
+          BoopThere brings up what you saved when you reach the place you need it.
         </p>
       </div>
     </section>
@@ -728,12 +920,12 @@ function HouseholdChapter() {
               gets them; tasks are fetched where:{householdId}, so a check-off
               is one row everyone sees.
 
-              "Your partner" narrowed this to couples. Near is for roommates
+              "Your partner" narrowed this to couples. BoopThere is for roommates
               and families too, and "whoever gets there" is also the accurate
-              description - Near does not pick a person, it answers an arrival.
+              description - BoopThere does not pick a person, it answers an arrival.
               Same words as the FAQ now. */}
           <p className="lead">
-            You add milk at home. Whoever gets to the store is the one Near
+            You add milk at home. Whoever gets to the store is the one BoopThere
             reminds. When they check it off, everyone sees it is done.
           </p>
           <p className="caption">
@@ -860,7 +1052,7 @@ const DEMO_BEATS = [
   {
     id: "place",
     label: "Check the place",
-    caption: "Near attaches it to Harris Teeter. Change it if that is the wrong store.",
+    caption: "BoopThere attaches it to Harris Teeter. Change it if that is the wrong store.",
     hold: 2600,
   },
   {
@@ -930,7 +1122,7 @@ function ProductDemo() {
           <p className="eyebrow">Watch it work</p>
           <h2 className="h2 h2Center">The milk shouldn&rsquo;t need a second trip.</h2>
           <p className="lead leadCenter demoLead">
-            Add &ldquo;Milk at Harris Teeter.&rdquo; Near connects it to a store, and you
+            Add &ldquo;Milk at Harris Teeter.&rdquo; BoopThere connects it to a store, and you
             can change the place if it picked the wrong one. When you arrive,
             your reminder is on your Lock Screen.
           </p>
@@ -993,7 +1185,7 @@ function ProductDemo() {
                       <Image src={BRAND_ICON} alt="" width={26} height={26} />
                     </div>
                     <div className="dmNotifBody">
-                      <div className="dmNotifLabel">Near &middot; now</div>
+                      <div className="dmNotifLabel">BoopThere &middot; now</div>
                       <div className="dmNotifTitle">You&rsquo;re at Harris Teeter</div>
                       <div className="dmNotifSub">Milk</div>
                     </div>
@@ -1070,7 +1262,7 @@ function QuietSection() {
         <p className="lead leadCenter">
           Your live route never leaves your iPhone. What syncs is what makes a
           reminder work: your places, your tasks, and the arrivals that fire
-          them. Near sells none of it, and never uses it for ads.
+          them. BoopThere sells none of it, and never uses it for ads.
         </p>
         <div className="pillRow">
           {pledges.map((p) => (
@@ -1082,7 +1274,7 @@ function QuietSection() {
         <p className="caption quietFoot">
           Delete everything, any time.{" "}
           <Link href="/privacy" className="quietLink">
-            How Near uses your data
+            How BoopThere uses your data
           </Link>
         </p>
       </div>

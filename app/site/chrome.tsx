@@ -11,8 +11,8 @@ import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } fro
 import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
 
 export { APP_STORE_URL }
-export const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
-export const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
+export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v2.png"
+export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
 
 export function useReveal() {
   useEffect(() => {
@@ -165,7 +165,7 @@ export function NotifyDialog() {
         className={`notifyCard ${open ? "notifyOpen" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Be first to know when Near launches"
+        aria-label="Be first to know when BoopThere launches"
         inert={!open}
       >
         <button type="button" className="notifyClose" onClick={() => setOpen(false)} aria-label="Close">
@@ -179,7 +179,7 @@ export function NotifyDialog() {
             <h2 className="notifyTitle">
               You&rsquo;re on the list.
             </h2>
-            <p className="notifyLead">{message} We&rsquo;ll let you know when Near is ready, and never for anything else.</p>
+            <p className="notifyLead">{message} We&rsquo;ll let you know when BoopThere is ready, and never for anything else.</p>
           </>
         ) : (
           <>
@@ -187,7 +187,7 @@ export function NotifyDialog() {
               Be first to know.
             </h2>
             <p className="notifyLead">
-              We&rsquo;ll email you when Near is available for iPhone, and never
+              We&rsquo;ll email you when BoopThere is available for iPhone, and never
               for anything else.
             </p>
             <form className="notifyForm" onSubmit={submit}>
@@ -240,8 +240,8 @@ export function TopNav({ home = false }: { home?: boolean }) {
   return (
     <header className={`nav ${lifted ? "navLifted" : ""}`}>
       <div className="navInner">
-        <Link className="brand" href={home ? "#top" : "/"} aria-label="Near, home">
-          <Image src={BRAND_WORDMARK} alt="Near" className="brandLogo" width={1185} height={500} priority quality={100} />
+        <Link className="brand" href={home ? "#top" : "/"} aria-label="BoopThere, home">
+          <Image src={BRAND_WORDMARK} alt="BoopThere" className="brandLogo" width={1072} height={216} priority quality={100} />
         </Link>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href={at("#how-it-works")}>How it works</a>
@@ -267,13 +267,62 @@ export function TopNav({ home = false }: { home?: boolean }) {
         <a className="mobileMenuLink" href={at("#household")} onClick={() => setOpen(false)}>For households</a>
         <Link className="mobileMenuLink" href="/features" onClick={() => setOpen(false)}>Features</Link>
         <Link className="mobileMenuLink" href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
-        <DownloadCta className="mobileMenuCta" source="mobile-nav">Download Near</DownloadCta>
+        <DownloadCta className="mobileMenuCta" source="mobile-nav">Download BoopThere</DownloadCta>
       </div>
     </header>
   )
 }
 
 /* ── Close ─────────────────────────────────────────────────────── */
+
+
+/* ── Boop, alive ─────────────────────────────────────────────────────
+   Five drawn faces stacked and swapped in place, so he blinks, winks, gasps
+   and sparkles without a video. `mood` overrides the face (hover, tap);
+   otherwise he idles on a smile with a blink every few seconds and the odd
+   wink. All timers stay off under prefers-reduced-motion. */
+
+export type BoopMood = "smile" | "sleepy" | "wink" | "surprised" | "excited"
+const BOOP_FACES: BoopMood[] = ["smile", "sleepy", "wink", "surprised", "excited"]
+
+export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?: string }) {
+  const [idle, setIdle] = useState<BoopMood>("smile")
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    let alive = true
+    let t: ReturnType<typeof setTimeout>
+    let n = 0
+    const loop = () => {
+      t = setTimeout(() => {
+        if (!alive) return
+        n += 1
+        const face: BoopMood = n % 4 === 0 ? "wink" : "sleepy"
+        setIdle(face)
+        t = setTimeout(() => {
+          if (!alive) return
+          setIdle("smile")
+          loop()
+        }, face === "wink" ? 900 : 150)
+      }, 2400 + Math.random() * 2600)
+    }
+    loop()
+    return () => { alive = false; clearTimeout(t) }
+  }, [])
+
+  const face = mood ?? idle
+  return (
+    <span className={`boopFace ${className}`} aria-hidden="true">
+      {BOOP_FACES.map((f) => (
+        /* Plain <img>: five tiny stacked frames that must swap instantly,
+           so they skip the optimizer and are all loaded up front. */
+        // eslint-disable-next-line @next/next/no-img-element
+        <img key={f} src={`/assets/brand/boop/boop-${f}.webp`} alt="" width={320} height={320} className={f === face ? "on" : ""} decoding="async" />
+      ))}
+    </span>
+  )
+}
 
 export function FinalCTA() {
   const [ref, inView] = useInView<HTMLDivElement>(0.4)
@@ -282,6 +331,10 @@ export function FinalCTA() {
     <section className="finalCta" ref={ref}>
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
+        <div className="finalMascot" aria-hidden="true">
+          <span className="finalBubble">Boop!</span>
+<BoopFace className="finalBoopImg" mood={inView ? undefined : "sleepy"} />
+        </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />
           <div className="finalArrivalCard">
@@ -289,24 +342,24 @@ export function FinalCTA() {
               <Image src={BRAND_ICON} alt="" width={22} height={22} />
             </span>
             <div>
-              <div className="finalArrivalLabel">Near &middot; now</div>
+              <div className="finalArrivalLabel">BoopThere &middot; now</div>
               <div className="finalArrivalTitle">You&rsquo;re at Target</div>
             </div>
           </div>
         </div>
 
         <h2 className="finalTitle">
-          Your brain has
+          Stop remembering.
           <br />
-          <em>better things to do.</em>
+          <em>Start showing up.</em>
         </h2>
         <p className="finalSub">
-          Fewer forgotten items. Fewer extra trips. One less thing on your mind.
+          No forgotten milk. No extra trips. No &ldquo;did you remember?&rdquo; texts. Just Boop, right on time.
         </p>
-        <DownloadCta className="btnCream" source="closing">Download Near</DownloadCta>
+        <DownloadCta className="btnCream" source="closing">Download BoopThere</DownloadCta>
         {APP_IS_LIVE && (
-          <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download Near on the App Store">
-            <Image src="/app-store-qr.png" alt="QR code linking to Near on the App Store" width={72} height={72} />
+          <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download BoopThere on the App Store">
+            <Image src="/app-store-qr.png" alt="QR code linking to BoopThere on the App Store" width={72} height={72} />
             <span>Or scan to open it<br />on your iPhone</span>
           </a>
         )}
@@ -322,15 +375,15 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="footerTop">
         <div className="footerBrand">
-          <span className="footerWord">Near</span>
-          <p className="footerTag">Memory for the places you go.</p>
+          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v2.png" alt="BoopThere" className="footerLogo" width={1072} height={216} />
+          <p className="footerTag">Boop! There it is.</p>
         </div>
         <nav className="footerNav" aria-label="Footer">
           <div>
             <h3 className="footerHead">Product</h3>
             <Link href="/#how-it-works" className="footerLink">How it works</Link>
             <Link href="/#household" className="footerLink">For households</Link>
-            <Link href="/features" className="footerLink">Everything Near does</Link>
+            <Link href="/features" className="footerLink">Everything BoopThere does</Link>
             <Link href="/pricing" className="footerLink">Pricing</Link>
           </div>
           <div>
@@ -346,8 +399,8 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="footerBase">
-        <DownloadCta className="footerCta" source="footer">Download Near</DownloadCta>
-        <p className="footerCopy">&copy; 2026 Near</p>
+        <DownloadCta className="footerCta" source="footer">Download BoopThere</DownloadCta>
+        <p className="footerCopy">&copy; 2026 BoopThere</p>
       </div>
     </footer>
   )
@@ -655,7 +708,7 @@ export function HouseholdPair({
                 <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </div>
               <div className="pairNotifBody">
-                <div className="pairNotifLabel">Near &middot; now</div>
+                <div className="pairNotifLabel">BoopThere &middot; now</div>
                 <div className="pairNotifTitle">{arrivalTitle}</div>
                 <div className="pairNotifSub">{arrivalSub}</div>
               </div>
