@@ -4263,45 +4263,6 @@ button.tierCta, button.priceNavCta {
 .rippleLoop span:nth-child(3) { animation-delay: 2.4s; }
 .arrivalRipple span { border-width: 2px; border-color: rgba(229, 103, 154, .55); }
 
-/* Boop peeks up beside the phone */
-.heroMascot {
-  position: absolute;
-  z-index: 3;
-  left: max(-4%, -28px);
-  bottom: 12%;
-  width: clamp(92px, 11vw, 132px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
-}
-.heroMascotBody { display: block; width: 100%; animation: boopHop 2.8s cubic-bezier(.3,.7,.4,1.4) infinite; transform-origin: 50% 100%; filter: drop-shadow(0 14px 22px rgba(229, 103, 154, .35)); }
-.heroMascotBody svg { display: block; width: 100%; height: auto; }
-.heroMascotShadow { width: 56%; height: 10px; margin-top: -6px; border-radius: 50%; background: rgba(27, 34, 87, .14); animation: boopShadow 2.8s cubic-bezier(.3,.7,.4,1.4) infinite; }
-.heroBubble, .finalBubble {
-  position: relative;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  color: #FFFFFF;
-  background: #E5679A;
-  padding: 6px 14px 7px;
-  border-radius: 999px;
-  margin-bottom: 8px;
-  box-shadow: 0 8px 20px rgba(229, 103, 154, .35);
-  animation: bubblePop 2.8s cubic-bezier(.3,.7,.4,1.4) infinite;
-  transform-origin: 50% 100%;
-}
-.heroBubble::after, .finalBubble::after {
-  content: "";
-  position: absolute;
-  left: 50%; bottom: -5px;
-  width: 12px; height: 12px;
-  margin-left: -6px;
-  background: inherit;
-  border-radius: 2px;
-  transform: rotate(45deg);
-}
 @keyframes boopHop {
   0%, 22%, 100% { transform: translateY(0) scale(1, 1); }
   30%  { transform: translateY(0) scale(1.08, .9); }
@@ -4318,9 +4279,6 @@ button.tierCta, button.priceNavCta {
   40%     { opacity: 1; transform: scale(1.12) translateY(0); }
   46%, 92% { opacity: 1; transform: scale(1); }
   100%    { opacity: 0; transform: scale(.9); }
-}
-@media (max-width: 860px) {
-  .heroMascot { left: 2%; bottom: 8%; width: 88px; }
 }
 
 /* Places ticker */
@@ -4396,4 +4354,91 @@ button.tierCta, button.priceNavCta {
     radial-gradient(36% 40% at 14% 90%, rgba(155, 148, 194, 0.28), transparent 70%),
     radial-gradient(34% 38% at 88% 84%, rgba(217, 168, 67, 0.16), transparent 70%),
     linear-gradient(180deg, #161B40 0%, #0E1230 100%);
+}
+
+/* ── Boop, live, on the arrival card ─────────────────────── */
+.heroStage { position: relative; }
+.boopBuddy {
+  position: absolute;
+  z-index: 4;
+  right: -46px;
+  top: calc(55% - 118px);
+  width: 112px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.boopBuddy:focus-visible { outline: 3px solid rgba(229, 103, 154, .6); outline-offset: 6px; border-radius: 24px; }
+.boopBody {
+  display: block;
+  width: 100%;
+  transform-origin: 50% 100%;
+  animation: boopIdle 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 12px 18px rgba(229, 103, 154, .38));
+  transition: transform .3s cubic-bezier(.3,.7,.4,1.5);
+}
+.boopBody svg { display: block; width: 100%; height: auto; overflow: visible; }
+.boopEyes { transform: translate(var(--ex, 0px), var(--ey, 0px)); transition: transform .12s linear; }
+.boopCheek { opacity: 0; transition: opacity .25s; }
+.boopBuddy:hover .boopBody { animation: boopSquish .5s cubic-bezier(.3,.7,.4,1.5) both; }
+.boopBuddy:hover .boopCheek, .boopJump .boopCheek { opacity: .9; }
+.boopBody.boopJump { animation: boopJump .9s cubic-bezier(.3,.7,.4,1.4) both; }
+.boopBubble {
+  position: relative;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: #FFFFFF;
+  background: #E5679A;
+  padding: 6px 13px 7px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  align-self: flex-end;
+  box-shadow: 0 8px 20px rgba(229, 103, 154, .35);
+  animation: bubbleIn .55s cubic-bezier(.3,.7,.4,1.5) both, bubbleBob 3.4s ease-in-out .6s infinite;
+  transform-origin: 50% 100%;
+}
+.boopBubble::after {
+  content: "";
+  position: absolute;
+  right: 44px; bottom: -5px;
+  width: 12px; height: 12px;
+  background: inherit; border-radius: 2px;
+  transform: rotate(45deg);
+}
+@keyframes boopIdle {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50%      { transform: translateY(-5px) rotate(-3deg); }
+}
+@keyframes boopSquish {
+  0%   { transform: scale(1, 1); }
+  40%  { transform: scale(1.12, .86); }
+  70%  { transform: scale(.94, 1.08); }
+  100% { transform: scale(1.04, .97); }
+}
+@keyframes boopJump {
+  0%   { transform: translateY(0) scale(1, 1); }
+  15%  { transform: translateY(0) scale(1.14, .82); }
+  40%  { transform: translateY(-46%) scale(.92, 1.1) rotate(-10deg); }
+  60%  { transform: translateY(-46%) scale(.96, 1.04) rotate(8deg); }
+  80%  { transform: translateY(0) scale(1.1, .9); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes bubbleIn {
+  from { opacity: 0; transform: scale(.4) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes bubbleBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@media (max-width: 860px) {
+  .boopBuddy { right: -10px; width: 86px; top: 12%; }
+  .boopBubble { font-size: .9rem; }
 }

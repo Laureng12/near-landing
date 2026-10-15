@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
+import { forwardRef, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 import { APP_IS_LIVE } from "./site/launch"
 import { isLive } from "./site/features"
@@ -149,6 +149,12 @@ function Hero() {
     return () => { io.disconnect(); if (t) clearTimeout(t) }
   }, [])
 
+  const boopRef = useRef<HTMLButtonElement>(null)
+  const replayArrival = () => {
+    setReplaying(false)
+    window.setTimeout(() => setReplaying(true), 60)
+  }
+
   const posRef = useRef({ x: 0, y: 0 })
   const rafRef = useRef<number | null>(null)
   const onHeroMove = (e: ReactMouseEvent<HTMLElement>) => {
@@ -163,6 +169,18 @@ function Hero() {
       if (!el2) return
       el2.style.setProperty("--cx", `${posRef.current.x}px`)
       el2.style.setProperty("--cy", `${posRef.current.y}px`)
+      /* Boop's eyes follow the cursor. */
+      const b = boopRef.current
+      if (b) {
+        const br = b.getBoundingClientRect()
+        const hr = el2.getBoundingClientRect()
+        const dx = posRef.current.x + hr.left - (br.left + br.width / 2)
+        const dy = posRef.current.y + hr.top - (br.top + br.height / 2)
+        const d = Math.hypot(dx, dy) || 1
+        const k = Math.min(1, d / 220)
+        b.style.setProperty("--ex", `${(dx / d) * 4.5 * k}px`)
+        b.style.setProperty("--ey", `${(dy / d) * 4 * k}px`)
+      }
     })
   }
   useEffect(() => () => { if (rafRef.current != null) cancelAnimationFrame(rafRef.current) }, [])
@@ -197,17 +215,68 @@ function Hero() {
           <div className={`arrivalRipple rippleLoop ${replaying ? "rippleOn" : ""}`} aria-hidden="true">
             <span /><span /><span />
           </div>
-          <PhoneMockup phase={1} arrived={replaying} />
-          <div className="heroMascot" aria-hidden="true">
-            <span className="heroBubble">Boop!</span>
-            <span className="heroMascotBody"><svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="84" r="58" fill="#E5679A" /><ellipse cx="60" cy="58" rx="13" ry="8" fill="#FAF6EF" opacity=".5" transform="rotate(-30 60 58)" /><circle cx="66" cy="82" r="6.5" fill="#1B2257" /><circle cx="94" cy="82" r="6.5" fill="#1B2257" /><path d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" /></svg></span>
-            <span className="heroMascotShadow" />
+          <div className="heroStage">
+            <PhoneMockup phase={1} arrived={replaying} />
+            <BoopBuddy ref={boopRef} onBoop={replayArrival} />
           </div>
+
         </div>
       </div>
     </section>
   )
 }
+
+/* ── Boop, live ─────────────────────────────────────────────────────
+   Sits on the arrival notification. Eyes follow the cursor (set by the
+   hero's mousemove), he squishes on hover, and a tap makes him jump, say
+   something, and replay the arrival. A real button, so it works by
+   keyboard too. */
+
+const BOOP_LINES = [
+  "Boop! There it is.",
+  "You\u2019re at Target!",
+  "Brian added paper towels.",
+  "Got your list!",
+  "No app to open.",
+  "Boop!",
+] as const
+
+const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function BoopBuddy(
+  { onBoop },
+  ref
+) {
+  const [line, setLine] = useState(0)
+  const [hops, setHops] = useState(0)
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      className="boopBuddy"
+      aria-label="Boop! Replay the arrival"
+      onClick={() => {
+        setLine((l) => (l + 1) % BOOP_LINES.length)
+        setHops((h) => h + 1)
+        onBoop()
+      }}
+    >
+      <span className="boopBubble" key={`b${hops}`}>{hops === 0 ? "Tap me!" : BOOP_LINES[line]}</span>
+      <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
+        <svg viewBox="0 0 160 160" aria-hidden="true">
+          <circle cx="80" cy="84" r="58" fill="#E5679A" />
+          <ellipse cx="60" cy="58" rx="13" ry="8" fill="#FAF6EF" opacity=".5" transform="rotate(-30 60 58)" />
+          <g className="boopEyes">
+            <circle cx="66" cy="82" r="6.5" fill="#1B2257" />
+            <circle cx="94" cy="82" r="6.5" fill="#1B2257" />
+          </g>
+          <ellipse className="boopCheek" cx="52" cy="98" rx="7" ry="4" fill="#F59BBE" />
+          <ellipse className="boopCheek" cx="108" cy="98" rx="7" ry="4" fill="#F59BBE" />
+          <path className="boopMouth" d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" />
+        </svg>
+      </span>
+    </button>
+  )
+})
 
 /* Which tab is active per phase: 0=Home, 1=lock+notif, 2=Places, 3=lock+notif */
 const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
