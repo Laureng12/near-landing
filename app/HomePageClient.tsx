@@ -94,6 +94,7 @@ export default function HomePageClient() {
     <main className="page">
       <TopNav home />
       <Hero />
+      <PlacesTicker />
       <ProofLine />
       <BenefitsSection />
       <ProblemSection />
@@ -175,12 +176,12 @@ function Hero() {
           <h1 className="heroTitle">
             Walk into the store.
             <br />
-            <em>Boop! There it is.</em>
+            <span className="heroBoopWord">Boop!</span> <em>There it is.</em>
           </h1>
           <p className="heroLead">
-            Tell BoopThere what you need once. When you get there, your list is
-            already on your Lock Screen, including what your household added.
-            No app to open.
+            Say it once. The second you walk in, your list pops onto your Lock
+            Screen, with everything your household added too. No app to open.
+            No second trip.
           </p>
           <div className="heroCtas">
             <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
@@ -193,10 +194,15 @@ function Hero() {
           </p>
         </div>
         <div className="heroPhone">
-          <div className={`arrivalRipple ${replaying ? "rippleOn" : ""}`} aria-hidden="true">
+          <div className={`arrivalRipple rippleLoop ${replaying ? "rippleOn" : ""}`} aria-hidden="true">
             <span /><span /><span />
           </div>
           <PhoneMockup phase={1} arrived={replaying} />
+          <div className="heroMascot" aria-hidden="true">
+            <span className="heroBubble">Boop!</span>
+            <span className="heroMascotBody"><svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="84" r="58" fill="#E5679A" /><ellipse cx="60" cy="58" rx="13" ry="8" fill="#FAF6EF" opacity=".5" transform="rotate(-30 60 58)" /><circle cx="66" cy="82" r="6.5" fill="#1B2257" /><circle cx="94" cy="82" r="6.5" fill="#1B2257" /><path d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" /></svg></span>
+            <span className="heroMascotShadow" />
+          </div>
         </div>
       </div>
     </section>
@@ -668,6 +674,30 @@ function ProofLine() {
 }
 
 
+/* ── Places ticker ────────────────────────────────────────────────
+   A band of everyday places, each one getting its Boop. Pure decoration,
+   so it is aria-hidden; the list is doubled so the loop is seamless. */
+
+const tickerPlaces = [
+  "Kroger", "Target", "Walgreens", "Home Depot", "Trader Joe\u2019s",
+  "the UPS Store", "Costco", "CVS", "the dry cleaner", "Publix", "home",
+] as const
+
+function PlacesTicker() {
+  const row = [...tickerPlaces, ...tickerPlaces]
+  return (
+    <div className="ticker" aria-hidden="true">
+      <div className="tickerTrack">
+        {row.map((p, i) => (
+          <span className="tickerItem" key={i}>
+            <span className="tickerBoop">Boop!</span> at {p}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ── What changes ──────────────────────────────────────────────────
    The four benefits, in the order a visitor feels them. Every line maps to a
    `live` row in app/site/features.ts: lock-screen, voice-capture,
@@ -676,7 +706,7 @@ function ProofLine() {
 const benefits = [
   {
     id: "lock",
-    title: "Nothing to open.",
+    title: "Nothing to open!",
     body: "Your list is on your Lock Screen the moment you walk in. You never have to go looking for it.",
   },
   {
@@ -745,7 +775,7 @@ function BenefitsSection() {
         </div>
         <ul className="benefitGrid">
           {benefits.map((b) => (
-            <li className="benefitCard" key={b.id} data-stagger>
+            <li className={`benefitCard benefitCard--${b.id}`} key={b.id} data-stagger>
               <span className="benefitIcon"><BenefitIcon id={b.id} /></span>
               <h3 className="benefitTitle">{b.title}</h3>
               <p className="benefitBody">{b.body}</p>

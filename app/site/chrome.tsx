@@ -282,6 +282,10 @@ export function FinalCTA() {
     <section className="finalCta" ref={ref}>
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
+        <div className="finalMascot" aria-hidden="true">
+          <span className="finalBubble">Boop!</span>
+          <svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="84" r="58" fill="#E5679A" /><ellipse cx="60" cy="58" rx="13" ry="8" fill="#FAF6EF" opacity=".5" transform="rotate(-30 60 58)" /><circle cx="66" cy="82" r="6.5" fill="#1B2257" /><circle cx="94" cy="82" r="6.5" fill="#1B2257" /><path d="M68 100 Q80 109 92 100" stroke="#1B2257" strokeWidth="5.5" fill="none" strokeLinecap="round" /></svg>
+        </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />
           <div className="finalArrivalCard">
@@ -296,12 +300,12 @@ export function FinalCTA() {
         </div>
 
         <h2 className="finalTitle">
-          Your brain has
+          Stop remembering.
           <br />
-          <em>better things to do.</em>
+          <em>Start showing up.</em>
         </h2>
         <p className="finalSub">
-          Fewer forgotten items. Fewer extra trips. One less thing on your mind.
+          No forgotten milk. No extra trips. No &ldquo;did you remember?&rdquo; texts. Just Boop, right on time.
         </p>
         <DownloadCta className="btnCream" source="closing">Download BoopThere</DownloadCta>
         {APP_IS_LIVE && (

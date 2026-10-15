@@ -4240,3 +4240,160 @@ button.tierCta, button.priceNavCta {
 /* The hero phone is locked on a dark wallpaper: status bar goes light. */
 .phoneScreen:has(.phoneLockVisible) .phoneStatusBar { --ink: #FFFFFF; color: #FFFFFF; }
 .phoneScreen:has(.phoneLockVisible) .phoneBatt { border-color: rgba(255,255,255,.7); }
+
+/* ══ Energy pass ═══════════════════════════════════════════
+   More colour and motion, inside the brand rules: rose is Boop
+   and the arrival moment; CTAs stay navy; every loop stops under
+   prefers-reduced-motion (globals.css zeroes animation there).  */
+
+/* Hero sky: warmer, more colour */
+.heroDawn {
+  background:
+    radial-gradient(42% 40% at 12% 8%, rgba(255, 196, 150, 0.55), transparent 64%),
+    radial-gradient(40% 44% at 88% 18%, rgba(229, 103, 154, 0.30), transparent 66%),
+    radial-gradient(38% 40% at 70% 78%, rgba(155, 148, 194, 0.34), transparent 68%),
+    radial-gradient(36% 36% at 30% 70%, rgba(134, 168, 198, 0.22), transparent 70%),
+    radial-gradient(60% 46% at 50% 100%, rgba(250, 246, 239, 0.9), transparent 70%);
+}
+.heroBoopWord { color: #D9548A; }
+
+/* Rings keep pulsing out of the phone */
+.rippleLoop span { animation: arrivalOut 3.6s var(--ease-soft) infinite; }
+.rippleLoop span:nth-child(2) { animation-delay: 1.2s; }
+.rippleLoop span:nth-child(3) { animation-delay: 2.4s; }
+.arrivalRipple span { border-width: 2px; border-color: rgba(229, 103, 154, .55); }
+
+/* Boop peeks up beside the phone */
+.heroMascot {
+  position: absolute;
+  z-index: 3;
+  left: max(-4%, -28px);
+  bottom: 12%;
+  width: clamp(92px, 11vw, 132px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.heroMascotBody { display: block; width: 100%; animation: boopHop 2.8s cubic-bezier(.3,.7,.4,1.4) infinite; transform-origin: 50% 100%; filter: drop-shadow(0 14px 22px rgba(229, 103, 154, .35)); }
+.heroMascotBody svg { display: block; width: 100%; height: auto; }
+.heroMascotShadow { width: 56%; height: 10px; margin-top: -6px; border-radius: 50%; background: rgba(27, 34, 87, .14); animation: boopShadow 2.8s cubic-bezier(.3,.7,.4,1.4) infinite; }
+.heroBubble, .finalBubble {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  color: #FFFFFF;
+  background: #E5679A;
+  padding: 6px 14px 7px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  box-shadow: 0 8px 20px rgba(229, 103, 154, .35);
+  animation: bubblePop 2.8s cubic-bezier(.3,.7,.4,1.4) infinite;
+  transform-origin: 50% 100%;
+}
+.heroBubble::after, .finalBubble::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -5px;
+  width: 12px; height: 12px;
+  margin-left: -6px;
+  background: inherit;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+@keyframes boopHop {
+  0%, 22%, 100% { transform: translateY(0) scale(1, 1); }
+  30%  { transform: translateY(0) scale(1.08, .9); }
+  40%  { transform: translateY(-26%) scale(.95, 1.06); }
+  52%  { transform: translateY(0) scale(1.06, .94); }
+  60%  { transform: translateY(0) scale(1, 1); }
+}
+@keyframes boopShadow {
+  0%, 30%, 52%, 100% { transform: scale(1); opacity: 1; }
+  40% { transform: scale(.7); opacity: .5; }
+}
+@keyframes bubblePop {
+  0%, 30% { opacity: 0; transform: scale(.4) translateY(6px); }
+  40%     { opacity: 1; transform: scale(1.12) translateY(0); }
+  46%, 92% { opacity: 1; transform: scale(1); }
+  100%    { opacity: 0; transform: scale(.9); }
+}
+@media (max-width: 860px) {
+  .heroMascot { left: 2%; bottom: 8%; width: 88px; }
+}
+
+/* Places ticker */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  color: #EEF0FF;
+  padding: 16px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.tickerTrack {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 46s linear infinite;
+}
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 26px;
+  font-size: 1.02rem;
+  white-space: nowrap;
+  color: rgba(238, 240, 255, .82);
+}
+.tickerItem::after { content: "\2022"; margin-left: 44px; color: rgba(238, 240, 255, .3); }
+.tickerBoop { font-family: var(--font-display); font-weight: 700; color: #F08DB4; }
+@keyframes tickerScroll { to { transform: translateX(-50%); } }
+
+/* Benefit cards: each its own colour, and they lift */
+.benefitCard { transition: transform .45s var(--ease), box-shadow .45s var(--ease); position: relative; overflow: hidden; }
+.benefitCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: var(--tint-ink);
+}
+.benefitCard:hover { transform: translateY(-6px) rotate(-.4deg); box-shadow: 0 2px 4px rgba(27,34,87,.05), 0 24px 48px rgba(27,34,87,.12); }
+.benefitCard--lock    { --tint: #DCE7F3; --tint-ink: #4F7396; background: linear-gradient(180deg, #F1F6FB, #FFFFFF 60%); }
+.benefitCard--voice   { --tint: #E7E4F5; --tint-ink: #6B6496; background: linear-gradient(180deg, #F4F2FB, #FFFFFF 60%); }
+.benefitCard--house   { --tint: #F6DDE8; --tint-ink: #C24F7E; background: linear-gradient(180deg, #FCF0F5, #FFFFFF 60%); }
+.benefitCard--passing { --tint: #F8E5D6; --tint-ink: #B5694E; background: linear-gradient(180deg, #FDF3EB, #FFFFFF 60%); }
+.benefitCard .benefitIcon { background: var(--tint); color: var(--tint-ink); }
+.benefitCard:hover .benefitIcon { animation: iconWiggle .6s var(--ease); }
+@keyframes iconWiggle {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-10deg) scale(1.08); }
+  60% { transform: rotate(8deg) scale(1.05); }
+}
+
+/* Buttons: a little bounce */
+.btnPrimary, .navCta, .btnCream { transition: transform .35s cubic-bezier(.3,.7,.4,1.5), box-shadow .35s var(--ease), background .3s var(--ease-soft); }
+.btnPrimary:hover, .navCta:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 34px rgba(27, 34, 87, .28), 0 0 0 4px rgba(229, 103, 154, .14); }
+.btnCream:hover { transform: translateY(-3px) scale(1.03); }
+
+/* Closing: Boop bounces over the headline */
+.finalMascot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 18px;
+  width: 96px;
+}
+.finalMascot svg { width: 96px; height: 96px; animation: boopHop 2.8s cubic-bezier(.3,.7,.4,1.4) infinite; transform-origin: 50% 100%; filter: drop-shadow(0 12px 26px rgba(217, 120, 158, .45)); }
+.finalBubble { background: #D9789E; }
+
+/* Closing sky: more colour behind Boop */
+.finalCta .finalSky {
+  background:
+    radial-gradient(40% 46% at 50% 30%, rgba(217, 120, 158, 0.26), transparent 70%),
+    radial-gradient(36% 40% at 14% 90%, rgba(155, 148, 194, 0.28), transparent 70%),
+    radial-gradient(34% 38% at 88% 84%, rgba(217, 168, 67, 0.16), transparent 70%),
+    linear-gradient(180deg, #161B40 0%, #0E1230 100%);
+}
