@@ -4460,8 +4460,8 @@ button.tierCta, button.priceNavCta {
 }
 @media (max-width: 860px) {
   /* Phones: Boop bounces under the phone, not on it. */
-  .heroStage { padding-bottom: 150px; }
-  .boopBuddy { right: auto; left: 50%; bottom: 0; width: 92px; margin-left: -46px; }
+  .heroStage { padding-bottom: 130px; }
+  .boopBuddy { right: auto; left: 50%; bottom: 20px; width: 92px; margin-left: -46px; }
   .boopBubble { font-size: .9rem; }
 }
 
