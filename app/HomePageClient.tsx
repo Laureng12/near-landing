@@ -95,6 +95,7 @@ export default function HomePageClient() {
       <TopNav home />
       <Hero />
       <ProofLine />
+      <BenefitsSection />
       <ProblemSection />
       <ProductDemo />
       <HouseholdChapter />
@@ -172,13 +173,14 @@ function Hero() {
       <div className="heroInner">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Boop!
+            Walk into the store.
             <br />
-            <em>There it is.</em>
+            <em>Boop! There it is.</em>
           </h1>
           <p className="heroLead">
-            Add what you need and where you need it. The moment you walk in,
-            Boop puts it on your Lock Screen.
+            Tell BoopThere what you need once. When you get there, your list is
+            already on your Lock Screen, including what your household added.
+            No app to open.
           </p>
           <div className="heroCtas">
             <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
@@ -560,19 +562,18 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
               <div className="lockProximityTitleArea">
                 <div className="lockProximityLabel">BOOPTHERE</div>
                 <div className="lockProximityTitle">You’re at Target</div>
-                <div className="lockProximitySub">2 things you needed</div>
+                <div className="lockProximitySub">2 things for the house</div>
               </div>
             </div>
             <div className="lockTaskList">
               <div className="lockTaskItem lockTaskItem1">
                 <div className="lockTaskCheck" />
                 <span className="lockTaskText">Diapers</span>
-                <span className="lockTaskPriority lockTaskPriorityOrange" />
               </div>
               <div className="lockTaskItem lockTaskItem2">
                 <div className="lockTaskCheck" />
                 <span className="lockTaskText">Paper towels</span>
-                <span className="lockTaskPriority lockTaskPriorityRed" />
+                <span className="lockTaskFrom">from Brian</span>
               </div>
             </div>
             <div className="lockProximityShimmer" />
@@ -666,6 +667,95 @@ function ProofLine() {
   )
 }
 
+
+/* ── What changes ──────────────────────────────────────────────────
+   The four benefits, in the order a visitor feels them. Every line maps to a
+   `live` row in app/site/features.ts: lock-screen, voice-capture,
+   household-sharing, passing-by. Nothing here is a promise the app can't keep. */
+
+const benefits = [
+  {
+    id: "lock",
+    title: "Nothing to open.",
+    body: "Your list is on your Lock Screen the moment you walk in. You never have to go looking for it.",
+  },
+  {
+    id: "voice",
+    title: "Say it once.",
+    body: "\u201cMilk at Harris Teeter.\u201d Speak it or type it, and Boop files it under the right place.",
+  },
+  {
+    id: "house",
+    title: "Whoever gets there, gets it.",
+    body: "One shared list for the household. Check something off and everyone sees it\u2019s done. No \u201cdid you remember?\u201d texts.",
+  },
+  {
+    id: "passing",
+    title: "It catches you passing by.",
+    body: "Driving past the hardware store counts. Boop speaks up before you\u2019re home again.",
+  },
+] as const
+
+function BenefitIcon({ id }: { id: (typeof benefits)[number]["id"] }) {
+  const p = { fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const }
+  switch (id) {
+    case "lock":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="6" y="2.5" width="12" height="19" rx="3" {...p} />
+          <path d="M9 11.5h6M9 14.5h4" {...p} />
+        </svg>
+      )
+    case "voice":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="3" width="6" height="11" rx="3" {...p} />
+          <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" {...p} />
+        </svg>
+      )
+    case "house":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="8.5" cy="9" r="3" {...p} />
+          <circle cx="16" cy="9.5" r="2.5" {...p} />
+          <path d="M3.5 19a5 5 0 0 1 10 0M13.5 17.5a4 4 0 0 1 7 1.5" {...p} />
+        </svg>
+      )
+    case "passing":
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 21s6-5 6-10a6 6 0 1 0-12 0c0 5 6 10 6 10Z" {...p} />
+          <circle cx="12" cy="11" r="2" {...p} />
+        </svg>
+      )
+  }
+}
+
+function BenefitsSection() {
+  return (
+    <section className="chapter benefits" id="benefits" aria-labelledby="benefitsTitle">
+      <div className="reveal shell">
+        <div className="centeredHead">
+          <p className="eyebrow">What changes</p>
+          <h2 className="h2 h2Center" id="benefitsTitle">
+            Your list finds you.
+            <br />
+            <em>You just show up.</em>
+          </h2>
+        </div>
+        <ul className="benefitGrid">
+          {benefits.map((b) => (
+            <li className="benefitCard" key={b.id} data-stagger>
+              <span className="benefitIcon"><BenefitIcon id={b.id} /></span>
+              <h3 className="benefitTitle">{b.title}</h3>
+              <p className="benefitBody">{b.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
 
 /* ── The problem ────────────────────────────────────────────────────
 

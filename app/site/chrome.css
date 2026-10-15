@@ -375,11 +375,11 @@ a { color: inherit; text-decoration: none; }
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: center;
 }
-.heroCopy { max-width: 36rem; }
+.heroCopy { max-width: 38rem; }
 
 .heroTitle {
   margin: 0;
-  font-size: clamp(2.9rem, 7.2vw, 4.7rem);
+  font-size: clamp(2.3rem, 4.7vw, 3.6rem);
   font-weight: 500;
   line-height: 0.99;
   letter-spacing: -0.042em;
@@ -955,8 +955,8 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(circle at 50% 44%, rgba(244, 255, 251, 0.94) 0 9%, rgba(195, 240, 241, 0.9) 22%, rgba(116, 205, 223, 0.74) 42%, transparent 64%),
-    linear-gradient(180deg, #74C5DD 0%, #AEE1E9 38%, #E9F8F4 58%, #7BCAD4 100%);
+    radial-gradient(70% 42% at 50% 62%, rgba(250, 226, 214, 0.75), transparent 70%),
+    linear-gradient(180deg, #232966 0%, #3B3F86 30%, #8A7AB4 56%, #E6A9BE 80%, #F6DCCB 100%);
 }
 
 .lockSky {
@@ -993,8 +993,8 @@ a { color: inherit; text-decoration: none; }
   right: 0;
   height: 50%;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.34), transparent 42%),
-    linear-gradient(180deg, rgba(123, 202, 212, 0.18) 0%, rgba(50, 143, 170, 0.28) 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(250, 246, 239, 0) 0%, rgba(250, 246, 239, 0.12) 100%);
 }
 
 .lockWaterShimmer {
@@ -4173,3 +4173,70 @@ button.tierCta, button.priceNavCta {
     inset 0 0 0 1px rgba(238, 240, 255, 0.14);
 }
 .appDetailImg { display: block; width: 100%; height: auto; }
+
+/* ── Lock Screen: who added it ─────────────────────────── */
+.lockTaskFrom {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--ink-faint);
+  background: var(--paper-sunk);
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+/* ── Benefits ───────────────────────────────────────────── */
+.benefits { padding-top: clamp(64px, 8vw, 104px); }
+.benefitGrid {
+  list-style: none;
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.benefitCard {
+  background: var(--paper-raised);
+  border: 1px solid var(--ink-hair-soft);
+  border-radius: var(--radius);
+  padding: 26px 24px 28px;
+  box-shadow: 0 1px 2px rgba(27, 34, 87, 0.04), 0 12px 32px rgba(27, 34, 87, 0.05);
+}
+.benefitIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--paper-sunk);
+  color: var(--ink);
+}
+.benefitIcon svg { width: 22px; height: 22px; }
+.benefitTitle {
+  margin: 20px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.benefitBody {
+  margin: 10px 0 0;
+  font-size: 0.97rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+@media (max-width: 980px) {
+  .benefitGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .benefitGrid { grid-template-columns: 1fr; gap: 12px; }
+  .benefitCard { display: grid; grid-template-columns: 44px 1fr; column-gap: 16px; padding: 20px; }
+  .benefitIcon { grid-row: span 2; }
+  .benefitTitle { margin: 0; align-self: center; }
+  .benefitBody { margin-top: 6px; }
+}
+
+/* The hero phone is locked on a dark wallpaper: status bar goes light. */
+.phoneScreen:has(.phoneLockVisible) .phoneStatusBar { --ink: #FFFFFF; color: #FFFFFF; }
+.phoneScreen:has(.phoneLockVisible) .phoneBatt { border-color: rgba(255,255,255,.7); }
