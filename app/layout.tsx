@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DM_Sans, Instrument_Serif } from "next/font/google"
+import { DM_Sans, Fredoka } from "next/font/google"
 import "./globals.css"
 import "./site/chrome.css"
 import ConsentBanner from "./ConsentBanner"
@@ -15,20 +15,19 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   display: "swap",
 })
-const instrumentSerif = Instrument_Serif({
+const fredoka = Fredoka({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
+  weight: ["500", "600", "700"],
+  variable: "--font-fredoka",
   display: "swap",
 })
 
-const SITE_URL = "https://www.nearesttask.com"
+const SITE_URL = "https://www.boopthere.com"
 const DEFAULT_DESCRIPTION =
-  "Near remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
+  "BoopThere remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
 
 export const metadata: Metadata = {
-  title: "Near - Never forget anything again | Location reminders for iPhone",
+  title: "BoopThere | Boop! There it is. Location reminders for iPhone",
   description: DEFAULT_DESCRIPTION,
   keywords: [
     "location reminders",
@@ -58,26 +57,26 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Near - Never forget anything again | Location reminders for iPhone",
+    title: "BoopThere | Boop! There it is. Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
-    siteName: "Near",
+    siteName: "BoopThere",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: "/near-og.png",
+        url: "/boopthere-og.png",
         width: 1200,
         height: 630,
-        alt: "Near - location reminders for iPhone",
+        alt: "BoopThere - location reminders for iPhone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Near - Never forget anything again | Location reminders for iPhone",
+    title: "BoopThere | Boop! There it is. Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
-    images: ["/near-og.png"],
+    images: ["/boopthere-og.png"],
   },
   icons: {
     icon: [
@@ -88,7 +87,7 @@ export const metadata: Metadata = {
   },
   category: "Productivity",
   appleWebApp: {
-    title: "Near",
+    title: "BoopThere",
     capable: true,
   },
   other: {
@@ -101,17 +100,18 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
-  name: "Near",
+  name: "BoopThere",
+  alternateName: ["Boop There", "Near"],
   legalName: "Rise-X, Inc.",
   url: SITE_URL,
-  logo: `${SITE_URL}/assets/brand/Near-Logo-Blue.png`,
-  image: `${SITE_URL}/near-og.png`,
+  logo: `${SITE_URL}/assets/brand/boop/boop-app-icon-1024.png`,
+  image: `${SITE_URL}/boopthere-og.png`,
   email: "hello@nearesttask.com",
-  description: "Location reminders for iPhone. Your list finds you.",
+  description: "Location reminders for iPhone. Boop! There it is.",
   brand: {
     "@type": "Brand",
-    name: "Near",
-    slogan: "Your list finds you.",
+    name: "BoopThere",
+    slogan: "Boop! There it is.",
   },
 }
 
@@ -119,14 +119,14 @@ const mobileAppJsonLd = {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
   "@id": `${SITE_URL}/#mobile-app`,
-  name: "Near",
+  name: "BoopThere",
   operatingSystem: "iOS",
   applicationCategory: "ProductivityApplication",
   url: SITE_URL,
   /* Telling search engines the app can be installed at a URL that 404s is
      worse than saying nothing. These come back when the listing is live. */
   ...(APP_IS_LIVE ? { downloadUrl: APP_STORE_URL, installUrl: APP_STORE_URL } : {}),
-  image: `${SITE_URL}/near-og.png`,
+  image: `${SITE_URL}/boopthere-og.png`,
   isAccessibleForFree: true,
   description: DEFAULT_DESCRIPTION,
   publisher: {
@@ -145,7 +145,7 @@ const mobileAppJsonLd = {
   offers: [
     {
       "@type": "Offer",
-      name: "Near Free",
+      name: "BoopThere Free",
       price: "0",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
@@ -155,7 +155,7 @@ const mobileAppJsonLd = {
     },
     {
       "@type": "Offer",
-      name: "Near Pro",
+      name: "BoopThere Pro",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
       availability: APP_IS_LIVE
@@ -175,7 +175,7 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-  name: "Near",
+  name: "BoopThere",
   url: SITE_URL,
   inLanguage: "en-US",
   description: DEFAULT_DESCRIPTION,
@@ -190,12 +190,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${fredoka.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico?v=6" sizes="64x64" />
         <link rel="icon" href="/favicon.png?v=6" type="image/png" sizes="64x64" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=6" sizes="180x180" />
-        <meta name="theme-color" content="#FFFFFF" />
+        <meta name="theme-color" content="#FAF6EF" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

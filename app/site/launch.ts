@@ -1,10 +1,10 @@
-/* Whether Near is actually on the App Store.
+/* Whether BoopThere is actually on the App Store.
    ------------------------------------------------------------------
    The listing is not public yet, so apps.apple.com returns a 404 for
    our ID and the iTunes lookup API returns no result. Every download
    button on the site pointed at that dead page.
 
-   The site does not say why - visitors are told Near is almost here
+   The site does not say why - visitors are told BoopThere is almost here
    and offered the list. It just never claims to be downloadable when
    it is not.
 

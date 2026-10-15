@@ -1,7 +1,7 @@
 import HomePageClient from "./HomePageClient"
 import { faqItems } from "./site/faq"
 
-const SITE_URL = "https://www.nearesttask.com"
+const SITE_URL = "https://www.boopthere.com"
 
 
 function HomeStructuredData() {
@@ -9,16 +9,16 @@ function HomeStructuredData() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${SITE_URL}/#webpage`,
-    name: "Near - Never forget anything again | Location reminders for iPhone",
+    name: "BoopThere | Boop! There it is. Location reminders for iPhone",
     url: SITE_URL,
     description:
-      "Near remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design.",
+      "BoopThere remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design.",
     isPartOf: {
       "@id": `${SITE_URL}/#website`,
     },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/near-og.png`,
+      url: `${SITE_URL}/boopthere-og.png`,
       width: 1200,
       height: 630,
     },

@@ -56,7 +56,7 @@ export default function ConsentBanner() {
   return (
     <div className="consentBanner" role="dialog" aria-live="polite" aria-label="Privacy consent">
       <p className="consentText">
-        Near doesn&rsquo;t track you by default. We&rsquo;d like your consent before
+        BoopThere doesn&rsquo;t track you by default. We&rsquo;d like your consent before
         loading any analytics that helps us improve this site. See our{" "}
         <Link href="/privacy" className="consentLink">Privacy Policy</Link>.
       </p>

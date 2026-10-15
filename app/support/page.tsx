@@ -5,7 +5,7 @@ import "./support.css"
 import Link from "next/link"
 import Image from "next/image"
 
-const BRAND_WORDMARK = "/assets/brand/Near-Logo-Horizontal.png"
+const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark.png"
 
 export default function SupportPage() {
   return (
@@ -14,9 +14,9 @@ export default function SupportPage() {
         <Link href="/" className="legalLogo">
           <Image
             src={BRAND_WORDMARK}
-            alt="Near"
-            width={1185}
-            height={500}
+            alt="BoopThere"
+            width={1074}
+            height={202}
             className="legalLogoFull"
           />
         </Link>
@@ -30,7 +30,7 @@ export default function SupportPage() {
           <section className="legalSection">
             <h2>Contact Us</h2>
             <p>
-              If you have a question, found a bug, or need help with Near, email us at:
+              If you have a question, found a bug, or need help with BoopThere, email us at:
             </p>
             <p>
               <a href="mailto:hello@nearesttask.com" className="legalLink">
@@ -45,14 +45,14 @@ export default function SupportPage() {
 
             <h3>How do I get location reminders?</h3>
             <p>
-              Save a place (like your grocery store), add tasks to it, and grant Near
+              Save a place (like your grocery store), add tasks to it, and grant BoopThere
               &quot;Always&quot; location access in Settings. When you arrive at that place,
-              Near will show your tasks automatically.
+              BoopThere will show your tasks automatically.
             </p>
 
-            <h3>Why does Near need &quot;Always&quot; location access?</h3>
+            <h3>Why does BoopThere need &quot;Always&quot; location access?</h3>
             <p>
-              Near monitors geofences in the background so it can notify you the moment you
+              BoopThere monitors geofences in the background so it can notify you the moment you
               arrive at a saved place - even if the app isn&apos;t open. &quot;When In
               Use&quot; only works while the app is in the foreground, which defeats the
               purpose of automatic reminders.
@@ -89,9 +89,9 @@ export default function SupportPage() {
               </a>.
             </p>
 
-            <h3>Does Near work offline?</h3>
+            <h3>Does BoopThere work offline?</h3>
             <p>
-              Yes. Near caches your tasks and places locally. You can view and complete tasks
+              Yes. BoopThere caches your tasks and places locally. You can view and complete tasks
               offline, and changes sync automatically when you reconnect.
             </p>
           </section>
@@ -100,7 +100,7 @@ export default function SupportPage() {
 
       <footer className="legalFooter">
         <div className="legalFooterInner">
-          <span className="legalFooterCopy">Near &copy; 2026 Rise-X, Inc. All rights reserved.</span>
+          <span className="legalFooterCopy">BoopThere &copy; 2026 Rise-X, Inc. All rights reserved.</span>
           <nav className="legalFooterLinks">
             <Link href="/terms" className="legalFooterLink">
               Terms &amp; Conditions

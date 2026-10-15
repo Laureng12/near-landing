@@ -1,33 +1,33 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Pricing | Near",
+  title: "Pricing | BoopThere",
   description:
-    "Near's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
+    "BoopThere's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
   alternates: {
     canonical: "/pricing",
   },
   openGraph: {
-    title: "Pricing | Near",
+    title: "Pricing | BoopThere",
     description:
-      "Near's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
+      "BoopThere's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
     url: "/pricing",
     type: "website",
     images: [
       {
-        url: "/near-og.png",
+        url: "/boopthere-og.png",
         width: 1200,
         height: 630,
-        alt: "Near pricing for Free and Pro plans",
+        alt: "BoopThere pricing for Free and Pro plans",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing | Near",
+    title: "Pricing | BoopThere",
     description:
-      "Near's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
-    images: ["/near-og.png"],
+      "BoopThere's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
+    images: ["/boopthere-og.png"],
   },
 }
 

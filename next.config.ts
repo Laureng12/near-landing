@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
       },
       {
         key: "Access-Control-Allow-Origin",
-        value: "https://www.nearesttask.com",
+        value: "https://www.boopthere.com",
       },
     ];
 
@@ -59,6 +59,31 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
     ];
+  },
+  async redirects() {
+    /* BoopThere is the brand; boopthere.com is canonical.
+       - boopthereitis.com (the tagline domain) sends everything there.
+       - nearesttask.com sends only its marketing pages. Invite, shared-list,
+         /join, /gather, /clip and /.well-known stay served on nearesttask.com,
+         because links already sent and the app's universal links point there
+         and must not redirect (Apple will not follow a redirect for the AASA). */
+    const marketing = ["/", "/features", "/pricing", "/support", "/privacy", "/terms"]
+    return [
+      ...["boopthereitis.com", "www.boopthereitis.com"].map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: "https://www.boopthere.com/:path*",
+        permanent: true,
+      })),
+      ...["nearesttask.com", "www.nearesttask.com"].flatMap((host) =>
+        marketing.map((path) => ({
+          source: path,
+          has: [{ type: "host" as const, value: host }],
+          destination: `https://www.boopthere.com${path}`,
+          permanent: true,
+        }))
+      ),
+    ]
   },
   async rewrites() {
     return [
@@ -75,7 +100,7 @@ const nextConfig: NextConfig = {
         destination: "https://backend-one-xi.vercel.app/clip",
       },
       {
-        // Shared-list web preview — nearesttask.com/list/TOKEN renders the
+        // Shared-list web preview — /list/TOKEN (either domain) renders the
         // backend's server-side list page for recipients without the app.
         source: "/list/:token",
         destination: "https://backend-one-xi.vercel.app/list/:token",

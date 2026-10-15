@@ -1,6 +1,6 @@
 "use client"
 
-/* Everything Near does, in one place.
+/* Everything BoopThere does, in one place.
    The homepage makes one promise. This page is where the rest of the product
    lives - capture, arrival, the household, Meal Plan, the mark - without
    restating the promise six more times. It runs on the shared chrome and the
@@ -24,7 +24,7 @@ import {
   type Scene,
 } from "../site/chrome"
 
-/* Capture and arrival: the two halves of the only loop Near has. */
+/* Capture and arrival: the two halves of the only loop BoopThere has. */
 const captureRows = [
   {
     k: "Say it",
@@ -36,10 +36,10 @@ const captureRows = [
   },
   {
     k: "Share it in",
-    v: "A text from your sister, a recipe, a link. Send it to Near and it lands where it belongs.",
+    v: "A text from your sister, a recipe, a link. Send it to BoopThere and it lands where it belongs.",
   },
   {
-    k: "Near places it",
+    k: "BoopThere places it",
     v: "It reads the thing and picks the place, and you can change it.",
   },
 ]
@@ -55,7 +55,7 @@ const arrivalRows = [
   },
   {
     k: "On the way",
-    v: "Passing the hardware store counts. Near catches you before you are home again.",
+    v: "Passing the hardware store counts. BoopThere catches you before you are home again.",
   },
   {
     k: "Before the door locks",
@@ -102,10 +102,10 @@ const mealNotes = [
 ]
 
 const ICON_VARIANTS = [
-  { name: "Dawn", src: "/assets/brand/Near-Icon-Orbital-Dawn-1024.png" },
-  { name: "Day", src: "/assets/brand/Near-Icon-Orbital-Day-1024.png" },
-  { name: "Dusk", src: "/assets/brand/Near-Icon-Orbital-Dusk-1024.png" },
-  { name: "Night", src: "/assets/brand/Near-Icon-Orbital-Night-1024.png" },
+  { name: "Dawn", src: "/assets/brand/boop/boop-icon-dawn-1024.png" },
+  { name: "Day", src: "/assets/brand/boop/boop-icon-day-1024.png" },
+  { name: "Dusk", src: "/assets/brand/boop/boop-icon-dusk-1024.png" },
+  { name: "Night", src: "/assets/brand/boop/boop-icon-night-1024.png" },
 ] as const
 
 /* The arrival this page's own example produces. The capture section hears
@@ -178,7 +178,7 @@ export default function FeaturesPage() {
       <section className="chapter ftOpen" id="top">
         <div className="reveal shell split ftOpenSplit">
           <div className="splitCopy">
-          <p className="eyebrow">Everything Near does</p>
+          <p className="eyebrow">Everything BoopThere does</p>
           <h1 className="ftOpenTitle">
             Less to remember.
             <br />
@@ -186,13 +186,13 @@ export default function FeaturesPage() {
           </h1>
           <p className="lead">
             Capture what you need, connect it to a place, and share it with your
-            household. Near brings up your reminders when you arrive.
+            household. BoopThere brings up your reminders when you arrive.
           </p>
           </div>
           <div className="splitVisual ftVisual">
             <AppShot
               src="/assets/app/near-home.webp"
-              alt="Near's home screen on iPhone. A large tap-to-speak button reading Tap once. Say it, and a list headed Today's queue: Kroger 0.1 miles away and marked closest, Target, Equinox, each with what is waiting there."
+              alt="BoopThere's home screen on iPhone. A large tap-to-speak button reading Tap once. Say it, and a list headed Today's queue: Kroger 0.1 miles away and marked closest, Target, Equinox, each with what is waiting there."
               caption="The actual app"
             />
           </div>
@@ -218,7 +218,7 @@ export default function FeaturesPage() {
           <div className="splitVisual ftVisual">
             <AppShot
               src="/assets/app/near-capture.webp"
-              alt="Near's capture sheet on iPhone. A microphone button labelled Say it, a text field, and a line reading: add the place and Near reminds you when you get there. No place? Near still holds it."
+              alt="BoopThere's capture sheet on iPhone. A microphone button labelled Say it, a text field, and a line reading: add the place and BoopThere reminds you when you get there. No place? BoopThere still holds it."
               caption="The actual app"
             />
           </div>
@@ -227,7 +227,7 @@ export default function FeaturesPage() {
 
       {/* ── Arrival ───────────────────────────────────────────── */}
 
-      {/* Places had no section on a page called Everything Near does, which is
+      {/* Places had no section on a page called Everything BoopThere does, which is
           odd, because organizing around places rather than lists is the whole
           structure of the product. */}
       <section className="chapter chapterSunk" id="places">
@@ -235,7 +235,7 @@ export default function FeaturesPage() {
           <div className="splitVisual ftVisual">
             <AppShot
               src="/assets/app/near-places.webp"
-              alt="Near's Places screen on iPhone. A map with glowing pins, a game plan card reading you can finish this run by 9:18 AM, and a list of saved places with the items waiting at each."
+              alt="BoopThere's Places screen on iPhone. A map with glowing pins, a game plan card reading you can finish this run by 9:18 AM, and a list of saved places with the items waiting at each."
               caption="The actual app"
             />
           </div>
@@ -303,7 +303,7 @@ export default function FeaturesPage() {
           <div className="splitVisual ftVisual">
             <AppShot
               src="/assets/app/near-storemode.webp"
-              alt="Near open at Kroger: one of four items done, three sections, a Lists and Aisles switch, and the grocery run listed with an Add to cart button."
+              alt="BoopThere open at Kroger: one of four items done, three sections, a Lists and Aisles switch, and the grocery run listed with an Add to cart button."
               caption="Store mode, at Kroger"
             />
           </div>
@@ -399,7 +399,7 @@ export default function FeaturesPage() {
         <div className="reveal ftSplitMock">
           <AppShot
             src="/assets/app/near-meals.webp"
-            alt="Near's meal planning screen on iPhone, headed The kitchen exhales, with a plan-your-week-with-AI card and a tab for the pantry."
+            alt="BoopThere's meal planning screen on iPhone, headed The kitchen exhales, with a plan-your-week-with-AI card and a tab for the pantry."
             caption="The actual app"
           />
         </div>
@@ -442,12 +442,12 @@ export default function FeaturesPage() {
             <p className="lead">
               Your live route never leaves your iPhone. What syncs is what makes
               a reminder work: your places, your tasks, and the arrivals that
-              fire them. Near sells none of it, and never uses it for ads.
+              fire them. BoopThere sells none of it, and never uses it for ads.
             </p>
             <ul className="ftList">
               <li className="ftListItem" data-stagger>
                 <span className="ftBullet" aria-hidden="true" />
-                Finding who&rsquo;s closest is a switch you own. Near ships it
+                Finding who&rsquo;s closest is a switch you own. BoopThere ships it
                 off and never turns it on for you.
               </li>
               <li className="ftListItem" data-stagger>
@@ -469,7 +469,7 @@ export default function FeaturesPage() {
           <div className="splitVisual ftVisual">
             <AppDetail
               src="/assets/app/near-household.webp"
-              alt="Near's Household settings: an invite row, and a Find who's closest switch with the note that location is read once, used once, and never stored."
+              alt="BoopThere's Household settings: an invite row, and a Find who's closest switch with the note that location is read once, used once, and never stored."
               caption="Household settings, in the app"
               width={760}
               height={756}
@@ -484,20 +484,20 @@ export default function FeaturesPage() {
         <div className="reveal shell narrow center">
           <p className="eyebrow">The mark</p>
           <h2 className="h2 h2Center">
-            One icon.
+            One Boop.
             <br />
             Four times of day.
           </h2>
           <p className="lead leadCenter">
-            Near&rsquo;s icon moves through dawn, day, dusk and night, because
-            the day does. The target at the center never moves.
+            BoopThere moves through dawn, day, dusk and night, because the day
+            does. Boop never changes.
           </p>
           <div className="ftIcons">
             {ICON_VARIANTS.map((v) => (
               <figure className="ftIcon" key={v.name} data-stagger>
                 <Image
                   src={v.src}
-                  alt={`The Near app icon, ${v.name.toLowerCase()} variant`}
+                  alt={`The BoopThere app icon, ${v.name.toLowerCase()} variant`}
                   width={1024}
                   height={1024}
                   quality={100}

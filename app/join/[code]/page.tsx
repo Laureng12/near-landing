@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useParams } from "next/navigation"
 
 import { APP_IS_LIVE, APP_STORE_URL } from "../../site/launch"
-const BRAND_ICON = "/assets/brand/Near-Icon-Orbital-Soft.png"
+const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256.png"
 
 export default function JoinPage() {
   const params = useParams()
@@ -35,17 +35,17 @@ export default function JoinPage() {
         <div style={styles.logoRow}>
           <Image
             src={BRAND_ICON}
-            alt="Near"
+            alt="BoopThere"
             width={32}
             height={32}
             style={styles.logoIcon}
           />
-          <span style={styles.logoText}>Near</span>
+          <span style={styles.logoText}>BoopThere</span>
         </div>
 
         <h1 style={styles.title}>You&apos;ve been invited</h1>
         <p style={styles.subtitle}>
-          Someone wants to share their lists with you on <strong style={{ color: "#fff" }}>Near</strong> -
+          Someone wants to share their lists with you on <strong style={{ color: "#fff" }}>BoopThere</strong> -
           the app that shows you what you need, right when you arrive.
         </p>
 
@@ -81,11 +81,11 @@ export default function JoinPage() {
         {APP_IS_LIVE ? (
           <>
             <a href={APP_STORE_URL} style={styles.button}>
-              Download Near - It&apos;s Free
+              Download BoopThere - It&apos;s Free
             </a>
 
             <div style={styles.steps}>
-              <p style={styles.step}><span style={styles.stepNum}>1</span> Download Near from the App Store</p>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Download BoopThere from the App Store</p>
               <p style={styles.step}><span style={styles.stepNum}>2</span> Open this link again after installing</p>
               <p style={styles.step}><span style={styles.stepNum}>3</span> You&apos;ll automatically join the household</p>
             </div>
@@ -95,15 +95,15 @@ export default function JoinPage() {
             <p style={styles.button}>Coming to the App Store</p>
 
             <div style={styles.steps}>
-              <p style={styles.step}><span style={styles.stepNum}>1</span> Near is coming to the App Store shortly</p>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> BoopThere is coming to the App Store shortly</p>
               <p style={styles.step}><span style={styles.stepNum}>2</span> Keep this link - your code stays valid</p>
-              <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once Near is out to join the household</p>
+              <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once BoopThere is out to join the household</p>
             </div>
           </>
         )}
 
         <p style={styles.hint}>
-          Already have Near? Open the app - it will detect this invite automatically.
+          Already have BoopThere? Open the app - it will detect this invite automatically.
         </p>
       </div>
 
@@ -126,7 +126,7 @@ const styles: Record<string, React.CSSProperties> = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "linear-gradient(180deg, #070C1C 0%, #0E1733 50%, #070C1C 100%)",
+    background: "linear-gradient(180deg, #090C22 0%, #161B40 50%, #090C22 100%)",
     padding: "24px",
     fontFamily: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     position: "relative",
@@ -139,7 +139,7 @@ const styles: Record<string, React.CSSProperties> = {
     transform: "translateX(-50%)",
     width: "600px",
     height: "400px",
-    background: "radial-gradient(circle, rgba(219, 72, 144,0.18), rgba(107,92,255,0.10), transparent 65%)",
+    background: "radial-gradient(circle, rgba(217,120,158,0.18), rgba(217,168,67,0.08), transparent 65%)",
     filter: "blur(80px)",
     pointerEvents: "none",
   },
@@ -152,7 +152,7 @@ const styles: Record<string, React.CSSProperties> = {
     width: 32,
     height: 32,
     border: "3px solid rgba(255,255,255,0.1)",
-    borderTop: "3px solid #DB4890",
+    borderTop: "3px solid #D9789E",
     borderRadius: "50%",
     animation: "spin 0.8s linear infinite",
   },
@@ -181,13 +181,13 @@ const styles: Record<string, React.CSSProperties> = {
     height: 32,
     borderRadius: 8,
     objectFit: "cover",
-    boxShadow: "0 0 24px rgba(219, 72, 144,0.30)",
+    boxShadow: "0 0 24px rgba(217,120,158,0.30)",
   },
   logoText: {
     fontSize: 22,
     fontWeight: 800,
     letterSpacing: 0,
-    color: "#FFEFD4",
+    color: "#FAF6EF",
   },
   title: {
     fontSize: 28,
@@ -253,22 +253,22 @@ const styles: Record<string, React.CSSProperties> = {
   codeValue: {
     fontSize: 22,
     fontWeight: 800,
-    color: "#DB4890",
+    color: "#D9789E",
     fontFamily: "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace",
     margin: 0,
     letterSpacing: "0.12em",
   },
   button: {
     display: "block",
-    background: "linear-gradient(90deg, #101B3E, #7A25A2, #DB4890)",
-    color: "#FFFFFF",
+    background: "#FAF6EF",
+    color: "#1B2257",
     fontWeight: 750,
     fontSize: 16,
     padding: "16px 32px",
     borderRadius: 999,
     textDecoration: "none",
     marginBottom: 24,
-    boxShadow: "0 12px 40px rgba(219, 72, 144,0.28)",
+    boxShadow: "0 12px 40px rgba(0,0,0,0.28)",
     letterSpacing: "-0.01em",
   },
   steps: {

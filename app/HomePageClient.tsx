@@ -172,16 +172,16 @@ function Hero() {
       <div className="heroInner">
         <div className="heroCopy">
           <h1 className="heroTitle">
-            Never Forget
+            Boop!
             <br />
-            <em>Anything Again.</em>
+            <em>There it is.</em>
           </h1>
           <p className="heroLead">
-            Add what you need and where you need it. Near reminds you on your
-            Lock Screen when you arrive.
+            Add what you need and where you need it. The moment you walk in,
+            Boop puts it on your Lock Screen.
           </p>
           <div className="heroCtas">
-            <DownloadCta className="btnPrimary" source="hero">Download Near</DownloadCta>
+            <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
             <a className="btnGhost" href="#demo">Watch it work</a>
           </div>
           <p className="heroMicro">
@@ -206,9 +206,9 @@ const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
 
 const notifData = [
   null, // home screen
-  { title: "Near", body: "You’re near Target - 1 item on your list" },
+  { title: "BoopThere", body: "You’re near Target - 1 item on your list" },
   null, // places screen
-  { title: "Near", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
+  { title: "BoopThere", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
   null, // household screen
 ]
 
@@ -558,7 +558,7 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
                 className="lockNotifIcon"
               />
               <div className="lockProximityTitleArea">
-                <div className="lockProximityLabel">NEAR</div>
+                <div className="lockProximityLabel">BOOPTHERE</div>
                 <div className="lockProximityTitle">You’re at Target</div>
                 <div className="lockProximitySub">2 things you needed</div>
               </div>
@@ -660,7 +660,7 @@ function ProofLine() {
           &ldquo;The first app that remembers the errand for me.
           I just show up, and it&rsquo;s there.&rdquo;
         </blockquote>
-        <cite className="proofName">Lindsay &middot; Near on iPhone</cite>
+        <cite className="proofName">Lindsay &middot; BoopThere on iPhone</cite>
       </div>
     </section>
   )
@@ -673,7 +673,7 @@ function ProofLine() {
    three-step section saying the same thing in words. The demo won, and the
    space the three steps were taking goes here instead.
 
-   The pain Near removes is not a badly organised list. It is remembering at
+   The pain BoopThere removes is not a badly organised list. It is remembering at
    the wrong moment, which is a thing everyone has done this week. */
 
 const tooLate = [
@@ -701,7 +701,7 @@ function ProblemSection() {
           ))}
         </ul>
         <p className="lead leadCenter lateTurn">
-          Near brings up what you saved when you reach the place you need it.
+          BoopThere brings up what you saved when you reach the place you need it.
         </p>
       </div>
     </section>
@@ -728,12 +728,12 @@ function HouseholdChapter() {
               gets them; tasks are fetched where:{householdId}, so a check-off
               is one row everyone sees.
 
-              "Your partner" narrowed this to couples. Near is for roommates
+              "Your partner" narrowed this to couples. BoopThere is for roommates
               and families too, and "whoever gets there" is also the accurate
-              description - Near does not pick a person, it answers an arrival.
+              description - BoopThere does not pick a person, it answers an arrival.
               Same words as the FAQ now. */}
           <p className="lead">
-            You add milk at home. Whoever gets to the store is the one Near
+            You add milk at home. Whoever gets to the store is the one BoopThere
             reminds. When they check it off, everyone sees it is done.
           </p>
           <p className="caption">
@@ -860,7 +860,7 @@ const DEMO_BEATS = [
   {
     id: "place",
     label: "Check the place",
-    caption: "Near attaches it to Harris Teeter. Change it if that is the wrong store.",
+    caption: "BoopThere attaches it to Harris Teeter. Change it if that is the wrong store.",
     hold: 2600,
   },
   {
@@ -930,7 +930,7 @@ function ProductDemo() {
           <p className="eyebrow">Watch it work</p>
           <h2 className="h2 h2Center">The milk shouldn&rsquo;t need a second trip.</h2>
           <p className="lead leadCenter demoLead">
-            Add &ldquo;Milk at Harris Teeter.&rdquo; Near connects it to a store, and you
+            Add &ldquo;Milk at Harris Teeter.&rdquo; BoopThere connects it to a store, and you
             can change the place if it picked the wrong one. When you arrive,
             your reminder is on your Lock Screen.
           </p>
@@ -993,7 +993,7 @@ function ProductDemo() {
                       <Image src={BRAND_ICON} alt="" width={26} height={26} />
                     </div>
                     <div className="dmNotifBody">
-                      <div className="dmNotifLabel">Near &middot; now</div>
+                      <div className="dmNotifLabel">BoopThere &middot; now</div>
                       <div className="dmNotifTitle">You&rsquo;re at Harris Teeter</div>
                       <div className="dmNotifSub">Milk</div>
                     </div>
@@ -1070,7 +1070,7 @@ function QuietSection() {
         <p className="lead leadCenter">
           Your live route never leaves your iPhone. What syncs is what makes a
           reminder work: your places, your tasks, and the arrivals that fire
-          them. Near sells none of it, and never uses it for ads.
+          them. BoopThere sells none of it, and never uses it for ads.
         </p>
         <div className="pillRow">
           {pledges.map((p) => (
@@ -1082,7 +1082,7 @@ function QuietSection() {
         <p className="caption quietFoot">
           Delete everything, any time.{" "}
           <Link href="/privacy" className="quietLink">
-            How Near uses your data
+            How BoopThere uses your data
           </Link>
         </p>
       </div>

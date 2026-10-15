@@ -23,6 +23,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://www.nearesttask.com/sitemap.xml",
+    sitemap: "https://www.boopthere.com/sitemap.xml",
   }
 }

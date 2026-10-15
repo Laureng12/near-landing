@@ -5,51 +5,58 @@ html {
 }
 
 :root {
-  /* ── Ground ───────────────────────────────────────────────
-     Warm paper in the light chapters, deep plum sky in the dark ones.
-     Warmth lives in the gradient, never in a flat fill.            */
-  --paper:         #FBF8F3;
-  --paper-sunk:    #F4EFE7;
+  /* ── BoopThere premium palette ─────────────────────────────
+     Cream paper in the light chapters, deep navy sky at night.
+     Rose belongs to Boop and the arrival moment only. Gold is
+     "Boop noticed". The user's move is navy.                    */
+  --paper:         #FAF6EF;
+  --paper-sunk:    #F3EDE3;
   --paper-raised:  #FFFFFF;
 
-  --night:         #0B1228;
-  --night-deep:    #070C1C;
-  --night-soft:    #14213F;
-  --night-plum:    #2E1838;
+  --night:         #0E1230;
+  --night-deep:    #090C22;
+  --night-soft:    #161B40;
+  --night-plum:    #1B2150;
 
   /* ── Ink ──────────────────────────────────────────────── */
-  --ink:           #14183A;
-  --ink-soft:      #4A4E68;
-  --ink-faint:     #696B7E;
-  --ink-hair:      rgba(20, 24, 58, 0.10);
-  --ink-hair-soft: rgba(20, 24, 58, 0.06);
+  --ink:           #1B2257;
+  --ink-soft:      #4E5374;
+  --ink-faint:     #5F6385;
+  --ink-hair:      rgba(27, 34, 87, 0.10);
+  --ink-hair-soft: rgba(27, 34, 87, 0.06);
+  --ink-em:        #4A5490;
 
-  --on-night:          #FFF4E4;
-  --on-night-soft:     rgba(255, 244, 228, 0.68);
-  --on-night-faint:    rgba(255, 244, 228, 0.56);
-  --on-night-hair:     rgba(255, 244, 228, 0.14);
+  --on-night:          #EEF0FF;
+  --on-night-soft:     rgba(238, 240, 255, 0.72);
+  --on-night-faint:    rgba(238, 240, 255, 0.58);
+  --on-night-hair:     rgba(238, 240, 255, 0.14);
+  --on-night-em:       #A9AED3;
 
-  /* ── Gold - Near's voice. Discovery, AI, the arrival moment.
-     Never a user-action colour.                                  */
-  --gold:          #C4942F;
-  --gold-lit:      #D4A843;
-  --gold-glow:     rgba(212, 168, 67, 0.22);
+  /* ── Gold - "Boop noticed". Never a user-action colour.        */
+  --gold:          #D9A843;
+  --gold-lit:      #DDBA6C;
+  --gold-glow:     rgba(217, 168, 67, 0.22);
+  /* Gold LABELS on paper use --gold-text (clears 4.5:1). Dark sections
+     redefine it to the lit gold. Fills, icons and borders stay --gold. */
+  --gold-text:     #7A5B12;
 
-  /* --gold is Near's voice, and at 2.6:1 on paper it is a graphic colour, not
-     a reading colour. Small gold LABELS use --gold-text, which is the same hue
-     dark enough to clear 4.5:1. Dark sections redefine it back to the lit gold,
-     so a rule can say var(--gold-text) once and be right on either ground.
-     Fills, icons, borders, checks and the spark stay --gold. */
-  --gold-text:     #81611F;
+  /* ── Rose - Boop himself, and the arrival. Nothing else.        */
+  --rose:          #E5679A;
+  --rose-night:    #D9789E;
+  --rose-glow:     rgba(229, 103, 154, 0.22);
 
-  /* ── Accent - the user's move.                                 */
-  --accent:        #A8264A;
-  --accent-lit:    #C44850;
-  --peach:         #F08246;
+  /* ── Accent - the user's move is navy.                          */
+  --accent:        #1B2257;
+  --accent-lit:    #4A5684;
+  --peach:         #9B94C2;
+  --error:         #B3261E;
 
   /* ── Type ───────────────────────────────────────────────── */
-  --font-sans:  var(--font-dm-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans:    var(--font-dm-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-fredoka), var(--font-dm-sans), -apple-system, sans-serif;
+  /* Legacy name: the italic serif is gone (no italics in the brand), so
+     every rule that asked for it now gets Fredoka, upright. */
+  --font-serif:   var(--font-display);
 
   /* ── Rhythm ─────────────────────────────────────────────── */
   --shell:      1140px;
@@ -63,20 +70,19 @@ html {
   --ease-soft:  cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Legacy aliases kept so /features, /pricing, /privacy, /terms,
-     /support and /join keep rendering while they are migrated.     */
+     /support and /join keep rendering.                            */
   --background: var(--paper);
   --foreground: var(--ink);
   --text-secondary: var(--ink-soft);
   --surface: var(--paper-sunk);
-  --blue: #14213F;
-  --blue-hover: #243463;
+  --blue: #1B2257;
+  --blue-hover: #2A3170;
   --cta: var(--accent);
-  --cta-deep: #8E1D3D;
-  --cta-text: #FFFFFF;
+  --cta-deep: #121738;
+  --cta-text: #FAF6EF;
   --line: var(--ink-hair-soft);
   --line-strong: var(--ink-hair);
   --glow: var(--gold-glow);
-  --font-display: var(--font-sans);
   --font-mono: "SF Mono", "Menlo", "Monaco", monospace;
   --plum-deep: var(--night);
   --plum-base: var(--night-soft);
@@ -84,8 +90,18 @@ html {
   --cream: var(--paper);
   --cream-text: var(--on-night);
   --plum-text: var(--ink);
-  --pink: var(--accent-lit);
+  --pink: var(--rose);
 }
+
+/* Headlines are Fredoka, upright. The brand has no italics. */
+h1, h2:not(.h3Quiet), .h2, .heroTitle, .finalTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.h2, .heroTitle, .finalTitle, .heroTitle em { letter-spacing: -0.012em !important; }
+em { font-style: normal; }
+.h2 em, .heroTitle em, .finalTitle em { color: var(--ink-em); font-weight: 600; }
+.chapterNight .h2 em, .finalCta .finalTitle em { color: var(--on-night-em); }
 
 body {
   background: var(--paper);

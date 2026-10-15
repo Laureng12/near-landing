@@ -1,16 +1,16 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Near",
+  title: "Privacy Policy | BoopThere",
   description:
-    "Privacy Policy for Near, the location-based task reminder app for iPhone. Learn how we handle your data.",
+    "Privacy Policy for BoopThere, the location-based task reminder app for iPhone. Learn how we handle your data.",
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy Policy | Near",
+    title: "Privacy Policy | BoopThere",
     description:
-      "Privacy Policy for Near, the location-based task reminder app for iPhone. Learn how we handle your data.",
+      "Privacy Policy for BoopThere, the location-based task reminder app for iPhone. Learn how we handle your data.",
     url: "/privacy",
     type: "website",
   },

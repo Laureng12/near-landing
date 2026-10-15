@@ -121,7 +121,7 @@ export default function GatherInteractive({
     return (
       <main style={styles.page}>
         <div style={styles.card}>
-          <p style={styles.eyebrow}>Near</p>
+          <p style={styles.eyebrow}>BoopThere</p>
           <h1 style={styles.title}>This invite isn&apos;t available</h1>
           <p style={styles.muted}>The link may have expired or been removed. Ask your host for a fresh one.</p>
         </div>
@@ -230,19 +230,19 @@ export default function GatherInteractive({
             already puts a household's coordination in front of the guest; this
             turns that moment into a recruit ("host your own, free"). */}
         <a
-          href={APP_IS_LIVE ? APP_STORE_URL : "https://www.nearesttask.com/"}
+          href={APP_IS_LIVE ? APP_STORE_URL : "https://www.boopthere.com/"}
           style={styles.ctaCard}
           onClick={() => track("install_click")}
         >
           <p style={styles.ctaEyebrow}>
-            {event.hostName ? `${event.hostName} planned this with Near.` : "This gathering was planned with Near."}
+            {event.hostName ? `${event.hostName} planned this with BoopThere.` : "This gathering was planned with BoopThere."}
           </p>
           <p style={styles.ctaTitle}>Host your own, free.</p>
-          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place - Near does the remembering.</p>
-          <span style={styles.ctaBtn}>{APP_IS_LIVE ? "Get Near" : "Get notified"}</span>
+          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place - BoopThere does the remembering.</p>
+          <span style={styles.ctaBtn}>{APP_IS_LIVE ? "Get BoopThere" : "Get notified"}</span>
         </a>
 
-        <p style={styles.footer}>Planned with Near</p>
+        <p style={styles.footer}>Planned with BoopThere</p>
       </div>
     </main>
   )
@@ -251,7 +251,7 @@ export default function GatherInteractive({
 const styles: Record<string, CSSProperties> = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(180deg, #070C1C 0%, #0E1733 50%, #070C1C 100%)",
+    background: "linear-gradient(180deg, #090C22 0%, #161B40 50%, #090C22 100%)",
     fontFamily: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     display: "flex",
     justifyContent: "center",
@@ -261,7 +261,7 @@ const styles: Record<string, CSSProperties> = {
   wrap: { width: "100%", maxWidth: 480, display: "flex", flexDirection: "column", gap: 16 },
   spinner: {
     width: 32, height: 32, margin: "120px auto",
-    border: "3px solid rgba(255,255,255,0.15)", borderTop: "3px solid #DB4890",
+    border: "3px solid rgba(255,255,255,0.15)", borderTop: "3px solid #D9789E",
     borderRadius: "50%", animation: "spin 0.8s linear infinite",
   },
   card: {
@@ -269,15 +269,15 @@ const styles: Record<string, CSSProperties> = {
     border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 24, padding: 24,
   },
-  eyebrow: { color: "#DB4890", fontSize: 13, fontWeight: 600, letterSpacing: 0.5, margin: "0 0 8px" },
+  eyebrow: { color: "#D9789E", fontSize: 13, fontWeight: 600, letterSpacing: 0.5, margin: "0 0 8px" },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.15 },
-  dateLine: { color: "#FFEFD4", fontSize: 16, fontWeight: 600, margin: "0 0 4px" },
+  dateLine: { color: "#FAF6EF", fontSize: 16, fontWeight: 600, margin: "0 0 4px" },
   muted: { color: "rgba(255,255,255,0.6)", fontSize: 14, margin: "2px 0" },
   note: { color: "rgba(255,255,255,0.8)", fontSize: 15, fontStyle: "italic", margin: "12px 0 0" },
   attending: { color: "rgba(255,255,255,0.5)", fontSize: 13, margin: "14px 0 0" },
   sectionLabel: { color: "rgba(255,255,255,0.5)", fontSize: 12, fontWeight: 700, letterSpacing: 1.4, margin: "0 0 14px" },
   menuRow: { display: "flex", alignItems: "baseline", gap: 10, padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" },
-  courseTag: { color: "#DB4890", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, minWidth: 64 },
+  courseTag: { color: "#D9789E", fontSize: 11, fontWeight: 700, letterSpacing: 0.5, minWidth: 64 },
   dishName: { color: "#fff", fontSize: 15 },
   input: {
     width: "100%", boxSizing: "border-box", marginTop: 10,
@@ -289,7 +289,7 @@ const styles: Record<string, CSSProperties> = {
     flex: 1, padding: "11px 6px", borderRadius: 12, fontSize: 14, fontWeight: 600, cursor: "pointer",
     background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.8)",
   },
-  statusBtnOn: { background: "#DB4890", borderColor: "#DB4890", color: "#fff" },
+  statusBtnOn: { background: "#FAF6EF", borderColor: "#FAF6EF", color: "#1B2257" },
   partyRow: { display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 14 },
   stepper: { display: "flex", alignItems: "center", gap: 14 },
   stepBtn: {
@@ -299,25 +299,25 @@ const styles: Record<string, CSSProperties> = {
   partyNum: { fontSize: 18, fontWeight: 700, minWidth: 20, textAlign: "center" },
   primary: {
     width: "100%", marginTop: 16, padding: "14px", borderRadius: 14, border: "none", cursor: "pointer",
-    background: "#DB4890", color: "#fff", fontSize: 16, fontWeight: 700,
+    background: "#FAF6EF", color: "#1B2257", fontSize: 16, fontWeight: 700,
   },
   primaryOff: { opacity: 0.4, cursor: "default" },
   secondary: {
     width: "100%", marginTop: 12, padding: "13px", borderRadius: 14, cursor: "pointer",
-    background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#FFEFD4", fontSize: 15, fontWeight: 600,
+    background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.2)", color: "#FAF6EF", fontSize: 15, fontWeight: 600,
   },
   ctaCard: {
     display: "block", textDecoration: "none",
-    background: "linear-gradient(180deg, rgba(219,72,144,0.14) 0%, rgba(219,72,144,0.05) 100%)",
-    border: "1px solid rgba(219,72,144,0.3)",
+    background: "linear-gradient(180deg, rgba(217,120,158,0.14) 0%, rgba(217,120,158,0.05) 100%)",
+    border: "1px solid rgba(217,120,158,0.3)",
     borderRadius: 24, padding: 24, marginTop: 4,
   },
-  ctaEyebrow: { color: "#FFEFD4", fontSize: 13, fontWeight: 600, letterSpacing: 0.3, margin: "0 0 8px" },
+  ctaEyebrow: { color: "#FAF6EF", fontSize: 13, fontWeight: 600, letterSpacing: 0.3, margin: "0 0 8px" },
   ctaTitle: { color: "#fff", fontSize: 22, fontWeight: 700, margin: "0 0 8px", lineHeight: 1.15 },
   ctaSub: { color: "rgba(255,255,255,0.7)", fontSize: 15, margin: "0 0 16px", lineHeight: 1.45 },
   ctaBtn: {
     display: "inline-block", padding: "12px 22px", borderRadius: 14,
-    background: "#DB4890", color: "#fff", fontSize: 16, fontWeight: 700,
+    background: "#FAF6EF", color: "#1B2257", fontSize: 16, fontWeight: 700,
   },
   success: { color: "#7CD9A0", fontSize: 16, fontWeight: 600, margin: 0 },
   dishList: { display: "flex", flexDirection: "column", gap: 8, marginBottom: 4 },

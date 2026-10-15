@@ -1,6 +1,6 @@
 /* The canonical feature matrix.
    ------------------------------------------------------------------
-   Everything the site claims about what Near does, and who gets it,
+   Everything the site claims about what BoopThere does, and who gets it,
    comes from this file. Change a plan here and both /pricing and
    /features change.
 
@@ -35,8 +35,8 @@ export type Capability = {
 
 export const PLAN_LABEL: Record<Plan, string> = {
   free: "Free",
-  pro: "Near Pro",
-  together: "Near Together",
+  pro: "BoopThere Pro",
+  together: "BoopThere Together",
 }
 
 export const capabilities: Capability[] = [
@@ -71,7 +71,7 @@ export const capabilities: Capability[] = [
     plan: "free",
     availability: "live",
     onPricing: true,
-    evidence: "Household sharing and the consolidated grocery list are both free. Seat limits belong to Near Together, which is not sellable.",
+    evidence: "Household sharing and the consolidated grocery list are both free. Seat limits belong to BoopThere Together, which is not sellable.",
   },
   {
     id: "kroger",
@@ -103,7 +103,7 @@ export const capabilities: Capability[] = [
     plan: "free",
     availability: "live",
     onPricing: true,
-    evidence: "24h partner activity feed is free. The rich feed belongs to Near Together.",
+    evidence: "24h partner activity feed is free. The rich feed belongs to BoopThere Together.",
   },
 
   /* ── Pro: the AI brain and the prediction ───────────────────── */
@@ -139,7 +139,7 @@ export const capabilities: Capability[] = [
     evidence: "Built, but spendingInsightsEnabled = false. The in-app paywall correctly hides it, and so must the site - never advertise this until the flag is on.",
   },
 
-  /* ── Near Together: built, nobody can buy it ────────────────── */
+  /* ── BoopThere Together: built, nobody can buy it ────────────────── */
   {
     id: "together-seats",
     name: "Up to five household members",
@@ -152,14 +152,14 @@ export const capabilities: Capability[] = [
     name: "Multi-user game plan routing",
     plan: "together",
     availability: "unsellable",
-    evidence: "Near Together feature, not purchasable. GamePlanAssignment exists with a full delegation lifecycle but holds zero rows. This is why the hero mock's 'Game plan - Optimal route for 3 stops' card is not rendered.",
+    evidence: "BoopThere Together feature, not purchasable. GamePlanAssignment exists with a full delegation lifecycle but holds zero rows. This is why the hero mock's 'Game plan - Optimal route for 3 stops' card is not rendered.",
   },
   {
     id: "household-equity",
     name: "Household equity dashboard",
     plan: "together",
     availability: "unsellable",
-    evidence: "Near Together feature, not purchasable.",
+    evidence: "BoopThere Together feature, not purchasable.",
   },
 
   /* ── Described on /features, not a pricing bullet ───────────── */
@@ -181,7 +181,7 @@ export function capability(id: string): Capability {
 }
 
 /* The plan pill /features shows. Free needs no pill - it is the default,
-   and most of Near is free. */
+   and most of BoopThere is free. */
 export function planPill(id: string): string | null {
   const c = capability(id)
   return c.plan === "free" ? null : PLAN_LABEL[c.plan]
