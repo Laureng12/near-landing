@@ -75,7 +75,9 @@ const nextConfig: NextConfig = {
         destination: "https://www.boopthere.com/:path*",
         permanent: true,
       })),
-      ...["nearesttask.com", "www.nearesttask.com"].flatMap((host) =>
+      /* Off until www.boopthere.com serves the public production site.
+         Turn on by setting BOOPTHERE_REDIRECT_NEAREST=1 in Vercel. */
+      ...(process.env.BOOPTHERE_REDIRECT_NEAREST === "1" ? ["nearesttask.com", "www.nearesttask.com"] : []).flatMap((host) =>
         marketing.map((path) => ({
           source: path,
           has: [{ type: "host" as const, value: host }],
