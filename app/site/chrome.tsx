@@ -276,18 +276,37 @@ export function TopNav({ home = false }: { home?: boolean }) {
 /* ── Close ─────────────────────────────────────────────────────── */
 
 
-export type BoopMood = "neutral" | "knowing" | "wry" | "oh" | "happy" | "cool"
-const BOOP_FACES: BoopMood[] = ["neutral", "knowing", "wry", "oh", "happy", "cool"]
+export type BoopMood =
+  | "neutral" | "knowing" | "wry" | "glance" | "deadpan" | "oh" | "happy"
+  | "laugh" | "content" | "bliss" | "sheepish" | "annoyed" | "onit" | "skeptic" | "flat" | "peek" | "joy" | "cheer"
+  | "shades" | "boss" | "sideeye" | "wow" | "delight" | "cool" | "coolOh"
 
-/* Boop, alive: six drawn faces stacked and swapped in place. `mood`
-   overrides (hover, tap); otherwise he idles on a gentle smile and, every
-   few seconds, gives a knowing look, now and then a raised-eyebrow smirk.
-   Timers stay off under prefers-reduced-motion. */
-export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?: string }) {
+/* The bolder, rainbow-rim faces are framed wider so the chain fits; the
+   stylesheet scales them up so every bubble reads the same size. */
+const VIVID = new Set<BoopMood>(["shades", "boss", "sideeye", "wow", "delight", "cool", "coolOh"])
+const IDLE_GLANCES: BoopMood[] = ["knowing", "glance", "wry", "knowing", "deadpan"]
+
+/* Boop, alive: drawn faces stacked and swapped in place. `mood` overrides
+   (hover, tap, a section's beat); otherwise he idles on a gentle smile and,
+   every few seconds, glances: a knowing look, a sideways peek, a smirk, a
+   deadpan. `faces` preloads any extra faces a caller will switch to; `still`
+   renders one fixed face with no timer (small icons). Timers stay off under
+   prefers-reduced-motion. */
+export function BoopFace({
+  mood,
+  className = "",
+  faces = [],
+  still = false,
+}: {
+  mood?: BoopMood
+  className?: string
+  faces?: BoopMood[]
+  still?: boolean
+}) {
   const [idle, setIdle] = useState<BoopMood>("neutral")
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (still || typeof window === "undefined") return
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     let alive = true
     let t: ReturnType<typeof setTimeout>
@@ -295,9 +314,7 @@ export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?
     const loop = () => {
       t = setTimeout(() => {
         if (!alive) return
-        n += 1
-        const face: BoopMood = n % 3 === 0 ? "wry" : "knowing"
-        setIdle(face)
+        setIdle(IDLE_GLANCES[n++ % IDLE_GLANCES.length])
         t = setTimeout(() => {
           if (!alive) return
           setIdle("neutral")
@@ -307,15 +324,27 @@ export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?
     }
     loop()
     return () => { alive = false; clearTimeout(t) }
-  }, [])
+  }, [still])
 
   const face = mood ?? idle
+  const stack: BoopMood[] = still
+    ? [mood ?? "neutral"]
+    : Array.from(new Set<BoopMood>(["neutral", ...IDLE_GLANCES, ...faces, ...(mood ? [mood] : [])]))
   return (
     <span className={`boopFace ${className}`} aria-hidden="true">
-      {BOOP_FACES.map((f) => (
-        /* Plain <img>: six small stacked frames that must swap instantly. */
+      {stack.map((f) => (
+        /* Plain <img>: small stacked frames that must swap instantly. */
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={f} src={`/assets/brand/boop/boop2-${f}.webp`} alt="" width={320} height={320} className={`${f}${f === face ? " on" : ""}`} decoding="async" />
+        <img
+          key={f}
+          src={`/assets/brand/boop/boop2-${f}.webp`}
+          alt=""
+          width={320}
+          height={320}
+          data-face={f}
+          className={`${VIVID.has(f) ? "vivid" : ""}${f === face ? " on" : ""}`}
+          decoding="async"
+        />
       ))}
     </span>
   )
@@ -323,13 +352,19 @@ export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?
 
 export function FinalCTA() {
   const [ref, inView] = useInView<HTMLDivElement>(0.4)
+  const [settled, setSettled] = useState(false)
+  useEffect(() => {
+    if (!inView) return
+    const t = setTimeout(() => setSettled(true), 2200)
+    return () => clearTimeout(t)
+  }, [inView])
 
   return (
     <section className="finalCta" ref={ref}>
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
         <div className="finalMascot" aria-hidden="true">
-<BoopFace className="finalBoopImg" mood={inView ? undefined : "neutral"} />
+<BoopFace className="finalBoopImg" faces={["joy"]} mood={!inView ? "neutral" : settled ? undefined : "joy"} />
         </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />
