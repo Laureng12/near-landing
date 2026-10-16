@@ -71,7 +71,7 @@
   border-radius: 999px;
   /* Lighter tint than the other gold chips: the label sits ON it, so the
      chip's own darkness was eating the text's contrast. */
-  background: rgba(196, 148, 47, 0.08);
+  background: rgba(228, 255, 151, 0.08);
   color: var(--gold-text);
   font-size: 0.6rem;
   font-weight: 600;
@@ -195,7 +195,7 @@
   width: 100%;
   height: auto;
   border-radius: 24%;
-  box-shadow: 0 22px 50px rgba(27, 34, 87, 0.16);
+  box-shadow: 0 22px 50px rgba(19, 24, 58, 0.16);
 }
 .ftIcon figcaption {
   margin-top: 16px;

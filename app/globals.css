@@ -5,50 +5,53 @@ html {
 }
 
 :root {
-  /* ── BoopThere premium palette ─────────────────────────────
-     Cream paper in the light chapters, deep navy sky at night.
-     Rose belongs to Boop and the arrival moment only. Gold is
-     "Boop noticed". The user's move is navy.                    */
-  --paper:         #FAF6EF;
-  --paper-sunk:    #F3EDE3;
+  /* ── BoopThere pop palette (Oct 2026) ─────────────────────
+     White pages, ink type, ink night sections. Magenta belongs to
+     Boop and the arrival moment ("Boop!", the arrival dot). Lime is
+     "Boop noticed" and small highlights. Pop blue is the user's move
+     (buttons, links). Sky is atmosphere (washes, the phone).        */
+  --paper:         #FFFFFF;
+  --paper-sunk:    #F4F8FF;
   --paper-raised:  #FFFFFF;
 
-  --night:         #0E1230;
-  --night-deep:    #090C22;
-  --night-soft:    #161B40;
-  --night-plum:    #1B2150;
+  --night:         #13183A;
+  --night-deep:    #0C102B;
+  --night-soft:    #1C2250;
+  --night-plum:    #232966;
 
   /* ── Ink ──────────────────────────────────────────────── */
-  --ink:           #1B2257;
-  --ink-soft:      #4E5374;
-  --ink-faint:     #5F6385;
-  --ink-hair:      rgba(27, 34, 87, 0.10);
-  --ink-hair-soft: rgba(27, 34, 87, 0.06);
-  --ink-em:        #4E5374;
+  --ink:           #13183A;
+  --ink-soft:      #4A5172;
+  --ink-faint:     #5A6182;
+  --ink-hair:      rgba(19, 24, 58, 0.10);
+  --ink-hair-soft: rgba(19, 24, 58, 0.06);
+  --ink-em:        #4A5172;
 
-  --on-night:          #EEF0FF;
-  --on-night-soft:     rgba(238, 240, 255, 0.72);
-  --on-night-faint:    rgba(238, 240, 255, 0.58);
-  --on-night-hair:     rgba(238, 240, 255, 0.14);
-  --on-night-em:       #A9AED3;
+  --on-night:          #F3F5FF;
+  --on-night-soft:     rgba(243, 245, 255, 0.74);
+  --on-night-faint:    rgba(243, 245, 255, 0.60);
+  --on-night-hair:     rgba(243, 245, 255, 0.14);
+  --on-night-em:       #B9C0E6;
 
-  /* ── Gold - "Boop noticed". Never a user-action colour.        */
-  --gold:          #D9A843;
-  --gold-lit:      #DDBA6C;
-  --gold-glow:     rgba(217, 168, 67, 0.22);
-  /* Gold LABELS on paper use --gold-text (clears 4.5:1). Dark sections
-     redefine it to the lit gold. Fills, icons and borders stay --gold. */
-  --gold-text:     #7A5B12;
+  /* ── "Boop noticed": pop blue on white, lime on night (names kept). */
+  --gold:          #2F6BFF;   /* on white: pop blue (lime is too pale) */
+  --gold-lit:      #E4FF97;   /* on night: lime */
+  --gold-glow:     rgba(47, 107, 255, 0.22);
+  /* Labels on white can't be lime (too pale); they use pop blue. Dark
+     sections redefine it to lime. Fills, dots and chips stay lime. */
+  --gold-text:     #2F6BFF;
 
-  /* ── Rose - Boop himself, and the arrival. Nothing else.        */
-  --rose:          #E5679A;
-  --rose-night:    #D9789E;
-  --rose-glow:     rgba(229, 103, 154, 0.22);
+  /* ── Magenta - Boop himself, and the arrival. Nothing else.        */
+  --rose:          #FF00FF;
+  --rose-night:    #FF4DFF;
+  --rose-glow:     rgba(255, 0, 255, 0.20);
 
-  /* ── Accent - the user's move is navy.                          */
-  --accent:        #1B2257;
-  --accent-lit:    #4A5684;
-  --peach:         #9B94C2;
+  /* ── Accent - the user's move is pop blue.                         */
+  --accent:        #2F6BFF;
+  --accent-lit:    #5A8BFF;
+  --sky:           #8FD3FF;
+  --lime:          #E4FF97;
+  --peach:         #8FD3FF;
   --error:         #B3261E;
 
   /* ── Type ───────────────────────────────────────────────── */
@@ -76,11 +79,11 @@ html {
   --foreground: var(--ink);
   --text-secondary: var(--ink-soft);
   --surface: var(--paper-sunk);
-  --blue: #1B2257;
-  --blue-hover: #2A3170;
+  --blue: #2F6BFF;
+  --blue-hover: #1F57E6;
   --cta: var(--accent);
   --cta-deep: #121738;
-  --cta-text: #FAF6EF;
+  --cta-text: #FFFFFF;
   --line: var(--ink-hair-soft);
   --line-strong: var(--ink-hair);
   --glow: var(--gold-glow);
