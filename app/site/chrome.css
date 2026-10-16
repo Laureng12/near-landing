@@ -4737,9 +4737,7 @@ button.tierCta, button.priceNavCta {
 /* Boop: still, pearly, reacts only to events */
 .boopBody { animation: none; }
 .boopShadow { animation: none; }
-.boopFace img { filter: saturate(.62) brightness(1.03); }
-.boopFace { animation: none; }
-.finalMascot .finalBoopImg { animation: none; filter: drop-shadow(0 12px 26px rgba(155, 148, 194, .35)); }
+.finalMascot .finalBoopImg { animation: none; filter: drop-shadow(0 12px 26px rgba(217, 120, 158, .35)); }
 .boopCaption { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
 
 /* Card and section titles in the new headline face */
