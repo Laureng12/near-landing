@@ -86,7 +86,7 @@ export default function ConsentBanner() {
           padding: 16px 20px;
           background: var(--cream, #faf6f1);
           color: var(--plum-text, #2a0a16);
-          border: 1px solid var(--line-strong, rgba(14, 23, 51, 0.12));
+          border: 1px solid var(--line-strong, rgba(19, 24, 58, 0.12));
           border-radius: 16px;
           box-shadow: 0 16px 48px rgba(11, 18, 40, 0.18);
         }
@@ -122,7 +122,7 @@ export default function ConsentBanner() {
         .consentBtn.ghost {
           background: transparent;
           color: var(--plum-text, #2a0a16);
-          border-color: var(--line-strong, rgba(14, 23, 51, 0.18));
+          border-color: var(--line-strong, rgba(19, 24, 58, 0.18));
           opacity: 0.85;
         }
         .consentBtn.ghost:hover {
