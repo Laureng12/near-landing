@@ -348,12 +348,12 @@ export function FinalCTA() {
         </div>
 
         <h2 className="finalTitle">
-          Stop remembering.
+          Your brain has better things to do.
           <br />
-          <em>Start showing up.</em>
+          <em>Like literally anything.</em>
         </h2>
         <p className="finalSub">
-          No forgotten milk. No extra trips. No &ldquo;did you remember?&rdquo; texts. Just Boop, right on time.
+          No forgotten milk. No second trip. No &ldquo;did you remember?&rdquo; texts.
         </p>
         <DownloadCta className="btnCream" source="closing">Download BoopThere</DownloadCta>
         {APP_IS_LIVE && (

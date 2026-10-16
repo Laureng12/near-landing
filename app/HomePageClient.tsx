@@ -98,6 +98,7 @@ export default function HomePageClient() {
       <PlacesTicker />
       <ProofLine />
       <BenefitsSection />
+      <WhoSection />
       <ProblemSection />
       <ProductDemo />
       <HouseholdChapter />
@@ -239,8 +240,8 @@ function Hero() {
 /* What Boop narrates under himself. The first line is the moment the phone
    shows; each tap replays the arrival and steps to the next beat. */
 const BOOP_CAPTIONS = [
-  "You just walked into Target.",
-  "Boop! Your list popped up.",
+  "You\u2019re at Target.",
+  "Your list. Right on time.",
   "Brian added the paper towels.",
   "No app to open. It\u2019s just there.",
   "Whoever gets there, gets the list.",
@@ -273,11 +274,11 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       }}
     >
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <BoopFace className="boopImg" mood={thrilled ? "excited" : hover ? "surprised" : undefined} />
+        <BoopFace className="boopImg" mood={thrilled ? "wink" : hover ? "surprised" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
       <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
-        {hover && hops === 0 ? "Tap me to see it again." : BOOP_CAPTIONS[hops % BOOP_CAPTIONS.length]}
+        {hover && hops === 0 ? "Tap to see it again." : BOOP_CAPTIONS[hops % BOOP_CAPTIONS.length]}
       </span>
     </button>
   )
@@ -648,7 +649,7 @@ function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boole
             <div className="lockTaskList">
               <div className="lockTaskItem lockTaskItem1">
                 <div className="lockTaskCheck" />
-                <span className="lockTaskText">Diapers</span>
+                <span className="lockTaskText">Batteries</span>
               </div>
               <div className="lockTaskItem lockTaskItem2">
                 <div className="lockTaskCheck" />
@@ -780,7 +781,7 @@ function PlacesTicker() {
 const benefits = [
   {
     id: "lock",
-    title: "Nothing to open!",
+    title: "Nothing to open.",
     body: "Your list is on your Lock Screen the moment you walk in. You never have to go looking for it.",
   },
   {
@@ -934,6 +935,49 @@ function BenefitsSection() {
   )
 }
 
+/* ── Who it's for ─────────────────────────────────────────────────
+   Four lives, one product. Every line describes something the live app
+   does: an arrival reminder, or a shared list someone else added to. */
+
+const people = [
+  { who: "The exec", place: "You\u2019re at the airport.", body: "Charger\u2019s on the list. Not in your bag.", line: "Dry cleaning before the board meeting. Not after." },
+  { who: "The roommates", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Someone finally bought toilet paper. It was you." },
+  { who: "The family", place: "You\u2019re at school pickup.", body: "Permission slip\u2019s due today.", line: "One list. Whoever\u2019s there gets it." },
+  { who: "The teenager", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "She\u2019ll never know you almost forgot." },
+] as const
+
+function WhoSection() {
+  return (
+    <section className="chapter whoChapter" id="who" aria-labelledby="whoTitle">
+      <div className="reveal shell">
+        <div className="centeredHead">
+          <p className="eyebrow">Who it&rsquo;s for</p>
+          <h2 className="h2 h2Center" id="whoTitle">
+            Anyone with a list
+            <br />
+            <em>and somewhere to be.</em>
+          </h2>
+        </div>
+        <ul className="whoGrid">
+          {people.map((p) => (
+            <li className="whoCard" key={p.who} data-stagger>
+              <span className="whoLabel">{p.who}</span>
+              <div className="whoNotif" aria-hidden="true">
+                <span className="whoNotifIcon"><BoopFace mood="smile" /></span>
+                <span className="whoNotifText">
+                  <span className="whoNotifTitle">{p.place}</span>
+                  <span className="whoNotifBody">{p.body}</span>
+                </span>
+              </div>
+              <p className="whoLine">{p.line}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
 /* ── The problem ────────────────────────────────────────────────────
 
    The site used to explain the mechanism twice: a four-beat demo, then a
@@ -962,7 +1006,6 @@ function ProblemSection() {
         <ul className="lateList">
           {tooLate.map((t) => (
             <li className={`lateRow lateRow--${t.tone}`} key={t.thing} data-stagger>
-              <span className="lateFace" aria-hidden="true">{t.face}</span>
               <span className="lateText">
                 <span className="lateThing">{t.thing},</span>{" "}
                 <span className="lateWhen">{t.when}</span>

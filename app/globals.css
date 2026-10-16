@@ -24,7 +24,7 @@ html {
   --ink-faint:     #5F6385;
   --ink-hair:      rgba(27, 34, 87, 0.10);
   --ink-hair-soft: rgba(27, 34, 87, 0.06);
-  --ink-em:        #4A5490;
+  --ink-em:        #4E5374;
 
   --on-night:          #EEF0FF;
   --on-night-soft:     rgba(238, 240, 255, 0.72);
@@ -53,7 +53,8 @@ html {
 
   /* ── Type ───────────────────────────────────────────────── */
   --font-sans:    var(--font-dm-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: var(--font-fredoka), var(--font-dm-sans), -apple-system, sans-serif;
+  --font-display: var(--font-inter-tight), var(--font-dm-sans), -apple-system, sans-serif;
+  --font-brand:   var(--font-fredoka), var(--font-dm-sans), sans-serif;
   /* Legacy name: the italic serif is gone (no italics in the brand), so
      every rule that asked for it now gets Fredoka, upright. */
   --font-serif:   var(--font-display);
@@ -98,7 +99,7 @@ h1, h2:not(.h3Quiet), .h2, .heroTitle, .finalTitle {
   font-family: var(--font-display);
   font-weight: 600;
 }
-.h2, .heroTitle, .finalTitle, .heroTitle em { letter-spacing: -0.012em !important; }
+.h2, .heroTitle, .finalTitle, .heroTitle em { letter-spacing: -0.025em !important; }
 em { font-style: normal; }
 .h2 em, .heroTitle em, .finalTitle em { color: var(--ink-em); font-weight: 600; }
 .chapterNight .h2 em, .finalCta .finalTitle em { color: var(--on-night-em); }
