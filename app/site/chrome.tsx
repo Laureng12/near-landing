@@ -12,7 +12,7 @@ import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
 
 export { APP_STORE_URL }
 export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v3.png"
-export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v3.png"
+export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v4.png"
 
 export function useReveal() {
   useEffect(() => {
@@ -241,7 +241,7 @@ export function TopNav({ home = false }: { home?: boolean }) {
     <header className={`nav ${lifted ? "navLifted" : ""}`}>
       <div className="navInner">
         <Link className="brand" href={home ? "#top" : "/"} aria-label="BoopThere, home">
-          <Image src={BRAND_WORDMARK} alt="BoopThere" className="brandLogo" width={1072} height={216} priority quality={100} />
+          <Image src={BRAND_WORDMARK} alt="BoopThere" className="brandLogo" width={1121} height={216} priority quality={100} />
         </Link>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href={at("#how-it-works")}>How it works</a>
@@ -406,7 +406,7 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="footerTop">
         <div className="footerBrand">
-          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v3.png" alt="BoopThere" className="footerLogo" width={1072} height={216} />
+          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v4.png" alt="BoopThere" className="footerLogo" width={1121} height={216} />
           <p className="footerTag">Boop! There it is.</p>
         </div>
         <nav className="footerNav" aria-label="Footer">

@@ -4724,12 +4724,12 @@ button.tierCta, button.priceNavCta {
 }
 
 /* ══ Grown-up pass ════════════════════════════════════════════
-   Navy and cream lead; rose is a rare signal; Fredoka only for the
+   Navy and cream lead; rose is a rare signal; Bricolage only for the
    brand word; Boop is still until something happens.            */
 
-/* Brand word stays Fredoka; headlines are Inter Tight via --font-display */
+/* Brand word is Bricolage Grotesque; headlines are Inter Tight via --font-display */
 .heroBoopWord, .tickerBoop { font-family: var(--font-brand); }
-.heroBoopWord { color: #E5679A; }              /* the one rose word on the hero */
+.heroBoopWord { color: #E5679A; font-weight: 700; letter-spacing: -0.03em; } /* the one rose word on the hero */
 .tickerBoop { color: #EEF0FF; font-weight: 600; }
 .heroTitle { font-weight: 600; }
 .h2 em, .heroTitle em, .finalTitle em { color: var(--ink-em); }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DM_Sans, Fredoka, Inter_Tight } from "next/font/google"
+import { Bricolage_Grotesque, DM_Sans, Inter_Tight } from "next/font/google"
 import "./globals.css"
 import "./site/chrome.css"
 import ConsentBanner from "./ConsentBanner"
@@ -21,10 +21,11 @@ const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   display: "swap",
 })
-const fredoka = Fredoka({
+// Brand word only ("Boop!", the wordmark): grown-up with a little character.
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-fredoka",
+  weight: ["600", "700"],
+  variable: "--font-bricolage",
   display: "swap",
 })
 
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/boopthere-og.png?v=3",
+        url: "/boopthere-og.png?v=4",
         width: 1200,
         height: 630,
         alt: "BoopThere - location reminders for iPhone",
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BoopThere | Boop! There it is. Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
-    images: ["/boopthere-og.png?v=3"],
+    images: ["/boopthere-og.png?v=4"],
   },
   icons: {
     icon: [
@@ -111,7 +112,7 @@ const organizationJsonLd = {
   legalName: "Rise-X, Inc.",
   url: SITE_URL,
   logo: `${SITE_URL}/assets/brand/boop/boop-app-icon-1024-v3.png`,
-  image: `${SITE_URL}/boopthere-og.png?v=3`,
+  image: `${SITE_URL}/boopthere-og.png?v=4`,
   email: "hello@nearesttask.com",
   description: "Location reminders for iPhone. Boop! There it is.",
   brand: {
@@ -132,7 +133,7 @@ const mobileAppJsonLd = {
   /* Telling search engines the app can be installed at a URL that 404s is
      worse than saying nothing. These come back when the listing is live. */
   ...(APP_IS_LIVE ? { downloadUrl: APP_STORE_URL, installUrl: APP_STORE_URL } : {}),
-  image: `${SITE_URL}/boopthere-og.png?v=3`,
+  image: `${SITE_URL}/boopthere-og.png?v=4`,
   isAccessibleForFree: true,
   description: DEFAULT_DESCRIPTION,
   publisher: {
@@ -196,7 +197,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${fredoka.variable} ${interTight.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${bricolage.variable} ${interTight.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico?v=8" sizes="64x64" />
         <link rel="icon" href="/favicon.png?v=8" type="image/png" sizes="64x64" />
