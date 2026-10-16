@@ -277,13 +277,13 @@ export function TopNav({ home = false }: { home?: boolean }) {
 
 
 export type BoopMood =
-  | "neutral" | "knowing" | "wry" | "glance" | "deadpan" | "oh" | "happy"
-  | "laugh" | "content" | "bliss" | "sheepish" | "annoyed" | "onit" | "skeptic" | "flat" | "peek" | "joy" | "cheer"
-  | "shades" | "boss" | "sideeye" | "wow" | "delight" | "cool" | "coolOh"
+  | "neutral" | "knowing" | "wry" | "glance" | "deadpan" | "oh"
+  | "laugh" | "content" | "bliss" | "annoyed" | "onit" | "skeptic" | "flat" | "peek" | "joy" | "cheer"
+  | "shades" | "boss" | "cool" | "coolOh"
 
 /* The bolder, rainbow-rim faces are framed wider so the chain fits; the
    stylesheet scales them up so every bubble reads the same size. */
-const VIVID = new Set<BoopMood>(["shades", "boss", "sideeye", "wow", "delight", "cool", "coolOh"])
+const VIVID = new Set<BoopMood>(["shades", "boss", "cool", "coolOh"])
 const IDLE_GLANCES: BoopMood[] = ["knowing", "glance", "wry", "knowing", "deadpan"]
 
 /* Boop, alive: drawn faces stacked and swapped in place. `mood` overrides

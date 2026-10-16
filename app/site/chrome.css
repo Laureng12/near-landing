@@ -4790,3 +4790,11 @@ button.tierCta, button.priceNavCta {
 .lateBoop { display: block; width: 88px; margin: 0 auto 14px; }
 .reveal.revealed .lateBoop { animation: lateWobble 1s cubic-bezier(.36,.07,.19,.97) .2s both; }
 @media (prefers-reduced-motion: reduce) { .reveal.revealed .lateBoop { animation: none; } }
+
+/* Boop in context: one small, fixed face where a section has a feeling */
+.benefitCard--voice .benefitScene { position: relative; }
+.sceneBoop { position: absolute; top: 12px; right: 14px; width: 46px; }
+.houseBoop { width: 72px; margin: 0 0 14px; }
+.faqHead { display: flex; align-items: center; gap: 14px; }
+.faqHead .h3Quiet { margin: 0; }
+.faqBoop { width: 52px; flex: 0 0 auto; }

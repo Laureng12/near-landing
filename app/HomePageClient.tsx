@@ -221,7 +221,7 @@ function Hero() {
           </div>
           <div className="heroStage">
             <PhoneMockup phase={1} arrived={replaying} />
-            <BoopBuddy ref={boopRef} onBoop={replayArrival} />
+            <BoopBuddy ref={boopRef} onBoop={replayArrival} arriving={replaying} />
           </div>
 
         </div>
@@ -247,8 +247,8 @@ const BOOP_CAPTIONS = [
   "Whoever gets there, gets the list.",
 ] as const
 
-const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function BoopBuddy(
-  { onBoop },
+const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?: boolean }>(function BoopBuddy(
+  { onBoop, arriving = false },
   ref
 ) {
   const [hops, setHops] = useState(0)
@@ -257,6 +257,14 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
   const [tap, setTap] = useState<0 | 1 | 2>(0)
   const thrillT = useRef<ReturnType<typeof setTimeout>[]>([])
   useEffect(() => () => thrillT.current.forEach(clearTimeout), [])
+  /* When the arrival replays, he lights up for a beat. */
+  const [cheer, setCheer] = useState(false)
+  useEffect(() => {
+    if (!arriving) return
+    setCheer(true)
+    const t = setTimeout(() => setCheer(false), 1400)
+    return () => clearTimeout(t)
+  }, [arriving])
 
   return (
     <button
@@ -275,7 +283,7 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       }}
     >
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <BoopFace className="boopImg" faces={["oh", "coolOh", "cool"]} mood={tap === 1 ? "coolOh" : tap === 2 ? "cool" : hover ? "oh" : undefined} />
+        <BoopFace className="boopImg" faces={["oh", "cheer", "coolOh", "cool"]} mood={tap === 1 ? "coolOh" : tap === 2 ? "cool" : cheer ? "cheer" : hover ? "oh" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
       <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
@@ -858,6 +866,7 @@ function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
     case "voice":
       return (
         <div className="bsVoice">
+          <BoopFace className="sceneBoop" mood="onit" still />
           <div className="bsWave">
             {[30, 56, 82, 48, 92, 64, 38, 74, 44, 60, 28].map((h, i) => (
               <i key={i} style={{ height: h + "%", animationDelay: i * 90 + "ms" }} />
@@ -1033,6 +1042,7 @@ function HouseholdChapter() {
       <div className="skyWash skyWashWarm" aria-hidden="true" />
       <div className="reveal shell split">
         <div className="splitCopy">
+          <BoopFace className="houseBoop" mood="boss" still />
           <p className="eyebrow">For households</p>
           <h2 className="h2">
             Share the list.
@@ -1412,7 +1422,10 @@ function FAQSection() {
   return (
     <section className="chapter chapterTight" id="faq">
       <div className="reveal shell narrow">
-        <h2 className="h3Quiet">Questions, answered</h2>
+        <div className="faqHead">
+          <BoopFace className="faqBoop" mood="skeptic" still />
+          <h2 className="h3Quiet">Questions, answered</h2>
+        </div>
         <div className="faqList">
           {faqItems.map((item) => (
             <details className="faqItem" key={item.q}>
