@@ -4642,3 +4642,73 @@ button.tierCta, button.priceNavCta {
   .benefitScene { height: 200px; }
   .benefitText { padding: 20px 20px 24px; }
 }
+
+/* ══ Too late: make it sting a little ════════════════════════ */
+.lateList { max-width: 40rem; display: flex; flex-direction: column; gap: 12px; }
+.lateRow {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--ink-hair-soft);
+  border-bottom: 1px solid var(--ink-hair-soft);
+  border-radius: 18px;
+  background: var(--paper-raised);
+  box-shadow: 0 1px 2px rgba(27,34,87,.04), 0 10px 24px rgba(27,34,87,.05);
+}
+.lateRow:last-child { border-bottom: 1px solid var(--ink-hair-soft); }
+.lateFace {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: 14px;
+  display: grid; place-items: center; font-size: 1.6rem; line-height: 1;
+  background: var(--late-tint);
+}
+.lateText { flex: 1; min-width: 0; }
+.lateStamp {
+  flex-shrink: 0;
+  font-size: .78rem; font-weight: 600; letter-spacing: .02em;
+  color: var(--late-ink); background: var(--late-tint);
+  padding: 5px 10px; border-radius: 999px;
+  transform: rotate(-3deg);
+  white-space: nowrap;
+}
+.lateRow--a { --late-tint: #FBE6DA; --late-ink: #A1543A; }
+.lateRow--b { --late-tint: #F6DDE8; --late-ink: #A23E68; }
+.lateRow--c { --late-tint: #E7E4F5; --late-ink: #57508A; }
+
+/* The "ugh, again" shake as each one lands, then the face keeps sighing */
+.reveal.revealed .lateRow { animation: lateShake .7s cubic-bezier(.36,.07,.19,.97) both; }
+.reveal.revealed .lateRow:nth-child(1) { animation-delay: .35s; }
+.reveal.revealed .lateRow:nth-child(2) { animation-delay: .6s; }
+.reveal.revealed .lateRow:nth-child(3) { animation-delay: .85s; }
+@keyframes lateShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-7px) rotate(-.6deg); }
+  30% { transform: translateX(6px) rotate(.5deg); }
+  45% { transform: translateX(-4px); }
+  60% { transform: translateX(3px); }
+  75% { transform: translateX(-1px); }
+}
+.lateFace { animation: lateSigh 4.5s ease-in-out infinite; }
+.lateRow:nth-child(2) .lateFace { animation-delay: 1.5s; }
+.lateRow:nth-child(3) .lateFace { animation-delay: 3s; }
+@keyframes lateSigh {
+  0%, 70%, 100% { transform: none; }
+  78% { transform: translateY(2px) scale(1.06, .94) rotate(-6deg); }
+  86% { transform: translateY(-1px) rotate(5deg); }
+}
+.lateRow:hover .lateFace { animation: lateShake .5s both; }
+
+/* The headline itself gives a frustrated little wobble */
+.reveal.revealed .lateWobble { display: inline-block; animation: lateWobble 1s cubic-bezier(.36,.07,.19,.97) .2s both; }
+@keyframes lateWobble {
+  0%, 100% { transform: none; }
+  20% { transform: rotate(-2.2deg) translateX(-4px); }
+  40% { transform: rotate(1.8deg) translateX(3px); }
+  60% { transform: rotate(-1deg); }
+  80% { transform: rotate(.5deg); }
+}
+
+@media (max-width: 560px) {
+  .lateRow { flex-wrap: wrap; gap: 12px; padding: 14px; }
+  .lateFace { width: 42px; height: 42px; font-size: 1.4rem; }
+  .lateText { flex-basis: calc(100% - 60px); }
+  .lateStamp { margin-left: 54px; }
+}
