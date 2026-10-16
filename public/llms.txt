@@ -2,6 +2,8 @@
 
 > BoopThere is an iPhone app for location-based reminders, errands, groceries and household tasks. You save what you need where it matters, and BoopThere surfaces it when you arrive.
 
+Tagline: Boop! There it is.
+Formerly: Near (nearesttask.com)
 Official site: https://www.boopthere.com
 Support: https://www.boopthere.com/support
 Contact: hello@nearesttask.com
