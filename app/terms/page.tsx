@@ -5,7 +5,7 @@ import "./terms.css"
 import Link from "next/link"
 import Image from "next/image"
 
-const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v3.png"
+const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v4.png"
 
 export default function TermsPage() {
   return (
@@ -15,7 +15,7 @@ export default function TermsPage() {
           <Image
             src={BRAND_WORDMARK}
             alt="BoopThere"
-            width={1072}
+            width={1121}
             height={216}
             className="legalLogoFull"
           />

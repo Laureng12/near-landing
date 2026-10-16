@@ -54,12 +54,12 @@ const momentScenes = [
     id: "pharmacy",
     tone: "pharmacy",
     sky: "day",
-    line: "The prescription, while you are already standing there.",
+    line: "The pharmacy pickup, while you are already standing there.",
     clock: "1:04",
     day: "Tuesday, March 17",
     title: "You\u2019re at Walgreens",
     sub: "1 thing waiting",
-    items: ["Pick up the prescription"],
+    items: ["Pharmacy pickup"],
   },
   {
     id: "ask",
@@ -221,7 +221,7 @@ function Hero() {
           </div>
           <div className="heroStage">
             <PhoneMockup phase={1} arrived={replaying} />
-            <BoopBuddy ref={boopRef} onBoop={replayArrival} />
+            <BoopBuddy ref={boopRef} onBoop={replayArrival} arriving={replaying} />
           </div>
 
         </div>
@@ -247,15 +247,24 @@ const BOOP_CAPTIONS = [
   "Whoever gets there, gets the list.",
 ] as const
 
-const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function BoopBuddy(
-  { onBoop },
+const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?: boolean }>(function BoopBuddy(
+  { onBoop, arriving = false },
   ref
 ) {
   const [hops, setHops] = useState(0)
   const [hover, setHover] = useState(false)
-  const [thrilled, setThrilled] = useState(false)
-  const thrillT = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  useEffect(() => () => clearTimeout(thrillT.current), [])
+  /* Tap: the shades drop (a quick "oh") and settle into the cool smirk. */
+  const [tap, setTap] = useState<0 | 1 | 2>(0)
+  const thrillT = useRef<ReturnType<typeof setTimeout>[]>([])
+  useEffect(() => () => thrillT.current.forEach(clearTimeout), [])
+  /* When the arrival replays, he lights up for a beat. */
+  const [cheer, setCheer] = useState(false)
+  useEffect(() => {
+    if (!arriving) return
+    setCheer(true)
+    const t = setTimeout(() => setCheer(false), 1400)
+    return () => clearTimeout(t)
+  }, [arriving])
 
   return (
     <button
@@ -267,14 +276,14 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       onPointerLeave={() => setHover(false)}
       onClick={() => {
         setHops((h) => h + 1)
-        setThrilled(true)
-        clearTimeout(thrillT.current)
-        thrillT.current = setTimeout(() => setThrilled(false), 1700)
+        thrillT.current.forEach(clearTimeout)
+        setTap(1)
+        thrillT.current = [setTimeout(() => setTap(2), 380), setTimeout(() => setTap(0), 1900)]
         onBoop()
       }}
     >
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <BoopFace className="boopImg" mood={thrilled ? "cool" : hover ? "oh" : undefined} />
+        <BoopFace className="boopImg" faces={["oh", "cheer", "coolOh", "cool"]} mood={tap === 1 ? "coolOh" : tap === 2 ? "cool" : cheer ? "cheer" : hover ? "oh" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
       <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
@@ -845,7 +854,7 @@ function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
         <div className="bsLock">
           <div className="bsLockTime">5:12</div>
           <div className="bsNotif">
-            <span className="bsNotifIcon"><BoopFace mood="neutral" /></span>
+            <span className="bsNotifIcon"><BoopFace mood="neutral" still /></span>
             <span className="bsNotifText">
               <span className="bsNotifApp">BoopThere &middot; now</span>
               <span className="bsNotifTitle">You&rsquo;re at Kroger</span>
@@ -857,6 +866,7 @@ function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
     case "voice":
       return (
         <div className="bsVoice">
+          <BoopFace className="sceneBoop" mood="onit" still />
           <div className="bsWave">
             {[30, 56, 82, 48, 92, 64, 38, 74, 44, 60, 28].map((h, i) => (
               <i key={i} style={{ height: h + "%", animationDelay: i * 90 + "ms" }} />
@@ -941,9 +951,9 @@ function BenefitsSection() {
 
 const people = [
   { who: "The exec", place: "You\u2019re at the airport.", body: "Charger\u2019s on the list. Not in your bag.", line: "Dry cleaning before the board meeting. Not after." },
-  { who: "The roommates", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Someone finally bought toilet paper. It was you." },
+  { who: "The roommates", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Toilet paper\u2019s on the list. You\u2019re the one at Costco." },
   { who: "The family", place: "You\u2019re at school pickup.", body: "Permission slip\u2019s due today.", line: "One list. Whoever\u2019s there gets it." },
-  { who: "The teenager", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "She\u2019ll never know you almost forgot." },
+  { who: "The teenager", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "On your phone the second you walk in." },
 ] as const
 
 function WhoSection() {
@@ -963,7 +973,7 @@ function WhoSection() {
             <li className="whoCard" key={p.who} data-stagger>
               <span className="whoLabel">{p.who}</span>
               <div className="whoNotif" aria-hidden="true">
-                <span className="whoNotifIcon"><BoopFace mood="neutral" /></span>
+                <span className="whoNotifIcon"><BoopFace mood="neutral" still /></span>
                 <span className="whoNotifText">
                   <span className="whoNotifTitle">{p.place}</span>
                   <span className="whoNotifBody">{p.body}</span>
@@ -997,6 +1007,7 @@ function ProblemSection() {
   return (
     <section className="chapter chapterSunk" id="problem">
       <div className="reveal shell narrow center">
+        <BoopFace className="lateBoop" mood="annoyed" still />
         <p className="eyebrow">The problem</p>
         <h2 className="h2 h2Center">
           You remembered.
@@ -1031,6 +1042,7 @@ function HouseholdChapter() {
       <div className="skyWash skyWashWarm" aria-hidden="true" />
       <div className="reveal shell split">
         <div className="splitCopy">
+          <BoopFace className="houseBoop" mood="boss" still />
           <p className="eyebrow">For households</p>
           <h2 className="h2">
             Share the list.
@@ -1410,7 +1422,10 @@ function FAQSection() {
   return (
     <section className="chapter chapterTight" id="faq">
       <div className="reveal shell narrow">
-        <h2 className="h3Quiet">Questions, answered</h2>
+        <div className="faqHead">
+          <BoopFace className="faqBoop" mood="skeptic" still />
+          <h2 className="h3Quiet">Questions, answered</h2>
+        </div>
         <div className="faqList">
           {faqItems.map((item) => (
             <details className="faqItem" key={item.q}>

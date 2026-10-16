@@ -4502,15 +4502,16 @@ button.tierCta, button.priceNavCta {
   transition: opacity 70ms linear;
 }
 .boopFace img.on { opacity: 1; }
-/* Shades on: the tap payoff. The chain hangs past the bubble, so the
-   frame is wider; scale it so the bubble matches the other faces. */
-.boopFace img.cool { transform: scale(1.055); }
-.boopFace img.cool.on { animation: boopCoolOn 340ms cubic-bezier(.2,1.4,.4,1); }
+/* Rainbow-rim faces are framed wider (the chain hangs past the bubble);
+   scale them so the bubble matches the soft faces. */
+.boopFace img.vivid { transform: scale(1.048); }
+/* Shades drop: the tap payoff pops in. */
+.boopFace img[data-face="coolOh"].on { animation: boopCoolOn 320ms cubic-bezier(.2,1.4,.4,1); }
 @keyframes boopCoolOn {
-  0%   { transform: scale(.94); }
-  100% { transform: scale(1.055); }
+  0%   { transform: scale(.93); }
+  100% { transform: scale(1.048); }
 }
-@media (prefers-reduced-motion: reduce) { .boopFace img.cool.on { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .boopFace img[data-face="coolOh"].on { animation: none; } }
 @keyframes boopShimmer {
   0%   { filter: hue-rotate(-10deg) saturate(1.05); }
   50%  { filter: hue-rotate(6deg) saturate(1.15) brightness(1.03); }
@@ -4723,12 +4724,12 @@ button.tierCta, button.priceNavCta {
 }
 
 /* ══ Grown-up pass ════════════════════════════════════════════
-   Navy and cream lead; rose is a rare signal; Fredoka only for the
+   Navy and cream lead; rose is a rare signal; Bricolage only for the
    brand word; Boop is still until something happens.            */
 
-/* Brand word stays Fredoka; headlines are Inter Tight via --font-display */
+/* Brand word is Bricolage Grotesque; headlines are Inter Tight via --font-display */
 .heroBoopWord, .tickerBoop { font-family: var(--font-brand); }
-.heroBoopWord { color: #E5679A; }              /* the one rose word on the hero */
+.heroBoopWord { color: #E5679A; font-weight: 700; letter-spacing: -0.03em; } /* the one rose word on the hero */
 .tickerBoop { color: #EEF0FF; font-weight: 600; }
 .heroTitle { font-weight: 600; }
 .h2 em, .heroTitle em, .finalTitle em { color: var(--ink-em); }
@@ -4784,3 +4785,16 @@ button.tierCta, button.priceNavCta {
 .whoLine { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; line-height: 1.3; letter-spacing: -0.012em; color: var(--ink); }
 @media (max-width: 1040px) { .whoGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px)  { .whoGrid { grid-template-columns: 1fr; } }
+
+/* Too late: Boop is not thrilled either */
+.lateBoop { display: block; width: 88px; margin: 0 auto 14px; }
+.reveal.revealed .lateBoop { animation: lateWobble 1s cubic-bezier(.36,.07,.19,.97) .2s both; }
+@media (prefers-reduced-motion: reduce) { .reveal.revealed .lateBoop { animation: none; } }
+
+/* Boop in context: one small, fixed face where a section has a feeling */
+.benefitCard--voice .benefitScene { position: relative; }
+.sceneBoop { position: absolute; top: 12px; right: 14px; width: 46px; }
+.houseBoop { width: 72px; margin: 0 0 14px; }
+.faqHead { display: flex; align-items: center; gap: 14px; }
+.faqHead .h3Quiet { margin: 0; }
+.faqBoop { width: 52px; flex: 0 0 auto; }
