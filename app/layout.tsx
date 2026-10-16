@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/boopthere-og.png?v=2",
+        url: "/boopthere-og.png?v=3",
         width: 1200,
         height: 630,
         alt: "BoopThere - location reminders for iPhone",
@@ -82,14 +82,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BoopThere | Boop! There it is. Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
-    images: ["/boopthere-og.png?v=2"],
+    images: ["/boopthere-og.png?v=3"],
   },
   icons: {
     icon: [
-      { url: "/favicon.ico?v=7", sizes: "64x64" },
-      { url: "/favicon.png?v=7", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.ico?v=8", sizes: "64x64" },
+      { url: "/favicon.png?v=8", sizes: "64x64", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png?v=7", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png?v=8", sizes: "180x180", type: "image/png" }],
   },
   category: "Productivity",
   appleWebApp: {
@@ -110,8 +110,8 @@ const organizationJsonLd = {
   alternateName: ["Boop There", "Near"],
   legalName: "Rise-X, Inc.",
   url: SITE_URL,
-  logo: `${SITE_URL}/assets/brand/boop/boop-app-icon-1024-v2.png`,
-  image: `${SITE_URL}/boopthere-og.png?v=2`,
+  logo: `${SITE_URL}/assets/brand/boop/boop-app-icon-1024-v3.png`,
+  image: `${SITE_URL}/boopthere-og.png?v=3`,
   email: "hello@nearesttask.com",
   description: "Location reminders for iPhone. Boop! There it is.",
   brand: {
@@ -132,7 +132,7 @@ const mobileAppJsonLd = {
   /* Telling search engines the app can be installed at a URL that 404s is
      worse than saying nothing. These come back when the listing is live. */
   ...(APP_IS_LIVE ? { downloadUrl: APP_STORE_URL, installUrl: APP_STORE_URL } : {}),
-  image: `${SITE_URL}/boopthere-og.png?v=2`,
+  image: `${SITE_URL}/boopthere-og.png?v=3`,
   isAccessibleForFree: true,
   description: DEFAULT_DESCRIPTION,
   publisher: {
@@ -198,9 +198,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${fredoka.variable} ${interTight.variable}`}>
       <head>
-        <link rel="icon" href="/favicon.ico?v=7" sizes="64x64" />
-        <link rel="icon" href="/favicon.png?v=7" type="image/png" sizes="64x64" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7" sizes="180x180" />
+        <link rel="icon" href="/favicon.ico?v=8" sizes="64x64" />
+        <link rel="icon" href="/favicon.png?v=8" type="image/png" sizes="64x64" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=8" sizes="180x180" />
         <meta name="theme-color" content="#FAF6EF" />
         <script
           type="application/ld+json"

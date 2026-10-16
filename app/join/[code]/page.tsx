@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useParams } from "next/navigation"
 
 import { APP_IS_LIVE, APP_STORE_URL } from "../../site/launch"
-const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v2.png"
+const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v3.png"
 
 export default function JoinPage() {
   const params = useParams()

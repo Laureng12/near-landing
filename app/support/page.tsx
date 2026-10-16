@@ -5,7 +5,7 @@ import "./support.css"
 import Link from "next/link"
 import Image from "next/image"
 
-const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
+const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v3.png"
 
 export default function SupportPage() {
   return (

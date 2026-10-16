@@ -274,7 +274,7 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       }}
     >
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <BoopFace className="boopImg" mood={thrilled ? "wink" : hover ? "surprised" : undefined} />
+        <BoopFace className="boopImg" mood={thrilled ? "happy" : hover ? "oh" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
       <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
@@ -845,7 +845,7 @@ function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
         <div className="bsLock">
           <div className="bsLockTime">5:12</div>
           <div className="bsNotif">
-            <span className="bsNotifIcon"><BoopFace mood="smile" /></span>
+            <span className="bsNotifIcon"><BoopFace mood="neutral" /></span>
             <span className="bsNotifText">
               <span className="bsNotifApp">BoopThere &middot; now</span>
               <span className="bsNotifTitle">You&rsquo;re at Kroger</span>
@@ -963,7 +963,7 @@ function WhoSection() {
             <li className="whoCard" key={p.who} data-stagger>
               <span className="whoLabel">{p.who}</span>
               <div className="whoNotif" aria-hidden="true">
-                <span className="whoNotifIcon"><BoopFace mood="smile" /></span>
+                <span className="whoNotifIcon"><BoopFace mood="neutral" /></span>
                 <span className="whoNotifText">
                   <span className="whoNotifTitle">{p.place}</span>
                   <span className="whoNotifBody">{p.body}</span>

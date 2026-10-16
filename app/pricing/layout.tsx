@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/boopthere-og.png?v=2",
+        url: "/boopthere-og.png?v=3",
         width: 1200,
         height: 630,
         alt: "BoopThere pricing for Free and Pro plans",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Pricing | BoopThere",
     description:
       "BoopThere's location reminders are free, always, and so is the grocery list. Pro adds unlimited AI meal plans, predictive restocks, and goal breakdowns. $12.99 a month or $109 a year.",
-    images: ["/boopthere-og.png?v=2"],
+    images: ["/boopthere-og.png?v=3"],
   },
 }
 

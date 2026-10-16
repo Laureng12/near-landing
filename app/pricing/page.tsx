@@ -8,7 +8,7 @@ import Link from "next/link"
 import { AppShot, DownloadCta } from "../site/chrome"
 import { featuresFor } from "../site/features"
 
-const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
+const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v3.png"
 
 type Billing = "annual" | "monthly"
 

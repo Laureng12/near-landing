@@ -11,8 +11,8 @@ import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } fro
 import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
 
 export { APP_STORE_URL }
-export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v2.png"
-export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v2.png"
+export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v3.png"
+export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v3.png"
 
 export function useReveal() {
   useEffect(() => {
@@ -276,17 +276,15 @@ export function TopNav({ home = false }: { home?: boolean }) {
 /* ── Close ─────────────────────────────────────────────────────── */
 
 
-/* ── Boop, alive ─────────────────────────────────────────────────────
-   Five drawn faces stacked and swapped in place, so he blinks, winks, gasps
-   and sparkles without a video. `mood` overrides the face (hover, tap);
-   otherwise he idles on a smile with a blink every few seconds and the odd
-   wink. All timers stay off under prefers-reduced-motion. */
+export type BoopMood = "neutral" | "knowing" | "wry" | "oh" | "happy"
+const BOOP_FACES: BoopMood[] = ["neutral", "knowing", "wry", "oh", "happy"]
 
-export type BoopMood = "smile" | "sleepy" | "wink" | "surprised" | "excited"
-const BOOP_FACES: BoopMood[] = ["smile", "sleepy", "wink", "surprised", "excited"]
-
+/* Boop, alive: five drawn faces stacked and swapped in place. `mood`
+   overrides (hover, tap); otherwise he idles on a gentle smile and, every
+   few seconds, gives a knowing look, now and then a raised-eyebrow smirk.
+   Timers stay off under prefers-reduced-motion. */
 export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?: string }) {
-  const [idle, setIdle] = useState<BoopMood>("smile")
+  const [idle, setIdle] = useState<BoopMood>("neutral")
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -298,14 +296,14 @@ export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?
       t = setTimeout(() => {
         if (!alive) return
         n += 1
-        const face: BoopMood = n % 4 === 0 ? "wink" : "sleepy"
+        const face: BoopMood = n % 3 === 0 ? "wry" : "knowing"
         setIdle(face)
         t = setTimeout(() => {
           if (!alive) return
-          setIdle("smile")
+          setIdle("neutral")
           loop()
-        }, face === "wink" ? 900 : 150)
-      }, 2400 + Math.random() * 2600)
+        }, 1300)
+      }, 4200 + Math.random() * 3200)
     }
     loop()
     return () => { alive = false; clearTimeout(t) }
@@ -315,10 +313,9 @@ export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?
   return (
     <span className={`boopFace ${className}`} aria-hidden="true">
       {BOOP_FACES.map((f) => (
-        /* Plain <img>: five tiny stacked frames that must swap instantly,
-           so they skip the optimizer and are all loaded up front. */
+        /* Plain <img>: five small stacked frames that must swap instantly. */
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={f} src={`/assets/brand/boop/boop-${f}.webp`} alt="" width={320} height={320} className={f === face ? "on" : ""} decoding="async" />
+        <img key={f} src={`/assets/brand/boop/boop2-${f}.webp`} alt="" width={320} height={320} className={f === face ? "on" : ""} decoding="async" />
       ))}
     </span>
   )
@@ -332,7 +329,7 @@ export function FinalCTA() {
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
         <div className="finalMascot" aria-hidden="true">
-<BoopFace className="finalBoopImg" mood={inView ? undefined : "sleepy"} />
+<BoopFace className="finalBoopImg" mood={inView ? undefined : "neutral"} />
         </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />
@@ -374,7 +371,7 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="footerTop">
         <div className="footerBrand">
-          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v2.png" alt="BoopThere" className="footerLogo" width={1072} height={216} />
+          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v3.png" alt="BoopThere" className="footerLogo" width={1072} height={216} />
           <p className="footerTag">Boop! There it is.</p>
         </div>
         <nav className="footerNav" aria-label="Footer">
