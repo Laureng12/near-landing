@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DM_Sans, Fredoka } from "next/font/google"
+import { DM_Sans, Fredoka, Inter_Tight } from "next/font/google"
 import "./globals.css"
 import "./site/chrome.css"
 import ConsentBanner from "./ConsentBanner"
@@ -13,6 +13,12 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-dm-sans",
+  display: "swap",
+})
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-inter-tight",
   display: "swap",
 })
 const fredoka = Fredoka({
@@ -190,7 +196,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${fredoka.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${fredoka.variable} ${interTight.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico?v=7" sizes="64x64" />
         <link rel="icon" href="/favicon.png?v=7" type="image/png" sizes="64x64" />
