@@ -4502,6 +4502,15 @@ button.tierCta, button.priceNavCta {
   transition: opacity 70ms linear;
 }
 .boopFace img.on { opacity: 1; }
+/* Shades on: the tap payoff. The chain hangs past the bubble, so the
+   frame is wider; scale it so the bubble matches the other faces. */
+.boopFace img.cool { transform: scale(1.055); }
+.boopFace img.cool.on { animation: boopCoolOn 340ms cubic-bezier(.2,1.4,.4,1); }
+@keyframes boopCoolOn {
+  0%   { transform: scale(.94); }
+  100% { transform: scale(1.055); }
+}
+@media (prefers-reduced-motion: reduce) { .boopFace img.cool.on { animation: none; } }
 @keyframes boopShimmer {
   0%   { filter: hue-rotate(-10deg) saturate(1.05); }
   50%  { filter: hue-rotate(6deg) saturate(1.15) brightness(1.03); }
