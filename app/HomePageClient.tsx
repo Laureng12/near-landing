@@ -54,12 +54,12 @@ const momentScenes = [
     id: "pharmacy",
     tone: "pharmacy",
     sky: "day",
-    line: "The prescription, while you are already standing there.",
+    line: "The pharmacy pickup, while you are already standing there.",
     clock: "1:04",
     day: "Tuesday, March 17",
     title: "You\u2019re at Walgreens",
     sub: "1 thing waiting",
-    items: ["Pick up the prescription"],
+    items: ["Pharmacy pickup"],
   },
   {
     id: "ask",
@@ -942,9 +942,9 @@ function BenefitsSection() {
 
 const people = [
   { who: "The exec", place: "You\u2019re at the airport.", body: "Charger\u2019s on the list. Not in your bag.", line: "Dry cleaning before the board meeting. Not after." },
-  { who: "The roommates", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Someone finally bought toilet paper. It was you." },
+  { who: "The roommates", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Toilet paper\u2019s on the list. You\u2019re the one at Costco." },
   { who: "The family", place: "You\u2019re at school pickup.", body: "Permission slip\u2019s due today.", line: "One list. Whoever\u2019s there gets it." },
-  { who: "The teenager", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "She\u2019ll never know you almost forgot." },
+  { who: "The teenager", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "On your phone the second you walk in." },
 ] as const
 
 function WhoSection() {

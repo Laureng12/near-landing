@@ -289,7 +289,7 @@ const IDLE_GLANCES: BoopMood[] = ["knowing", "glance", "wry", "knowing", "deadpa
 /* Boop, alive: drawn faces stacked and swapped in place. `mood` overrides
    (hover, tap, a section's beat); otherwise he idles on a gentle smile and,
    every few seconds, glances: a knowing look, a sideways peek, a smirk, a
-   deadpan. `faces` preloads any extra faces a caller will switch to; `still`
+   deadpan. He blinks between glances. `faces` preloads any extra faces a caller will switch to; `still`
    renders one fixed face with no timer (small icons). Timers stay off under
    prefers-reduced-motion. */
 export function BoopFace({
@@ -323,13 +323,27 @@ export function BoopFace({
       }, 4200 + Math.random() * 3200)
     }
     loop()
-    return () => { alive = false; clearTimeout(t) }
+    /* Blink: a quick closed-lid frame every few seconds, only from rest. */
+    let b: ReturnType<typeof setTimeout>
+    const blink = () => {
+      b = setTimeout(() => {
+        if (!alive) return
+        setIdle((f) => (f === "neutral" ? "content" : f))
+        b = setTimeout(() => {
+          if (!alive) return
+          setIdle((f) => (f === "content" ? "neutral" : f))
+          blink()
+        }, 150)
+      }, 2600 + Math.random() * 2800)
+    }
+    blink()
+    return () => { alive = false; clearTimeout(t); clearTimeout(b) }
   }, [still])
 
   const face = mood ?? idle
   const stack: BoopMood[] = still
     ? [mood ?? "neutral"]
-    : Array.from(new Set<BoopMood>(["neutral", ...IDLE_GLANCES, ...faces, ...(mood ? [mood] : [])]))
+    : Array.from(new Set<BoopMood>(["neutral", "content", ...IDLE_GLANCES, ...faces, ...(mood ? [mood] : [])]))
   return (
     <span className={`boopFace ${className}`} aria-hidden="true">
       {stack.map((f) => (
