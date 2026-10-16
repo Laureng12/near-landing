@@ -276,10 +276,10 @@ export function TopNav({ home = false }: { home?: boolean }) {
 /* ── Close ─────────────────────────────────────────────────────── */
 
 
-export type BoopMood = "neutral" | "knowing" | "wry" | "oh" | "happy"
-const BOOP_FACES: BoopMood[] = ["neutral", "knowing", "wry", "oh", "happy"]
+export type BoopMood = "neutral" | "knowing" | "wry" | "oh" | "happy" | "cool"
+const BOOP_FACES: BoopMood[] = ["neutral", "knowing", "wry", "oh", "happy", "cool"]
 
-/* Boop, alive: five drawn faces stacked and swapped in place. `mood`
+/* Boop, alive: six drawn faces stacked and swapped in place. `mood`
    overrides (hover, tap); otherwise he idles on a gentle smile and, every
    few seconds, gives a knowing look, now and then a raised-eyebrow smirk.
    Timers stay off under prefers-reduced-motion. */
@@ -313,9 +313,9 @@ export function BoopFace({ mood, className = "" }: { mood?: BoopMood; className?
   return (
     <span className={`boopFace ${className}`} aria-hidden="true">
       {BOOP_FACES.map((f) => (
-        /* Plain <img>: five small stacked frames that must swap instantly. */
+        /* Plain <img>: six small stacked frames that must swap instantly. */
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={f} src={`/assets/brand/boop/boop2-${f}.webp`} alt="" width={320} height={320} className={f === face ? "on" : ""} decoding="async" />
+        <img key={f} src={`/assets/brand/boop/boop2-${f}.webp`} alt="" width={320} height={320} className={`${f}${f === face ? " on" : ""}`} decoding="async" />
       ))}
     </span>
   )

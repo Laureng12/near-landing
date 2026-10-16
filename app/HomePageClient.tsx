@@ -274,7 +274,7 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void }>(function
       }}
     >
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <BoopFace className="boopImg" mood={thrilled ? "happy" : hover ? "oh" : undefined} />
+        <BoopFace className="boopImg" mood={thrilled ? "cool" : hover ? "oh" : undefined} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
       <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
