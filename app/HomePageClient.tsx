@@ -944,9 +944,9 @@ function BenefitsSection() {
    the wrong moment, which is a thing everyone has done this week. */
 
 const tooLate = [
-  { thing: "The milk", when: "after you unpacked the groceries." },
-  { thing: "The return", when: "after you passed the drop-off." },
-  { thing: "The question", when: "after you left the appointment." },
+  { thing: "The milk", when: "after you unpacked the groceries.", face: "\u{1F926}\u200D\u2640\uFE0F", late: "Already home", tone: "a" },
+  { thing: "The return", when: "after you passed the drop-off.", face: "\u{1F629}", late: "1.2 mi past it", tone: "b" },
+  { thing: "The question", when: "after you left the appointment.", face: "\u{1F624}", late: "Already in the car", tone: "c" },
 ]
 
 function ProblemSection() {
@@ -957,13 +957,17 @@ function ProblemSection() {
         <h2 className="h2 h2Center">
           You remembered.
           <br />
-          <em>Just a little too late.</em>
+          <em className="lateWobble">Just a little too late.</em>
         </h2>
         <ul className="lateList">
           {tooLate.map((t) => (
-            <li className="lateRow" key={t.thing} data-stagger>
-              <span className="lateThing">{t.thing},</span>{" "}
-              <span className="lateWhen">{t.when}</span>
+            <li className={`lateRow lateRow--${t.tone}`} key={t.thing} data-stagger>
+              <span className="lateFace" aria-hidden="true">{t.face}</span>
+              <span className="lateText">
+                <span className="lateThing">{t.thing},</span>{" "}
+                <span className="lateWhen">{t.when}</span>
+              </span>
+              <span className="lateStamp">{t.late}</span>
             </li>
           ))}
         </ul>
