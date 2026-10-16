@@ -950,10 +950,10 @@ function BenefitsSection() {
    does: an arrival reminder, or a shared list someone else added to. */
 
 const people = [
-  { who: "The exec", place: "You\u2019re at the airport.", body: "Charger\u2019s on the list. Not in your bag.", line: "Dry cleaning before the board meeting. Not after." },
-  { who: "The roommates", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Toilet paper\u2019s on the list. You\u2019re the one at Costco." },
-  { who: "The family", place: "You\u2019re at school pickup.", body: "Permission slip\u2019s due today.", line: "One list. Whoever\u2019s there gets it." },
-  { who: "The teenager", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "On your phone the second you walk in." },
+  { who: "The exec", tone: "exec", face: "onit", place: "You\u2019re at the airport.", body: "Charger\u2019s on the list. Not in your bag.", line: "Dry cleaning before the board meeting. Not after." },
+  { who: "The roommates", tone: "roomies", face: "laugh", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Toilet paper\u2019s on the list. You\u2019re the one at Costco." },
+  { who: "The family", tone: "family", face: "joy", place: "You\u2019re at school pickup.", body: "Permission slip\u2019s due today.", line: "One list. Whoever\u2019s there gets it." },
+  { who: "The teenager", tone: "teen", face: "cool", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "On your phone the second you walk in." },
 ] as const
 
 function WhoSection() {
@@ -970,8 +970,11 @@ function WhoSection() {
         </div>
         <ul className="whoGrid">
           {people.map((p) => (
-            <li className="whoCard" key={p.who} data-stagger>
-              <span className="whoLabel">{p.who}</span>
+            <li className={`whoCard whoCard--${p.tone}`} key={p.who} data-stagger>
+              <div className="whoTop">
+                <span className="whoLabel">{p.who}</span>
+                <BoopFace className="whoBoop" mood={p.face} still />
+              </div>
               <div className="whoNotif" aria-hidden="true">
                 <span className="whoNotifIcon"><BoopFace mood="neutral" still /></span>
                 <span className="whoNotifText">
@@ -1042,7 +1045,7 @@ function HouseholdChapter() {
       <div className="skyWash skyWashWarm" aria-hidden="true" />
       <div className="reveal shell split">
         <div className="splitCopy">
-          <BoopFace className="houseBoop" mood="boss" still />
+          <BoopFace className="houseBoop" mood="cheer" still />
           <p className="eyebrow">For households</p>
           <h2 className="h2">
             Share the list.
