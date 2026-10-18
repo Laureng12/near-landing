@@ -192,7 +192,7 @@ export default function PrivacyPage() {
             </p>
             <p>
               You can reset personalization data by contacting us at{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
+              <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>.
             </p>
           </section>
 
@@ -203,7 +203,7 @@ export default function PrivacyPage() {
             </p>
             <p>
               When you provide information about another person, you are responsible for ensuring you have the right to share it with us for these purposes. We use it only to provide the feature you requested (for example, generating gift ideas or planning a meal that fits a guest&apos;s needs). If you or the other person would like that information corrected or removed, contact us at{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>, and household members can remove people and related content directly in the app.
+              <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>, and household members can remove people and related content directly in the app.
             </p>
           </section>
 
@@ -412,7 +412,7 @@ export default function PrivacyPage() {
             </ul>
             <p>
               To exercise any of these rights, contact us at{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>. You may also use an authorized agent to submit a request on your behalf. We will verify your identity and, where applicable, the agent&apos;s authorization before processing the request.
+              <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>. You may also use an authorized agent to submit a request on your behalf. We will verify your identity and, where applicable, the agent&apos;s authorization before processing the request.
             </p>
             <p>
               In the preceding 12 months, we have collected the following categories of personal information: identifiers, geolocation data, user content, audio data (voice capture), information you provide about other people, internet or electronic network activity information, diagnostics, device information, and optional commercial information when you enable partner integrations. We collect these categories from you, your device, Apple and Google platform services, household members who interact with shared content, and optional partner integrations you connect. We disclose personal information to the service providers and optional integration partners described in this policy. We retain each category for the periods described in &quot;Data Retention &amp; Deletion.&quot;
@@ -428,7 +428,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Right to Access:</strong> you may request access to the personal information we hold about you. Your tasks, places, and profile information are visible directly in the app; for additional data-access requests, contact us at{" "}
-                <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
+                <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>.
               </li>
               <li>
                 <strong>Right to Correction:</strong> you may request correction of inaccurate or incomplete personal information, and can update your profile information directly in the app.
@@ -457,7 +457,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Access and Correction:</strong> you have the right to request access to, and correction of, the personal information we hold about you. You can access and update most information directly in the app; for additional requests, contact us at{" "}
-                <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
+                <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>.
               </li>
               <li>
                 <strong>Cross-Border Disclosure:</strong> your personal information is transferred to and stored in the United States, and is disclosed to the overseas service providers listed in &quot;Service Providers &amp; Sub-processors.&quot; Before disclosing personal information to an overseas recipient, we take reasonable steps to ensure the recipient handles your information consistently with the APPs. By using BoopThere, you consent to this cross-border transfer.
@@ -467,7 +467,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Complaints:</strong> if you believe we have breached the APPs, you may lodge a complaint with us at{" "}
-                <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>. We will respond within a reasonable time. If you are not satisfied with our response, you may escalate to the OAIC at{" "}
+                <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>. We will respond within a reasonable time. If you are not satisfied with our response, you may escalate to the OAIC at{" "}
                 <a href="https://www.oaic.gov.au" className="legalLink" target="_blank" rel="noopener noreferrer">www.oaic.gov.au</a>.
               </li>
             </ul>
@@ -493,8 +493,8 @@ export default function PrivacyPage() {
               If you have questions about this Privacy Policy or how BoopThere handles your data, please contact us at:
             </p>
             <p>
-              <a href="mailto:hello@nearesttask.com" className="legalLink">
-                hello@nearesttask.com
+              <a href="mailto:hello@therise-x.com" className="legalLink">
+                hello@therise-x.com
               </a>
             </p>
             <p></p>

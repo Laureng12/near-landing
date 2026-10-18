@@ -433,7 +433,7 @@ export function SiteFooter() {
           </div>
           <div>
             <h3 className="footerHead">Company</h3>
-            <a href="mailto:hello@nearesttask.com" className="footerLink">Contact</a>
+            <a href="mailto:hello@therise-x.com" className="footerLink">Contact</a>
             <Link href="/support" className="footerLink">Support</Link>
           </div>
           <div>

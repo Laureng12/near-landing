@@ -33,8 +33,8 @@ export default function SupportPage() {
               If you have a question, found a bug, or need help with BoopThere, email us at:
             </p>
             <p>
-              <a href="mailto:hello@nearesttask.com" className="legalLink">
-                hello@nearesttask.com
+              <a href="mailto:hello@therise-x.com" className="legalLink">
+                hello@therise-x.com
               </a>
             </p>
             <p>We typically respond within 24 hours.</p>
@@ -84,8 +84,8 @@ export default function SupportPage() {
             <p>
               You can request access, correction, deletion, sale/share opt-out, or help limiting
               location data by emailing{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">
-                hello@nearesttask.com
+              <a href="mailto:hello@therise-x.com" className="legalLink">
+                hello@therise-x.com
               </a>.
             </p>
 

@@ -117,7 +117,7 @@ export default function TermsPage() {
             <h2>Personalization &amp; Analytics</h2>
             <p>
               BoopThere uses your usage data, location patterns, task behavior, and preferences to personalize your experience and provide relevant in-app suggestions. This personalization is not used for third-party advertising. You may request a reset of personalization data by contacting us at{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>.
+              <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>.
             </p>
             <p>
               We may also create aggregated, anonymized data from your use of the app. This data does not identify you and may be used for any lawful business purpose, including sharing with current or prospective business partners. See our Privacy Policy for more details.
@@ -218,7 +218,7 @@ export default function TermsPage() {
             </p>
             <p>
               <strong>Opt-Out:</strong> You may opt out of this arbitration provision by sending written notice to{" "}
-              <a href="mailto:hello@nearesttask.com" className="legalLink">hello@nearesttask.com</a>{" "}
+              <a href="mailto:hello@therise-x.com" className="legalLink">hello@therise-x.com</a>{" "}
               within 30 days of first accepting these Terms. If you opt out, you and Rise-X, Inc. agree to submit to the exclusive jurisdiction of the state and federal courts located in Charleston County, South Carolina.
             </p>
             <p>
@@ -304,8 +304,8 @@ export default function TermsPage() {
               If you have questions about these Terms &amp; Conditions, please contact us at:
             </p>
             <p>
-              <a href="mailto:hello@nearesttask.com" className="legalLink">
-                hello@nearesttask.com
+              <a href="mailto:hello@therise-x.com" className="legalLink">
+                hello@therise-x.com
               </a>
             </p>
             <p></p>

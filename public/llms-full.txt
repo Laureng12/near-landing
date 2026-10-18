@@ -11,7 +11,7 @@ Name: BoopThere
 Website: https://www.boopthere.com
 Category: iPhone productivity app
 Company: Rise-X, Inc.
-Support email: hello@nearesttask.com
+Support email: hello@therise-x.com
 
 BoopThere is a location-based reminder app for iPhone. A user saves what they need
 to do, ties it to the place where it matters, and BoopThere surfaces it when they

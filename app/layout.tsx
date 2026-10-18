@@ -113,7 +113,7 @@ const organizationJsonLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/assets/brand/boop/boop-app-icon-1024-v3.png`,
   image: `${SITE_URL}/boopthere-og.png?v=5`,
-  email: "hello@nearesttask.com",
+  email: "hello@therise-x.com",
   description: "Location reminders for iPhone. Boop! There it is.",
   brand: {
     "@type": "Brand",
