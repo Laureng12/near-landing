@@ -75,6 +75,21 @@ const nextConfig: NextConfig = {
         destination: "https://www.boopthere.com/:path*",
         permanent: true,
       })),
+      /* boopthere.com APEX → www, for the marketing pages ONLY (LINK-002).
+         The app paths — /.well-known (AASA), /invite, /list, /clip, /v1/public —
+         are deliberately NOT redirected here: they fall through to rewrites()
+         and serve DIRECTLY on the apex, so iOS can fetch the association file on
+         applinks:boopthere.com (Apple will not follow a redirect for the AASA).
+         This replaces the Vercel domain-level apex→www 308, which caught the
+         AASA too. Requires the apex domain to be assigned to the project (its
+         project-level `redirect` removed) — redirects() never runs while the
+         domain is a Vercel-level redirect. */
+      ...marketing.map((path) => ({
+        source: path,
+        has: [{ type: "host" as const, value: "boopthere.com" }],
+        destination: `https://www.boopthere.com${path}`,
+        permanent: true,
+      })),
       /* Off until www.boopthere.com serves the public production site.
          Turn on by setting BOOPTHERE_REDIRECT_NEAREST=1 in Vercel. */
       ...(process.env.BOOPTHERE_REDIRECT_NEAREST === "1" ? ["nearesttask.com", "www.nearesttask.com"] : []).flatMap((host) =>
