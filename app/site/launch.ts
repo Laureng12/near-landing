@@ -14,7 +14,10 @@
    place the decision is made. */
 export const APP_IS_LIVE = false
 
-export const APP_STORE_URL = "https://apps.apple.com/app/id6759834610"
+// LINK-001 — BoopThere ships on the Heyo ASC spot (app 6821711186). The old
+// 6759834610 was the original Near listing; the binary (com.risex.heyo) is on
+// 6821711186, so every launch CTA + Smart App Banner must point here.
+export const APP_STORE_URL = "https://apps.apple.com/app/id6821711186"
 
 /* Any CTA anywhere can raise this; the dialog in the nav listens for it. */
 export const NOTIFY_EVENT = "near:notify"
