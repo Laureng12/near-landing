@@ -123,6 +123,13 @@ const nextConfig: NextConfig = {
         destination: "https://backend-one-xi.vercel.app/list/:token",
       },
       {
+        // Meal/recipe share preview — /f/TOKEN renders the backend's server-side
+        // share page for recipients without the app (same pattern as /list). Its
+        // inline JS posts funnel/write-back to /v1/public/list/* (rewritten below).
+        source: "/f/:token",
+        destination: "https://backend-one-xi.vercel.app/f/:token",
+      },
+      {
         // The preview page's inline JS posts funnel events + write-back to the
         // public (token-as-capability) API via same-origin relative paths.
         source: "/v1/public/list/:path*",
