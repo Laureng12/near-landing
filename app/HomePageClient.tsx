@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { forwardRef, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react"
 
@@ -11,7 +10,6 @@ import {
   type BoopMood,
   BOOP_JOINED,
   BoopFace,
-  BRAND_ICON,
   InlineNotify,
   DownloadCta,
   HouseholdPair,
@@ -21,6 +19,7 @@ import {
   usePrefersReducedMotion,
   useReveal,
 } from "./site/chrome"
+import { ArrivalIsland, Avatar, CaptureScreen, Device, LiveActivity, LockScreen, Notification, PlacedScreen, Wallpaper } from "./site/screens"
 
 
 /* The shared list Brian is about to see. */
@@ -92,6 +91,17 @@ function Hero() {
     io.observe(el)
     return () => { io.disconnect(); if (t) clearTimeout(t) }
   }, [])
+
+  /* The Dynamic Island opens on the arrival: with Boop's cheer on first
+     load (2.2s, see BoopBuddy), and on every replay. */
+  const [islandOpen, setIslandOpen] = useState(false)
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const delay = replaying ? 200 : 2200
+    const open = setTimeout(() => setIslandOpen(true), delay)
+    const close = setTimeout(() => setIslandOpen(false), delay + 3200)
+    return () => { clearTimeout(open); clearTimeout(close) }
+  }, [replaying])
 
   const boopRef = useRef<HTMLButtonElement>(null)
   const replayArrival = () => {
@@ -169,7 +179,21 @@ function Hero() {
             <span /><span /><span />
           </div>
           <div className="heroStage">
-            <PhoneMockup phase={1} arrived={replaying} />
+            <Device className="heroDevice" tone="light" island={islandOpen ? <ArrivalIsland place="Target" /> : undefined}>
+              <LockScreen date="Saturday, March 15" time="1:03" widget={{ count: 4, line: "4 things across 3 places" }}>
+                <LiveActivity
+                  key={replaying ? "in" : "rest"}
+                  className={replaying ? "scrLiveIn" : ""}
+                  place="Target"
+                  items={[
+                    { name: "Batteries", by: "reese" },
+                    { name: "Paper towels", by: "brian" },
+                    { name: "Birthday card for Mom", by: "brian" },
+                  ]}
+                  footer="Brian added two. Whoever gets there, gets them."
+                />
+              </LockScreen>
+            </Device>
             <BoopBuddy ref={boopRef} onBoop={replayArrival} arriving={replaying} />
           </div>
 
@@ -275,454 +299,6 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?:
     </button>
   )
 })
-
-/* Which tab is active per phase: 0=Home, 1=lock+notif, 2=Places, 3=lock+notif */
-const PHASE_ACTIVE_TAB = [0, -1, 1, 4] // 0=Home, -1=lock, 1=Places, 4=Household
-
-const notifData = [
-  null, // home screen
-  { title: "BoopThere", body: "You’re near Target - 1 item on your list" },
-  null, // places screen
-  { title: "BoopThere", body: "Don’t forget: Stroller at Target, 1.2 mi away" },
-  null, // household screen
-]
-
-function PhoneMockup({ phase, arrived = true }: { phase: number; arrived?: boolean }) {
-  const activeTab = PHASE_ACTIVE_TAB[phase]
-  const isLocked = phase === 1
-
-  return (
-    <div className={`phoneMockup ${arrived ? "hasArrived" : ""}`}>
-      <div className="phoneDynamic" />
-      <div className="phoneScreen">
-        {/* Status bar */}
-        <div className="phoneStatusBar">
-          <span className="phoneTime">1:03</span>
-          <div className="phoneStatusRight">
-            <svg className="phoneSignal" width="17" height="11" viewBox="0 0 17 11" fill="none">
-              <rect x="0" y="8" width="3" height="3" rx="0.5" fill="var(--ink)"/>
-              <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.5" fill="var(--ink)"/>
-              <rect x="9" y="3" width="3" height="8" rx="0.5" fill="var(--ink)" opacity="0.3"/>
-              <rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="var(--ink)" opacity="0.3"/>
-            </svg>
-            <svg className="phoneWifi" width="15" height="12" viewBox="0 0 15 12" fill="none">
-              <path d="M7.5 10.5C8.33 10.5 9 11.17 9 12C9 12.83 8.33 13.5 7.5 13.5C6.67 13.5 6 12.83 6 12C6 11.17 6.67 10.5 7.5 10.5Z" fill="var(--ink)" transform="translate(0,-2)"/>
-              <path d="M4.23 8.27C5.12 7.38 6.31 6.93 7.5 6.93C8.69 6.93 9.88 7.38 10.77 8.27" stroke="var(--ink)" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
-              <path d="M1.76 5.8C3.34 4.22 5.42 3.43 7.5 3.43C9.58 3.43 11.66 4.22 13.24 5.8" stroke="var(--ink)" strokeWidth="1.4" strokeLinecap="round" transform="translate(0,-2)"/>
-            </svg>
-            <div className="phoneBatt">
-              <div className="phoneBattFill" />
-            </div>
-          </div>
-        </div>
-
-        {/* iOS-style notification banners */}
-        {notifData.map((n, i) => n && (
-          <div key={i} className={`phoneNotif ${phase === i && !isLocked ? "phoneNotifVisible" : ""}`}>
-            <Image
-              src={BRAND_ICON}
-              alt=""
-              width={36}
-              height={36}
-              className="phoneNotifAppIcon"
-            />
-            <div className="phoneNotifContent">
-              <div className="phoneNotifTitle">{n.title}</div>
-              <div className="phoneNotifBody">{n.body}</div>
-            </div>
-          </div>
-        ))}
-
-        {/* Phase 0: Home screen */}
-        <div className={`phoneContent ${phase === 0 ? "phoneContentVisible" : ""}`}>
-          <div className="phoneHomeHeader">
-            <div className="phoneHomeHeaderLeft">
-              <div className="phoneGreeting">Good morning, Reese</div>
-              <div className="phoneHomeTitle">Let’s get things done.</div>
-              <div className="phoneHomeSub">4 tasks &middot; 4 nearby</div>
-            </div>
-            <div className="phoneHomeHeaderRight">
-              <div className="phoneHeaderBtn phoneSearchBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <circle cx="11" cy="11" r="8" stroke="rgba(30,50,80,0.4)" strokeWidth="1.5"/>
-                  <path d="M21 21l-4.35-4.35" stroke="rgba(30,50,80,0.4)" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-              </div>
-              <div className="phoneHeaderBtn phoneAvatarBtn">
-                <span className="avatarEmoji">{String.fromCodePoint(0x1F469, 0x1F3FB)}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="phoneQuickAdd">
-            <span className="phoneQuickAddPlus">+</span>
-            <span className="phoneQuickAddText">Quick add</span>
-            <svg className="phoneQuickAddMic" width="12" height="12" viewBox="0 0 24 24" fill="none">
-              <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" fill="#8E8E93"/>
-              <path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8" stroke="#8E8E93" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </div>
-
-          <div className="phoneRadarCard phoneRadarCardShimmer">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="3" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5"/>
-              <path d="M7.5 7.5A6.5 6.5 0 0112 5.5a6.5 6.5 0 014.5 2M4.5 4.5A11 11 0 0112 2a11 11 0 017.5 2.5" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
-            </svg>
-            <span className="phoneRadarText">Places within 2 miles: 3</span>
-            <div className="radarShimmer" />
-          </div>
-
-          <div className="phoneSectionLabel">
-            <span className="phoneSectionDot" />
-            CLOSEST TO YOU
-          </div>
-          <div className="phoneGroupList">
-            <div className="phoneGroupItem phoneGroupItemGlass">
-              <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
-                <div className="phoneGroupInfo">
-                  <span className="phoneGroupName">Home</span>
-                  <span className="phoneGroupDist">50 ft</span>
-                </div>
-                <span className="phoneBadge">2</span>
-              </div>
-              <div className="phoneGroupTasks">
-                <div className="phoneGroupTaskRow">
-                  <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Water the plants</span>
-                  <span className="phoneTaskDot phoneTaskDotOrange" />
-                </div>
-                <div className="phoneGroupTaskRow">
-                  <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Take out recycling</span>
-                  <span className="phoneTaskDot phoneTaskDotRed" />
-                </div>
-              </div>
-            </div>
-            <div className="phoneGroupItem phoneGroupItemGlass">
-              <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3AF)}</span>
-                <div className="phoneGroupInfo">
-                  <span className="phoneGroupName">Target</span>
-                  <span className="phoneGroupDist">1.2 mi</span>
-                </div>
-                <span className="phoneBadge">1</span>
-              </div>
-              <div className="phoneGroupTasks">
-                <div className="phoneGroupTaskRow">
-                  <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Stroller</span>
-                  <span className="phoneTaskDot phoneTaskDotOrange" />
-                </div>
-              </div>
-            </div>
-            <div className="phoneGroupItem phoneGroupItemGlass">
-              <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F6D2)}</span>
-                <div className="phoneGroupInfo">
-                  <span className="phoneGroupName">Harris Teeter</span>
-                  <span className="phoneGroupDist">1.4 mi</span>
-                </div>
-                <span className="phoneBadge">1</span>
-              </div>
-              <div className="phoneGroupTasks">
-                <div className="phoneGroupTaskRow">
-                  <span className="phoneTaskCheck" />
-                  <span className="phoneGroupTaskText">Grocery</span>
-                  <span className="phoneTaskDot phoneTaskDotOrange" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Phase 2: Places screen */}
-        <div className={`phoneContent ${phase === 2 ? "phoneContentVisible" : ""}`}>
-          <div className="phoneHomeHeader">
-            <div className="phoneHomeHeaderLeft">
-              <div className="phoneHomeTitle phonePlacesTitle">Your spots.</div>
-              <div className="phoneHomeSub">4 tasks across 3 places</div>
-            </div>
-            <div className="phoneHomeHeaderRight">
-              <div className="phoneHeaderBtn phoneMapBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M8 2v16M16 6v16" stroke="rgba(30,50,80,0.5)" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div className="phoneFilterChips">
-            <span className="phoneChip phoneChipActive">All</span>
-            <span className="phoneChip">Grocery</span>
-            <span className="phoneChip">Home</span>
-            <span className="phoneChip">Other</span>
-          </div>
-          {/* The mock is the site's proof, so it only shows what is
-              confirmed. See app/site/features.ts - flip this capability to
-              live and the card comes back. */}
-          {isLive("game-plan") && (
-            <div className="phoneGamePlan">
-              <div className="phoneGamePlanIcon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className="phoneGamePlanInfo">
-                <span className="phoneGamePlanTitle">Game plan</span>
-                <span className="phoneGamePlanSub">Optimal route for 3 stops</span>
-              </div>
-              <div className="phoneGamePlanArrow">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-            </div>
-          )}
-
-          <div className="phoneSectionLabel">MY PLACES</div>
-          <div className="phoneGroupList">
-            <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
-              <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
-                <div className="phoneGroupInfo">
-                  <div className="phonePlaceNameRow">
-                    <span className="phoneGroupName">Home</span>
-                    <span className="phonePlaceTag">NEAREST</span>
-                  </div>
-                  <span className="phonePlaceAddr">1815 Shoremeade Rd...</span>
-                </div>
-                <span className="phonePlaceDist">50 ft</span>
-                <span className="phoneBadge">2</span>
-              </div>
-              <div className="phonePlaceTags">
-                <span className="phonePlaceTaskTag">Water the plants</span>
-                <span className="phonePlaceTaskTag">Take out recycling</span>
-              </div>
-            </div>
-            <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
-              <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3AF)}</span>
-                <div className="phoneGroupInfo">
-                  <span className="phoneGroupName">Target</span>
-                  <span className="phonePlaceAddr">1300 Long Grove Dr...</span>
-                </div>
-                <span className="phonePlaceDist">1.2 mi</span>
-                <span className="phoneBadge phoneBadgeBlue">1</span>
-              </div>
-              <div className="phonePlaceTags">
-                <span className="phonePlaceTaskTag">Stroller</span>
-              </div>
-            </div>
-            <div className="phoneGroupItem phoneGroupItemGlass phonePlaceCard">
-              <div className="phoneGroupHeader">
-                <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F6D2)}</span>
-                <div className="phoneGroupInfo">
-                  <span className="phoneGroupName">Harris Teeter</span>
-                  <span className="phonePlaceAddr">2195 Tea Planters Ln...</span>
-                </div>
-                <span className="phonePlaceDist">1.4 mi</span>
-                <span className="phoneBadge">1</span>
-              </div>
-              <div className="phonePlaceTags">
-                <span className="phonePlaceTaskTag">Grocery</span>
-              </div>
-            </div>
-          </div>
-          <div className="phoneAddPlace">
-            <span className="phoneAddPlaceIcon">+</span>
-            <span className="phoneAddPlaceText">Add a place</span>
-          </div>
-        </div>
-
-        {/* Phase 3: Household screen */}
-        <div className={`phoneContent ${phase === 3 ? "phoneContentVisible" : ""}`}>
-          <div className="phoneHomeTitle">Household</div>
-          <div className="hhProfile">
-            <div className="hhAvatar">
-              <span style={{fontSize: "22px"}}>{String.fromCodePoint(0x1F469, 0x1F3FB)}</span>
-            </div>
-            <div className="hhProfileName">Reese</div>
-            <div className="hhProfileSub">4 shared things waiting &middot; Closest helper: Reese</div>
-          </div>
-          <div className="phoneSectionLabel">WHO’S NEAR SOMETHING</div>
-          <div className="phoneGroupItem phoneGroupItemGlass hhNearCard">
-            <div className="hhNearHeader">
-              <div className="hhNearAvatar">
-                <span style={{fontSize: "16px"}}>{String.fromCodePoint(0x1F469, 0x1F3FB)}</span>
-              </div>
-              <div className="hhNearInfo">
-                <div className="hhNearTitle">You’re near Home</div>
-                <div className="hhNearSub">2 things waiting &middot; 50 ft</div>
-              </div>
-            </div>
-            <div className="hhNearTasks">
-              <div className="phoneGroupTaskRow">
-                <span className="phoneTaskCheck" />
-                <span className="phoneGroupTaskText">Water the plants</span>
-              </div>
-              <div className="phoneGroupTaskRow">
-                <span className="phoneTaskCheck" />
-                <span className="phoneGroupTaskText">Take out recycling</span>
-              </div>
-            </div>
-            <div className="hhViewTasks">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12h14M12 5l7 7-7 7" stroke="var(--blue)" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-              <span>View tasks</span>
-            </div>
-          </div>
-          <div className="phoneSectionLabel">PLACES WITH TASKS</div>
-          <div className="phoneGroupList">
-            <div className="phoneGroupItem phoneGroupItemGlass hhPlaceRow">
-              <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3E0)}</span>
-              <div className="hhPlaceInfo">
-                <span className="phoneGroupName">Home</span>
-                <span className="hhPlaceTasksText">Water the plants &middot; Take out recycling</span>
-              </div>
-              <span className="phoneBadge">2</span>
-            </div>
-            <div className="phoneGroupItem phoneGroupItemGlass hhPlaceRow">
-              <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F3AF)}</span>
-              <div className="hhPlaceInfo">
-                <span className="phoneGroupName">Target</span>
-                <span className="hhPlaceTasksText">Stroller</span>
-              </div>
-              <span className="phoneBadge">1</span>
-            </div>
-            <div className="phoneGroupItem phoneGroupItemGlass hhPlaceRow">
-              <span className="phoneGroupEmoji">{String.fromCodePoint(0x1F6D2)}</span>
-              <div className="hhPlaceInfo">
-                <span className="phoneGroupName">Harris Teeter</span>
-                <span className="hhPlaceTasksText">Grocery</span>
-              </div>
-              <span className="phoneBadge">1</span>
-            </div>
-          </div>
-          <div className="phoneSectionLabel">ACTIVITY</div>
-          <div className="phoneGroupItem phoneGroupItemGlass hhActivityRow">
-            <span style={{fontSize: "14px"}}>{String.fromCodePoint(0x1F9D1, 0x1F3FB)}</span>
-            <div className="hhActivityText"><strong>Someone</strong> <span style={{color: "rgba(30,50,80,0.45)"}}>added</span> <strong>Water the plants</strong></div>
-          </div>
-        </div>
-
-        {/* Lock screen overlay */}
-        <div className={`phoneLockOverlay ${isLocked ? "phoneLockVisible" : ""}`}>
-          {/* Wallpaper scene layers */}
-          <div className="lockWallpaper">
-            <div className="lockSky" />
-            <div className="lockMountainBack" />
-            <div className="lockMountainFront" />
-            <div className="lockWater" />
-            <div className="lockWaterShimmer" />
-            <div className="lockCloudDrift lockCloud1" />
-            <div className="lockCloudDrift lockCloud2" />
-          </div>
-          <div className="lockTimeDisplay">1:03</div>
-          <div className="lockDateDisplay">Saturday, March 15</div>
-          {/* Glowing proximity card on lock screen */}
-          <div className="lockProximityCard">
-            <div className="lockProximityGlow" />
-            <div className="lockProximityHeader">
-              <Image
-                src={BRAND_ICON}
-                alt=""
-                width={28}
-                height={28}
-                className="lockNotifIcon"
-              />
-              <div className="lockProximityTitleArea">
-                <div className="lockProximityLabel">BOOPTHERE</div>
-                <div className="lockProximityTitle">You’re at Target</div>
-                <div className="lockProximitySub">2 things for the house</div>
-              </div>
-            </div>
-            <div className="lockTaskList">
-              <div className="lockTaskItem lockTaskItem1">
-                <div className="lockTaskCheck" />
-                <span className="lockTaskText">Batteries</span>
-              </div>
-              <div className="lockTaskItem lockTaskItem2">
-                <div className="lockTaskCheck" />
-                <span className="lockTaskText">Paper towels</span>
-                <span className="lockTaskFrom">from Brian</span>
-              </div>
-            </div>
-            <div className="lockProximityShimmer" />
-          </div>
-          <div className="lockFlashlightBtn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M9 18h6M10 22h4M12 2v1M4.22 4.22l.71.71M1 12h1M4.22 19.78l.71-.71M20.07 4.93l-.71.71M23 12h-1M19.78 19.78l-.71-.71" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </div>
-          <div className="lockCameraBtn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="12" cy="13" r="4" stroke="white" strokeWidth="1.5"/>
-            </svg>
-          </div>
-          <div className="lockHomeBar" />
-        </div>
-
-        {/* Tab bar */}
-        <div className={`phoneTabBar ${isLocked ? "phoneTabBarHidden" : ""}`}>
-          <div className={`phoneTab ${activeTab === 0 ? "phoneTabActive" : ""}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              {activeTab === 0 ? (
-                <path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10" fill="var(--blue)" stroke="var(--blue)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              ) : (
-                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" stroke="#8E8E93" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              )}
-            </svg>
-            <span>Home</span>
-          </div>
-          <div className={`phoneTab ${activeTab === 1 ? "phoneTabActive" : ""}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              {activeTab === 1 ? (
-                <>
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="var(--blue)"/>
-                  <circle cx="12" cy="9" r="2.5" fill="white"/>
-                </>
-              ) : (
-                <>
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#8E8E93" strokeWidth="1.5" fill="none"/>
-                  <circle cx="12" cy="9" r="2.5" stroke="#8E8E93" strokeWidth="1.5" fill="none"/>
-                </>
-              )}
-            </svg>
-            <span>Places</span>
-          </div>
-          <div className="phoneTab phoneTabAdd">
-            <div className="phoneAddBtn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M12 5v14M5 12h14" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-          </div>
-          <div className={`phoneTab ${activeTab === 3 ? "phoneTabActive" : ""}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" stroke={activeTab === 3 ? "var(--blue)" : "#8E8E93"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-            </svg>
-            <span>Saved</span>
-          </div>
-          <div className={`phoneTab ${activeTab === 4 ? "phoneTabActive" : ""}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke={activeTab === 4 ? "var(--blue)" : "#8E8E93"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span>Household</span>
-          </div>
-        </div>
-
-        {/* Home indicator */}
-        <div className="phoneHomeIndicator">
-          <div className="phoneHomeBar" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
 
 /* ── Proof ─────────────────────────────────────────────────────── */
 
@@ -834,16 +410,10 @@ function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
   switch (id) {
     case "lock":
       return (
-        <div className="bsLock">
-          <div className="bsLockTime">5:12</div>
-          <div className="bsNotif">
-            <span className="bsNotifIcon"><BoopFace mood="neutral" still /></span>
-            <span className="bsNotifText">
-              <span className="bsNotifApp">BoopThere &middot; now</span>
-              <span className="bsNotifTitle">You&rsquo;re at Kroger</span>
-              <span className="bsNotifSub">Milk, eggs, coffee</span>
-            </span>
-          </div>
+        <div className="bsLock scrKit">
+          <Wallpaper />
+          <div className="scrLockTime bsKitTime">5:12</div>
+          <Notification title="You’re at Kroger" body="Milk, eggs, coffee. All on your list." className="bsKitNotif" />
         </div>
       )
     case "voice":
@@ -863,18 +433,23 @@ function BenefitScene({ id }: { id: (typeof benefits)[number]["id"] }) {
       )
     case "house":
       return (
-        <div className="bsHouse">
-          <div className="bsRow bsRowDone">
-            <span className="bsCheck" />
-            <span className="bsItem">Eggs</span>
-            <span className="bsWho bsWhoB">Brian</span>
-          </div>
-          <div className="bsRow">
-            <span className="bsCheck bsCheckOpen" />
-            <span className="bsItem">Bananas</span>
-            <span className="bsWho bsWhoY">You</span>
-          </div>
-          <div className="bsToast">Brian got the eggs. Everyone sees it.</div>
+        <div className="bsHouse scrKit">
+          <ul className="scrListItems bsKitList">
+            <li className="scrListItem scrDone">
+              <span className="scrCheck" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="m4 8.3 2.7 2.7L12 5.6" /></svg>
+              </span>
+              <span className="scrListName">Eggs<i>Brian got it</i></span>
+              <Avatar who="brian" size="sm" />
+            </li>
+            <li className="scrListItem">
+              <span className="scrCheck" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="m4 8.3 2.7 2.7L12 5.6" /></svg>
+              </span>
+              <span className="scrListName">Bananas</span>
+              <Avatar who="reese" size="sm" />
+            </li>
+          </ul>
         </div>
       )
     case "passing":
@@ -958,12 +533,8 @@ function WhoSection() {
                 <span className="whoLabel">{p.who}</span>
                 <BoopFace className="whoBoop" mood={p.face} still />
               </div>
-              <div className="whoNotif" aria-hidden="true">
-                <span className="whoNotifIcon"><BoopFace mood="neutral" still /></span>
-                <span className="whoNotifText">
-                  <span className="whoNotifTitle">{p.place}</span>
-                  <span className="whoNotifBody">{p.body}</span>
-                </span>
+              <div className="scrKit whoKit" aria-hidden="true">
+                <Notification title={p.place} body={p.body} />
               </div>
               <p className="whoLine">{p.line}</p>
             </li>
@@ -1215,8 +786,6 @@ function ProductDemo() {
     setPlaying(true)
   }
 
-  const current = DEMO_BEATS[beat]
-
   return (
     <section className="chapter chapterTight" id="demo" ref={sectionRef}>
       <span id="how-it-works" className="anchorOffset" aria-hidden="true" />
@@ -1233,71 +802,30 @@ function ProductDemo() {
 
         <div className="dmStage">
           <div className="dmPhone">
-            <div className="pairDevice">
-              <span className="pairIsland" aria-hidden="true" />
-              <div className={`pairScreen dmScreen dmScreen--${current.id}`}>
-                <div className={`pairStatus ${beat >= 2 ? "pairStatusNight" : ""}`}>
-                  <span>{beat >= 2 ? "5:12" : "9:41"}</span>
-                  <span className="pairBatt" aria-hidden="true" />
-                </div>
-
-                {/* Beat 0 - the capture sheet */}
-                <div className="dmPane dmPaneSay" aria-hidden={beat !== 0}>
-                  <div className="dmMic">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.6" />
-                      <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                    </svg>
-                  </div>
-                  <div className="dmWave" aria-hidden="true">
-                    {[38, 64, 92, 56, 100, 74, 46, 82, 40, 66].map((h, i) => (
-                      <i key={i} style={{ height: h + "%", animationDelay: i * 80 + "ms" }} />
-                    ))}
-                  </div>
-                  <p className="dmHeard">&ldquo;Milk at Harris Teeter&rdquo;</p>
-                </div>
-
-                {/* Beat 1 - where it landed, and how to change it */}
-                <div className="dmPane dmPanePlace" aria-hidden={beat !== 1}>
-                  <p className="dmAdded">Added</p>
-                  <div className="dmTask">
-                    <span className="dmTaskCheck" aria-hidden="true" />
-                    <span className="dmTaskName">Milk</span>
-                  </div>
-                  <div className="dmPlaceRow">
-                    <span className="dmPin" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" strokeWidth="1.6" />
-                        <circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.6" />
-                      </svg>
-                    </span>
-                    <span className="dmPlaceName">
-                      Harris Teeter
-                      <i>0.8 mi</i>
-                    </span>
-                    <span className="dmChange">Change</span>
-                  </div>
-                </div>
-
-                {/* Beats 2 and 3 - the same Lock Screen, one with the arrival */}
-                <div className="dmPane dmPaneLock" aria-hidden={beat < 2}>
-                  <div className="dmLockDate">Thursday, March 20</div>
-                  <div className="dmLockTime">5:12</div>
-                  <div className={`dmNotif ${beat === LAST_BEAT ? "dmNotifIn" : ""}`}>
-                    <div className="dmNotifIcon">
-                      <Image src={BRAND_ICON} alt="" width={26} height={26} />
-                    </div>
-                    <div className="dmNotifBody">
-                      <div className="dmNotifLabel">BoopThere &middot; now</div>
-                      <div className="dmNotifTitle">You&rsquo;re at Harris Teeter</div>
-                      <div className="dmNotifSub">Milk</div>
-                    </div>
-                  </div>
-                </div>
-
-                <span className={`pairHomeBar ${beat >= 2 ? "pairHomeBarNight" : ""}`} aria-hidden="true" />
+            <Device
+              tone={beat >= 2 ? "light" : "dark"}
+              island={beat === LAST_BEAT ? <ArrivalIsland place="Harris Teeter" /> : undefined}
+            >
+              <div className="scrPane" data-on={beat === 0} aria-hidden={beat !== 0}>
+                <CaptureScreen listening={beat === 0} />
               </div>
-            </div>
+              <div className="scrPane" data-on={beat === 1} aria-hidden={beat !== 1}>
+                <PlacedScreen key={beat === 1 ? "on" : "off"} />
+              </div>
+              <div className="scrPane" data-on={beat >= 2} aria-hidden={beat < 2}>
+                <LockScreen date="Thursday, March 20" time="5:12" widget={{ count: 1, line: "Milk, at Harris Teeter" }}>
+                  {beat === LAST_BEAT && (
+                    <LiveActivity
+                      className="scrLiveIn"
+                      place="Harris Teeter"
+                      distance="You’re here"
+                      items={[{ name: "Milk", by: "reese" }]}
+                      footer="You said it Tuesday. Boop kept it till now."
+                    />
+                  )}
+                </LockScreen>
+              </div>
+            </Device>
           </div>
 
           <div className="dmSide">

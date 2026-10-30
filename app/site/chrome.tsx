@@ -9,6 +9,7 @@ import Link from "next/link"
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react"
 
 import { APP_IS_LIVE, APP_STORE_URL, NOTIFY_EVENT, openNotify } from "./launch"
+import { ArrivalIsland, Device, ListScreen, LiveActivity, LockScreen } from "./screens"
 
 export { APP_STORE_URL }
 export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v3.png"
@@ -715,9 +716,7 @@ export function AppShot({
 export function HouseholdPair({
   items,
   listTitle = "Shared grocery list",
-  sharedWith,
   arrivalTitle,
-  arrivalSub,
   crossCount = 3,
   ownerLabel = "Your iPhone",
   peerLabel,
@@ -735,6 +734,7 @@ export function HouseholdPair({
   const armed = useRef(false)
   const [replaying, setReplaying] = useState(false)
   const reduced = usePrefersReducedMotion()
+  const place = arrivalTitle.replace(/^You(\u2019|')re at (the )?/, (_m, _q, the) => (the ? "The " : ""))
 
   useEffect(() => {
     const el = ref.current
@@ -764,38 +764,17 @@ export function HouseholdPair({
   return (
     <div ref={ref} className={`pairVisual ${replaying ? "pairReplay" : ""}`}>
       <figure className="pairPhone">
-        <div className="pairDevice">
-          <span className="pairIsland" aria-hidden="true" />
-          <div className="pairScreen pairScreenDay">
-            <div className="pairStatus">
-              <span>9:41</span>
-              <span className="pairBatt" aria-hidden="true" />
-            </div>
-            <div className="pairListHead">
-              <div className="pairListTitle">{listTitle}</div>
-              <div className="pairListSub">{sharedWith}</div>
-            </div>
-            <ul className="pairItems">
-              {items.map((item, i) => (
-                <li
-                  key={item}
-                  className={`pairItem pairItem${i + 1} ${i < crossCount ? "pairItemDone" : ""}`}
-                >
-                  <span className="pairCheck" aria-hidden="true">
-                    <svg viewBox="0 0 16 16" fill="none">
-                      <path d="m4 8.3 2.7 2.7L12 5.6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                  <span className="pairItemText">
-                    {item}
-                    <i className="pairStrike" aria-hidden="true" />
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <span className="pairHomeBar" aria-hidden="true" />
-          </div>
-        </div>
+        <Device tone="dark">
+          <ListScreen
+            title={listTitle}
+            members={["reese", "brian"]}
+            items={items.map((name, i) => ({
+              name,
+              done: i < crossCount,
+              by: i < crossCount ? ("brian" as const) : i % 2 ? ("brian" as const) : ("reese" as const),
+            }))}
+          />
+        </Device>
         <figcaption className="pairCaption">{ownerLabel}</figcaption>
       </figure>
 
@@ -805,30 +784,21 @@ export function HouseholdPair({
       </div>
 
       <figure className="pairPhone">
-        <div className="pairDevice">
-          <span className="pairIsland" aria-hidden="true" />
-          <div className="pairScreen pairScreenNight">
-            <div className="pairStatus pairStatusNight">
-              <span>9:41</span>
-              <span className="pairBatt" aria-hidden="true" />
-            </div>
-            <div className="pairLockClock">
-              <div className="pairLockDate">Saturday, March 15</div>
-              <div className="pairLockTime">9:41</div>
-            </div>
-            <div className="pairNotif">
-              <div className="pairNotifIcon">
-                <Image src={BRAND_ICON} alt="" width={26} height={26} />
-              </div>
-              <div className="pairNotifBody">
-                <div className="pairNotifLabel">BoopThere &middot; now</div>
-                <div className="pairNotifTitle">{arrivalTitle}</div>
-                <div className="pairNotifSub">{arrivalSub}</div>
-              </div>
-            </div>
-            <span className="pairHomeBar pairHomeBarNight" aria-hidden="true" />
-          </div>
-        </div>
+        <Device tone="light" island={replaying ? <ArrivalIsland place={place} /> : undefined}>
+          <LockScreen date="Saturday, March 15" time="9:41">
+            <LiveActivity
+              key={replaying ? "in" : "rest"}
+              className={replaying ? "scrLiveIn" : ""}
+              place={place}
+              items={items.map((name, i) => ({
+                name,
+                done: i < crossCount,
+                by: i % 2 ? ("brian" as const) : ("reese" as const),
+              }))}
+              footer="Checked off on every phone in the house."
+            />
+          </LockScreen>
+        </Device>
         <figcaption className="pairCaption">{peerLabel}</figcaption>
       </figure>
     </div>

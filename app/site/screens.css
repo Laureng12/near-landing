@@ -1,0 +1,560 @@
+/* ── Screens kit (see screens.tsx) ─────────────────────────────────
+   1em = 1/26 of the screen width. A screen is 26em × 56.3em.       */
+
+.scrDevice {
+  container-type: inline-size;
+  width: 100%;
+}
+.scrFrame {
+  position: relative;
+  font-size: calc(100cqi / 27.6);
+  aspect-ratio: 27.6 / 57.9;
+  padding: 0.8em;
+  border-radius: 4.3em;
+  background:
+    linear-gradient(145deg, #3A4268 0%, #161B3C 30%, #0B0E24 70%, #262D55 100%);
+  box-shadow:
+    inset 0 0 0 0.09em rgba(255, 255, 255, 0.22),
+    inset 0 0 0 0.32em #0B0E24,
+    0 0.2em 0.4em rgba(19, 24, 58, 0.18),
+    0 3em 6em -1em rgba(19, 24, 58, 0.34),
+    0 1.6em 5em rgba(47, 107, 255, 0.16);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+/* Side buttons */
+.scrFrame::before,
+.scrFrame::after {
+  content: "";
+  position: absolute;
+  width: 0.28em;
+  border-radius: 0.2em;
+  background: #20264A;
+}
+.scrFrame::before { left: -0.2em; top: 10em; height: 3.4em; box-shadow: 0 4.6em 0 #20264A; }
+.scrFrame::after  { right: -0.2em; top: 13em; height: 6.2em; }
+
+.scrScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 3.55em;
+  overflow: hidden;
+  isolation: isolate;
+  background: #FFFFFF;
+  color: var(--ink);
+  font-size: 1em;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  text-align: left;
+}
+.scrKit { text-align: left; }
+.scrLockHead { text-align: center; }
+
+/* Dynamic Island: a pill that opens on an arrival */
+.scrIsland {
+  position: absolute;
+  z-index: 30;
+  top: 0.75em;
+  left: 50%;
+  width: 8.6em;
+  height: 2.55em;
+  transform: translateX(-50%);
+  border-radius: 1.4em;
+  background: #000;
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0 0.45em;
+  overflow: hidden;
+  transition: width 0.6s cubic-bezier(.3,1.3,.5,1), height 0.6s cubic-bezier(.3,1.3,.5,1);
+}
+.scrIslandOpen { width: 15.4em; height: 2.9em; }
+.scrIslandFace { width: 2em; flex: none; }
+.scrIslandFace .boopFace { width: 2em; }
+.scrIslandText {
+  white-space: nowrap;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+.scrIslandText b { color: #FF4DFF; font-weight: 800; font-family: var(--font-brand); }
+
+.scrHomeBar {
+  position: absolute;
+  z-index: 30;
+  bottom: 0.55em;
+  left: 50%;
+  width: 9.4em;
+  height: 0.36em;
+  margin-left: -4.7em;
+  border-radius: 1em;
+  background: rgba(19, 24, 58, 0.9);
+}
+.scrTone--light .scrHomeBar { background: rgba(255, 255, 255, 0.92); }
+
+/* Status bar */
+.scrStatus {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3.9em;
+  padding: 0.5em 2.2em 0 2.6em;
+  color: var(--ink);
+}
+.scrTone--light .scrStatus { color: #FFFFFF; }
+.scrStatusTime { font-size: 1.1em; font-weight: 600; letter-spacing: -0.01em; }
+.scrStatusIcons { display: flex; align-items: center; gap: 0.35em; }
+.scrSignal { width: 1.2em; fill: currentColor; }
+.scrWifi { width: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.scrBatt {
+  position: relative;
+  width: 1.75em;
+  height: 0.85em;
+  border-radius: 0.28em;
+  border: 0.08em solid currentColor;
+  opacity: 0.95;
+}
+.scrBatt::after { content: ""; position: absolute; right: -0.22em; top: 0.22em; width: 0.12em; height: 0.3em; border-radius: 0 0.1em 0.1em 0; background: currentColor; }
+.scrBatt i { position: absolute; inset: 0.08em; right: 0.45em; border-radius: 0.16em; background: currentColor; }
+
+/* ── Lock Screen ─────────────────────────────────────────────── */
+
+.scrLock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+}
+.scrWall {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 40% at 80% 6%, rgba(228, 255, 151, 0.55), transparent 70%),
+    radial-gradient(60% 34% at 0% 96%, rgba(255, 0, 255, 0.34), transparent 70%),
+    linear-gradient(180deg, #7FCBFF 0%, #4C9BFF 46%, #2F5BEF 78%, #3A2FC9 100%);
+}
+/* Boop's bubble, floating in the wallpaper */
+.scrWallBubble {
+  position: absolute;
+  left: 46%;
+  top: 30%;
+  width: 22em;
+  height: 22em;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.9) 0 5%, rgba(255, 255, 255, 0.25) 10%, transparent 24%),
+    radial-gradient(circle at 50% 50%, transparent 58%, rgba(255, 255, 255, 0.35) 66%, rgba(255, 0, 255, 0.35) 72%, rgba(228, 255, 151, 0.45) 79%, rgba(143, 211, 255, 0.55) 86%, rgba(255, 255, 255, 0.6) 92%, transparent 97%);
+  opacity: 0.85;
+  filter: blur(0.05em);
+  animation: scrFloat 9s ease-in-out infinite alternate;
+}
+.scrWallBubbleSm { left: 6%; top: 58%; width: 7em; height: 7em; opacity: 0.6; animation-duration: 7s; animation-direction: alternate-reverse; }
+@keyframes scrFloat {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-0.8em, -1.2em, 0); }
+}
+
+.scrLockHead { text-align: center; padding-top: 0.4em; }
+.scrLockDate { font-size: 1.2em; font-weight: 600; opacity: 0.92; letter-spacing: 0.005em; }
+.scrLockTime {
+  margin-top: -0.05em;
+  font-family: var(--font-brand);
+  font-size: 6.6em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 0.06em 0.2em rgba(19, 24, 58, 0.18);
+}
+.scrWidget {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  margin-top: 0.7em;
+  padding: 0.35em 0.9em 0.35em 0.35em;
+  border-radius: 2em;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(1.2em);
+  -webkit-backdrop-filter: blur(1.2em);
+  font-size: 0.95em;
+  font-weight: 600;
+}
+.scrWidgetRing {
+  display: grid;
+  place-items: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: conic-gradient(#E4FF97 0 70%, rgba(255, 255, 255, 0.3) 70% 100%);
+}
+.scrWidgetRing b {
+  display: grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: #2F5BEF;
+  font-size: 0.85em;
+}
+.scrLockStack {
+  margin-top: auto;
+  padding: 0 0.75em 0.8em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55em;
+}
+.scrLockKeys {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.6em 2.2em;
+}
+.scrLockKeys span {
+  display: grid;
+  place-items: center;
+  width: 3.6em;
+  height: 3.6em;
+  border-radius: 50%;
+  background: rgba(19, 24, 58, 0.22);
+  backdrop-filter: blur(1em);
+  -webkit-backdrop-filter: blur(1em);
+}
+.scrLockKeys svg { width: 1.5em; fill: #FFFFFF; }
+
+/* iOS notification */
+.scrNotif {
+  display: flex;
+  gap: 0.75em;
+  padding: 0.95em 1em;
+  border-radius: 1.6em;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(1.6em) saturate(160%);
+  -webkit-backdrop-filter: blur(1.6em) saturate(160%);
+  color: #0E1230;
+  box-shadow: 0 0.6em 1.6em rgba(19, 24, 58, 0.18);
+}
+.scrNotifIcon { width: 2.9em; height: 2.9em; border-radius: 0.7em; flex: none; }
+.scrNotifText { min-width: 0; flex: 1; }
+.scrNotifTop { display: flex; justify-content: space-between; gap: 0.5em; }
+.scrNotifTitle { font-size: 1.08em; font-weight: 700; }
+.scrNotifWhen { font-size: 0.92em; color: rgba(14, 18, 48, 0.5); }
+.scrNotifBody { margin-top: 0.15em; font-size: 1.05em; color: rgba(14, 18, 48, 0.82); line-height: 1.3; }
+
+/* Live Activity: ink glass, lime meaning "you're here" */
+.scrLive {
+  padding: 1.1em 1.1em 1em;
+  border-radius: 1.9em;
+  background: rgba(14, 17, 44, 0.84);
+  backdrop-filter: blur(1.8em) saturate(160%);
+  -webkit-backdrop-filter: blur(1.8em) saturate(160%);
+  color: #FFFFFF;
+  box-shadow: 0 1em 2.4em rgba(14, 17, 44, 0.32), inset 0 0 0 0.06em rgba(255, 255, 255, 0.1);
+}
+.scrLiveTop { display: flex; align-items: center; gap: 0.7em; }
+.scrLiveIcon { width: 2.6em; height: 2.6em; border-radius: 0.65em; flex: none; }
+.scrLivePlace { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.scrLiveName { font-size: 1.3em; font-weight: 700; letter-spacing: -0.015em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.scrLiveMeta { font-size: 0.92em; color: rgba(255, 255, 255, 0.62); }
+.scrLiveHere {
+  flex: none;
+  padding: 0.35em 0.75em;
+  border-radius: 1em;
+  background: #E4FF97;
+  color: #13183A;
+  font-size: 0.85em;
+  font-weight: 700;
+}
+.scrLiveItems { list-style: none; margin: 0.85em 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.4em; }
+.scrLiveItems li {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.62em 0.75em;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.08);
+}
+.scrLiveItem { flex: 1; font-size: 1.12em; font-weight: 600; }
+.scrLiveItems .scrCheck { border-color: rgba(255, 255, 255, 0.5); }
+.scrLiveFoot { margin-top: 0.75em; padding-left: 0.2em; font-size: 0.9em; color: rgba(255, 255, 255, 0.6); }
+
+/* Checks and avatars */
+.scrCheck {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 50%;
+  border: 0.12em solid rgba(19, 24, 58, 0.28);
+  transition: background 0.3s, border-color 0.3s;
+}
+.scrCheck svg { width: 1em; fill: none; stroke: #13183A; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity 0.2s; }
+.scrDone .scrCheck,
+.scrCheckOn { background: #E4FF97; border-color: #E4FF97; }
+.scrDone .scrCheck svg,
+.scrCheckOn svg { opacity: 1; }
+.scrDone .scrLiveItem { text-decoration: line-through; opacity: 0.5; }
+
+.scrAvatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 50%;
+  font-size: 1em;
+  font-weight: 700;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 0.16em #FFFFFF;
+}
+.scrAvatar--sm { width: 1.75em; height: 1.75em; font-size: 0.8em; box-shadow: none; }
+.scrAvatar--reese { background: #2F6BFF; }
+.scrAvatar--brian { background: #FF00FF; }
+.scrAvatar--jordan { background: #E4FF97; color: #13183A; }
+.scrAvatar--mom { background: #13183A; color: #E4FF97; }
+.scrLive .scrAvatar--sm { box-shadow: 0 0 0 0.1em rgba(14, 17, 44, 0.84); }
+
+/* ── App ─────────────────────────────────────────────────────── */
+
+.scrApp {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #F4F8FF;
+}
+.scrAppHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8em 1.5em 0.6em;
+}
+.scrAppKicker { font-size: 0.95em; font-weight: 600; color: #FF00FF; }
+.scrAppTitle { font-family: var(--font-brand); font-size: 2.3em; font-weight: 700; letter-spacing: -0.03em; color: #13183A; line-height: 1.05; }
+.scrStack { display: flex; }
+.scrStack .scrAvatar + .scrAvatar { margin-left: -0.6em; }
+
+/* Tab bar */
+.scrTabs {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.7em 0.6em 2.3em;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(1em);
+  -webkit-backdrop-filter: blur(1em);
+  border-top: 0.06em solid rgba(19, 24, 58, 0.08);
+  position: relative;
+  z-index: 5;
+}
+.scrTabs span { display: flex; flex-direction: column; align-items: center; gap: 0.2em; font-size: 0.72em; font-weight: 600; color: rgba(19, 24, 58, 0.42); }
+.scrTabs svg { width: 2.1em; height: 2.1em; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.scrTabs .scrTabOn { color: #13183A; }
+.scrTabs .scrTabOn svg { stroke: #FF00FF; }
+
+/* Capture */
+.scrCaptureDim { padding: 0.4em 1.2em; display: flex; flex-direction: column; gap: 0.6em; opacity: 0.45; filter: blur(0.06em); }
+.scrRowCard {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 1em;
+  border-radius: 1.2em;
+  background: #FFFFFF;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.scrRowCard i { margin-left: auto; font-style: normal; font-size: 0.85em; padding: 0.2em 0.6em; border-radius: 1em; background: #FFE6FF; color: #C000C0; }
+.scrRowEmoji { font-size: 1.1em; }
+.scrSheet {
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.7em 1.4em 6.2em;
+  border-radius: 2.4em 2.4em 0 0;
+  background: #FFFFFF;
+  box-shadow: 0 -1em 3em rgba(19, 24, 58, 0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.scrGrabber { width: 3em; height: 0.36em; border-radius: 1em; background: rgba(19, 24, 58, 0.16); }
+.scrOrb {
+  position: relative;
+  width: 7.4em;
+  margin-top: 1.4em;
+}
+.scrOrb .boopFace { width: 7.4em; }
+.scrOrb::before {
+  content: "";
+  position: absolute;
+  inset: -1em;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 0, 255, 0.28), rgba(143, 211, 255, 0.2) 50%, transparent 70%);
+}
+.scrOrbOn::before { animation: scrPulse 1.6s ease-in-out infinite; }
+@keyframes scrPulse { 50% { transform: scale(1.12); opacity: 0.7; } }
+.scrHeard {
+  margin: 1.1em 0 0;
+  font-size: 1.55em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #13183A;
+}
+.scrChipThing { padding: 0.05em 0.35em; border-radius: 0.4em; background: #E4FF97; }
+.scrChipPlace { padding: 0.05em 0.35em; border-radius: 0.4em; background: #FFE0FF; color: #B000B0; }
+.scrWave { display: flex; align-items: center; gap: 0.32em; height: 2.4em; margin-top: 0.9em; }
+.scrWave i { display: block; width: 0.3em; border-radius: 0.2em; background: linear-gradient(#FF00FF, #2F6BFF); animation: scrWave 1s ease-in-out infinite; }
+@keyframes scrWave { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+.scrParse { display: flex; gap: 0.5em; margin-top: 1em; font-size: 0.88em; color: rgba(19, 24, 58, 0.6); }
+.scrParse span { padding: 0.4em 0.8em; border-radius: 1em; background: #F4F8FF; }
+.scrParse b { color: #13183A; }
+
+/* Map */
+.scrMap { position: relative; overflow: hidden; }
+.scrMap svg { display: block; width: 100%; height: 100%; }
+.scrMapFull { position: absolute; inset: 0; }
+.scrRoute { animation: scrDash 1.2s linear infinite; }
+@keyframes scrDash { to { stroke-dashoffset: -14; } }
+.scrPin { position: absolute; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; }
+.scrPinHead {
+  display: grid;
+  place-items: center;
+  width: 2.1em;
+  height: 2.1em;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: #FFFFFF;
+  border: 0.18em solid #FF00FF;
+  color: #FF00FF;
+  font-size: 0.85em;
+  font-weight: 800;
+  box-shadow: 0 0.4em 0.8em rgba(19, 24, 58, 0.2);
+}
+.scrPinHead b { transform: rotate(45deg); }
+.scrPinLabel { margin-top: 0.35em; padding: 0.15em 0.5em; border-radius: 0.6em; background: rgba(255, 255, 255, 0.92); font-size: 0.78em; font-weight: 700; color: #13183A; white-space: nowrap; }
+.scrPinOn .scrPinHead { width: 2.7em; height: 2.7em; background: #FF00FF; color: #FFFFFF; font-size: 1em; animation: scrDrop 0.7s cubic-bezier(.3,1.5,.5,1) both; }
+.scrPinOn .scrPinLabel { background: #13183A; color: #E4FF97; font-size: 0.9em; }
+@keyframes scrDrop { from { transform: translateY(-2em) rotate(-45deg); opacity: 0; } to { transform: rotate(-45deg); opacity: 1; } }
+/* the number reads upright inside the rotated pin */
+.scrPinHead { line-height: 1; }
+.scrYou {
+  position: absolute;
+  width: 1.3em;
+  height: 1.3em;
+  margin: -0.65em 0 0 -0.65em;
+  border-radius: 50%;
+  background: #2F6BFF;
+  border: 0.22em solid #FFFFFF;
+  box-shadow: 0 0 0 0.9em rgba(47, 107, 255, 0.18), 0 0.2em 0.5em rgba(19, 24, 58, 0.3);
+}
+
+/* Placed */
+.scrPlaced .scrStatus { background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0)); }
+.scrMapSearch {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.2em 1.2em 0;
+  padding: 0.8em 1em;
+  border-radius: 1.2em;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0.4em 1.2em rgba(19, 24, 58, 0.12);
+  font-size: 1em;
+  color: rgba(19, 24, 58, 0.5);
+}
+.scrMapSearch svg { width: 1.2em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.scrPlacedCard {
+  position: relative;
+  z-index: 4;
+  margin: auto 0.9em 0.8em;
+  padding: 1em 1.1em 1.1em;
+  border-radius: 1.8em;
+  background: #FFFFFF;
+  box-shadow: 0 1em 2.6em rgba(19, 24, 58, 0.2);
+}
+.scrSaved { display: flex; align-items: center; gap: 0.5em; font-size: 0.92em; font-weight: 700; color: #13183A; }
+.scrPlacedRow { display: flex; align-items: center; gap: 0.7em; margin-top: 0.85em; }
+.scrPlacedPin { width: 2.4em; height: 2.4em; flex: none; border-radius: 0.8em; background: #FF00FF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z'/%3E%3Ccircle cx='12' cy='10' r='2.4'/%3E%3C/svg%3E") center / 55% no-repeat; }
+.scrPlacedName { display: flex; flex-direction: column; flex: 1; font-size: 1.2em; font-weight: 700; letter-spacing: -0.01em; }
+.scrPlacedName i { font-style: normal; font-size: 0.75em; font-weight: 500; color: rgba(19, 24, 58, 0.55); }
+.scrChange { font-size: 0.95em; font-weight: 700; color: #2F6BFF; }
+.scrPlacedItems { display: flex; align-items: center; gap: 0.6em; margin-top: 0.85em; padding-top: 0.85em; border-top: 0.06em solid rgba(19, 24, 58, 0.08); }
+.scrTag { padding: 0.35em 0.8em; border-radius: 1em; background: #E4FF97; font-size: 0.95em; font-weight: 700; color: #13183A; }
+.scrPlacedNote { font-size: 0.85em; color: rgba(19, 24, 58, 0.6); line-height: 1.3; }
+
+/* Shared list */
+.scrProgress { margin: 0.3em 1.5em 0; height: 0.5em; border-radius: 1em; background: rgba(19, 24, 58, 0.08); overflow: hidden; }
+.scrProgress span { display: block; height: 100%; border-radius: 1em; background: linear-gradient(90deg, #E4FF97, #B6F03A); transition: width 0.8s var(--ease, ease); }
+.scrProgressText { margin: 0.45em 1.5em 0; font-size: 0.85em; font-weight: 600; color: rgba(19, 24, 58, 0.55); }
+.scrListItems { list-style: none; margin: 0.9em 1em 0; padding: 0.3em 0; border-radius: 1.4em; background: #FFFFFF; box-shadow: 0 0.3em 1em rgba(19, 24, 58, 0.06); }
+.scrListItem { display: flex; align-items: center; gap: 0.8em; padding: 0.85em 1em; }
+.scrListItem + .scrListItem { border-top: 0.06em solid rgba(19, 24, 58, 0.06); }
+.scrListName { display: flex; flex-direction: column; flex: 1; font-size: 1.12em; font-weight: 600; color: #13183A; }
+.scrListName i { font-style: normal; font-size: 0.75em; font-weight: 600; color: #B000B0; }
+.scrDone .scrListName { color: rgba(19, 24, 58, 0.42); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scrWallBubble, .scrRoute, .scrOrbOn::before, .scrWave i, .scrPinOn .scrPinHead { animation: none; }
+  .scrIsland { transition: none; }
+}
+
+/* An arrival lands: the Live Activity rises into place */
+.scrLiveIn { animation: scrRise 0.7s cubic-bezier(.2,1.2,.4,1) both; }
+@keyframes scrRise { from { transform: translateY(2.4em) scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Panes inside one device (the demo) */
+.scrPane { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, visibility 0.5s; }
+.scrPane[data-on="true"] { opacity: 1; visibility: visible; }
+
+@media (prefers-reduced-motion: reduce) { .scrLiveIn { animation: none; } }
+
+/* ── Where the kit sits on the page ──────────────────────────── */
+.heroDevice { width: 332px; position: relative; z-index: 1; }
+.dmPhone { max-width: 292px; }
+.pairPhone { max-width: 236px; flex-basis: 210px; }
+@media (max-width: 1024px) {
+  .heroDevice { width: 290px; }
+}
+@media (max-width: 520px) {
+  .heroDevice { width: 272px; }
+}
+
+/* The saved card sits on the tab bar, leaving the map open above it */
+.scrPlaced .scrTabs { margin-top: 0; }
+
+/* ── Kit pieces outside a device (benefit and who cards) ─────── */
+.scrKit { font-size: 12.5px; }
+.bsLock.scrKit {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0;
+  background: none;
+}
+.bsLock .scrWall { border-radius: inherit; }
+.bsLock .scrWallBubble { left: 58%; top: -20%; width: 16em; height: 16em; }
+.bsLock .scrWallBubbleSm { left: 4%; top: 50%; }
+.bsKitTime { font-size: 4.6em; }
+.bsKitNotif { width: min(25em, 88%); }
+.bsHouse.scrKit { display: flex; align-items: center; justify-content: center; background: none; }
+.bsKitList { width: min(24em, 88%); margin: 0; }
+.whoKit { position: relative; z-index: 1; }
+.whoKit .scrNotif { background: rgba(255, 255, 255, 0.96); box-shadow: 0 0.8em 2em rgba(19, 24, 58, 0.16); }
+@media (max-width: 520px) { .scrKit { font-size: 11.5px; } }
