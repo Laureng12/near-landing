@@ -53,6 +53,7 @@ export default function PricingPage() {
             <div className="priceNavLinks">
               <Link href="/#how-it-works" className="priceNavLink">How it works</Link>
               <Link href="/#household" className="priceNavLink">For households</Link>
+              <Link href="/features" className="priceNavLink">Features</Link>
               <Link href="/pricing" className="priceNavLink current">Pricing</Link>
               <DownloadCta className="priceNavCta" source="pricing-nav">Download</DownloadCta>
             </div>

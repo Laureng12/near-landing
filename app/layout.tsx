@@ -98,7 +98,8 @@ export const metadata: Metadata = {
     capable: true,
   },
   other: {
-    "apple-itunes-app": "app-id=6821711186",
+    // Restore once the App Store listing is live:
+    // "apple-itunes-app": "app-id=6821711186",
     "impact-site-verification": "baa37acf-c03a-4807-afce-bd3d947097ab",
   },
 }

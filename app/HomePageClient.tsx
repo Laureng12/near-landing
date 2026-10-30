@@ -8,9 +8,11 @@ import { APP_IS_LIVE } from "./site/launch"
 import { isLive } from "./site/features"
 import { faqItems } from "./site/faq"
 import {
-  ArrivalPhone,
+  type BoopMood,
+  BOOP_JOINED,
   BoopFace,
   BRAND_ICON,
+  InlineNotify,
   DownloadCta,
   HouseholdPair,
   FinalCTA,
@@ -24,66 +26,6 @@ import {
 /* The shared list Brian is about to see. */
 const sharedList = ["Milk", "Eggs", "Bananas", "Bread", "Olive oil"] as const
 
-/* Recognizable moments. Each one is a real arrival, so each one carries the
-   Lock Screen it would actually produce - and the hour it would happen at.
-   The five run dawn to night, the way the icon set does. */
-const momentScenes = [
-  {
-    id: "grocery",
-    tone: "grocery",
-    sky: "dawn",
-    line: "Groceries. Without the second trip.",
-    clock: "7:42",
-    day: "Tuesday, March 17",
-    title: "You\u2019re at Harris Teeter",
-    sub: "3 things you needed",
-    items: ["Milk", "Eggs", "Bananas"],
-  },
-  {
-    id: "errand",
-    tone: "errand",
-    sky: "day",
-    line: "That return has lived in your car long enough.",
-    clock: "10:15",
-    day: "Tuesday, March 17",
-    title: "You\u2019re at the UPS Store",
-    sub: "1 thing waiting",
-    items: ["Return the blue jacket"],
-  },
-  {
-    id: "pharmacy",
-    tone: "pharmacy",
-    sky: "day",
-    line: "The pharmacy pickup, while you are already standing there.",
-    clock: "1:04",
-    day: "Tuesday, March 17",
-    title: "You\u2019re at Walgreens",
-    sub: "1 thing waiting",
-    items: ["Pharmacy pickup"],
-  },
-  {
-    id: "ask",
-    tone: "ask",
-    sky: "dusk",
-    line: "The question you always remember in the parking lot.",
-    clock: "4:20",
-    day: "Tuesday, March 17",
-    title: "You\u2019re at Dr. Vaughn\u2019s office",
-    sub: "1 thing to ask",
-    items: ["Ask about the referral"],
-  },
-  {
-    id: "home",
-    tone: "home",
-    sky: "night",
-    line: "The things you meant to do the second you got in.",
-    clock: "6:38",
-    day: "Tuesday, March 17",
-    title: "You\u2019re home",
-    sub: "2 things waiting",
-    items: ["Water the plants", "Take out recycling"],
-  },
-] as const
 
 
 /* ── Page ──────────────────────────────────────────────────────── */
@@ -97,12 +39,12 @@ export default function HomePageClient() {
       <Hero />
       <PlacesTicker />
       <ProofLine />
-      <BenefitsSection />
-      <WhoSection />
       <ProblemSection />
       <ProductDemo />
+      <BenefitsSection />
+      <WhoSection />
       <HouseholdChapter />
-      <MomentsSection />
+      <MoreSection />
       <QuietSection />
       <FAQSection />
       <FinalCTA />
@@ -205,10 +147,17 @@ function Hero() {
             Screen, with everything your household added too. No app to open.
             No second trip.
           </p>
-          <div className="heroCtas">
-            <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
-            <a className="btnGhost" href="#demo">Watch it work</a>
-          </div>
+          {APP_IS_LIVE ? (
+            <div className="heroCtas">
+              <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
+              <a className="btnGhost" href="#demo">Watch it work</a>
+            </div>
+          ) : (
+            <div className="heroCtas heroCtasForm">
+              <InlineNotify source="hero" />
+              <a className="heroWatch" href="#demo">Watch it work &rarr;</a>
+            </div>
+          )}
           <p className="heroMicro">
             {APP_IS_LIVE
               ? "Free for iPhone. No ads. Private by design."
@@ -257,8 +206,38 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?:
   const [tap, setTap] = useState<0 | 1 | 2>(0)
   const thrillT = useRef<ReturnType<typeof setTimeout>[]>([])
   useEffect(() => () => thrillT.current.forEach(clearTimeout), [])
-  /* When the arrival replays, he lights up for a beat. */
   const [cheer, setCheer] = useState(false)
+  /* First visit: he waits, glances at the phone, the arrival lands, and the
+     shades drop. After that the cool look is his resting face. Under
+     reduced motion he starts there, no sequence. */
+  const [intro, setIntro] = useState<BoopMood | "done" | null>(null)
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const steps: [number, BoopMood | "done"][] = reduced
+      ? [[0, "done"]]
+      : [
+          [1500, "glance"],
+          [2000, "oh"],
+          [2300, "cheer"],
+          [2900, "coolOh"],
+          [3300, "done"],
+        ]
+    const ts = steps.map(([ms, m]) => setTimeout(() => setIntro(m), ms))
+    return () => ts.forEach(clearTimeout)
+  }, [])
+  /* Joining the waitlist gets a cheer. */
+  useEffect(() => {
+    const onJoin = () => {
+      setCheer(true)
+      setTimeout(() => setCheer(false), 1600)
+    }
+    window.addEventListener(BOOP_JOINED, onJoin)
+    return () => window.removeEventListener(BOOP_JOINED, onJoin)
+  }, [])
+  const resting: BoopMood | undefined =
+    intro === "done" ? "cool" : intro === null ? undefined : intro
+
+  /* When the arrival replays, he lights up for a beat. */
   useEffect(() => {
     if (!arriving) return
     setCheer(true)
@@ -283,11 +262,15 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?:
       }}
     >
       <span className={`boopBody ${hops > 0 ? "boopJump" : ""}`} key={`j${hops}`}>
-        <BoopFace className="boopImg" faces={["oh", "cheer", "coolOh", "cool"]} mood={tap === 1 ? "coolOh" : tap === 2 ? "cool" : cheer ? "cheer" : hover ? "oh" : undefined} />
+        <BoopFace className="boopImg" faces={["glance", "oh", "cheer", "coolOh", "cool", "knowing"]} mood={tap === 1 ? "coolOh" : tap === 2 ? "cool" : cheer ? "cheer" : hover ? (intro === "done" ? "knowing" : "oh") : resting} />
       </span>
       <span className="boopShadow" aria-hidden="true" />
       <span className="boopCaption" key={`c${hops}-${hover && hops === 0 ? "h" : ""}`}>
-        {hover && hops === 0 ? "Tap to see it again." : BOOP_CAPTIONS[hops % BOOP_CAPTIONS.length]}
+        {hover && hops === 0
+          ? "Tap to see it again."
+          : hops === 0 && intro === "done"
+            ? "Boop! There it is."
+            : BOOP_CAPTIONS[hops % BOOP_CAPTIONS.length]}
       </span>
     </button>
   )
@@ -1041,7 +1024,7 @@ function ProblemSection() {
 
 function HouseholdChapter() {
   return (
-    <section className="chapter chapterNight" id="household">
+    <section className="chapter chapterSky" id="household">
       <div className="skyWash skyWashWarm" aria-hidden="true" />
       <div className="reveal shell split">
         <div className="splitCopy">
@@ -1086,81 +1069,63 @@ function HouseholdChapter() {
   )
 }
 
-/* ── Everyday moments ──────────────────────────────────────────── */
+/* ── More than reminders ───────────────────────────────────────────
+   The bridge to Pro. Pricing sells meal plans and restocks; without this
+   the homepage never mentions them and /pricing reads like another app.
+   Every tile is a live row in site/features.ts. */
 
-function MomentsSection() {
-  const [active, setActive] = useState(0)
-  const rows = useRef<Array<HTMLLIElement | null>>([])
+const moreTiles = [
+  {
+    id: "meals",
+    flag: "meal-plan-free",
+    title: "A week of dinners, planned",
+    body: "Pick three dinners or let BoopThere suggest them. Three plans a month are free; Pro takes the cap off.",
+    pill: "Free + Pro",
+    face: "joy" as const,
+  },
+  {
+    id: "list",
+    flag: "kroger",
+    title: "One list, in aisle order",
+    body: "Three recipes become one grocery list, sorted the way the store is laid out. It\u2019s waiting when you walk in.",
+    pill: "Free",
+    face: "onit" as const,
+  },
+  {
+    id: "restock",
+    flag: "predictive-restock",
+    title: "It notices you\u2019re low",
+    body: "Pro learns what you buy and when you run out, and adds it before you have to remember.",
+    pill: "Pro",
+    face: "knowing" as const,
+  },
+] as const
 
-  /* A band across the middle of the viewport decides which moment is live.
-     Whichever row is crossing it owns the phone. */
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          const i = rows.current.indexOf(entry.target as HTMLLIElement)
-          if (i >= 0) setActive(i)
-        })
-      },
-      { rootMargin: "-48% 0px -48% 0px", threshold: 0 }
-    )
-    rows.current.forEach((el) => el && io.observe(el))
-    return () => io.disconnect()
-  }, [])
-
-  const scene = momentScenes[active]
-
+function MoreSection() {
+  const tiles = moreTiles.filter((t) => isLive(t.flag))
+  if (tiles.length === 0) return null
   return (
-    <section className={`chapter everyday everyday--${scene.sky}`} id="everyday">
-      <div className="everydayTint" aria-hidden="true" />
-      <div className="shell everydayShell">
-        <div className="everydayMain">
-          <div className="everydayCopy reveal">
-            <p className="eyebrow">Every day</p>
-            <h2 className="h2">For all the things you meant to do.</h2>
-          </div>
-
-          <ol className="everydayList">
-            {momentScenes.map((m, i) => (
-              <li
-                key={m.id}
-                ref={(el) => {
-                  rows.current[i] = el
-                }}
-                className={`everydayRow ${i === active ? "everydayRowOn" : ""}`}
-              >
-                <span className="everydayRule" aria-hidden="true" />
-                <span className={`placeGlyph placeGlyph--${m.tone}`} aria-hidden="true" />
-                <span className="everydayLine">{m.line}</span>
-                <span className="everydayHour">{m.clock}</span>
-
-                {/* The phone does not fit beside a phone, so small screens
-                    get the arrival inline instead. */}
-                <span className="momentMini" aria-hidden="true">
-                  <span className="momentMiniIcon">
-                    <Image src={BRAND_ICON} alt="" width={20} height={20} />
-                  </span>
-                  <span className="momentMiniText">
-                    <span className="momentMiniTitle">{m.title}</span>
-                    <span className="momentMiniSub">{m.items.join(", ")}</span>
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ol>
+    <section className="chapter moreChapter" id="more">
+      <div className="shell">
+        <div className="reveal centeredHead">
+          <p className="eyebrow">More than reminders</p>
+          <h2 className="h2 h2Center">
+            Then it plans dinner, <em>too.</em>
+          </h2>
         </div>
-
-        <div className="everydayPhoneCol" aria-hidden="true">
-          <div className="everydayPhoneStick">
-            <ArrivalPhone scene={scene} live />
-            <div className="everydayDots">
-              {momentScenes.map((m, i) => (
-                <span key={m.id} className={i === active ? "everydayDotOn" : ""} />
-              ))}
-            </div>
-          </div>
-        </div>
+        <ul className="moreGrid reveal">
+          {tiles.map((t) => (
+            <li className={`moreCard moreCard--${t.id}`} key={t.id} data-stagger>
+              <BoopFace className="moreBoop" mood={t.face} still />
+              <span className="morePill">{t.pill}</span>
+              <h3 className="moreTitle">{t.title}</h3>
+              <p className="moreBody">{t.body}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="caption moreFoot">
+          <Link href="/pricing" className="quietLink">See what&rsquo;s free and what&rsquo;s Pro</Link>
+        </p>
       </div>
     </section>
   )
@@ -1254,6 +1219,7 @@ function ProductDemo() {
 
   return (
     <section className="chapter chapterTight" id="demo" ref={sectionRef}>
+      <span id="how-it-works" className="anchorOffset" aria-hidden="true" />
       <div className="reveal shell">
         <div className="centeredHead">
           <p className="eyebrow">Watch it work</p>

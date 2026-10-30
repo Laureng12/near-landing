@@ -141,6 +141,10 @@ export default function ConsentBanner() {
             align-items: stretch;
             text-align: left;
           }
+          /* In a column, the 320px flex-basis became a 320px-tall text box. */
+          .consentText {
+            flex: 0 0 auto;
+          }
           .consentButtons {
             justify-content: flex-end;
           }

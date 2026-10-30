@@ -214,6 +214,70 @@ export function NotifyDialog() {
   )
 }
 
+/* The waitlist, inline. Same endpoint as NotifyDialog, but in the page
+   itself so the hero and the close ask for the email without a popup.
+   On success it raises BOOP_JOINED so Boop can cheer. */
+export const BOOP_JOINED = "boop:joined"
+
+export function InlineNotify({ source, tone = "light" }: { source: string; tone?: "light" | "dark" }) {
+  const [email, setEmail] = useState("")
+  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle")
+  const [message, setMessage] = useState("")
+
+  async function submit(e: FormEvent) {
+    e.preventDefault()
+    if (state === "sending") return
+    setState("sending")
+    try {
+      const res = await fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setState("error")
+        setMessage(data?.error || "Could not save that. Try again in a moment.")
+        return
+      }
+      setState("done")
+      setMessage(data?.already ? "You were already on the list." : "")
+      window.dispatchEvent(new CustomEvent(BOOP_JOINED))
+    } catch {
+      setState("error")
+      setMessage("Could not save that. Try again in a moment.")
+    }
+  }
+
+  if (state === "done") {
+    return (
+      <p className={`inlineNotifyDone inlineNotify--${tone}`} role="status">
+        <span className="inlineNotifyBoop">Boop!</span> You&rsquo;re on the list.
+        {message && <span className="inlineNotifyNote"> {message}</span>}
+      </p>
+    )
+  }
+
+  return (
+    <form className={`inlineNotify inlineNotify--${tone}`} onSubmit={submit}>
+      <input
+        className="inlineNotifyInput"
+        type="email"
+        required
+        autoComplete="email"
+        placeholder="you@example.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        aria-label="Email address"
+      />
+      <button className="inlineNotifySubmit" type="submit" disabled={state === "sending"}>
+        {state === "sending" ? "Sending" : "Notify me at launch"}
+      </button>
+      {state === "error" && <p className="inlineNotifyError" role="alert">{message}</p>}
+    </form>
+  )
+}
+
 /* ── Nav ───────────────────────────────────────────────────────── */
 
 export function TopNav({ home = false }: { home?: boolean }) {
@@ -378,7 +442,7 @@ export function FinalCTA() {
       <div className="finalSky" aria-hidden="true" />
       <div className="reveal finalInner">
         <div className="finalMascot" aria-hidden="true">
-<BoopFace className="finalBoopImg" faces={["joy"]} mood={!inView ? "neutral" : settled ? undefined : "joy"} />
+<BoopFace className="finalBoopImg" faces={["joy", "cool"]} mood={!inView ? "neutral" : settled ? "cool" : "joy"} />
         </div>
         <div className={`finalArrival ${inView ? "finalArrivalIn" : ""}`} aria-hidden="true">
           <span className="finalArrivalRing" />
@@ -401,7 +465,11 @@ export function FinalCTA() {
         <p className="finalSub">
           No forgotten milk. No second trip. No &ldquo;did you remember?&rdquo; texts.
         </p>
-        <DownloadCta className="btnCream" source="closing">Download BoopThere</DownloadCta>
+        {APP_IS_LIVE ? (
+          <DownloadCta className="btnCream" source="closing">Download BoopThere</DownloadCta>
+        ) : (
+          <InlineNotify source="closing" tone="dark" />
+        )}
         {APP_IS_LIVE && (
           <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download BoopThere on the App Store">
             <Image src="/app-store-qr.png" alt="QR code linking to BoopThere on the App Store" width={72} height={72} />
@@ -512,7 +580,7 @@ export function ArrivalPhone({ scene, live }: { scene: Scene; live: boolean }) {
                 <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </span>
               <div className="arrCardHeadText">
-                <div className="arrCardLabel">NEAR &middot; now</div>
+                <div className="arrCardLabel">BoopThere &middot; now</div>
                 <div className="arrCardTitle">{scene.title}</div>
                 <div className="arrCardSub">{scene.sub}</div>
               </div>

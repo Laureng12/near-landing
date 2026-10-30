@@ -4864,3 +4864,166 @@ button.tierCta, button.priceNavCta {
   .whoCard, .whoCard:hover, .whoCard .whoBoop { transition: none !important; transform: none !important; }
   .reveal .whoCard .whoNotif, .reveal .whoCard .whoBoop { opacity: 1 !important; transform: none !important; }
 }
+
+/* ══ Homepage rework (Oct 30 2026) ═══════════════════════════════════
+   Brand pass + new pieces. Kept in one block at the end so it reads as
+   one change and overrides the earlier rules without editing them.     */
+
+/* Type: headlines in Bricolage Grotesque (the brand face), body stays DM Sans. */
+:root { --font-display: var(--font-bricolage), var(--font-inter-tight), var(--font-dm-sans), -apple-system, sans-serif; }
+h1, h2, h3, .heroTitle, .h2, .finalTitle { text-wrap: balance; }
+.heroTitle { letter-spacing: -0.035em; }
+
+/* Primary button: ink with lime text, like the nav button. */
+.btnPrimary,
+.inlineNotifySubmit {
+  background: var(--ink);
+  color: var(--lime);
+}
+.btnPrimary:hover,
+.inlineNotifySubmit:hover { background: var(--night-plum); }
+
+/* Eyebrows carry a magenta dot: Boop's colour, without small magenta text. */
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 9px 1px 0;
+  border-radius: 50%;
+  background: var(--rose);
+  vertical-align: middle;
+}
+
+/* Sticky nav: solid enough that content never shows through, and above
+   every floating Boop. */
+.nav { z-index: 100; }
+.navLifted {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+}
+
+/* In-page anchors land below the sticky nav. */
+.anchorOffset { position: absolute; top: -84px; }
+#demo { position: relative; }
+
+/* ── Hero: inline waitlist ─────────────────────────────── */
+.heroCtasForm { flex-direction: column; align-items: flex-start; gap: 14px; }
+.heroWatch { font-size: 0.95rem; font-weight: 500; color: var(--ink-soft); }
+.heroWatch:hover { color: var(--ink); }
+
+.inlineNotify {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  max-width: 30rem;
+  padding: 6px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid var(--ink-hair);
+  box-shadow: 0 12px 32px rgba(19, 24, 58, 0.10);
+}
+.inlineNotifyInput {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  outline: none;
+}
+.inlineNotify:focus-within { border-color: var(--rose); box-shadow: 0 0 0 4px var(--rose-glow), 0 12px 32px rgba(19, 24, 58, 0.10); }
+.inlineNotifySubmit {
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.97rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s var(--ease-soft), transform 0.35s cubic-bezier(.3,.7,.4,1.5);
+}
+.inlineNotifySubmit:hover { transform: translateY(-1px) scale(1.02); }
+.inlineNotifySubmit:disabled { opacity: 0.7; cursor: default; }
+.inlineNotifyError { flex-basis: 100%; margin: 4px 16px 6px; font-size: 0.88rem; color: var(--error); }
+
+.inlineNotifyDone {
+  margin: 0;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  font-weight: 600;
+  animation: joinPop .5s cubic-bezier(.3,.7,.4,1.5) both;
+}
+.inlineNotifyBoop { font-family: var(--font-brand); color: var(--rose); font-weight: 800; }
+.inlineNotifyNote { font-weight: 400; color: var(--ink-soft); }
+@keyframes joinPop { from { transform: scale(.9); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Dark variant, for the closing band. */
+.inlineNotify--dark { margin: 0 auto; background: rgba(255, 255, 255, 0.08); border-color: var(--on-night-hair); box-shadow: none; }
+.inlineNotify--dark .inlineNotifyInput { color: var(--on-night); }
+.inlineNotify--dark .inlineNotifyInput::placeholder { color: var(--on-night-faint); }
+.inlineNotify--dark .inlineNotifySubmit { background: var(--lime); color: var(--ink); }
+.inlineNotify--dark .inlineNotifySubmit:hover { background: #F0FFC2; }
+.inlineNotify--dark .inlineNotifyError { color: #FFB4B4; }
+.inlineNotifyDone.inlineNotify--dark { display: inline-block; }
+.inlineNotify--dark .inlineNotifyBoop { color: var(--rose); }
+
+@media (max-width: 1024px) {
+  .heroCtasForm { align-items: center; }
+  .inlineNotify { margin: 0 auto; }
+}
+@media (max-width: 520px) {
+  .inlineNotify { border-radius: 22px; }
+  .inlineNotifySubmit { flex-basis: 100%; }
+}
+
+/* ── Households: sky, not navy ─────────────────────────── */
+.chapterSky {
+  background: linear-gradient(180deg, #EAF6FF 0%, #F6FBFF 55%, #FFFFFF 100%);
+  overflow: hidden;
+}
+
+/* ── More than reminders ───────────────────────────────── */
+.moreGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+.moreCard {
+  position: relative;
+  padding: 28px 26px 30px;
+  border-radius: 28px;
+  border: 1px solid var(--ink-hair-soft);
+  box-shadow: 0 18px 44px rgba(19, 24, 58, 0.07);
+}
+.moreCard--meals   { background: linear-gradient(180deg, #F6FFDD, #FFFFFF 64%); }
+.moreCard--list    { background: linear-gradient(180deg, #EAF6FF, #FFFFFF 64%); }
+.moreCard--restock { background: linear-gradient(180deg, #FFEAFF, #FFFFFF 64%); }
+.moreBoop { width: 64px; margin: 0 0 18px; }
+.morePill {
+  position: absolute;
+  top: 26px;
+  right: 24px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--lime);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.moreTitle { margin: 0; font-family: var(--font-display); font-size: 1.28rem; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.moreBody { margin: 10px 0 0; font-size: 0.98rem; line-height: 1.6; color: var(--ink-soft); }
+.moreFoot { text-align: center; margin-top: 30px; }
+@media (max-width: 860px) {
+  .moreGrid { grid-template-columns: 1fr; }
+}
