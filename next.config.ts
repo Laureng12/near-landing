@@ -61,12 +61,16 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
-    /* BoopThere is the brand; boopthere.com is canonical.
-       - boopthereitis.com (the tagline domain) sends everything there.
-       - nearesttask.com sends only its marketing pages. Invite, shared-list,
-         /join, /gather, /clip and /.well-known stay served on nearesttask.com,
-         because links already sent and the app's universal links point there
-         and must not redirect (Apple will not follow a redirect for the AASA). */
+    /* BoopThere is the brand; boopthere.com is canonical, and as of the 2026-10
+       routing move it is the domain NEW links mint (referral, SMS join, share
+       footers). App paths — /.well-known (AASA), /invite, /join, /gather, /list,
+       /f, /clip, /refer, /v1/public — are served on boopthere.com (native Next
+       pages for /join + /gather; rewrites to the backend for the rest) and must
+       NOT redirect (Apple will not follow a redirect for the AASA).
+       - boopthereitis.com (the tagline domain) sends everything to boopthere.com.
+       - nearesttask.com keeps serving the SAME app paths for legacy links already
+         in the wild (the app's inbound deep-link handler still accepts that host);
+         its marketing pages redirect to boopthere.com when BOOPTHERE_REDIRECT_NEAREST=1. */
     const marketing = ["/", "/features", "/pricing", "/support", "/privacy", "/terms"]
     return [
       ...["boopthereitis.com", "www.boopthereitis.com"].map((host) => ({
