@@ -1,0 +1,312 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { useParams } from "next/navigation"
+
+import { APP_IS_LIVE, APP_STORE_URL } from "../../site/launch"
+const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v3.png"
+
+// Referral web landing — boopthere.com/refer/CODE. On an iOS device with the app
+// installed, the universal link (AASA /refer/*) opens the app directly and
+// ReferralService captures the code; this page is the fallback for everyone else
+// (no app yet / desktop), and mirrors the /join page's shape with referral copy
+// (both sides get 2 weeks of Pro on the referred household's first arrival).
+export default function ReferPage() {
+  const params = useParams()
+  const code = params.code as string
+  const [showPage, setShowPage] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPage(true), 300)
+    return () => clearTimeout(timer)
+  }, [code])
+
+  if (!showPage) {
+    return (
+      <main style={styles.page}>
+        <div style={styles.spinnerWrap}>
+          <div style={styles.spinner} />
+        </div>
+      </main>
+    )
+  }
+
+  return (
+    <main style={styles.page}>
+      <div style={styles.glow} />
+
+      <div style={styles.card}>
+        <div style={styles.logoRow}>
+          <Image
+            src={BRAND_ICON}
+            alt="BoopThere"
+            width={32}
+            height={32}
+            style={styles.logoIcon}
+          />
+          <span style={styles.logoText}>BoopThere</span>
+        </div>
+
+        <h1 style={styles.title}>A friend invited you</h1>
+        <p style={styles.subtitle}>
+          Join <strong style={{ color: "#fff" }}>BoopThere</strong> with their link and you
+          <strong style={{ color: "#fff" }}> both get 2 weeks of Pro</strong> - the app that shows you
+          what you need, right when you arrive.
+        </p>
+
+        <div style={styles.valueProps}>
+          <div style={styles.valueProp}>
+            <div style={styles.vpIcon}>&#x1F4CD;</div>
+            <div>
+              <div style={styles.vpTitle}>Location-triggered</div>
+              <div style={styles.vpDesc}>Your list appears when you pull into the parking lot</div>
+            </div>
+          </div>
+          <div style={styles.valueProp}>
+            <div style={styles.vpIcon}>&#x1F381;</div>
+            <div>
+              <div style={styles.vpTitle}>2 weeks of Pro, each</div>
+              <div style={styles.vpDesc}>You and the friend who invited you both get it, free</div>
+            </div>
+          </div>
+          <div style={styles.valueProp}>
+            <div style={styles.vpIcon}>&#x26A1;</div>
+            <div>
+              <div style={styles.vpTitle}>Zero effort</div>
+              <div style={styles.vpDesc}>No timers. No opening the app. It just works.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style={styles.codeBox}>
+          <p style={styles.codeLabel}>Your referral code</p>
+          <p style={styles.codeValue}>{code}</p>
+        </div>
+
+        {APP_IS_LIVE ? (
+          <>
+            <a href={APP_STORE_URL} style={styles.button}>
+              Download BoopThere - It&apos;s Free
+            </a>
+
+            <div style={styles.steps}>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Download BoopThere from the App Store</p>
+              <p style={styles.step}><span style={styles.stepNum}>2</span> Open this link again after installing</p>
+              <p style={styles.step}><span style={styles.stepNum}>3</span> Your Pro reward lands on your first arrival</p>
+            </div>
+          </>
+        ) : (
+          <>
+            <p style={styles.button}>Coming to the App Store</p>
+
+            <div style={styles.steps}>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> BoopThere is coming to the App Store shortly</p>
+              <p style={styles.step}><span style={styles.stepNum}>2</span> Keep this link - your code stays valid</p>
+              <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once BoopThere is out to claim your Pro</p>
+            </div>
+          </>
+        )}
+
+        <p style={styles.hint}>
+          Already have BoopThere? Open the app - it will detect this invite automatically.
+        </p>
+      </div>
+
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </main>
+  )
+}
+
+const styles: Record<string, React.CSSProperties> = {
+  page: {
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "linear-gradient(180deg, #0C102B 0%, #1C2250 50%, #0C102B 100%)",
+    padding: "24px",
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    position: "relative",
+    overflow: "hidden",
+  },
+  glow: {
+    position: "absolute",
+    top: "20%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "600px",
+    height: "400px",
+    background: "radial-gradient(circle, rgba(255, 77, 255,0.18), rgba(228, 255, 151,0.08), transparent 65%)",
+    filter: "blur(80px)",
+    pointerEvents: "none",
+  },
+  spinnerWrap: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  spinner: {
+    width: 32,
+    height: 32,
+    border: "3px solid rgba(255,255,255,0.1)",
+    borderTop: "3px solid #FF4DFF",
+    borderRadius: "50%",
+    animation: "spin 0.8s linear infinite",
+  },
+  card: {
+    position: "relative",
+    maxWidth: 440,
+    width: "100%",
+    textAlign: "center",
+    background: "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+    borderRadius: 24,
+    padding: "40px 28px 32px",
+    border: "1px solid rgba(255,255,255,0.10)",
+    boxShadow: "0 40px 120px rgba(19, 24, 58, 0.6)",
+    backdropFilter: "blur(20px)",
+    animation: "fadeIn 0.5s ease-out",
+  },
+  logoRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    marginBottom: 20,
+  },
+  logoIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    objectFit: "cover",
+    boxShadow: "0 0 24px rgba(255, 77, 255,0.30)",
+  },
+  logoText: {
+    fontSize: 22,
+    fontWeight: 800,
+    letterSpacing: 0,
+    color: "#FFFFFF",
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 800,
+    color: "#FFFFFF",
+    margin: "0 0 10px",
+    letterSpacing: "-0.03em",
+  },
+  subtitle: {
+    fontSize: 15,
+    lineHeight: 1.6,
+    color: "rgba(255,255,255,0.6)",
+    margin: "0 0 24px",
+  },
+  valueProps: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "12px",
+    marginBottom: 24,
+    textAlign: "left",
+  },
+  valueProp: {
+    display: "flex",
+    alignItems: "flex-start",
+    gap: "12px",
+    padding: "12px 14px",
+    borderRadius: 14,
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.06)",
+  },
+  vpIcon: {
+    fontSize: 20,
+    flexShrink: 0,
+    marginTop: 2,
+  },
+  vpTitle: {
+    fontSize: 14,
+    fontWeight: 700,
+    color: "#fff",
+    letterSpacing: "-0.01em",
+  },
+  vpDesc: {
+    fontSize: 13,
+    color: "rgba(255,255,255,0.55)",
+    lineHeight: 1.4,
+    marginTop: 2,
+  },
+  codeBox: {
+    background: "rgba(19, 24, 58, 0.3)",
+    border: "1px solid rgba(255,255,255,0.08)",
+    borderRadius: 14,
+    padding: "16px",
+    marginBottom: 20,
+  },
+  codeLabel: {
+    fontSize: 11,
+    color: "rgba(255,255,255,0.4)",
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.08em",
+    margin: "0 0 6px",
+    fontWeight: 600,
+  },
+  codeValue: {
+    fontSize: 22,
+    fontWeight: 800,
+    color: "#FF4DFF",
+    fontFamily: "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace",
+    margin: 0,
+    letterSpacing: "0.12em",
+  },
+  button: {
+    display: "block",
+    background: "#FFFFFF",
+    color: "#13183A",
+    fontWeight: 750,
+    fontSize: 16,
+    padding: "16px 32px",
+    borderRadius: 999,
+    textDecoration: "none",
+    marginBottom: 24,
+    boxShadow: "0 12px 40px rgba(0,0,0,0.28)",
+    letterSpacing: "-0.01em",
+  },
+  steps: {
+    textAlign: "left" as const,
+    marginBottom: 20,
+  },
+  step: {
+    fontSize: 13,
+    color: "rgba(255,255,255,0.5)",
+    margin: "0 0 8px",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+  },
+  stepNum: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 22,
+    height: 22,
+    borderRadius: "50%",
+    background: "rgba(255,255,255,0.08)",
+    border: "1px solid rgba(255,255,255,0.10)",
+    color: "rgba(255,255,255,0.7)",
+    fontSize: 11,
+    fontWeight: 700,
+    flexShrink: 0,
+  },
+  hint: {
+    fontSize: 13,
+    color: "rgba(255,255,255,0.35)",
+    lineHeight: 1.5,
+    margin: 0,
+  },
+}
