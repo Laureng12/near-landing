@@ -292,7 +292,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Data Aggregation &amp; Insights</h2>
             <p>
-              We may create aggregated, anonymized, or de-identified data derived from your use of the app. This aggregated data is designed not to identify you personally and may be used for lawful purposes such as business intelligence, research, product improvement, and sharing aggregate trends with current or prospective partners. Before any such data is shared externally, we de-identify it and suppress small groups so it cannot reasonably be linked to an individual household or person. We do not attempt to re-identify aggregated, anonymized, or de-identified data, and we do not permit partners to do so.
+              We may create aggregated, anonymized, or de-identified data derived from your use of the app. This aggregated data is designed not to identify you personally and may be used for lawful purposes such as business intelligence, research, product improvement, and sharing aggregate trends with current or prospective partners. Before any such data is shared externally, we de-identify it and suppress small groups so it cannot reasonably be linked to an individual household or person. We do not attempt to re-identify aggregated, anonymized, or de-identified data, and we do not permit partners to do so. Where this aggregated data would be shared with partners, participation is opt-in: it is off by default, you decide whether to turn it on in your household settings, and you can turn it off at any time, after which we stop including your household in aggregates we share going forward.
             </p>
           </section>
 
