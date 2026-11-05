@@ -187,7 +187,9 @@ export default function PricingPage() {
           </div>
 
           <p className="priceFoot">
-            Seven days free when you start Pro. Cancel anytime in Settings &rarr; Apple ID.
+            Seven-day free trial for eligible new subscribers, then Pro renews
+            automatically at the price shown unless cancelled. Cancel anytime in
+            Settings &rarr; Apple ID.
           </p>
           {/* Asked in every audit and never answered on the page. The backend
               resolves entitlement by userId alone, with no household lookup,

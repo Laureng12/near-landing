@@ -62,8 +62,8 @@ export default function SupportPage() {
             <p>
               Tap your avatar in the top corner to open your profile, then tap
               &quot;Invite a household member&quot; and send the invite link to your
-              partner or roommates. Once they join, all your places and tasks are shared
-              automatically.
+              partner or roommates. Once they join, your shared lists and places sync
+              across everyone in the household. Private to-dos stay private to you.
             </p>
 
             <h3>How do I connect my Kroger account?</h3>
