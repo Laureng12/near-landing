@@ -153,7 +153,7 @@ function Hero() {
             <span className="heroBoopWord">Boop!</span> <em>There it is.</em>
           </h1>
           <p className="heroLead">
-            Say it once. The second you walk in, your list pops onto your Lock
+            Say it once. When you arrive, your list is right there on your Lock
             Screen, with everything your household added too. No app to open.
             No second trip.
           </p>
@@ -511,7 +511,7 @@ const people = [
   { who: "The exec", tone: "exec", face: "onit", place: "You\u2019re at the airport.", body: "Charger\u2019s on the list. Not in your bag.", line: "Dry cleaning before the board meeting. Not after." },
   { who: "The roommates", tone: "roomies", face: "laugh", place: "You\u2019re at Costco.", body: "Jordan added \u201cthe big olive oil.\u201d", line: "Toilet paper\u2019s on the list. You\u2019re the one at Costco." },
   { who: "The family", tone: "family", face: "joy", place: "You\u2019re at school pickup.", body: "Permission slip\u2019s due today.", line: "One list. Whoever\u2019s there gets it." },
-  { who: "The teenager", tone: "teen", face: "cool", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "On your phone the second you walk in." },
+  { who: "The teenager", tone: "teen", face: "cool", place: "You\u2019re at Target.", body: "Mom\u2019s list. All four things.", line: "On your phone when you arrive." },
 ] as const
 
 function WhoSection() {
