@@ -9,7 +9,7 @@
    Proportions follow iOS: a 390pt screen is 26em, so 17pt body text is
    ~1.13em and the Lock Screen clock is ~6.4em.
 
-   The world is BoopThere's: a sky wallpaper with Boop's bubble floating in
+   The world is Boopsie's: a sky wallpaper with Boop's bubble floating in
    it, magenta pins, lime check-offs, ink Live Activities. */
 
 import Image from "next/image"

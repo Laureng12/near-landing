@@ -1,6 +1,6 @@
-# BoopThere
+# Boopsie
 
-> BoopThere is an iPhone app for location-based reminders, errands, groceries and household tasks. You save what you need where it matters, and BoopThere surfaces it when you arrive.
+> Boopsie is an iPhone app for location-based reminders, errands, groceries and household tasks. You save what you need where it matters, and Boopsie surfaces it when you arrive.
 
 Tagline: Boop! There it is.
 Formerly: Near (nearesttask.com)
@@ -11,11 +11,11 @@ Company: Rise-X, Inc.
 
 ## Availability
 
-BoopThere is coming to iPhone and is not yet publicly downloadable. There is no
+Boopsie is coming to iPhone and is not yet publicly downloadable. There is no
 App Store listing to link to. People who want to know when it ships can sign
 up at https://www.boopthere.com.
 
-## What BoopThere Does
+## What Boopsie Does
 
 - Surfaces errands, groceries and home tasks when you arrive at the place they belong to.
 - Works solo first. Household sharing is free, for people who need one memory instead of four.
@@ -27,10 +27,10 @@ up at https://www.boopthere.com.
 
 ## Pricing
 
-Two plans. Most of BoopThere is free.
+Two plans. Most of Boopsie is free.
 
 - Free: $0. Unlimited tasks, places and goals; reminders that wait at the place; Lock Screen alerts; household sharing and one grocery list; Kroger prices, aisle order and one-tap cart; voice capture; three AI meal plans a month.
-- BoopThere Pro: $12.99/month, or $109/year (about $9.08/month, roughly 30% off). Adds unlimited AI meal plans and recipes, learned restock prediction, and goal breakdown. Free trial available.
+- Boopsie Pro: $12.99/month, or $109/year (about $9.08/month, roughly 30% off). Adds unlimited AI meal plans and recipes, learned restock prediction, and goal breakdown. Free trial available.
 
 Canonical pricing page: https://www.boopthere.com/pricing
 
@@ -46,14 +46,14 @@ Canonical pricing page: https://www.boopthere.com/pricing
 
 ## Privacy And Data
 
-BoopThere uses location to show tasks when they matter. Arrival detection runs on
-the iPhone. BoopThere does not use location data for advertising, does not sell
+Boopsie uses location to show tasks when they matter. Arrival detection runs on
+the iPhone. Boopsie does not use location data for advertising, does not sell
 personal information, and does not share personal information for
 cross-context behavioral advertising. See the Privacy Policy for details.
 
 ## Suggested Description
 
-BoopThere is a location-based reminder app for iPhone. It remembers errands,
+Boopsie is a location-based reminder app for iPhone. It remembers errands,
 groceries and household tasks, then puts them on your Lock Screen when you
 arrive at the place they belong to. It works alone and can be shared with a
 household for free.

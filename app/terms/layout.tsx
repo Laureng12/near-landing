@@ -1,16 +1,16 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | BoopThere",
+  title: "Terms & Conditions | Boopsie",
   description:
-    "Terms and Conditions for BoopThere, the location-based task reminder app for iPhone.",
+    "Terms and Conditions for Boopsie, the location-based task reminder app for iPhone.",
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
-    title: "Terms & Conditions | BoopThere",
+    title: "Terms & Conditions | Boopsie",
     description:
-      "Terms and Conditions for BoopThere, the location-based task reminder app for iPhone.",
+      "Terms and Conditions for Boopsie, the location-based task reminder app for iPhone.",
     url: "/terms",
     type: "website",
   },

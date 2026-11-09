@@ -14,7 +14,7 @@ export default function SupportPage() {
         <Link href="/" className="legalLogo">
           <Image
             src={BRAND_WORDMARK}
-            alt="BoopThere"
+            alt="Boopsie"
             width={1121}
             height={216}
             className="legalLogoFull"
@@ -30,7 +30,7 @@ export default function SupportPage() {
           <section className="legalSection">
             <h2>Contact Us</h2>
             <p>
-              If you have a question, found a bug, or need help with BoopThere, email us at:
+              If you have a question, found a bug, or need help with Boopsie, email us at:
             </p>
             <p>
               <a href="mailto:hello@therise-x.com" className="legalLink">
@@ -45,14 +45,14 @@ export default function SupportPage() {
 
             <h3>How do I get location reminders?</h3>
             <p>
-              Save a place (like your grocery store), add tasks to it, and grant BoopThere
+              Save a place (like your grocery store), add tasks to it, and grant Boopsie
               &quot;Always&quot; location access in Settings. When you arrive at that place,
-              BoopThere will show your tasks automatically.
+              Boopsie will show your tasks automatically.
             </p>
 
-            <h3>Why does BoopThere need &quot;Always&quot; location access?</h3>
+            <h3>Why does Boopsie need &quot;Always&quot; location access?</h3>
             <p>
-              BoopThere monitors geofences in the background so it can notify you the moment you
+              Boopsie monitors geofences in the background so it can notify you the moment you
               arrive at a saved place - even if the app isn&apos;t open. &quot;When In
               Use&quot; only works while the app is in the foreground, which defeats the
               purpose of automatic reminders.
@@ -89,9 +89,9 @@ export default function SupportPage() {
               </a>.
             </p>
 
-            <h3>Does BoopThere work offline?</h3>
+            <h3>Does Boopsie work offline?</h3>
             <p>
-              Yes. BoopThere caches your tasks and places locally. You can view and complete tasks
+              Yes. Boopsie caches your tasks and places locally. You can view and complete tasks
               offline, and changes sync automatically when you reconnect.
             </p>
           </section>
@@ -100,7 +100,7 @@ export default function SupportPage() {
 
       <footer className="legalFooter">
         <div className="legalFooterInner">
-          <span className="legalFooterCopy">BoopThere &copy; 2026 Rise-X, Inc. All rights reserved.</span>
+          <span className="legalFooterCopy">Boopsie &copy; 2026 Rise-X, Inc. All rights reserved.</span>
           <nav className="legalFooterLinks">
             <Link href="/terms" className="legalFooterLink">
               Terms &amp; Conditions

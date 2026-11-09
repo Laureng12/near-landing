@@ -35,17 +35,17 @@ export default function JoinPage() {
         <div style={styles.logoRow}>
           <Image
             src={BRAND_ICON}
-            alt="BoopThere"
+            alt="Boopsie"
             width={32}
             height={32}
             style={styles.logoIcon}
           />
-          <span style={styles.logoText}>BoopThere</span>
+          <span style={styles.logoText}>Boopsie</span>
         </div>
 
         <h1 style={styles.title}>You&apos;ve been invited</h1>
         <p style={styles.subtitle}>
-          Someone wants to share their lists with you on <strong style={{ color: "#fff" }}>BoopThere</strong> -
+          Someone wants to share their lists with you on <strong style={{ color: "#fff" }}>Boopsie</strong> -
           the app that shows you what you need, right when you arrive.
         </p>
 
@@ -81,11 +81,11 @@ export default function JoinPage() {
         {APP_IS_LIVE ? (
           <>
             <a href={APP_STORE_URL} style={styles.button}>
-              Download BoopThere - It&apos;s Free
+              Download Boopsie - It&apos;s Free
             </a>
 
             <div style={styles.steps}>
-              <p style={styles.step}><span style={styles.stepNum}>1</span> Download BoopThere from the App Store</p>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Download Boopsie from the App Store</p>
               <p style={styles.step}><span style={styles.stepNum}>2</span> Open this link again after installing</p>
               <p style={styles.step}><span style={styles.stepNum}>3</span> You&apos;ll automatically join the household</p>
             </div>
@@ -95,15 +95,15 @@ export default function JoinPage() {
             <p style={styles.button}>Coming to the App Store</p>
 
             <div style={styles.steps}>
-              <p style={styles.step}><span style={styles.stepNum}>1</span> BoopThere is coming to the App Store shortly</p>
+              <p style={styles.step}><span style={styles.stepNum}>1</span> Boopsie is coming to the App Store shortly</p>
               <p style={styles.step}><span style={styles.stepNum}>2</span> Keep this link - your code stays valid</p>
-              <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once BoopThere is out to join the household</p>
+              <p style={styles.step}><span style={styles.stepNum}>3</span> Open it again once Boopsie is out to join the household</p>
             </div>
           </>
         )}
 
         <p style={styles.hint}>
-          Already have BoopThere? Open the app - it will detect this invite automatically.
+          Already have Boopsie? Open the app - it will detect this invite automatically.
         </p>
       </div>
 
