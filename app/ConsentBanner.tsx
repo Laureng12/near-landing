@@ -35,7 +35,14 @@ export default function ConsentBanner() {
 
   useEffect(() => {
     try {
-      if (!window.localStorage.getItem(CONSENT_KEY)) setVisible(true)
+      // Defer to the next frame instead of flipping visibility synchronously in
+      // the effect — the first paint lands before the update, avoiding the
+      // cascading re-render the rule guards against (react-hooks/set-state-in-effect)
+      // while keeping the SSR-safe "read localStorage after mount" behavior.
+      if (!window.localStorage.getItem(CONSENT_KEY)) {
+        const id = requestAnimationFrame(() => setVisible(true))
+        return () => cancelAnimationFrame(id)
+      }
     } catch {
       // localStorage blocked (private mode / strict settings) - don't block the page
     }
