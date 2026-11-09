@@ -264,9 +264,12 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?:
   /* When the arrival replays, he lights up for a beat. */
   useEffect(() => {
     if (!arriving) return
-    setCheer(true)
+    // Light up on the next frame rather than synchronously in the effect so the
+    // pulse doesn't trigger a cascading render (react-hooks/set-state-in-effect);
+    // the off-switch below is already async. One frame is imperceptible at 1400ms.
+    const raf = requestAnimationFrame(() => setCheer(true))
     const t = setTimeout(() => setCheer(false), 1400)
-    return () => clearTimeout(t)
+    return () => { cancelAnimationFrame(raf); clearTimeout(t) }
   }, [arriving])
 
   return (
