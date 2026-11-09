@@ -9,10 +9,10 @@ function HomeStructuredData() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${SITE_URL}/#webpage`,
-    name: "BoopThere | Boop! There it is. Location reminders for iPhone",
+    name: "Boopsie | Boop! There it is. Location reminders for iPhone",
     url: SITE_URL,
     description:
-      "BoopThere remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design.",
+      "Boopsie remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design.",
     isPartOf: {
       "@id": `${SITE_URL}/#website`,
     },

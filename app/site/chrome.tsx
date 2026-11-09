@@ -166,7 +166,7 @@ export function NotifyDialog() {
         className={`notifyCard ${open ? "notifyOpen" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Be first to know when BoopThere launches"
+        aria-label="Be first to know when Boopsie launches"
         inert={!open}
       >
         <button type="button" className="notifyClose" onClick={() => setOpen(false)} aria-label="Close">
@@ -180,7 +180,7 @@ export function NotifyDialog() {
             <h2 className="notifyTitle">
               You&rsquo;re on the list.
             </h2>
-            <p className="notifyLead">{message} We&rsquo;ll let you know when BoopThere is ready, and never for anything else.</p>
+            <p className="notifyLead">{message} We&rsquo;ll let you know when Boopsie is ready, and never for anything else.</p>
           </>
         ) : (
           <>
@@ -188,7 +188,7 @@ export function NotifyDialog() {
               Be first to know.
             </h2>
             <p className="notifyLead">
-              We&rsquo;ll email you when BoopThere is available for iPhone, and never
+              We&rsquo;ll email you when Boopsie is available for iPhone, and never
               for anything else.
             </p>
             <form className="notifyForm" onSubmit={submit}>
@@ -305,8 +305,8 @@ export function TopNav({ home = false }: { home?: boolean }) {
   return (
     <header className={`nav ${lifted ? "navLifted" : ""}`}>
       <div className="navInner">
-        <Link className="brand" href={home ? "#top" : "/"} aria-label="BoopThere, home">
-          <Image src={BRAND_WORDMARK} alt="BoopThere" className="brandLogo" width={1121} height={216} priority quality={100} />
+        <Link className="brand" href={home ? "#top" : "/"} aria-label="Boopsie, home">
+          <Image src={BRAND_WORDMARK} alt="Boopsie" className="brandLogo" width={1121} height={216} priority quality={100} />
         </Link>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href={at("#how-it-works")}>How it works</a>
@@ -332,7 +332,7 @@ export function TopNav({ home = false }: { home?: boolean }) {
         <a className="mobileMenuLink" href={at("#household")} onClick={() => setOpen(false)}>For households</a>
         <Link className="mobileMenuLink" href="/features" onClick={() => setOpen(false)}>Features</Link>
         <Link className="mobileMenuLink" href="/pricing" onClick={() => setOpen(false)}>Pricing</Link>
-        <DownloadCta className="mobileMenuCta" source="mobile-nav">Download BoopThere</DownloadCta>
+        <DownloadCta className="mobileMenuCta" source="mobile-nav">Download Boopsie</DownloadCta>
       </div>
     </header>
   )
@@ -452,7 +452,7 @@ export function FinalCTA() {
               <Image src={BRAND_ICON} alt="" width={22} height={22} />
             </span>
             <div>
-              <div className="finalArrivalLabel">BoopThere &middot; now</div>
+              <div className="finalArrivalLabel">Boopsie &middot; now</div>
               <div className="finalArrivalTitle">You&rsquo;re at Target</div>
             </div>
           </div>
@@ -467,13 +467,13 @@ export function FinalCTA() {
           No forgotten milk. No second trip. No &ldquo;did you remember?&rdquo; texts.
         </p>
         {APP_IS_LIVE ? (
-          <DownloadCta className="btnCream" source="closing">Download BoopThere</DownloadCta>
+          <DownloadCta className="btnCream" source="closing">Download Boopsie</DownloadCta>
         ) : (
           <InlineNotify source="closing" tone="dark" />
         )}
         {APP_IS_LIVE && (
-          <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download BoopThere on the App Store">
-            <Image src="/app-store-qr.png" alt="QR code linking to BoopThere on the App Store" width={72} height={72} />
+          <a className="finalQr" href={APP_STORE_URL} aria-label="Scan to download Boopsie on the App Store">
+            <Image src="/app-store-qr.png" alt="QR code linking to Boopsie on the App Store" width={72} height={72} />
             <span>Or scan to open it<br />on your iPhone</span>
           </a>
         )}
@@ -489,7 +489,7 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="footerTop">
         <div className="footerBrand">
-          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v4.png" alt="BoopThere" className="footerLogo" width={1121} height={216} />
+          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v4.png" alt="Boopsie" className="footerLogo" width={1121} height={216} />
           <p className="footerTag">Boop! There it is.</p>
         </div>
         <nav className="footerNav" aria-label="Footer">
@@ -497,7 +497,7 @@ export function SiteFooter() {
             <h3 className="footerHead">Product</h3>
             <Link href="/#how-it-works" className="footerLink">How it works</Link>
             <Link href="/#household" className="footerLink">For households</Link>
-            <Link href="/features" className="footerLink">Everything BoopThere does</Link>
+            <Link href="/features" className="footerLink">Everything Boopsie does</Link>
             <Link href="/pricing" className="footerLink">Pricing</Link>
           </div>
           <div>
@@ -513,8 +513,8 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="footerBase">
-        <DownloadCta className="footerCta" source="footer">Download BoopThere</DownloadCta>
-        <p className="footerCopy">&copy; 2026 BoopThere</p>
+        <DownloadCta className="footerCta" source="footer">Download Boopsie</DownloadCta>
+        <p className="footerCopy">&copy; 2026 Boopsie</p>
       </div>
     </footer>
   )
@@ -581,7 +581,7 @@ export function ArrivalPhone({ scene, live }: { scene: Scene; live: boolean }) {
                 <Image src={BRAND_ICON} alt="" width={26} height={26} />
               </span>
               <div className="arrCardHeadText">
-                <div className="arrCardLabel">BoopThere &middot; now</div>
+                <div className="arrCardLabel">Boopsie &middot; now</div>
                 <div className="arrCardTitle">{scene.title}</div>
                 <div className="arrCardSub">{scene.sub}</div>
               </div>

@@ -32,10 +32,10 @@ const bricolage = Bricolage_Grotesque({
 
 const SITE_URL = "https://www.boopthere.com"
 const DEFAULT_DESCRIPTION =
-  "BoopThere remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
+  "Boopsie remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
 
 export const metadata: Metadata = {
-  title: "BoopThere | Boop! There it is. Location reminders for iPhone",
+  title: "Boopsie | Boop! There it is. Location reminders for iPhone",
   description: DEFAULT_DESCRIPTION,
   keywords: [
     "location reminders",
@@ -65,10 +65,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BoopThere | Boop! There it is. Location reminders for iPhone",
+    title: "Boopsie | Boop! There it is. Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
-    siteName: "BoopThere",
+    siteName: "Boopsie",
     type: "website",
     locale: "en_US",
     images: [
@@ -76,13 +76,13 @@ export const metadata: Metadata = {
         url: "/boopthere-og.png?v=5",
         width: 1200,
         height: 630,
-        alt: "BoopThere - location reminders for iPhone",
+        alt: "Boopsie - location reminders for iPhone",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BoopThere | Boop! There it is. Location reminders for iPhone",
+    title: "Boopsie | Boop! There it is. Location reminders for iPhone",
     description: DEFAULT_DESCRIPTION,
     images: ["/boopthere-og.png?v=5"],
   },
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
   },
   category: "Productivity",
   appleWebApp: {
-    title: "BoopThere",
+    title: "Boopsie",
     capable: true,
   },
   other: {
@@ -109,7 +109,7 @@ const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
-  name: "BoopThere",
+  name: "Boopsie",
   alternateName: ["Boop There", "Near"],
   legalName: "Rise-X, Inc.",
   url: SITE_URL,
@@ -119,7 +119,7 @@ const organizationJsonLd = {
   description: "Location reminders for iPhone. Boop! There it is.",
   brand: {
     "@type": "Brand",
-    name: "BoopThere",
+    name: "Boopsie",
     slogan: "Boop! There it is.",
   },
 }
@@ -128,7 +128,7 @@ const mobileAppJsonLd = {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
   "@id": `${SITE_URL}/#mobile-app`,
-  name: "BoopThere",
+  name: "Boopsie",
   operatingSystem: "iOS",
   applicationCategory: "ProductivityApplication",
   url: SITE_URL,
@@ -154,7 +154,7 @@ const mobileAppJsonLd = {
   offers: [
     {
       "@type": "Offer",
-      name: "BoopThere Free",
+      name: "Boopsie Free",
       price: "0",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
@@ -164,7 +164,7 @@ const mobileAppJsonLd = {
     },
     {
       "@type": "Offer",
-      name: "BoopThere Pro",
+      name: "Boopsie Pro",
       priceCurrency: "USD",
       url: `${SITE_URL}/pricing`,
       availability: APP_IS_LIVE
@@ -184,7 +184,7 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-  name: "BoopThere",
+  name: "Boopsie",
   url: SITE_URL,
   inLanguage: "en-US",
   description: DEFAULT_DESCRIPTION,

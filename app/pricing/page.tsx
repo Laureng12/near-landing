@@ -14,7 +14,7 @@ type Billing = "annual" | "monthly"
 
 /* Two tiers, because two tiers is what exists. The site had been selling a
    middle Pro at $79.99 that is not a real product, and had the price of the
-   real one wrong. BoopThere Together is built but not purchasable, so it is not
+   real one wrong. Boopsie Together is built but not purchasable, so it is not
    here at all - see app/site/features.ts. */
 const tiers = [
   {
@@ -23,11 +23,11 @@ const tiers = [
     annual: { big: "$0", unit: "", note: "Free forever." },
     monthly: { big: "$0", unit: "", note: "Free forever." },
     features: featuresFor("free"),
-    cta: "Download BoopThere",
+    cta: "Download Boopsie",
     style: "ghost" as const,
   },
   {
-    name: "BoopThere Pro",
+    name: "Boopsie Pro",
     tag: "More planning help for your everyday life.",
     annual: { big: "$9.08", unit: "/month", note: "$109 billed annually \u00b7 Save 30%" },
     monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
@@ -47,8 +47,8 @@ export default function PricingPage() {
       <div className="pricePage">
         <nav className="priceNav">
           <div className="priceNavInner">
-            <Link href="/" aria-label="BoopThere, home">
-              <Image src={BRAND_WORDMARK} alt="BoopThere" width={1121} height={216} className="priceNavLogo" />
+            <Link href="/" aria-label="Boopsie, home">
+              <Image src={BRAND_WORDMARK} alt="Boopsie" width={1121} height={216} className="priceNavLogo" />
             </Link>
             <div className="priceNavLinks">
               <Link href="/#how-it-works" className="priceNavLink">How it works</Link>
@@ -92,7 +92,7 @@ export default function PricingPage() {
           {/* What Pro actually does, before anyone is asked what it costs.
               One week, one store, and the step that is the whole point: the
               three recipes become one list instead of three. */}
-          <section className="proProof" aria-label="What BoopThere Pro does">
+          <section className="proProof" aria-label="What Boopsie Pro does">
             <p className="proProofHead">
               A week of meals, and one list at the end of it.
             </p>
@@ -104,7 +104,7 @@ export default function PricingPage() {
               <div className="proProofShot">
                 <AppShot
                   src="/assets/app/near-week.webp"
-                  alt="BoopThere's Plan tab on iPhone: a week strip with today selected, a card reading Today, Tomorrow and 3 more need dinner, and Tuesday's errands listed under the places they belong to."
+                  alt="Boopsie's Plan tab on iPhone: a week strip with today selected, a card reading Today, Tomorrow and 3 more need dinner, and Tuesday's errands listed under the places they belong to."
                   caption="The week, in the app"
                 />
               </div>
@@ -148,7 +148,7 @@ export default function PricingPage() {
                 <span className="proStepNum">3</span>
                 <h3 className="proStepTitle">It is waiting at the store</h3>
                 <div className="proNotif">
-                  <div className="proNotifLabel">BoopThere &middot; now</div>
+                  <div className="proNotifLabel">Boopsie &middot; now</div>
                   <div className="proNotifTitle">You&rsquo;re at Kroger</div>
                   <div className="proNotifSub">11 things for this week</div>
                 </div>
@@ -194,14 +194,14 @@ export default function PricingPage() {
           {/* Asked in every audit and never answered on the page. The backend
               resolves entitlement by userId alone, with no household lookup,
               so the honest answer today is no. Seat sharing exists in the code
-              as BoopThere Together and is not sellable. */}
+              as Boopsie Together and is not sellable. */}
           <p className="priceFoot priceFootQuiet">
             Pro covers one person. Sharing a household is free and everyone&rsquo;s
             lists stay in sync, but Pro&rsquo;s planning and prediction apply to the
             account that subscribes.
           </p>
           <p className="priceBack">
-            <Link href="/">Back to BoopThere</Link>
+            <Link href="/">Back to Boopsie</Link>
           </p>
         </div>
       </div>

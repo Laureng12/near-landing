@@ -159,7 +159,7 @@ function Hero() {
           </p>
           {APP_IS_LIVE ? (
             <div className="heroCtas">
-              <DownloadCta className="btnPrimary" source="hero">Download BoopThere</DownloadCta>
+              <DownloadCta className="btnPrimary" source="hero">Download Boopsie</DownloadCta>
               <a className="btnGhost" href="#demo">Watch it work</a>
             </div>
           ) : (
@@ -310,7 +310,7 @@ function ProofLine() {
           &ldquo;The first app that remembers the errand for me.
           I just show up, and it&rsquo;s there.&rdquo;
         </blockquote>
-        <cite className="proofName">Lindsay &middot; BoopThere on iPhone</cite>
+        <cite className="proofName">Lindsay &middot; Boopsie on iPhone</cite>
       </div>
     </section>
   )
@@ -551,7 +551,7 @@ function WhoSection() {
    three-step section saying the same thing in words. The demo won, and the
    space the three steps were taking goes here instead.
 
-   The pain BoopThere removes is not a badly organised list. It is remembering at
+   The pain Boopsie removes is not a badly organised list. It is remembering at
    the wrong moment, which is a thing everyone has done this week. */
 
 const tooLate = [
@@ -583,7 +583,7 @@ function ProblemSection() {
           ))}
         </ul>
         <p className="lead leadCenter lateTurn">
-          BoopThere brings up what you saved when you reach the place you need it.
+          Boopsie brings up what you saved when you reach the place you need it.
         </p>
       </div>
     </section>
@@ -611,12 +611,12 @@ function HouseholdChapter() {
               gets them; tasks are fetched where:{householdId}, so a check-off
               is one row everyone sees.
 
-              "Your partner" narrowed this to couples. BoopThere is for roommates
+              "Your partner" narrowed this to couples. Boopsie is for roommates
               and families too, and "whoever gets there" is also the accurate
-              description - BoopThere does not pick a person, it answers an arrival.
+              description - Boopsie does not pick a person, it answers an arrival.
               Same words as the FAQ now. */}
           <p className="lead">
-            You add milk at home. Whoever gets to the store is the one BoopThere
+            You add milk at home. Whoever gets to the store is the one Boopsie
             reminds. When they check it off, everyone sees it is done.
           </p>
           <p className="caption">
@@ -650,7 +650,7 @@ const moreTiles = [
     id: "meals",
     flag: "meal-plan-free",
     title: "A week of dinners, planned",
-    body: "Pick three dinners or let BoopThere suggest them. Three plans a month are free; Pro takes the cap off.",
+    body: "Pick three dinners or let Boopsie suggest them. Three plans a month are free; Pro takes the cap off.",
     pill: "Free + Pro",
     face: "joy" as const,
   },
@@ -725,7 +725,7 @@ const DEMO_BEATS = [
   {
     id: "place",
     label: "Check the place",
-    caption: "BoopThere attaches it to Harris Teeter. Change it if that is the wrong store.",
+    caption: "Boopsie attaches it to Harris Teeter. Change it if that is the wrong store.",
     hold: 2600,
   },
   {
@@ -794,7 +794,7 @@ function ProductDemo() {
           <p className="eyebrow">Watch it work</p>
           <h2 className="h2 h2Center">The milk shouldn&rsquo;t need a second trip.</h2>
           <p className="lead leadCenter demoLead">
-            Add &ldquo;Milk at Harris Teeter.&rdquo; BoopThere connects it to a store, and you
+            Add &ldquo;Milk at Harris Teeter.&rdquo; Boopsie connects it to a store, and you
             can change the place if it picked the wrong one. When you arrive,
             your reminder is on your Lock Screen.
           </p>
@@ -893,7 +893,7 @@ function QuietSection() {
         <p className="lead leadCenter">
           Your live route never leaves your iPhone. What syncs is what makes a
           reminder work: your places, your tasks, and the arrivals that fire
-          them. BoopThere sells none of it, and never uses it for ads.
+          them. Boopsie sells none of it, and never uses it for ads.
         </p>
         <div className="pillRow">
           {pledges.map((p) => (
@@ -905,7 +905,7 @@ function QuietSection() {
         <p className="caption quietFoot">
           Delete everything, any time.{" "}
           <Link href="/privacy" className="quietLink">
-            How BoopThere uses your data
+            How Boopsie uses your data
           </Link>
         </p>
       </div>

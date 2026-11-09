@@ -121,7 +121,7 @@ export default function GatherInteractive({
     return (
       <main style={styles.page}>
         <div style={styles.card}>
-          <p style={styles.eyebrow}>BoopThere</p>
+          <p style={styles.eyebrow}>Boopsie</p>
           <h1 style={styles.title}>This invite isn&apos;t available</h1>
           <p style={styles.muted}>The link may have expired or been removed. Ask your host for a fresh one.</p>
         </div>
@@ -235,14 +235,14 @@ export default function GatherInteractive({
           onClick={() => track("install_click")}
         >
           <p style={styles.ctaEyebrow}>
-            {event.hostName ? `${event.hostName} planned this with BoopThere.` : "This gathering was planned with BoopThere."}
+            {event.hostName ? `${event.hostName} planned this with Boopsie.` : "This gathering was planned with Boopsie."}
           </p>
           <p style={styles.ctaTitle}>Host your own, free.</p>
-          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place - BoopThere does the remembering.</p>
-          <span style={styles.ctaBtn}>{APP_IS_LIVE ? "Get BoopThere" : "Get notified"}</span>
+          <p style={styles.ctaSub}>The menu, the invite, and every RSVP in one place - Boopsie does the remembering.</p>
+          <span style={styles.ctaBtn}>{APP_IS_LIVE ? "Get Boopsie" : "Get notified"}</span>
         </a>
 
-        <p style={styles.footer}>Planned with BoopThere</p>
+        <p style={styles.footer}>Planned with Boopsie</p>
       </div>
     </main>
   )

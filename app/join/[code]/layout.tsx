@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "BoopThere Household Invite",
-  description: "Join a shared BoopThere household invite.",
+  title: "Boopsie Household Invite",
+  description: "Join a shared Boopsie household invite.",
   robots: {
     index: false,
     follow: false,
