@@ -6,6 +6,7 @@ import "./site/screens.css"
 import ConsentBanner from "./ConsentBanner"
 import { NotifyDialog } from "./site/chrome"
 import { APP_IS_LIVE, APP_STORE_URL } from "./site/launch"
+import { SITE_URL } from "./siteConfig"
 
 // Self-hosted at build time (next/font downloads + serves the fonts from our own
 // origin) - no runtime request to fonts.googleapis.com, so no visitor IP is sent
@@ -30,7 +31,6 @@ const bricolage = Bricolage_Grotesque({
   display: "swap",
 })
 
-const SITE_URL = "https://www.boopthere.com"
 const DEFAULT_DESCRIPTION =
   "Boopsie remembers what you need and where you need it, then puts it on your Lock Screen the moment you arrive. Free for iPhone. No ads. Private by design."
 

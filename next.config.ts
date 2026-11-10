@@ -1,5 +1,19 @@
 import type { NextConfig } from "next";
 
+/* Brand-domain migration (audit B09). Flip the canonical marketing host to
+   boopsie.app by setting BOOPSIE_CANONICAL=1 in Vercel — until then this file is
+   byte-for-byte the previous boopthere.com behavior (safe to deploy before the
+   domain is attached). When on:
+     - canonical marketing host = www.boopsie.app;
+     - boopsie.app apex → www (marketing only; app-paths + AASA serve on the apex);
+     - boopthere.com + nearesttask.com MARKETING → www.boopsie.app, but their
+       APP paths (/.well-known AASA, /f, /list, /refer, /gather, /join, /clip,
+       /v1/public) keep serving via rewrites() so links already in the wild — and
+       existing app builds that only know those hosts — never break. */
+export const BOOPSIE_CANONICAL = process.env.BOOPSIE_CANONICAL === "1";
+const CANON_APEX = BOOPSIE_CANONICAL ? "boopsie.app" : "boopthere.com";
+const CANON = `https://www.${CANON_APEX}`;
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
@@ -49,7 +63,7 @@ const nextConfig: NextConfig = {
       },
       {
         key: "Access-Control-Allow-Origin",
-        value: "https://www.boopthere.com",
+        value: CANON,
       },
     ];
 
@@ -72,35 +86,44 @@ const nextConfig: NextConfig = {
          in the wild (the app's inbound deep-link handler still accepts that host);
          its marketing pages redirect to boopthere.com when BOOPTHERE_REDIRECT_NEAREST=1. */
     const marketing = ["/", "/features", "/pricing", "/support", "/privacy", "/terms"]
+
+    /* Legacy hosts whose MARKETING pages redirect to the canonical www host. Their
+       APP paths are deliberately NOT redirected (they fall through to rewrites() and
+       serve directly — Apple won't follow an AASA redirect, and in-the-wild links
+       must keep working). When BOOPSIE_CANONICAL is on, boopthere.com + nearesttask
+       both become legacy; when off, only nearesttask (gated as before). */
+    const legacyMarketingHosts = BOOPSIE_CANONICAL
+      ? ["boopthere.com", "www.boopthere.com", "nearesttask.com", "www.nearesttask.com"]
+      : (process.env.BOOPTHERE_REDIRECT_NEAREST === "1" ? ["nearesttask.com", "www.nearesttask.com"] : [])
+
     return [
+      /* Tagline domain → canonical (all paths; it serves no app-paths of its own). */
       ...["boopthereitis.com", "www.boopthereitis.com"].map((host) => ({
         source: "/:path*",
         has: [{ type: "host" as const, value: host }],
-        destination: "https://www.boopthere.com/:path*",
+        destination: `${CANON}/:path*`,
         permanent: true,
       })),
-      /* boopthere.com APEX → www, for the marketing pages ONLY (LINK-002).
+      /* Canonical APEX → www, for the marketing pages ONLY (LINK-002).
          The app paths — /.well-known (AASA), /invite, /list, /clip, /v1/public —
          are deliberately NOT redirected here: they fall through to rewrites()
          and serve DIRECTLY on the apex, so iOS can fetch the association file on
-         applinks:boopthere.com (Apple will not follow a redirect for the AASA).
-         This replaces the Vercel domain-level apex→www 308, which caught the
-         AASA too. Requires the apex domain to be assigned to the project (its
-         project-level `redirect` removed) — redirects() never runs while the
-         domain is a Vercel-level redirect. */
+         applinks:<apex> (Apple will not follow a redirect for the AASA).
+         Requires the apex domain to be assigned to the project (its project-level
+         `redirect` removed) — redirects() never runs while the domain is a
+         Vercel-level redirect. */
       ...marketing.map((path) => ({
         source: path,
-        has: [{ type: "host" as const, value: "boopthere.com" }],
-        destination: `https://www.boopthere.com${path}`,
+        has: [{ type: "host" as const, value: CANON_APEX }],
+        destination: `${CANON}${path}`,
         permanent: true,
       })),
-      /* Off until www.boopthere.com serves the public production site.
-         Turn on by setting BOOPTHERE_REDIRECT_NEAREST=1 in Vercel. */
-      ...(process.env.BOOPTHERE_REDIRECT_NEAREST === "1" ? ["nearesttask.com", "www.nearesttask.com"] : []).flatMap((host) =>
+      /* Legacy hosts' MARKETING → canonical (app-paths excluded — see above). */
+      ...legacyMarketingHosts.flatMap((host) =>
         marketing.map((path) => ({
           source: path,
           has: [{ type: "host" as const, value: host }],
-          destination: `https://www.boopthere.com${path}`,
+          destination: `${CANON}${path}`,
           permanent: true,
         }))
       ),

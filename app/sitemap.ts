@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
+import { SITE_URL } from "./siteConfig"
 
-const BASE_URL = "https://www.boopthere.com"
+const BASE_URL = SITE_URL
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
