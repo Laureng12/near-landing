@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 import Link from "next/link"
 
 /**
@@ -30,16 +30,37 @@ export function hasAnalyticsConsent(): boolean {
   }
 }
 
-export default function ConsentBanner() {
-  const [visible, setVisible] = useState(false)
+// Visibility derives from localStorage (the source of truth) via
+// useSyncExternalStore — this reads an external store the sanctioned way and
+// avoids a setState-in-effect (react-hooks/set-state-in-effect), while staying
+// SSR/hydration-safe. `choose()` writes the key + dispatches an event, which the
+// subscription below picks up to re-render — no manual setState needed.
+function subscribeConsent(onChange: () => void): () => void {
+  window.addEventListener("near-consent", onChange)
+  window.addEventListener("storage", onChange)
+  return () => {
+    window.removeEventListener("near-consent", onChange)
+    window.removeEventListener("storage", onChange)
+  }
+}
+function getConsentSnapshot(): string | null {
+  try {
+    return window.localStorage.getItem(CONSENT_KEY)
+  } catch {
+    // localStorage blocked (private mode) → treat as "already decided" so we
+    // don't nag on a surface where the choice can't be persisted anyway.
+    return "unavailable"
+  }
+}
+// SSR: pretend a choice exists so the banner is hidden until the client confirms
+// otherwise — no hydration flash, no mount-effect setState.
+function getConsentServerSnapshot(): string | null {
+  return "ssr"
+}
 
-  useEffect(() => {
-    try {
-      if (!window.localStorage.getItem(CONSENT_KEY)) setVisible(true)
-    } catch {
-      // localStorage blocked (private mode / strict settings) - don't block the page
-    }
-  }, [])
+export default function ConsentBanner() {
+  const stored = useSyncExternalStore(subscribeConsent, getConsentSnapshot, getConsentServerSnapshot)
+  const visible = stored === null
 
   function choose(choice: ConsentChoice) {
     try {
@@ -48,7 +69,7 @@ export default function ConsentBanner() {
     } catch {
       // ignore persistence failures
     }
-    setVisible(false)
+    // No setState — the dispatched event drives useSyncExternalStore to re-read.
   }
 
   if (!visible) return null

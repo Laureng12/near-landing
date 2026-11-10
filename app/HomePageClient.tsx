@@ -261,12 +261,18 @@ const BoopBuddy = forwardRef<HTMLButtonElement, { onBoop: () => void; arriving?:
   const resting: BoopMood | undefined =
     intro === "done" ? "cool" : intro === null ? undefined : intro
 
-  /* When the arrival replays, he lights up for a beat. */
+  /* When the arrival replays, he lights up for a beat. Both setState calls run
+     in callbacks (rAF / timeout), not synchronously in the effect body, so this
+     doesn't trip react-hooks/set-state-in-effect — the 1-frame defer on the "on"
+     is imperceptible for an animation pulse. */
   useEffect(() => {
     if (!arriving) return
-    setCheer(true)
+    const raf = requestAnimationFrame(() => setCheer(true))
     const t = setTimeout(() => setCheer(false), 1400)
-    return () => clearTimeout(t)
+    return () => {
+      cancelAnimationFrame(raf)
+      clearTimeout(t)
+    }
   }, [arriving])
 
   return (
