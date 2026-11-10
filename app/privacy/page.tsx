@@ -263,6 +263,8 @@ export default function PrivacyPage() {
                   <tr><td>Google</td><td>Sign in with Google (if you use it)</td><td>Google identity token (account ID, email, name)</td></tr>
                   <tr><td>Kroger (optional)</td><td>Grocery search &amp; cart</td><td>Search terms, store location, linked-account token, cart contents</td></tr>
                   <tr><td>Walmart (optional)</td><td>Grocery affiliate handoff</td><td>Product search terms</td></tr>
+                  <tr><td>Target (optional)</td><td>Grocery affiliate handoff</td><td>Product search terms</td></tr>
+                  <tr><td>Amazon (optional)</td><td>Affiliate product links &amp; handoff</td><td>Product search terms and the referral click (we may earn a commission)</td></tr>
                   <tr><td>Tremendous</td><td>Gift-card reward delivery (if you redeem one)</td><td>Reward amount, delivery method, and an internal user identifier</td></tr>
                   <tr><td>ScrapingBee</td><td>Reading a recipe web page you paste</td><td>The recipe URL you provide</td></tr>
                   <tr><td>Pexels</td><td>Recipe imagery</td><td>Recipe search terms</td></tr>
