@@ -13,7 +13,18 @@ import { ArrivalIsland, Device, ListScreen, LiveActivity, LockScreen } from "./s
 
 export { APP_STORE_URL }
 export const BRAND_ICON = "/assets/brand/boop/boop-app-icon-256-v3.png"
-export const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v4.png"
+
+/* BR-01: text/CSS wordmark. The raster PNGs still spell "BoopThere" in their
+   pixels (only the alt text said Boopsie), so render the wordmark as styled text
+   in the brand font instead — no stale artwork ships, and it's crisp at any size.
+   `cream` is the footer-on-dark variant. */
+export function Wordmark({ className, cream }: { className?: string; cream?: boolean }) {
+  return (
+    <span className={`textWordmark${cream ? " textWordmarkCream" : ""}${className ? " " + className : ""}`}>
+      Boopsie
+    </span>
+  )
+}
 
 export function useReveal() {
   useEffect(() => {
@@ -306,7 +317,7 @@ export function TopNav({ home = false }: { home?: boolean }) {
     <header className={`nav ${lifted ? "navLifted" : ""}`}>
       <div className="navInner">
         <Link className="brand" href={home ? "#top" : "/"} aria-label="Boopsie, home">
-          <Image src={BRAND_WORDMARK} alt="Boopsie" className="brandLogo" width={1121} height={216} priority quality={100} />
+          <Wordmark className="brandLogo" />
         </Link>
         <nav className="navLinks" aria-label="Primary">
           <a className="navLink hideOnMobile" href={at("#how-it-works")}>How it works</a>
@@ -489,7 +500,7 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="footerTop">
         <div className="footerBrand">
-          <Image src="/assets/brand/boop/boopthere-wordmark-cream-v4.png" alt="Boopsie" className="footerLogo" width={1121} height={216} />
+          <Wordmark className="footerLogo" cream />
           <p className="footerTag">Boop! There it is.</p>
         </div>
         <nav className="footerNav" aria-label="Footer">

@@ -5027,3 +5027,17 @@ h1, h2, h3, .heroTitle, .h2, .finalTitle { text-wrap: balance; }
 @media (max-width: 860px) {
   .moreGrid { grid-template-columns: 1fr; }
 }
+
+/* BR-01: text/CSS wordmark (replaces the stale BoopThere raster). Sized to sit
+   where the ~28–30px logo image used to; brand font + ink, cream on the dark footer. */
+.textWordmark {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+  display: inline-block;
+}
+.textWordmarkCream { color: #FBF4E6; }
