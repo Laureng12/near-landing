@@ -3,22 +3,15 @@
 import "./support.css"
 
 import Link from "next/link"
-import Image from "next/image"
+import { Wordmark } from "../site/chrome"
 
-const BRAND_WORDMARK = "/assets/brand/boop/boopthere-wordmark-v4.png"
 
 export default function SupportPage() {
   return (
     <>
       <header className="legalHeader">
         <Link href="/" className="legalLogo">
-          <Image
-            src={BRAND_WORDMARK}
-            alt="Boopsie"
-            width={1121}
-            height={216}
-            className="legalLogoFull"
-          />
+          <Wordmark className="legalLogoFull" />
         </Link>
       </header>
 
