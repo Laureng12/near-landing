@@ -172,7 +172,7 @@ const mobileAppJsonLd = {
         : "https://schema.org/PreOrder",
       priceSpecification: {
         "@type": "UnitPriceSpecification",
-        price: "12.99",
+        price: "7.99",
         priceCurrency: "USD",
         unitText: "MONTH",
       },
