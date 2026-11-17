@@ -232,7 +232,7 @@ export default function PrivacyPage() {
               Your real-time location is never shared with household members. Only arrival and departure events at shared places are visible.
             </p>
             <p>
-              You can leave a household at any time, which immediately removes your access to shared content and removes other members&apos; access to your data.
+              You can leave a household at any time, which immediately removes your access to that household&apos;s shared content and removes other members&apos; access to your private data. Collaborative content you contributed to the household &mdash; shared lists, recipes, plans, and moments &mdash; stays available to the remaining members, since the household relies on it.
             </p>
           </section>
 
@@ -331,7 +331,7 @@ export default function PrivacyPage() {
               <li><strong>Aggregated, anonymized, or de-identified information</strong> may be retained indefinitely because it is not designed to identify you.</li>
             </ul>
             <p>
-              You can delete your account at any time from your profile settings in the app. Account deletion permanently removes your user profile and authentication credentials; your tasks, places, and household memberships; your location history, receipts, captured content, and voice transcripts; your personally identifiable analytics; and all locally cached data and Keychain tokens - except for the limited financial/audit and de-identified data noted above.
+              You can delete your account at any time from your profile settings in the app. Account deletion permanently removes your user profile and authentication credentials; your private tasks, your places, and your household memberships; your location history, receipts, captured content, and voice transcripts; your personally identifiable analytics; and all locally cached data and Keychain tokens - except for the limited financial/audit and de-identified data noted above. Collaborative content you contributed to a shared household &mdash; shared lists, recipes, plans, and moments &mdash; remains with your household members rather than being deleted, since it is content the household relies on; it is reassigned to a remaining member. Any public share links you created are revoked.
             </p>
             <p>
               Aggregated, de-identified data that has already been generated may be retained after account deletion as it can no longer be linked to you.
