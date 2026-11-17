@@ -117,15 +117,17 @@ export const capabilities: Capability[] = [
   },
   {
     id: "predictive-restock",
-    name: "Automatically restocks what you're running low on",
+    name: "Reminds you to restock before you run out",
     plan: "pro",
     availability: "live",
     onPricing: true,
-    // FEAT-01: restock PREDICTIONS/nudges are free (surfaceReorderOffers,
-    // checkRecurringTaskNudges, smart-restock pushes + earned per-item auto-add);
-    // the paid value is hands-off auto-add across all recurring items
-    // (autoAddRecurringItems, premium-gated). Don't frame prediction itself as Pro.
-    evidence: "Automatic restocks (auto-add). Free tier gets the restock nudges; GroceryPattern and HouseholdObservationState hold rows.",
+    // FEAT-01 (corrected): restock PREDICTIONS/nudges are free (surfaceReorderOffers,
+    // checkRecurringTaskNudges, smart-restock pushes + earned per-item auto-add). The
+    // paid path (autoAddRecurringItems, premium-gated) is suggestion-first — it sends
+    // a PROACTIVE daily restock SUGGESTION ("tap to add"); it does NOT silently add
+    // items. So don't claim "automatic restocks"/"auto-add" (the earlier copy was
+    // false — the only path that actually auto-adds is the FREE earned per-item one).
+    evidence: "Proactive daily restock reminders (suggestion-first, tap to add). Free tier gets occasional restock nudges; GroceryPattern and HouseholdObservationState hold rows.",
   },
   {
     id: "goal-breakdown",

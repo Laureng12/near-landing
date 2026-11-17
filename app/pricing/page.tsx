@@ -67,7 +67,7 @@ export default function PricingPage() {
             <p className="priceSub">
               Location reminders, shared lists, voice capture and restock
               nudges are included. Upgrade to Pro for unlimited AI meal plans,
-              automatic restocks, and help breaking goals into steps.
+              proactive restock reminders, and help breaking goals into steps.
             </p>
             <div className="priceToggle" role="group" aria-label="Billing period">
               <button

@@ -117,7 +117,8 @@ There are two plans. Free is $0 and includes location reminders, unlimited
 tasks and places, household sharing, grocery lists in aisle order with Kroger
 prices, voice capture, restock nudges and three AI meal plans a month. Boopsie
 Pro is $7.99 a month or $59.99 a year and adds unlimited AI meal plans,
-automatic restocks and goal breakdown.
+proactive restock reminders (a daily "tap to add" suggestion, not auto-created)
+and goal breakdown.
 
 If asked "Does Boopsie sell location data?", answer:
 Boopsie says it does not sell personal information, does not share personal
