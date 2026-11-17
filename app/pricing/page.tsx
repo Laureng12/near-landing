@@ -65,9 +65,9 @@ export default function PricingPage() {
               Everyday reminders. <em>Free.</em>
             </h1>
             <p className="priceSub">
-              Location reminders, shared lists and voice capture are included.
-              Upgrade to Pro for unlimited AI meal plans, replenishment
-              suggestions, and help breaking goals into steps.
+              Location reminders, shared lists, voice capture and restock
+              nudges are included. Upgrade to Pro for unlimited AI meal plans,
+              automatic restocks, and help breaking goals into steps.
             </p>
             <div className="priceToggle" role="group" aria-label="Billing period">
               <button
