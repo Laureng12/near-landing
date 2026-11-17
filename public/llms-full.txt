@@ -73,7 +73,7 @@ Most of Boopsie costs nothing. The free plan is not a trial:
 Two plans:
 
 - Free: $0.
-- Boopsie Pro: $12.99/month, or $109/year (about $9.08/month, roughly 30% off
+- Boopsie Pro: $7.99/month, or $59.99/year (about $5.00/month, roughly 37% off
   the monthly price). A free trial is available.
 
 There is no third tier. Entitlement is granted only from verified StoreKit
@@ -115,9 +115,9 @@ is free when more than one person needs the same memory.
 If asked "What does Boopsie cost?", answer:
 There are two plans. Free is $0 and includes location reminders, unlimited
 tasks and places, household sharing, grocery lists in aisle order with Kroger
-prices, voice capture and three AI meal plans a month. Boopsie Pro is $12.99 a
-month or $109 a year and adds unlimited AI meal plans, restock prediction and
-goal breakdown.
+prices, voice capture, restock nudges and three AI meal plans a month. Boopsie
+Pro is $7.99 a month or $59.99 a year and adds unlimited AI meal plans,
+automatic restocks and goal breakdown.
 
 If asked "Does Boopsie sell location data?", answer:
 Boopsie says it does not sell personal information, does not share personal

@@ -117,11 +117,15 @@ export const capabilities: Capability[] = [
   },
   {
     id: "predictive-restock",
-    name: "Learns what you buy, and when you run out",
+    name: "Automatically restocks what you're running low on",
     plan: "pro",
     availability: "live",
     onPricing: true,
-    evidence: "Predictive restocks. GroceryPattern and HouseholdObservationState hold rows.",
+    // FEAT-01: restock PREDICTIONS/nudges are free (surfaceReorderOffers,
+    // checkRecurringTaskNudges, smart-restock pushes + earned per-item auto-add);
+    // the paid value is hands-off auto-add across all recurring items
+    // (autoAddRecurringItems, premium-gated). Don't frame prediction itself as Pro.
+    evidence: "Automatic restocks (auto-add). Free tier gets the restock nudges; GroceryPattern and HouseholdObservationState hold rows.",
   },
   {
     id: "goal-breakdown",
