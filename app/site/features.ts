@@ -91,11 +91,11 @@ export const capabilities: Capability[] = [
   },
   {
     id: "meal-plan-free",
-    name: "Three AI meal plans a month",
+    name: "Three AI generations a month (meal plans + recipes)",
     plan: "free",
     availability: "live",
     onPricing: true,
-    evidence: "Free tier gets 3/month. The cap is only enforced when AI_CAPS_ENFORCED is true; it otherwise fails open.",
+    evidence: "FEAT-08: free tier gets 3 COMBINED AI generations/month — meal plans AND recipe queries share one freeMonthlyAICap (3), not 3 of each. The cap is only enforced when AI_CAPS_ENFORCED is true; it otherwise fails open.",
   },
   {
     id: "activity-feed",
