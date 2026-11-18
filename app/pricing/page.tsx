@@ -27,7 +27,7 @@ const tiers = [
   {
     name: "Boopsie Pro",
     tag: "More planning help for your everyday life.",
-    annual: { big: "$9.08", unit: "/month", note: "$109 billed annually \u00b7 Save 30%" },
+    annual: { big: "$8.25", unit: "/month", note: "$99 billed annually \u00b7 Save 36%" },
     monthly: { big: "$12.99", unit: "/month", note: "Billed monthly. Cancel anytime." },
     features: ["Everything in Free", ...featuresFor("pro")],
     cta: "Try Pro free for 7 days",
