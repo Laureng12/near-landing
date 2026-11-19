@@ -33,22 +33,26 @@ html {
   --on-night-hair:     rgba(243, 245, 255, 0.14);
   --on-night-em:       #B9C0E6;
 
-  /* ── "Boop noticed": pop blue on white, lime on night (names kept). */
-  --gold:          #2F6BFF;   /* on white: pop blue (lime is too pale) */
+  /* ── Action color: cyan, matching the app's 3-role system (BRD-07).
+     The app uses cyan #0088CC for actions; this site previously used an
+     off-brand pop-blue #2F6BFF that appears nowhere in the app. (var names
+     kept to avoid churning every call site.) */
+  --gold:          #0088CC;   /* on white: cyan action fill */
   --gold-lit:      #E4FF97;   /* on night: lime */
-  --gold-glow:     rgba(47, 107, 255, 0.22);
-  /* Labels on white can't be lime (too pale); they use pop blue. Dark
-     sections redefine it to lime. Fills, dots and chips stay lime. */
-  --gold-text:     #2F6BFF;
+  --gold-glow:     rgba(0, 136, 204, 0.22);
+  /* Cyan as TEXT needs the darker tone to pass AA (app's accentText
+     #006FA8, 5.47:1); #0088CC is fill-only. Dark sections redefine to lime. */
+  --gold-text:     #006FA8;
 
-  /* ── Magenta - Boop himself, and the arrival. Nothing else.        */
-  --rose:          #FF00FF;
-  --rose-night:    #FF4DFF;
-  --rose-glow:     rgba(255, 0, 255, 0.20);
+  /* ── Fuchsia - Boop's voice / the arrival. Matches the app AI color
+     #C800C8 (4.9:1 on white), not the retired #FF00FF (3.14:1).        */
+  --rose:          #C800C8;
+  --rose-night:    #FF3FFF;
+  --rose-glow:     rgba(200, 0, 200, 0.20);
 
-  /* ── Accent - the user's move is pop blue.                         */
-  --accent:        #2F6BFF;
-  --accent-lit:    #5A8BFF;
+  /* ── Accent - the user's move is cyan.                             */
+  --accent:        #0088CC;
+  --accent-lit:    #00C9FF;
   --sky:           #8FD3FF;
   --lime:          #E4FF97;
   --peach:         #8FD3FF;
@@ -79,8 +83,8 @@ html {
   --foreground: var(--ink);
   --text-secondary: var(--ink-soft);
   --surface: var(--paper-sunk);
-  --blue: #2F6BFF;
-  --blue-hover: #1F57E6;
+  --blue: #0088CC;
+  --blue-hover: #006FA8;
   --cta: var(--accent);
   --cta-deep: #121738;
   --cta-text: #FFFFFF;
