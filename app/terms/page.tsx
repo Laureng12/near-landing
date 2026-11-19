@@ -68,7 +68,7 @@ export default function TermsPage() {
           <section className="legalSection">
             <h2>Accounts &amp; Households</h2>
             <p>
-              Boopsie requires an account to use. You can sign in with your phone number, Apple ID, or Google account. You are responsible for maintaining the security of your sign-in credentials.
+              Boopsie requires an account to use. You can sign in with your phone number or Apple ID. You are responsible for maintaining the security of your sign-in credentials.
             </p>
 
             <h3>Household Feature</h3>
