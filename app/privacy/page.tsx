@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       <main className="legalMain">
         <article className="legalContent">
           <h1 className="legalTitle">Privacy Policy</h1>
-          <p className="legalUpdated">Last updated September 17, 2026</p>
+          <p className="legalUpdated">Last updated November 18, 2026</p>
 
           <section className="legalSection">
             <h2>Introduction</h2>
@@ -229,10 +229,16 @@ export default function PrivacyPage() {
               <li>Arrival notifications at shared places (if enabled)</li>
             </ul>
             <p>
-              Your real-time location is never shared with household members. Only arrival and departure events at shared places are visible.
+              Your real-time location is not continuously shared with household members - only arrival and departure events at shared places are visible. The one exception is the optional &quot;who&apos;s closest&quot; feature described above: when a member uses it, each participant&apos;s approximate location is shared briefly to answer that one request and is not stored.
             </p>
+
+            <h3>Sharing a list by link</h3>
             <p>
-              You can leave a household at any time, which immediately removes your access to shared content and removes other members&apos; access to your data.
+              You can share a list with someone outside your household by sending them a link. Anyone with that link can see the list&apos;s items, and if you share it as editable, they can also check off or add items - no account needed. You can stop sharing at any time, which turns the link off, and links expire automatically after 30 days. Links you created are turned off if you delete your account.
+            </p>
+
+            <p>
+              You can leave a household at any time, which immediately removes your access to that household&apos;s shared content. Content you contributed to the household&apos;s shared lists and places stays with the household so the remaining members aren&apos;t disrupted.
             </p>
           </section>
 
@@ -251,7 +257,7 @@ export default function PrivacyPage() {
                   <tr><td>Vercel</td><td>Application hosting</td><td>Request traffic and server logs</td></tr>
                   <tr><td>Anthropic (Claude)</td><td>AI classification, planning &amp; image understanding</td><td>Capture text, grocery/meal/recipe/pantry content, receipt text, first names, dietary/allergy facts, calendar summaries, and pantry photos (see &quot;Artificial Intelligence&quot;)</td></tr>
                   <tr><td>OpenAI</td><td>Voice transcription &amp; some recipe generation</td><td>Voice recordings and recipe/meal text</td></tr>
-                  <tr><td>Twilio</td><td>SMS verification codes, reminders &amp; invites</td><td>Phone number and message content (e.g., invite links, task counts)</td></tr>
+                  <tr><td>Twilio</td><td>SMS verification codes, reminders &amp; invites</td><td>Phone number and message content (e.g., invite links, task titles)</td></tr>
                   <tr><td>Apple (APNs, WeatherKit, MapKit, Sign in with Apple, App Store)</td><td>Push notifications, weather, maps, sign-in, purchases</td><td>Device token &amp; notification content; coordinates for weather; place search; identity token; purchase validation</td></tr>
                   <tr><td>Google</td><td>Sign in with Google (if you use it)</td><td>Google identity token (account ID, email, name)</td></tr>
                   <tr><td>Kroger (optional)</td><td>Grocery search &amp; cart</td><td>Search terms, store location, linked-account token, cart contents</td></tr>
@@ -321,7 +327,7 @@ export default function PrivacyPage() {
             </p>
             <ul>
               <li><strong>Account identifiers</strong> are retained while your account is active and are deleted or de-identified after account deletion, subject to legal, security, fraud-prevention, and backup requirements.</li>
-              <li><strong>Tasks, places, household data, and saved location data</strong> are retained while your account is active or until you delete the relevant item, leave a household, or delete your account. Completed tasks are cleared automatically after a short period.</li>
+              <li><strong>Tasks, places, household data, and saved location data</strong> are retained while your account is active or until you delete the relevant item, leave a household, or delete your account. Completed tasks are cleared automatically after a short period. Content you shared into a household remains with the household after you leave or delete your account.</li>
               <li><strong>Location history</strong> (arrival and departure events and visit history), <strong>receipts you capture, captured content, and voice transcripts</strong> are retained while your account is active to provide reminders, history, savings, and personalization, and are deleted or de-identified after account deletion.</li>
               <li><strong>Account-linked analytics and diagnostics</strong> are retained only as long as needed for product improvement, stability, security, and personalization, and are deleted or de-identified when you delete your account.</li>
               <li><strong>Push notification tokens</strong> are retained until they expire, you disable notifications, sign out, or delete your account.</li>
@@ -331,7 +337,7 @@ export default function PrivacyPage() {
               <li><strong>Aggregated, anonymized, or de-identified information</strong> may be retained indefinitely because it is not designed to identify you.</li>
             </ul>
             <p>
-              You can delete your account at any time from your profile settings in the app. Account deletion permanently removes your user profile and authentication credentials; your tasks, places, and household memberships; your location history, receipts, captured content, and voice transcripts; your personally identifiable analytics; and all locally cached data and Keychain tokens - except for the limited financial/audit and de-identified data noted above.
+              You can delete your account at any time from your profile settings in the app. Account deletion permanently removes your user profile and authentication credentials; your private tasks and your household memberships; your location history, receipts, captured content, and voice transcripts; your personally identifiable analytics; and all locally cached data and Keychain tokens - except for the limited financial/audit and de-identified data noted above. Content you contributed to a shared household (shared lists, saved places, recipes, plans, and moments) is not deleted - it transfers to the household&apos;s surviving members so their shared history stays intact. If you are the last member of a household, the household and all of its content is deleted.
             </p>
             <p>
               Aggregated, de-identified data that has already been generated may be retained after account deletion as it can no longer be linked to you.
