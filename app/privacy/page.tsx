@@ -227,9 +227,10 @@ export default function PrivacyPage() {
               <li>Shared places and task lists</li>
               <li>Task completion status</li>
               <li>Arrival notifications at shared places (if enabled)</li>
+              <li>A coarse presence status - whether you are home, on the move, idle, or at one of your saved places - so the household can coordinate (for example, &quot;someone&apos;s heading out, they can grab milk&quot;)</li>
             </ul>
             <p>
-              Your real-time location is not continuously shared with household members - only arrival and departure events at shared places are visible. The one exception is the optional &quot;who&apos;s closest&quot; feature described above: when a member uses it, each participant&apos;s approximate location is shared briefly to answer that one request and is not stored.
+              Your precise, continuous route is never shared with household members. What members can see is a <strong>coarse presence status</strong> - home, on the move, idle, or at a saved place - together with arrival and departure events at shared places. This household activity sharing is <strong>on by default</strong> and you can turn it off at any time in Settings (&quot;Share household activity&quot;); when it is off, members no longer see your presence status. The one additional exception is the optional &quot;who&apos;s closest&quot; feature described above: when a member uses it, each participant&apos;s approximate location is shared briefly to answer that one request and is not stored.
             </p>
 
             <h3>Sharing a list by link</h3>
