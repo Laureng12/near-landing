@@ -113,7 +113,7 @@ export const capabilities: Capability[] = [
     plan: "pro",
     availability: "live",
     onPricing: true,
-    evidence: "Removes the 3/month cap. The metered Pro AI paths include meal-plan, weekly-plan, suggest-recipe and recipe-from-ingredients.",
+    evidence: "Removes the 3/month cap. The metered Pro AI paths include meal-plan, suggest-recipe and recipe-from-ingredients.",
   },
   {
     id: "predictive-restock",
