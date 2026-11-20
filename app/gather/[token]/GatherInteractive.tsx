@@ -230,7 +230,7 @@ export default function GatherInteractive({
             already puts a household's coordination in front of the guest; this
             turns that moment into a recruit ("host your own, free"). */}
         <a
-          href={APP_IS_LIVE ? APP_STORE_URL : "https://www.boopthere.com/"}
+          href={APP_IS_LIVE ? APP_STORE_URL : "https://www.boopsie.app/"}
           style={styles.ctaCard}
           onClick={() => track("install_click")}
         >

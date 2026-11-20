@@ -280,7 +280,7 @@ export default function PrivacyPage() {
           <section className="legalSection">
             <h2>Cookies, Consent &amp; Website Analytics</h2>
             <p>
-              Our website (boopthere.com) does not use advertising cookies, tracking pixels, session-replay tools, or third-party analytics by default. We do not load any third-party tracker when you simply visit the site. Web fonts are served from our own servers, so loading a page does not send your information to a font or content-delivery network.
+              Our website (boopsie.app) does not use advertising cookies, tracking pixels, session-replay tools, or third-party analytics by default. We do not load any third-party tracker when you simply visit the site. Web fonts are served from our own servers, so loading a page does not send your information to a font or content-delivery network.
             </p>
             <p>
               The only thing we store in your browser is a small record of your cookie-consent choice, kept in your browser&apos;s local storage so we don&apos;t ask again. This is strictly necessary for the consent feature itself and is not used to identify or track you.

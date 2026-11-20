@@ -296,7 +296,7 @@ export function MapView({
           <path
             className="scrRoute"
             d={`M${you.x} ${you.y} C ${you.x} ${(you.y + pins[0].y) / 2}, ${pins[0].x} ${(you.y + pins[0].y) / 2 + 20}, ${pins[0].x} ${pins[0].y + 4}`}
-            stroke="#2F6BFF"
+            stroke="#0088CC"
             strokeWidth="3.4"
             strokeLinecap="round"
             strokeDasharray="0.1 7"

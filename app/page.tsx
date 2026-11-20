@@ -1,7 +1,9 @@
 import HomePageClient from "./HomePageClient"
 import { faqItems } from "./site/faq"
-
-const SITE_URL = "https://www.boopthere.com"
+// BRD-05: don't hardcode the host — the JSON-LD @ids were pinned to
+// www.boopthere.com even after the boopsie.app migration. Derive from the single
+// canonical source (respects the BOOPSIE_CANONICAL gate) so SEO stays in sync.
+import { SITE_URL } from "./siteConfig"
 
 
 function HomeStructuredData() {

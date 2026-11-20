@@ -90,7 +90,7 @@ export default function PricingPage() {
           {/* What Pro actually does, before anyone is asked what it costs.
               One week, one store, and the step that is the whole point: the
               three recipes become one list instead of three. */}
-          <section className="proProof" aria-label="What Boopsie Pro does">
+          <section className="proProof" aria-label="A week with Boopsie">
             <p className="proProofHead">
               A week of meals, and one list at the end of it.
             </p>
@@ -116,8 +116,9 @@ export default function PricingPage() {
                   <span>Pasta e fagioli</span>
                 </div>
                 <p className="proStepBody">
-                  Three dinners, chosen or suggested. Free gets three plans a
-                  month; Pro takes the cap off.
+                  Three dinners, chosen or suggested. Free includes three AI
+                  generations a month (shared across meal plans, recipes, and
+                  dinner-party help); Pro takes the cap off.
                 </p>
               </li>
               <li className="proStep">
